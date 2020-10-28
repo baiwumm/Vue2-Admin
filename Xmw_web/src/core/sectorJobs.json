@@ -1,0 +1,46 @@
+{
+  "residences": [
+    {
+      "value": "云景科技",
+      "label": "云景科技",
+      "children": [
+        {
+          "value": "移动源产品开发部",
+          "label": "移动源产品开发部",
+          "children": [
+            {
+              "value": "前端工程师",
+              "label": "前端工程师"
+            },
+            {
+              "value": "java工程师",
+              "label": "java工程师"
+            },
+            {
+              "value": "运维测试工程师",
+              "label": "运维测试工程师"
+            }
+          ]
+        },
+        {
+          "value": "智慧环境产品部",
+          "label": "智慧环境产品部",
+          "children": [
+            {
+              "value": "实施工程师",
+              "label": "实施工程师"
+            },
+            {
+              "value": "项目经理",
+              "label": "项目经理"
+            },
+            {
+              "value": "开发工程师",
+              "label": "开发工程师"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
