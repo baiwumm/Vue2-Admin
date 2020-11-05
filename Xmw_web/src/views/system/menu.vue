@@ -267,9 +267,9 @@ export default {
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
-            this.getLogsList()
+            this.getMenuList()
         },
-        async getLogsList() {
+        async getMenuList() {
             let _this = this
             _this.loading = true
             let params = {
@@ -298,7 +298,7 @@ export default {
         },
         query() {
             this.pagination.defaultCurrent = 1
-            this.getLogsList()
+            this.getMenuList()
         },
         // 添加编辑
         addMenu() {
@@ -348,7 +348,7 @@ export default {
                                         _this.ID = ''
                                         _this.visible = false
                                         _this.$message.success(res.msg)
-                                        _this.getLogsList()
+                                        _this.getMenuList()
                                     } else if (res.state == 2) {
                                         _this.$message.warn(res.msg)
                                     } else {
@@ -407,7 +407,7 @@ export default {
                     deleteMenu(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
-                            _this.getLogsList()
+                            _this.getMenuList()
                         } else {
                             _this.$message.error(res.msg)
                         }
@@ -418,7 +418,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.getLogsList()
+            this.getMenuList()
         })
     },
 }

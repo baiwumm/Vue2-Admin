@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:34:18
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-19 17:49:05
+ * @LastEditTime: 2020-11-02 11:43:19
  */
 import antd from 'ant-design-vue/es/locale-provider/zh_CN'
 import momentCN from 'moment/locale/zh-cn'
@@ -28,6 +28,7 @@ const locale = {
     'menu.system.UserList': '用户列表',
     'menu.system.RoleList': '角色管理',
     'menu.system.PermissionList': '权限管理',
+    'menu.system.Announcement': '消息公告',
     'layouts.usermenu.dialog.title': '确认操作',
     'layouts.usermenu.dialog.content': '你真的要退出吗?',
     'app.setting.pagestyle': '页面样式',

@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-26 11:44:14
+ * @LastEditTime: 2020-11-03 09:30:32
  */
 'use strict';
 
@@ -43,7 +43,7 @@ class SystemController extends Controller {
                 const result = await Raw.QueryPageData(`select * from xmw_menu where ${where}`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result, parentList: parentList }
             } else {
-                const result = await Raw.QueryList(`select ID, name, path, component, title, icon, keepAlive, permission, parentId, hidden, redirect from xmw_menu`);
+                const result = await Raw.QueryList(`select ID, name, path, component, title, icon, keepAlive, permission, parentId, hidden, redirect,subTitle from xmw_menu`);
                 result.forEach(v => {
                     if (v.keepAlive) v.keepAlive = true
                     else v.keepAlive = false
@@ -304,8 +304,6 @@ class SystemController extends Controller {
             let { username, CnName } = ctx.session.userInfo
             let host = ctx.request.header.host
             let { ID, ...params } = ctx.request.body
-            console.log(111)
-            console.log(params)
             params.SectorJobs = JSON.stringify(params.SectorJobs)
             params.address = JSON.stringify(params.address)
             params.roleList = JSON.stringify(params.roleList)
@@ -352,6 +350,81 @@ class SystemController extends Controller {
         } catch (error) {
             ctx.logger.info('deleteUser方法报错：' + error)
             ctx.body = { state: 0, msg: '删除失败!', error: error }
+        }
+    }
+
+    // 获取消息公告列表
+    async getAnnouncementList() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { author, title, createTime, current, pageSize } = ctx.query;
+            createTime = JSON.parse(createTime)
+            let where = `1+1`
+            if (author) where += ` and author like '%${author}%'`
+            if (title) where += ` and title like '%${title}%'`
+            if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
+            const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where}`, current, pageSize);
+            ctx.body = { state: 1, msg: '请求成功!', result: result }
+        } catch (error) {
+            ctx.logger.info('getAnnouncementList方法报错：' + error)
+            ctx.body = { state: 0, msg: '请求失败!', error: error }
+        }
+    }
+
+    // 发布公告
+    async updateAnnouncement() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { username, CnName } = ctx.session.userInfo
+            let params = ctx.request.body
+            params.author = username
+            params.CnName = CnName
+            params.createTime = new Date()
+            await Raw.Insert('xmw_announcement', params);
+            await ctx.service.logs.saveLogs(username, CnName, '发布公告:' + params.title, '/system/announcement')
+            ctx.body = { state: 1, msg: '保存成功!' }
+
+        } catch (error) {
+            ctx.logger.info('updateAnnouncement方法报错：' + error)
+            ctx.body = { state: 0, msg: '保存失败!', error: error }
+        }
+    }
+
+    // 删除公告
+    async deleteAnnouncement() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { username, CnName } = ctx.session.userInfo
+            let { AnnouncementID, title } = ctx.request.body
+            await Raw.Delete("xmw_announcement", {
+                wherestr: `where AnnouncementID = '${AnnouncementID}'`
+            });
+            await ctx.service.logs.saveLogs(username, CnName, '删除公告:' + title, '/system/announcement')
+            ctx.body = { state: 1, msg: '删除成功!' }
+        } catch (error) {
+            ctx.logger.info('ddeleteAnnouncement方法报错：' + error)
+            ctx.body = { state: 0, msg: '删除失败!', error: error }
+        }
+    }
+
+    // 接收webSockets消息推送
+    async webSockets() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            const nsp = app.io.of('/');
+            let msg = '{"id":2, "message":666}'
+            let data = await JSON.parse(msg)
+            // app.io.controllers.chat(msg)
+            nsp.emit('announcement', data);
+            ctx.socket.emit('res', 'taskUpdated');
+            return ctx.body = { state: 1, msg: '请求成功!', data: data }
+        } catch (error) {
+            ctx.logger.info('webSockets方法报错：' + error)
+            ctx.body = { state: 0, msg: '请求失败!', error: error }
         }
     }
 }

@@ -20,6 +20,7 @@ const locale = {
     'menu.system.UserList': 'UserList',
     'menu.system.RoleList': 'RoleList',
     'menu.system.PermissionList': 'PermissionList',
+    'menu.system.Announcement': 'Announcement',
 
     'layouts.usermenu.dialog.title': 'Message',
     'layouts.usermenu.dialog.content': 'Do you really log-out?',

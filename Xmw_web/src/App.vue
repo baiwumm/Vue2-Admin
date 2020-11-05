@@ -1,9 +1,7 @@
 <template>
     <a-config-provider :locale="locale">
         <div id="app">
-            <transition name="fade-transform" mode="out-in">
-                <router-view></router-view>
-            </transition>
+            <router-view></router-view>
         </div>
     </a-config-provider>
 </template>

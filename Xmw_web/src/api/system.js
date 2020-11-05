@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:55:55
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-19 10:31:34
+ * @LastEditTime: 2020-11-03 09:50:11
  */
 import request from '@/utils/request'
 const sysApi = {
@@ -20,6 +20,10 @@ const sysApi = {
     User: '/system/getUserList',
     updateUserList: '/system/updateUserList',
     deleteUser: '/system/deleteUser',
+    Announcement: '/system/getAnnouncementList',
+    addAnnouncement: '/system/updateAnnouncement',
+    deleteAnnouncement: '/system/deleteAnnouncement',
+    webSockets: '/announcement',
 }
 
 // 获取操作日志列表
@@ -62,7 +66,7 @@ export function Action(parameter) {
         params: parameter
     })
 }
-// 获取权限列表
+// 更新权限列表
 export function updateActionList(parameter) {
     return request({
         url: sysApi.updateActionList,
@@ -114,6 +118,41 @@ export function updateUserList(parameter) {
 export function deleteUser(parameter) {
     return request({
         url: sysApi.deleteUser,
+        method: 'post',
+        data: parameter
+    })
+}
+
+// 获取消息公告列表
+export function Announcement(parameter) {
+    return request({
+        url: sysApi.Announcement,
+        method: 'get',
+        params: parameter
+    })
+}
+// 添加公告
+export function addAnnouncement(parameter) {
+    return request({
+        url: sysApi.addAnnouncement,
+        method: 'post',
+        data: parameter
+    })
+}
+
+// 删除公告
+export function deleteAnnouncement(parameter) {
+    return request({
+        url: sysApi.deleteAnnouncement,
+        method: 'post',
+        data: parameter
+    })
+}
+
+// 接收webSockets消息推送
+export function webSockets(parameter) {
+    return request({
+        url: sysApi.webSockets,
         method: 'post',
         data: parameter
     })

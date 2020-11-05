@@ -17,6 +17,13 @@ import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less'
 
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://127.0.0.1:7001/'
+}))
+
 Vue.config.productionTip = false
 
 // mount axios to `Vue.$http` and `this.$http`

@@ -253,7 +253,6 @@ export default {
                 if (!err) {
                     const params = { ...values }
                     params.roleID = _this.roleID
-                    console.log(params)
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',

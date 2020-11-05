@@ -1,10 +1,20 @@
+/*
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: Xie Mingwei
+ * @Date: 2020-10-28 09:42:50
+ * @LastEditors: Xie Mingwei
+ * @LastEditTime: 2020-11-03 09:46:13
+ */
 'use strict';
 
 /**
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-    const { router, controller } = app;
+    const { router, controller, io } = app;
+    // websocket消息推送
+    io.of('/').route('announcement', io.controller.announcement.index)
     // 用户登录及信息修改模块
     router.post('/home/login', controller.home.home.login); // 用户登录
     router.post('/home/logout', controller.home.home.logout); // 注销登录
@@ -26,4 +36,8 @@ module.exports = app => {
     router.get('/system/getUserList', controller.system.admin.getUserList); // 获取用户列表
     router.post('/system/updateUserList', controller.system.admin.updateUserList); // 添加或编辑用户列表
     router.post('/system/deleteUser', controller.system.admin.deleteUser); // 删除用户列表
+    router.get('/system/getAnnouncementList', controller.system.admin.getAnnouncementList); // 请求消息公告列表
+    router.post('/system/updateAnnouncement', controller.system.admin.updateAnnouncement); // 发布公告
+    router.post('/system/deleteAnnouncement', controller.system.admin.deleteAnnouncement); // 删除公告
+    router.post('/system/webSockets', controller.system.admin.webSockets); // 接收webSockets消息推送
 }; 

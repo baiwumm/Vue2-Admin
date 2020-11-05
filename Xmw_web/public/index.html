@@ -103,6 +103,23 @@
         opacity: 1
       }
     }
+
+    ::-webkit-scrollbar {
+      width: 3px;
+      height: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #999;
+      background-clip: padding-box;
+      min-height: 100px;
+    }
+
+    ::-webkit-scrollbar-track {
+      width: 3px;
+      background-color: #f9f9f9;
+
+    }
   </style>
   <!-- require cdn assets css -->
   <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>

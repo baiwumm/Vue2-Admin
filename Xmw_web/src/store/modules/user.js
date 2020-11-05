@@ -91,6 +91,7 @@ const user = {
                 }).finally(() => {
                     commit('SET_TOKEN', '')
                     commit('SET_ROLES', [])
+                    // commit("SET_ROUTERS", [], { root: true });
                     storage.remove(ACCESS_TOKEN)
                     storage.remove(TOKEN_CREATETIME)
                     storage.remove(TOKEN_EXPIRESIN)

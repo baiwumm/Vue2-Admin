@@ -3,7 +3,7 @@
     <a-dropdown v-if="user && user.CnName" placement="bottomRight">
         <span class="ant-pro-account-avatar">
             <a-avatar size="small" :src="user.avatar" class="antd-pro-global-header-index-avatar" />
-            <span>{{ user.CnName }}</span>
+            <span style="vertical-align: middle; margin-left: 5px">{{ user.CnName }}</span>
         </span>
         <template v-slot:overlay>
             <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
@@ -62,6 +62,7 @@ export default {
                 content: this.$t('layouts.usermenu.dialog.content'),
                 onOk: () => {
                     return this.$store.dispatch('Logout').then(() => {
+                        window.location.reload()
                         this.$message.success('注销成功!')
                         this.$router.push({ name: 'login' })
                     })

@@ -35,6 +35,15 @@ module.exports = appInfo => {
             }
         }
     };
+    // websocket消息推送
+    config.io = {
+        namespace: {
+            '/': {
+                connectionMiddleware: ['auth'],
+                packetMiddleware: ['filter'],
+            },
+        },
+    };
     config.cluster = {
         listen: {
             port: 7001,

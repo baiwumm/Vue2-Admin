@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:34:18
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-19 18:04:47
+ * @LastEditTime: 2020-10-28 10:39:05
  */
 import { asyncRouterMap, constantRouterMap, notFoundRouter } from '@/config/router.config'
 
