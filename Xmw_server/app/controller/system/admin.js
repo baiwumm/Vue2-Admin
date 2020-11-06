@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-03 09:30:32
+ * @LastEditTime: 2020-11-06 16:12:33
  */
 'use strict';
 
@@ -358,14 +358,20 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { author, title, createTime, current, pageSize } = ctx.query;
-            createTime = JSON.parse(createTime)
-            let where = `1+1`
-            if (author) where += ` and author like '%${author}%'`
-            if (title) where += ` and title like '%${title}%'`
-            if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
-            const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where}`, current, pageSize);
-            ctx.body = { state: 1, msg: '请求成功!', result: result }
+            if (Object.keys(ctx.query).length != 2) {
+                let { author, title, createTime, current, pageSize } = ctx.query;
+                createTime = JSON.parse(createTime)
+                let where = `1+1`
+                if (author) where += ` and author like '%${author}%'`
+                if (title) where += ` and title like '%${title}%'`
+                if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
+                const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where}`, current, pageSize);
+                ctx.body = { state: 1, msg: '请求成功!', result: result }
+            } else {
+                let { current, pageSize } = ctx.query;
+                const result = await Raw.QueryPageData(`SELECT a.*,b.avatar FROM xmw_announcement a LEFT JOIN xmw_user b on a.author = b.username order by createTime desc`, current, pageSize);
+                ctx.body = { state: 1, msg: '请求成功!', result: result }
+            }
         } catch (error) {
             ctx.logger.info('getAnnouncementList方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
@@ -410,6 +416,32 @@ class SystemController extends Controller {
         }
     }
 
+    // 添加公告已读列表
+    async saveAnnouncementRead() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            console.log(111)
+            console.log(ctx.request.body)
+            let { AnnouncementID } = ctx.request.body
+            let { UserID, username, CnName } = ctx.session.userInfo
+            let result = await Raw.Query(`select already from xmw_announcement where AnnouncementID = ${AnnouncementID}`)
+            result.already = JSON.parse(result.already) || []
+            result.already.push(UserID)
+            result.already = JSON.stringify(result.already)
+            console.log(result)
+            const options = {
+                wherestr: `where AnnouncementID=${AnnouncementID}`
+            };
+            await Raw.Update('xmw_announcement', result, options);
+            await ctx.service.logs.saveLogs(username, CnName, '读取公告:' + AnnouncementID, '/system/announcement')
+            ctx.body = { state: 1, msg: '保存成功!' }
+        } catch (error) {
+            ctx.logger.info('saveAnnouncementRead方法报错：' + error)
+            ctx.body = { state: 0, msg: '保存失败!', error: error }
+        }
+    }
+
     // 接收webSockets消息推送
     async webSockets() {
         const { app, ctx } = this;
@@ -420,12 +452,13 @@ class SystemController extends Controller {
             let data = await JSON.parse(msg)
             // app.io.controllers.chat(msg)
             nsp.emit('announcement', data);
-            ctx.socket.emit('res', 'taskUpdated');
+            ctx.socket.emit('res', data);
             return ctx.body = { state: 1, msg: '请求成功!', data: data }
         } catch (error) {
             ctx.logger.info('webSockets方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
         }
     }
+
 }
 module.exports = SystemController;

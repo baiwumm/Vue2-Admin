@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-28 09:42:50
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-03 09:46:13
+ * @LastEditTime: 2020-11-06 14:57:04
  */
 'use strict';
 
@@ -40,4 +40,5 @@ module.exports = app => {
     router.post('/system/updateAnnouncement', controller.system.admin.updateAnnouncement); // 发布公告
     router.post('/system/deleteAnnouncement', controller.system.admin.deleteAnnouncement); // 删除公告
     router.post('/system/webSockets', controller.system.admin.webSockets); // 接收webSockets消息推送
+    router.post('/system/saveAnnouncementRead', controller.system.admin.saveAnnouncementRead); // 添加公告已读列表
 }; 

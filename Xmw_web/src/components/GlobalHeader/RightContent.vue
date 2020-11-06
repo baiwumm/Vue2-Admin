@@ -1,3 +1,4 @@
+
 <template>
     <div :class="wrpCls">
         <div class="header-search">
@@ -21,11 +22,75 @@
                 </a-select-option>
             </a-select>
         </div>
-        <div :class="prefixCls">
-            <a-badge count="5">
-                <a-icon type="bell" style="font-size: 20px" />
-            </a-badge>
-        </div>
+        <a-popover trigger="hover" arrow-point-at-center>
+            <template slot="content">
+                <div class="infinite-container">
+                    <a-list :data-source="announcementList" style="">
+                        <a-list-item slot="renderItem" slot-scope="item">
+                            <a-list-item-meta
+                                :description="
+                                    item.content.length > 30 ? item.content.substr(0, 30) + '...' : item.content
+                                "
+                            >
+                                <a slot="title" @click="showAnnouncementDetail(item)"
+                                    ><a-badge
+                                        :dot="!(item.already ? JSON.parse(item.already) : []).includes(user.UserID)"
+                                        >{{
+                                            item.title.length > 15 ? item.title.substr(0, 15) + '...' : item.title
+                                        }}</a-badge
+                                    ></a
+                                >
+                                <a-avatar slot="avatar" :src="item.avatar" />
+                            </a-list-item-meta>
+                            <div>
+                                <a-tag color="purple">
+                                    {{ item.CnName }}
+                                </a-tag>
+                            </div>
+                        </a-list-item>
+                        <div slot="header" style="font-size: 20px; font-weight: bold; margin-top: -20px">公告列表</div>
+                        <div
+                            slot="loadMore"
+                            :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
+                        >
+                            <a-spin v-if="loadingMore" />
+                            <a-button v-else @click="onLoadMore" type="primary"> 加载更多 </a-button>
+                        </div>
+                    </a-list>
+                </div>
+            </template>
+            <div :class="prefixCls">
+                <a-badge :count="unread">
+                    <a-icon type="bell" style="font-size: 20px" />
+                </a-badge>
+            </div>
+        </a-popover>
+        <!-- 公告详情 -->
+        <a-drawer width="640" placement="right" :visible="detailVisible" @close="detailVisible = false" :zIndex="1200">
+            <a-descriptions title="公告详情" bordered :column="1">
+                <a-descriptions-item label="发布者：">{{ announcementDetail.author }} </a-descriptions-item>
+                <a-descriptions-item label="标题：">{{ announcementDetail.title }} </a-descriptions-item>
+                <a-descriptions-item label="发布时间："
+                    ><a-badge status="processing" :text="announcementDetail.createTime"
+                /></a-descriptions-item>
+                <a-descriptions-item label="发布内容：">{{ announcementDetail.content }} </a-descriptions-item>
+            </a-descriptions>
+            <div
+                :style="{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: 0,
+                    width: '100%',
+                    borderTop: '1px solid #e9e9e9',
+                    padding: '10px 16px',
+                    background: '#fff',
+                    textAlign: 'right',
+                    zIndex: 1,
+                }"
+            >
+                <a-button type="primary" @click="detailVisible = false"> 关闭 </a-button>
+            </div>
+        </a-drawer>
         <div :class="prefixCls" @click="toggleFullscreen">
             <a-icon :type="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" style="font-size: 20px" />
         </div>
@@ -41,6 +106,7 @@ import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
 import { treeData } from '@/utils/util.js'
 import Fuse from 'fuse.js'
+import { Announcement, saveAnnouncementRead } from '@/api/system'
 export default {
     name: 'RightContent',
     components: {
@@ -74,6 +140,15 @@ export default {
             fuse: null,
             searchPool: [],
             show: false,
+            announcementList: [],
+            current: 1,
+            pageSize: 10,
+            total: 0,
+            loadingMore: false,
+            unread: 0, // 公告未读条数
+            user: {},
+            detailVisible: false,
+            announcementDetail: {},
         }
     },
     computed: {
@@ -83,8 +158,73 @@ export default {
                 [`ant-pro-global-header-index-${this.isMobile || !this.topMenu ? 'light' : this.theme}`]: true,
             }
         },
+        userInfo() {
+            return this.$store.getters.userInfo
+        },
+    },
+    created() {
+        this.user = this.userInfo
+    },
+    beforeMount() {
+        let _this = this
+        _this.fetchData((res) => {
+            _this.announcementList = res.result.list
+            _this.total = res.result.total
+        })
     },
     methods: {
+        fetchData(callback) {
+            let _this = this
+            let params = {
+                current: _this.current,
+                pageSize: _this.pageSize,
+            }
+            Announcement(params).then((res) => {
+                callback(res)
+                res.result.list.map((v) => {
+                    let readList = JSON.parse(v.already) || []
+                    if (!readList.includes(_this.user.UserID)) {
+                        _this.unread += 1
+                    }
+                })
+            })
+        },
+        // 加载更多
+        onLoadMore() {
+            let _this = this
+            _this.current += 1
+            _this.loadingMore = true
+            if (_this.announcementList.length >= _this.total) {
+                _this.$message.warning('已经加载全部')
+                _this.loadingMore = false
+                return
+            }
+            this.fetchData((res) => {
+                _this.announcementList = _this.announcementList.concat(res.result.list)
+                _this.loadingMore = false
+            })
+        },
+        // 公告详情
+        showAnnouncementDetail(data) {
+            let _this = this
+            _this.detailVisible = true
+            _this.announcementDetail = data
+            // 如果点击未读信息，则请求将用户ID添加到已读字段
+            let readList = JSON.parse(data.already) || []
+            if (!readList.includes(_this.user.UserID)) {
+                let params = { AnnouncementID: data.AnnouncementID }
+                saveAnnouncementRead(params).then((res) => {
+                    _this.unread -= 1
+                    _this.announcementList.forEach((v) => {
+                        if (v.AnnouncementID == data.AnnouncementID) {
+                            let readArr = JSON.parse(v.already) || []
+                            readArr.push(_this.user.UserID)
+                            v.already = JSON.stringify(readArr)
+                        }
+                    })
+                })
+            }
+        },
         toggleFullscreen() {
             if (!screenfull.isEnabled) {
                 this.$notification.warning({
@@ -197,5 +337,15 @@ export default {
         width: 210px;
         margin-left: 10px;
     }
+}
+.infinite-container {
+    border-radius: 4px;
+    padding: 8px 10px;
+    overflow: auto;
+    height: 300px;
+    width: 400px;
+}
+.ant-descriptions /deep/ .ant-descriptions-view .ant-descriptions-row th {
+    width: 120px;
 }
 </style>

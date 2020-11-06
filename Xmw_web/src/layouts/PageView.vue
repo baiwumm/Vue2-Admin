@@ -1,15 +1,12 @@
 
 <template>
-  <page-header-wrapper>
-    <transition name="fade-transform" mode="out-in">
-      <router-view></router-view>
-      </transition>
-  </page-header-wrapper>
+    <page-header-wrapper>
+        <router-view></router-view>
+    </page-header-wrapper>
 </template>
 
 <script>
-
 export default {
-  name: 'PageView'
+    name: 'PageView',
 }
 </script>

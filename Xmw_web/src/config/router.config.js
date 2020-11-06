@@ -36,7 +36,9 @@ const generator = () => {
                     meta: {
                         title: item.title,
                         icon: item.icon || undefined,
-                        permission: [item.permission]
+                        permission: [item.permission],
+                        keepAlive: item.keepAlive ? true : false,
+                        hidden: item.hidden ? true : false
                     }
                 }
                 // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠

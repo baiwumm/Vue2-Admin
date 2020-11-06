@@ -61,7 +61,7 @@
                         </template>
                     </a-descriptions-item>
                     <a-descriptions-item label="内容">
-                        {{ record.content }}
+                        {{ record.content.length > 180 ? record.content.substr(0, 180) + '...' : record.content }}
                     </a-descriptions-item>
                 </a-descriptions>
             </div>
@@ -285,15 +285,13 @@ export default {
         // 向服务端发送消息
         sendMessageToServer: function (data) {
             this.$socket.emit('announcement', data)
-            if (data) {
-                this.announcementDetail()
-            }
+            // if (data) {
+            //     this.announcementDetail()
+            // }
         },
         announcementDetail() {
-            console.log(222)
             webSockets().then((res) => {
                 if (res.state == 1) {
-                    console.log(res)
                     // 接收到信息
                     // 延迟 1 秒显示欢迎信息
                     setTimeout(() => {

@@ -1,3 +1,4 @@
+
 /**
  * 项目默认配置项
  * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
@@ -26,5 +27,6 @@ export default {
     title: 'Ant Design Pro',
     pwa: false,
     iconfontUrl: '',
+    multiTab: true,
     production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }

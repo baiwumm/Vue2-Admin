@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:55:55
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-03 09:50:11
+ * @LastEditTime: 2020-11-06 14:58:40
  */
 import request from '@/utils/request'
 const sysApi = {
@@ -23,6 +23,7 @@ const sysApi = {
     Announcement: '/system/getAnnouncementList',
     addAnnouncement: '/system/updateAnnouncement',
     deleteAnnouncement: '/system/deleteAnnouncement',
+    saveAnnouncementRead: '/system/saveAnnouncementRead',
     webSockets: '/announcement',
 }
 
@@ -144,6 +145,15 @@ export function addAnnouncement(parameter) {
 export function deleteAnnouncement(parameter) {
     return request({
         url: sysApi.deleteAnnouncement,
+        method: 'post',
+        data: parameter
+    })
+}
+
+// 添加公告已读列表
+export function saveAnnouncementRead(parameter) {
+    return request({
+        url: sysApi.saveAnnouncementRead,
         method: 'post',
         data: parameter
     })

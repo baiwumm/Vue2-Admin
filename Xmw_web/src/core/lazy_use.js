@@ -108,6 +108,7 @@ Vue.use(TreeSelect)
 Vue.use(Tree)
 Vue.use(BackTop)
 
+
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
 Vue.prototype.$notification = notification

@@ -1,19 +1,15 @@
 
 <template>
-  <div>
-    <transition name="fade-transform" mode="out-in">
-      <router-view></router-view>
-      </transition>
-  </div>
+    <div>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
-
 export default {
-  name: 'BlankLayout'
+    name: 'BlankLayout',
 }
 </script>
 
 <style scoped>
-
 </style>
