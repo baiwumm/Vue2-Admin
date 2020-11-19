@@ -278,7 +278,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            Menu(params).then((res) => {
+            await Menu(params).then((res) => {
                 if (res.state == 1) {
                     res.result.list.forEach((v) => {
                         v.createTime = dataFormat(v.createTime, 'yyyy-MM-dd hh:mm:ss')
@@ -336,8 +336,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            addMenu(params)
+                        onOk: async () => {
+                            await addMenu(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
@@ -403,8 +403,8 @@ export default {
             _this.$confirm({
                 title: '确认操作',
                 content: '此操作将删除此菜单和子菜单,请谨慎操作,您确认提交吗?',
-                onOk: () => {
-                    deleteMenu(params).then((res) => {
+                onOk: async () => {
+                    await deleteMenu(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
                             _this.getMenuList()

@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:44:16
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-27 14:12:25
+ * @LastEditTime: 2020-11-13 17:05:29
  */
 'use strict';
 
@@ -78,7 +78,8 @@ class HomeController extends Controller {
                     ctx.session.userInfo = {
                         UserID: v.UserID,
                         username: v.username,
-                        CnName: v.CnName
+                        CnName: v.CnName,
+                        token: token
                     }
                     ctx.body = { state: 1, msg: '登录成功!', result: v }
                     await Raw.Update('xmw_user', row, options);

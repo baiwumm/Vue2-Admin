@@ -2,6 +2,7 @@ import storage from 'store'
 import { login, logout } from '@/api/login'
 import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
+
 const user = {
     state: {
         token: '',
@@ -43,7 +44,7 @@ const user = {
                         result.address = JSON.parse(result.address)
                         storage.set(ACCESS_TOKEN, result.token)
                         storage.set(TOKEN_CREATETIME, new Date().getTime())
-                        storage.set(TOKEN_EXPIRESIN, result.expiresIn)
+                        storage.set(TOKEN_EXPIRESIN, result.expiresIn * 1000)
                         storage.set(USER_INFO, result)
                         commit('SET_TOKEN', result.token)
                         commit('SET_INFO', result)

@@ -111,13 +111,21 @@ export default {
                         _this.passwordState = false
                         return
                     }
-                    passwordParams.lastPassword = _this.$options.methods.getAesString(values.newPassword,_this.key,_this.iv)
-                    passwordParams.originalPassword = _this.$options.methods.getAesString(values.originalPassword,_this.key,_this.iv)
+                    passwordParams.lastPassword = _this.$options.methods.getAesString(
+                        values.newPassword,
+                        _this.key,
+                        _this.iv
+                    )
+                    passwordParams.originalPassword = _this.$options.methods.getAesString(
+                        values.originalPassword,
+                        _this.key,
+                        _this.iv
+                    )
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            changeUserPassword(passwordParams)
+                        onOk: async () => {
+                            await changeUserPassword(passwordParams)
                                 .then((res) => {
                                     _this.isLoginError.message = res.msg
                                     if (res.state == 1) {

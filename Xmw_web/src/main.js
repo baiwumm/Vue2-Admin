@@ -1,3 +1,5 @@
+
+
 // with polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -10,6 +12,7 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
+import Vue2OrgTree from 'vue2-org-tree'
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
@@ -18,6 +21,7 @@ import './utils/filter' // global filter
 import './global.less'
 
 import VueSocketIO from 'vue-socket.io'
+Vue.use(Vue2OrgTree)
 
 Vue.use(new VueSocketIO({
     debug: true,

@@ -138,7 +138,7 @@ export default {
             const formData = new FormData()
             // 输出
             if (type === 'blob') {
-                this.$refs.cropper.getCropBlob((data) => {
+                this.$refs.cropper.getCropBlob(async (data) => {
                     const img = window.URL.createObjectURL(data)
                     this.model = true
                     this.modelSrc = img
@@ -146,7 +146,7 @@ export default {
                     formData.append('SaveFileName', 'admin')
                     formData.append('file', fileOfBlob)
                     formData.append('UserID', this.user.UserID)
-                    changeUserImg(formData).then((res) => {
+                    await changeUserImg(formData).then((res) => {
                         _this.options.img = ''
                         if (res.state == 1) {
                             let avatar = { avatar: res.fullPath }

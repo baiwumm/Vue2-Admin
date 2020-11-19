@@ -130,8 +130,9 @@ import storage from 'store'
 import { USER_INFO } from '@/store/mutation-types'
 import AvatarModal from './AvatarModal'
 import { updateUserInfo } from '@/api/login'
-import sectorJobs from '@/core/sectorJobs.json'
 import cities from '@/core/cities.json'
+import { departmentList } from '@/api/integrated'
+import { treeData } from '@/utils/util.js'
 export default {
     name: 'BaseSetting',
     components: {
@@ -159,7 +160,7 @@ export default {
                 fixedNumber: [1, 1],
             },
             user: {},
-            residences: sectorJobs.residences,
+            residences: [],
             cityJson: cities.options,
         }
     },
@@ -173,6 +174,25 @@ export default {
         this.option.img = this.user.avatar
     },
     methods: {
+        async getDepartmentList() {
+            let _this = this
+            let params = {
+                departmentName: '',
+                createTime: JSON.stringify([]),
+                current: 1,
+                pageSize: 1,
+            }
+            await departmentList(params).then((res) => {
+                if (res.state == 1) {
+                    res.parentList.forEach((v) => {
+                        ;(v.value = v.name), (v.label = v.name)
+                    })
+                    _this.residences = treeData(res.parentList, 'DepartmentID', 'parentId', 'children')
+                } else {
+                    _this.$message.error(res.msg)
+                }
+            })
+        },
         handleSubmit(e) {
             let _this = this
             e.preventDefault()
@@ -187,8 +207,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            updateUserInfo(userParams)
+                        onOk: async () => {
+                            await updateUserInfo(userParams)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         let storeUser = Object.assign(this.user, userParams)
@@ -230,6 +250,9 @@ export default {
         setavatar(url) {
             this.option.img = url
         },
+    },
+    mounted() {
+        this.getDepartmentList()
     },
 }
 </script>

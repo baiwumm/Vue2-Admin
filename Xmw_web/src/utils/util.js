@@ -142,11 +142,11 @@ export const dataFormat = (value, fmt, type) => {
 };
 
 /**
-         * 数组转树形结构
-         * @param source 源数组
-         * @param tree 树
-         * @param parentId 父ID
-         */
+ * 数组转树形结构
+ * @param source 源数组
+ * @param tree 树
+ * @param parentId 父ID
+ */
 export const treeData = (source, id, parentId, children) => {
     let temp = JSON.parse(JSON.stringify(source))
     // 以id为键，当前对象为值，存入一个新的对象中
@@ -162,3 +162,30 @@ export const treeData = (source, id, parentId, children) => {
         return father[parentId] === null || !tempObj[father[parentId]]
     })
 };
+
+// 相对时间
+export const relativeTime = (ele) => {
+    var lr = new Date(ele);
+    var now = new Date;
+    var dt = now - lr;
+    var s = dt / 1000;
+    var m = s / 60;
+    var h = m / 60;
+    if (s < 60) {
+        return s + '秒前';
+    } else if (s < 3600) {
+        return parseInt(s / 60) + '分钟前';
+    } else if (s < 86400) {
+        return parseInt(s / 60 / 60) + '小时前';
+    } else if (s < 604800) {//在一周内
+        return parseInt(s / 60 / 60 / 24) + '天前';
+    } else if (s < 2592000) {
+        return parseInt(s / 60 / 60 / 24 / 7) + "周前"
+    } else if (s < 2592000 && s > 604800) {//超过一周
+        return parseInt(s / 60 / 60 / 24) + '天前';
+    } else if (s < 31104000) {
+        return parseInt(s / 60 / 60 / 24 / 30) + '月前';
+    } else if (s < 311040000) {
+        return parseInt(s / 60 / 60 / 24 / 30 / 12) + '年前';
+    }
+}

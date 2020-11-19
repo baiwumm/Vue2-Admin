@@ -25,27 +25,42 @@
         <a-popover trigger="hover" arrow-point-at-center>
             <template slot="content">
                 <div class="infinite-container">
-                    <a-list :data-source="announcementList" style="">
-                        <a-list-item slot="renderItem" slot-scope="item">
+                    <a-list :data-source="announcementList">
+                        <a-list-item slot="renderItem" slot-scope="item" style="position: relative">
                             <a-list-item-meta
                                 :description="
                                     item.content.length > 30 ? item.content.substr(0, 30) + '...' : item.content
                                 "
                             >
-                                <a slot="title" @click="showAnnouncementDetail(item)"
-                                    ><a-badge
-                                        :dot="!(item.already ? JSON.parse(item.already) : []).includes(user.UserID)"
-                                        >{{
-                                            item.title.length > 15 ? item.title.substr(0, 15) + '...' : item.title
-                                        }}</a-badge
-                                    ></a
-                                >
+                                <a slot="title" @click="showAnnouncementDetail(item)">
+                                    <a-tooltip>
+                                        <template slot="title">
+                                            {{ item.title }}
+                                        </template>
+                                        <a-badge
+                                            :dot="!(item.already ? JSON.parse(item.already) : []).includes(user.UserID)"
+                                            >{{
+                                                item.title.length > 15 ? item.title.substr(0, 15) + '...' : item.title
+                                            }}</a-badge
+                                        >
+                                    </a-tooltip>
+                                </a>
                                 <a-avatar slot="avatar" :src="item.avatar" />
                             </a-list-item-meta>
                             <div>
                                 <a-tag color="purple">
                                     {{ item.CnName }}
                                 </a-tag>
+                                <div
+                                    style="
+                                        color: rgba(0, 0, 0, 0.45);
+                                        font-size: 12px;
+                                        position: absolute;
+                                        bottom: 10px;
+                                    "
+                                >
+                                    <a-icon type="clock-circle" /> {{ culTime(item.createTime) }}
+                                </div>
                             </div>
                         </a-list-item>
                         <div slot="header" style="font-size: 20px; font-weight: bold; margin-top: -20px">公告列表</div>
@@ -104,7 +119,7 @@ import AvatarDropdown from './AvatarDropdown'
 import SelectLang from '@/components/SelectLang'
 import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
-import { treeData } from '@/utils/util.js'
+import { treeData, relativeTime } from '@/utils/util.js'
 import Fuse from 'fuse.js'
 import { Announcement, saveAnnouncementRead } from '@/api/system'
 export default {
@@ -173,6 +188,10 @@ export default {
         })
     },
     methods: {
+        // 计算相对时间
+        culTime(time) {
+            return relativeTime(time)
+        },
         fetchData(callback) {
             let _this = this
             let params = {
@@ -212,7 +231,7 @@ export default {
             // 如果点击未读信息，则请求将用户ID添加到已读字段
             let readList = JSON.parse(data.already) || []
             if (!readList.includes(_this.user.UserID)) {
-                let params = { AnnouncementID: data.AnnouncementID }
+                let params = { AnnouncementID: data.AnnouncementID, title: data.title }
                 saveAnnouncementRead(params).then((res) => {
                     _this.unread -= 1
                     _this.announcementList.forEach((v) => {
@@ -347,5 +366,14 @@ export default {
 }
 .ant-descriptions /deep/ .ant-descriptions-view .ant-descriptions-row th {
     width: 120px;
+}
+
+.ant-pro-global-header-index-dark {
+    .header-search {
+        color: #fff;
+    }
+    .ant-pro-global-header-index-action {
+        color: #fff;
+    }
 }
 </style>

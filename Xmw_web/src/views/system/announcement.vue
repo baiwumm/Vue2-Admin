@@ -183,7 +183,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            Announcement(params).then((res) => {
+            await Announcement(params).then((res) => {
                 if (res.state == 1) {
                     _this.data = res.result.list
                     _this.data.forEach((v) => {
@@ -224,8 +224,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            addAnnouncement(params)
+                        onOk: async () => {
+                            await addAnnouncement(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
@@ -270,8 +270,8 @@ export default {
             _this.$confirm({
                 title: '确认操作',
                 content: '您确认提交吗?',
-                onOk: () => {
-                    deleteAnnouncement(params).then((res) => {
+                onOk: async () => {
+                    await deleteAnnouncement(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
                             _this.getAnnouncementList()

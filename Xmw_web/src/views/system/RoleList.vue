@@ -201,7 +201,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            Role(params).then((res) => {
+            await Role(params).then((res) => {
                 if (res.state == 1) {
                     res.result.list.forEach((v) => {
                         if (v.roleList) v.roleList = JSON.parse(v.roleList)
@@ -256,8 +256,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            updateRoleList(params)
+                        onOk: async () => {
+                            await updateRoleList(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
@@ -332,8 +332,8 @@ export default {
             _this.$confirm({
                 title: '确认操作',
                 content: '您确认提交吗?',
-                onOk: () => {
-                    deleteRole(params).then((res) => {
+                onOk: async () => {
+                    await deleteRole(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
                             _this.getRoleList()

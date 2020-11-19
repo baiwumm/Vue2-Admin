@@ -106,9 +106,18 @@
                 </template>
             </span>
             <span slot="action" slot-scope="text, record">
-                <a @click="onEdit(record)" v-action:edit>编辑</a>
-                <a-divider type="vertical" />
-                <a @click="onDelete(record)" v-action:delete>删除</a>
+                <a-button
+                    type="primary"
+                    v-action:edit
+                    v-if="record.username == 'admin'"
+                    @click="onEdit(record)"
+                    size="small"
+                >
+                    编辑
+                </a-button>
+                <a @click="onEdit(record)" v-action:edit v-else>编辑</a>
+                <a-divider type="vertical" v-if="record.username != 'admin'" />
+                <a @click="onDelete(record)" v-action:delete v-if="record.username != 'admin'">删除</a>
             </span>
         </a-table>
         <!-- 抽屉-添加编辑 -->
@@ -131,7 +140,11 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="用户名">
-                            <a-input v-decorator="rules.username" placeholder="请输入用户名" />
+                            <a-input
+                                v-decorator="rules.username"
+                                placeholder="请输入用户名"
+                                :disabled="rules['username'][1].initialValue == 'admin'"
+                            />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
@@ -205,8 +218,8 @@
 <script>
 import CryptoJS from 'crypto-js'
 import { User, updateUserList, deleteUser } from '@/api/system'
-import { dataFormat } from '@/utils/util.js'
-import sectorJobs from '@/core/sectorJobs.json'
+import { dataFormat, treeData } from '@/utils/util.js'
+import { departmentList } from '@/api/integrated'
 import cities from '@/core/cities.json'
 export default {
     data() {
@@ -278,7 +291,7 @@ export default {
                     { initialValue: '', rules: [{ required: true, message: '请确认密码' }] },
                 ],
             },
-            residences: sectorJobs.residences,
+            residences: [],
             cityJson: cities.options,
             ID: '',
             roleList: [],
@@ -287,6 +300,25 @@ export default {
         }
     },
     methods: {
+        async getDepartmentList() {
+            let _this = this
+            let params = {
+                departmentName: '',
+                createTime: JSON.stringify([]),
+                current: 1,
+                pageSize: 1,
+            }
+            await departmentList(params).then((res) => {
+                if (res.state == 1) {
+                    res.parentList.forEach((v) => {
+                        ;(v.value = v.name), (v.label = v.name)
+                    })
+                    _this.residences = treeData(res.parentList, 'DepartmentID', 'parentId', 'children')
+                } else {
+                    _this.$message.error(res.msg)
+                }
+            })
+        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
@@ -303,7 +335,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            User(params).then((res) => {
+            await User(params).then((res) => {
                 if (res.state == 1) {
                     res.result.list.forEach((v) => {
                         v.CreateTime = dataFormat(v.CreateTime, 'yyyy-MM-dd hh:mm:ss')
@@ -378,8 +410,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            updateUserList(params)
+                        onOk: async () => {
+                            await updateUserList(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
@@ -452,8 +484,8 @@ export default {
             _this.$confirm({
                 title: '确认操作',
                 content: '您确认提交吗?',
-                onOk: () => {
-                    deleteUser(params).then((res) => {
+                onOk: async () => {
+                    await deleteUser(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
                             _this.getUserList()
@@ -485,6 +517,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.getUserList()
+            this.getDepartmentList()
         })
     },
 }

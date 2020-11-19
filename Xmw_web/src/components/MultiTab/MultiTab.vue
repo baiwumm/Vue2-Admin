@@ -1,6 +1,5 @@
 <script>
 import events from './events'
-
 export default {
     name: 'MultiTab',
     data() {
@@ -147,29 +146,35 @@ export default {
             $data: { pages },
         } = this
         const panes = pages.map((page) => {
-            return (
-                <a-tab-pane
-                    // tab={this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
-                    key={page.fullPath}
-                    closable={pages.length > 1}
-                >
-                    <span slot="tab">
-                        <a-icon type={page.meta.icon || 'windows'} />
-                        {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
-                    </span>
-                </a-tab-pane>
-            )
+            if (this.activeKey == page.fullPath) {
+                return (
+                    <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
+                        <span slot="tab">
+                            <a-badge status="processing" color="#fff" />
+                            <span style="color:#fff">
+                                {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
+                            </span>
+                        </span>
+                    </a-tab-pane>
+                )
+            } else {
+                return (
+                    <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
+                        <span slot="tab">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
+                    </a-tab-pane>
+                )
+            }
         })
 
         return (
             <div class="ant-pro-multi-tab">
                 <div class="ant-pro-multi-tab-wrapper">
                     <a-tabs
-                        size="small"
+                        size={'small'}
                         hideAdd
                         type={'editable-card'}
                         v-model={this.activeKey}
-                        tabBarStyle={{ background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }}
+                        tabBarStyle={{ background: '#FFF', margin: 0, padding: '0 16px', paddingTop: '1px' }}
                         {...{ on: { edit: onEdit } }}
                     >
                         {panes}
@@ -180,3 +185,29 @@ export default {
     },
 }
 </script>
+<style lang="less" scoped>
+.ant-pro-multi-tab .ant-tabs {
+    /deep/ .ant-tabs-nav-container {
+        height: 28px;
+    }
+    /deep/ .ant-tabs-tab {
+        height: 26px;
+        line-height: 26px;
+        padding: 0 8px;
+        font-size: 12px;
+        background: #fff;
+    }
+    /deep/ .ant-tabs-tab-active {
+        height: 26px;
+        line-height: 26px;
+        background: #42b983;
+        .ant-badge-status-text {
+            color: #fff;
+            font-size: 12px;
+        }
+        .ant-tabs-close-x {
+            color: #fff;
+        }
+    }
+}
+</style>

@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-06 16:12:33
+ * @LastEditTime: 2020-11-16 11:51:06
  */
 'use strict';
 
@@ -82,6 +82,12 @@ class SystemController extends Controller {
             } else { // 编辑菜单
                 let ID = params.ID
                 delete params.ID
+                let exitData = await Raw.QueryList(`select count(1) as total from xmw_menu where ID != '${ID}' and (name = '${name}' or path = '${path}' or permission = '${permission}')`)
+                // 判断名称、路径、权限是否相同
+                if (exitData[0].total) {
+                    ctx.body = { state: 2, msg: '名称、路由路径、用户权限Key不能与之重复，请核对!' }
+                    return
+                }
                 const options = {
                     wherestr: `where ID=${ID}`
                 };
@@ -321,6 +327,11 @@ class SystemController extends Controller {
                 ctx.body = { state: 1, msg: '保存成功!' }
             }
             else { // 编辑用户
+                const exist = await Raw.Query(`select count(1) as total from xmw_user where username = '${params.username}' and UserID != '${ID}'`);
+                if (exist.total) {
+                    ctx.body = { state: 2, msg: '用户名已存在!' }
+                    return
+                }
                 const options = {
                     wherestr: `where UserID = '${ID}'`
                 };
@@ -365,7 +376,7 @@ class SystemController extends Controller {
                 if (author) where += ` and author like '%${author}%'`
                 if (title) where += ` and title like '%${title}%'`
                 if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
-                const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where}`, current, pageSize);
+                const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where} order by createTime desc`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result }
             } else {
                 let { current, pageSize } = ctx.query;
@@ -411,7 +422,7 @@ class SystemController extends Controller {
             await ctx.service.logs.saveLogs(username, CnName, '删除公告:' + title, '/system/announcement')
             ctx.body = { state: 1, msg: '删除成功!' }
         } catch (error) {
-            ctx.logger.info('ddeleteAnnouncement方法报错：' + error)
+            ctx.logger.info('deleteAnnouncement方法报错：' + error)
             ctx.body = { state: 0, msg: '删除失败!', error: error }
         }
     }
@@ -421,20 +432,17 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            console.log(111)
-            console.log(ctx.request.body)
-            let { AnnouncementID } = ctx.request.body
+            let { AnnouncementID, title } = ctx.request.body
             let { UserID, username, CnName } = ctx.session.userInfo
             let result = await Raw.Query(`select already from xmw_announcement where AnnouncementID = ${AnnouncementID}`)
             result.already = JSON.parse(result.already) || []
             result.already.push(UserID)
             result.already = JSON.stringify(result.already)
-            console.log(result)
             const options = {
                 wherestr: `where AnnouncementID=${AnnouncementID}`
             };
             await Raw.Update('xmw_announcement', result, options);
-            await ctx.service.logs.saveLogs(username, CnName, '读取公告:' + AnnouncementID, '/system/announcement')
+            await ctx.service.logs.saveLogs(username, CnName, '读取公告:' + title, '/system/announcement')
             ctx.body = { state: 1, msg: '保存成功!' }
         } catch (error) {
             ctx.logger.info('saveAnnouncementRead方法报错：' + error)

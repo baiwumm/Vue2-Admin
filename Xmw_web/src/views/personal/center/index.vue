@@ -119,12 +119,12 @@ export default {
     },
     mounted() {},
     methods: {
-        handleTagClose(removeTag) {
+        async handleTagClose(removeTag) {
             let tags = this.user.label.filter((x) => x != removeTag)
             let labelParams = {
                 label: tags,
             }
-            changeUserLabel(labelParams).then((res) => {
+            await changeUserLabel(labelParams).then((res) => {
                 if (res.state == 1) {
                     let storeUser = Object.assign(this.user, labelParams)
                     this.$message.success(res.msg)

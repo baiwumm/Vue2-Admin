@@ -81,7 +81,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            Logs(params).then((res) => {
+            await Logs(params).then((res) => {
                 if (res.state == 1) {
                     _this.data = res.result.list
                     _this.data.forEach((v) => {

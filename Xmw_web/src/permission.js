@@ -7,7 +7,6 @@ import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/domUtil'
 import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
-
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['login'] // no redirect whitelist

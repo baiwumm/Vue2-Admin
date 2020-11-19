@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-28 09:42:50
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-06 14:57:04
+ * @LastEditTime: 2020-11-13 17:14:39
  */
 'use strict';
 
@@ -14,7 +14,7 @@
 module.exports = app => {
     const { router, controller, io } = app;
     // websocket消息推送
-    io.of('/').route('announcement', io.controller.announcement.index)
+    // io.of('/').route('announcement', io.controller.announcement.index)
     // 用户登录及信息修改模块
     router.post('/home/login', controller.home.home.login); // 用户登录
     router.post('/home/logout', controller.home.home.logout); // 注销登录
@@ -41,4 +41,9 @@ module.exports = app => {
     router.post('/system/deleteAnnouncement', controller.system.admin.deleteAnnouncement); // 删除公告
     router.post('/system/webSockets', controller.system.admin.webSockets); // 接收webSockets消息推送
     router.post('/system/saveAnnouncementRead', controller.system.admin.saveAnnouncementRead); // 添加公告已读列表
+
+    // 组织架构模块接口
+    router.get('/integrated/getDepartmentList', controller.integrated.organizational.getDepartmentList); // 获取组织架构-部门列表
+    router.post('/integrated/addEditDepartment', controller.integrated.organizational.addEditDepartment); // 添加-编辑部门
+    router.post('/integrated/deleteDepartment', controller.integrated.organizational.deleteDepartment); // 删除部门
 }; 

@@ -154,7 +154,7 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            Action(params).then((res) => {
+            await Action(params).then((res) => {
                 if (res.state == 1) {
                     _this.actionList = res.actionList
                     res.result.list.forEach((v) => {
@@ -207,8 +207,8 @@ export default {
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
-                        onOk: () => {
-                            updateActionList(params)
+                        onOk: async () => {
+                            await updateActionList(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()

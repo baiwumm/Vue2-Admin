@@ -1,4 +1,3 @@
-
 'use strict';
 
 /**
@@ -36,21 +35,23 @@ module.exports = appInfo => {
         }
     };
     // websocket消息推送
-    config.io = {
-        namespace: {
-            '/': {
-                connectionMiddleware: ['auth'],
-                packetMiddleware: ['filter'],
+    // config.io = {
+    //     namespace: {
+    //         '/': {
+    //             connectionMiddleware: ['auth'],
+    //             packetMiddleware: ['filter'],
+    //         },
+    //     },
+    // };
+    // 配置需要的中间件，数组顺序即为中间件的加载顺序
+    config.middleware = ['tokenAuthentication'],
+        config.cluster = {
+            listen: {
+                port: 7001,
+                hostname: "127.0.0.1",
+                // path: '/var/run/egg.sock',
             },
         },
-    };
-    config.cluster = {
-        listen: {
-            port: 7001,
-            hostname: "127.0.0.1",
-            // path: '/var/run/egg.sock',
-        },
-    },
         config.session = {
             key: 'SESSION_ID',  //eggjs默认session的key
             maxAge: 3 * 24 * 3600 * 1000,  // 3 day
@@ -62,9 +63,7 @@ module.exports = appInfo => {
     // use for cookie sign key, should change to your own and keep security
     config.keys = appInfo.name + '_1600307035362_2124';
     config.proxy = true;
-    // 引入token验证方法中间件
-    // config.middleware = ['tokenAuthentication'];
-    config.expiresIn = 3 * 24 * 60 * 60 * 1000;// token过期时间 单位秒
+    config.expiresIn = 3 * 24 * 60 * 60;// token过期时间 单位秒，默认3天
     config.privateKey = 'Xmingwei'; // token密钥，生成解析token
     config.security = {
         csrf: {

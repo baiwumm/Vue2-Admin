@@ -15,10 +15,12 @@
         <template v-slot:rightContentRender>
             <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
         </template>
+        <template v-slot:headerContentRender>
+            <MultiTab></MultiTab>
+        </template>
         <template v-slot:footerRender>
             <global-footer />
         </template>
-        <MultiTab></MultiTab>
         <transition name="fade-transform" mode="out-in">
             <keep-alive v-if="$route.meta.keepAlive">
                 <router-view></router-view>
@@ -26,7 +28,7 @@
             <router-view v-else></router-view>
         </transition>
         <!-- 回到顶部 -->
-        <div id="components-back-top-demo-custom">
+        <div id="components-back-top-custom">
             <a-back-top>
                 <div class="ant-back-top-inner">UP</div>
             </a-back-top>
@@ -166,10 +168,10 @@ export default {
 
 <style lang="less" scoped>
 @import './BasicLayout.less';
-#components-back-top-demo-custom .ant-back-top {
+#components-back-top-custom .ant-back-top {
     bottom: 100px;
 }
-#components-back-top-demo-custom .ant-back-top-inner {
+#components-back-top-custom .ant-back-top-inner {
     height: 40px;
     width: 40px;
     line-height: 40px;
@@ -192,5 +194,18 @@ export default {
 .fade-transform-leave-to {
     opacity: 0;
     transform: translateX(30px);
+}
+.ant-layout {
+    /deep/ .ant-layout-header {
+        height: 92px;
+    }
+    /deep/ .ant-layout-header .ant-pro-global-header-content {
+        position: absolute;
+        bottom: -29px;
+        width: 100%;
+    }
+}
+.ant-layout.topmenu /deep/ .ant-layout-header {
+    height: 64px;
 }
 </style>
