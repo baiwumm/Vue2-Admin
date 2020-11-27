@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:55:55
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-06 14:58:40
+ * @LastEditTime: 2020-11-27 16:16:46
  */
 import request from '@/utils/request'
 const sysApi = {
@@ -24,7 +24,7 @@ const sysApi = {
     addAnnouncement: '/system/updateAnnouncement',
     deleteAnnouncement: '/system/deleteAnnouncement',
     saveAnnouncementRead: '/system/saveAnnouncementRead',
-    webSockets: '/announcement',
+    webSockets: '/system/webSockets',
 }
 
 // 获取操作日志列表
@@ -163,7 +163,7 @@ export function saveAnnouncementRead(parameter) {
 export function webSockets(parameter) {
     return request({
         url: sysApi.webSockets,
-        method: 'post',
-        data: parameter
+        method: 'get',
+        params: parameter
     })
 }

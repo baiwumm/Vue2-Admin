@@ -35,23 +35,23 @@ module.exports = appInfo => {
         }
     };
     // websocket消息推送
-    // config.io = {
-    //     namespace: {
-    //         '/': {
-    //             connectionMiddleware: ['auth'],
-    //             packetMiddleware: ['filter'],
-    //         },
-    //     },
-    // };
-    // 配置需要的中间件，数组顺序即为中间件的加载顺序
-    config.middleware = ['tokenAuthentication'],
-        config.cluster = {
-            listen: {
-                port: 7001,
-                hostname: "127.0.0.1",
-                // path: '/var/run/egg.sock',
+    config.io = {
+        namespace: {
+            '/': {
+                connectionMiddleware: ['auth'],
+                packetMiddleware: ['filter'],
             },
         },
+    };
+    // 配置需要的中间件，数组顺序即为中间件的加载顺序
+    // config.middleware = ['tokenAuthentication'],
+    config.cluster = {
+        listen: {
+            port: 7001,
+            hostname: "127.0.0.1",
+            // path: '/var/run/egg.sock',
+        },
+    },
         config.session = {
             key: 'SESSION_ID',  //eggjs默认session的key
             maxAge: 3 * 24 * 3600 * 1000,  // 3 day

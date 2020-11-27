@@ -1,0 +1,106 @@
+{
+  "BugTypeList": [
+    {
+      "value": "1",
+      "text": "功能优化"
+    },
+    {
+      "value": "2",
+      "text": "界面优化"
+    },
+    {
+      "value": "3",
+      "text": "数据异常"
+    },
+    {
+      "value": "4",
+      "text": "代码错误"
+    },
+    {
+      "value": "5",
+      "text": "配置相关"
+    },
+    {
+      "value": "6",
+      "text": "安装部署"
+    },
+    {
+      "value": "7",
+      "text": "安全相关"
+    },
+    {
+      "value": "8",
+      "text": "性能问题"
+    },
+    {
+      "value": "9",
+      "text": "标准规范"
+    },
+    {
+      "value": "10",
+      "text": "测试脚本"
+    },
+    {
+      "value": "11",
+      "text": "设计缺陷"
+    },
+    {
+      "value": "12",
+      "text": "其他"
+    }
+  ],
+  "degreeList": [
+    {
+      "value": "1",
+      "text": "致命"
+    },
+    {
+      "value": "2",
+      "text": "严重"
+    },
+    {
+      "value": "3",
+      "text": "一般"
+    },
+    {
+      "value": "4",
+      "text": "轻微"
+    }
+  ],
+  "priorityList": [
+    {
+      "value": "P0",
+      "text": "紧急"
+    },
+    {
+      "value": "P1",
+      "text": "高"
+    },
+    {
+      "value": "P2",
+      "text": "中"
+    },
+    {
+      "value": "P3",
+      "text": "低"
+    }
+  ],
+  "stateList": [
+    {
+      "value": "1",
+      "text": "已解决"
+    },
+    {
+      "value": "2",
+      "text": "进行中"
+    },
+    {
+      "value": "3",
+      "text": "未解决"
+    },
+    {
+      "value": "4",
+      "text": "已关闭"
+    }
+  ]
+}

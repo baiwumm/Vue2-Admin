@@ -79,43 +79,43 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="名称">
-                            <a-input v-decorator="rules.name" placeholder="请输入名称" />
+                            <a-input v-decorator="rules.name" placeholder="请输入名称" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>
                 <a-row :gutter="16">
                     <a-col :span="12">
                         <a-form-item label="路由路径">
-                            <a-input v-decorator="rules.path" placeholder="请输入路由路径" />
+                            <a-input v-decorator="rules.path" placeholder="请输入路由路径" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="重定向">
-                            <a-input v-decorator="rules.redirect" placeholder="请输入重定向" />
+                            <a-input v-decorator="rules.redirect" placeholder="请输入重定向" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>
                 <a-row :gutter="16">
                     <a-col :span="12">
                         <a-form-item label="vue文件路径">
-                            <a-input v-decorator="rules.component" placeholder="请输入vue文件路径" />
+                            <a-input v-decorator="rules.component" placeholder="请输入vue文件路径" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="标题">
-                            <a-input v-decorator="rules.subTitle" placeholder="请输入标题" />
+                            <a-input v-decorator="rules.subTitle" placeholder="请输入标题" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>
                 <a-row :gutter="16">
                     <a-col :span="12">
                         <a-form-item label="图标icon">
-                            <a-input v-decorator="rules.icon" placeholder="请输入图标icon" />
+                            <a-input v-decorator="rules.icon" placeholder="请输入图标icon" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="用户权限Key">
-                            <a-input v-decorator="rules.permission" placeholder="请输入用户权限Key" />
+                            <a-input v-decorator="rules.permission" placeholder="请输入用户权限Key" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -140,7 +140,7 @@
                 <a-row :gutter="16">
                     <a-col :span="24">
                         <a-form-item label="国际化字段">
-                            <a-input v-decorator="rules.title" placeholder="请输入国际化字段" />
+                            <a-input v-decorator="rules.title" placeholder="请输入国际化字段" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -236,7 +236,7 @@ export default {
             loginState: false,
             parentList: [],
             rules: {
-                parentId: ['parentId', { initialValue: '', rules: [{ required: true, message: '请选择父级' }] }],
+                parentId: ['parentId', { rules: [{ required: true, message: '请选择父级' }] }],
                 name: ['name', { initialValue: '', rules: [{ required: true, message: '请输入名称' }] }],
                 path: ['path', { initialValue: '', rules: [{ required: true, message: '请输入路由路径' }] }],
                 redirect: ['redirect', { initialValue: '' }],

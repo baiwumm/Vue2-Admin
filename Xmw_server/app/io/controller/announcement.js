@@ -1,13 +1,13 @@
+
 'use strict';
 
 module.exports = app => {
     class Controller extends app.Controller {
-        async index() {
-            const message = this.ctx.args[0];
-            console.log('announcement :', message + ' : ' + process.pid);
-            const say = await this.ctx.service.user.say();
-            this.ctx.socket.emit('res', say);
-            this.ctx.body = { state: 1, msg: '请求成功!', data: say }
+        async jieshou() {
+            const { app } = this.ctx;
+            var data = this.ctx.packet[1];
+            const nsp = app.io.of('/')
+            nsp.emit('announcement', data) //给所有在线的人发送消息
         }
     }
     return Controller;

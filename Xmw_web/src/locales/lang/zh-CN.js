@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 2.0
- * @Autor: Xie Mingwei
- * @Date: 2020-09-17 09:34:18
- * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-10 11:22:18
- */
 import antd from 'ant-design-vue/es/locale-provider/zh_CN'
 import momentCN from 'moment/locale/zh-cn'
 
@@ -22,6 +14,7 @@ const locale = {
     'menu.integrated': '综合组件',
     'menu.integrated.salesAnalysis': '销售分析',
     'menu.integrated.organizational': '组织架构',
+    'menu.integrated.seniorForms': '高级表格',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',

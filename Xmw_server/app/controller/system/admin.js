@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-16 11:51:06
+ * @LastEditTime: 2020-11-27 16:17:21
  */
 'use strict';
 
@@ -455,13 +455,8 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            const nsp = app.io.of('/');
-            let msg = '{"id":2, "message":666}'
-            let data = await JSON.parse(msg)
-            // app.io.controllers.chat(msg)
-            nsp.emit('announcement', data);
-            ctx.socket.emit('res', data);
-            return ctx.body = { state: 1, msg: '请求成功!', data: data }
+            const result = await Raw.Query(`select * from xmw_announcement order by createTime desc limit 1`)
+            ctx.body = { state: 1, msg: '请求成功!', data: result }
         } catch (error) {
             ctx.logger.info('webSockets方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }

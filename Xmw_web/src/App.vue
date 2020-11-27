@@ -1,3 +1,4 @@
+
 <template>
     <a-config-provider :locale="locale">
         <div id="app">
@@ -9,11 +10,8 @@
 <script>
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
-
+import { mapState } from 'vuex'
 export default {
-    data() {
-        return {}
-    },
     computed: {
         locale() {
             // 只是为了切换语言时，更新标题

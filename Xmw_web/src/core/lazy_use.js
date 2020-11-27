@@ -49,7 +49,8 @@ import {
     space,
     TreeSelect,
     Tree,
-    BackTop
+    BackTop,
+    Slider
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -107,6 +108,7 @@ Vue.use(space)
 Vue.use(TreeSelect)
 Vue.use(Tree)
 Vue.use(BackTop)
+Vue.use(Slider)
 
 
 Vue.prototype.$confirm = Modal.confirm

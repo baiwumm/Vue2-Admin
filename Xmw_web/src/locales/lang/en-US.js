@@ -14,6 +14,7 @@ const locale = {
     'menu.integrated': 'Integrated',
     'menu.integrated.salesAnalysis': 'SalesAnalysis',
     'menu.integrated.organizational': 'Organizational',
+    'menu.integrated.seniorForms': 'SeniorForms',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',

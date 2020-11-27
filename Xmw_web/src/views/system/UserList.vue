@@ -127,6 +127,7 @@
                     <a-col :span="24">
                         <a-form-item label="角色权限">
                             <a-select
+                                allowClear
                                 v-decorator="rules.roleList"
                                 mode="multiple"
                                 style="width: 100%"
@@ -141,6 +142,7 @@
                     <a-col :span="12">
                         <a-form-item label="用户名">
                             <a-input
+                                allowClear
                                 v-decorator="rules.username"
                                 placeholder="请输入用户名"
                                 :disabled="rules['username'][1].initialValue == 'admin'"
@@ -149,7 +151,7 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="中文名">
-                            <a-input v-decorator="rules.CnName" placeholder="请输入中文名" />
+                            <a-input v-decorator="rules.CnName" placeholder="请输入中文名" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
@@ -184,12 +186,12 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="密码">
-                            <a-input-password v-decorator="rules.password" placeholder="请输入密码" />
+                            <a-input-password v-decorator="rules.password" placeholder="请输入密码" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="确认密码">
-                            <a-input-password v-decorator="rules.confirmPassword" placeholder="请确认密码" />
+                            <a-input-password v-decorator="rules.confirmPassword" placeholder="请确认密码" allowClear />
                         </a-form-item>
                     </a-col>
                 </a-row>

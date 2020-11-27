@@ -78,7 +78,7 @@
                 <a-row>
                     <a-col :span="24">
                         <a-form-item label="角色名称">
-                            <a-input v-decorator="rules.roleName" />
+                            <a-input v-decorator="rules.roleName" placeholder="请输入角色名称" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="24">

@@ -26,7 +26,7 @@
             <template slot="content">
                 <div class="infinite-container">
                     <a-list :data-source="announcementList">
-                        <a-list-item slot="renderItem" slot-scope="item" style="position: relative">
+                        <a-list-item slot="renderItem" slot-scope="item" style="position: relative; height: 80px">
                             <a-list-item-meta
                                 :description="
                                     item.content.length > 30 ? item.content.substr(0, 30) + '...' : item.content
@@ -51,14 +51,7 @@
                                 <a-tag color="purple">
                                     {{ item.CnName }}
                                 </a-tag>
-                                <div
-                                    style="
-                                        color: rgba(0, 0, 0, 0.45);
-                                        font-size: 12px;
-                                        position: absolute;
-                                        bottom: 10px;
-                                    "
-                                >
+                                <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px; margin-top: 10px">
                                     <a-icon type="clock-circle" /> {{ culTime(item.createTime) }}
                                 </div>
                             </div>
@@ -121,7 +114,7 @@ import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
 import { treeData, relativeTime } from '@/utils/util.js'
 import Fuse from 'fuse.js'
-import { Announcement, saveAnnouncementRead } from '@/api/system'
+import { Announcement, saveAnnouncementRead, webSockets } from '@/api/system'
 export default {
     name: 'RightContent',
     components: {
@@ -144,6 +137,51 @@ export default {
         theme: {
             type: String,
             required: true,
+        },
+    },
+    // 监听websocket信息
+    sockets: {
+        announcement(data) {
+            console.log('接收：' + data)
+            if (data) {
+                this.unread = 0
+                this.current = 1
+                this.fetchData((res) => {
+                    this.announcementList = res.result.list
+                    this.total = res.result.total
+                })
+                webSockets().then((res) => {
+                    if (res.state) {
+                        const key = `open${Date.now()}`
+                        this.$notification.success({
+                            message: res.data.CnName + '发布了公告',
+                            description: res.data.title,
+                            duration: 0,
+                            btn: (h) => {
+                                return h(
+                                    'a-button',
+                                    {
+                                        props: {
+                                            type: 'primary',
+                                            size: 'small',
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.$notification.close(key)
+                                                this.showAnnouncementDetail(res.data)
+                                            },
+                                        },
+                                    },
+                                    '查看详情'
+                                )
+                            },
+                            key,
+                        })
+                    } else {
+                        this.$message.error(res.msg)
+                    }
+                })
+            }
         },
     },
     data() {

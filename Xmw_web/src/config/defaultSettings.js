@@ -1,4 +1,3 @@
-
 /**
  * 项目默认配置项
  * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
@@ -15,7 +14,7 @@
 
 export default {
     navTheme: 'dark', // theme for nav menu
-    primaryColor: '#52C41A', // primary color of ant design
+    primaryColor: '#2f54eb', // primary color of ant design
     layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
     contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
     fixedHeader: true, // sticky header

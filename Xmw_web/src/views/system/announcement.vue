@@ -70,17 +70,24 @@
             </span>
         </a-table>
         <!-- 抽屉-发布公告 -->
-        <a-drawer :title="announcementTitle" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
-            <a-form ref="formLogin" :form="form" @submit="handleSubmit">
+        <a-drawer
+            :title="announcementTitle"
+            :width="600"
+            :visible="visible"
+            @close="visible = false"
+            :maskClosable="false"
+        >
+            <a-form :form="form" @submit="handleSubmit">
                 <a-row :gutter="16">
                     <a-col :span="24">
                         <a-form-item label="标题">
-                            <a-input v-decorator="rules.title" placeholder="请输入标题" />
+                            <a-input v-decorator="rules.title" placeholder="请输入标题" allowClear />
                         </a-form-item>
                     </a-col>
                     <a-col :span="24">
                         <a-form-item label="内容">
                             <a-textarea
+                                allowClear
                                 v-decorator="rules.content"
                                 placeholder="请输入内容"
                                 :auto-size="{ minRows: 3, maxRows: 5 }"
@@ -111,7 +118,7 @@
 </template>
 
 <script>
-import { Announcement, addAnnouncement, deleteAnnouncement, webSockets } from '@/api/system'
+import { Announcement, addAnnouncement, deleteAnnouncement } from '@/api/system'
 import { dataFormat } from '@/utils/util.js'
 export default {
     data() {
@@ -200,10 +207,6 @@ export default {
             this.pagination.defaultCurrent = 1
             this.getAnnouncementList()
         },
-        onClose() {
-            let _this = this
-            _this.visible = false
-        },
         release() {
             let _this = this
             _this.visible = true
@@ -226,7 +229,7 @@ export default {
                         content: '您确认提交吗?',
                         onOk: async () => {
                             await addAnnouncement(params)
-                                .then((res) => {
+                                .then(async (res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
                                         let keys = Object.keys(_this.rules)
@@ -235,7 +238,7 @@ export default {
                                         })
                                         _this.visible = false
                                         _this.$message.success(res.msg)
-                                        _this.getAnnouncementList()
+                                        await _this.getAnnouncementList()
                                         _this.sendMessageToServer(params)
                                     } else if (res.state == 2) {
                                         _this.$message.warn(res.msg)
@@ -284,24 +287,9 @@ export default {
         },
         // 向服务端发送消息
         sendMessageToServer: function (data) {
-            this.$socket.emit('announcement', data)
-            // if (data) {
-            //     this.announcementDetail()
-            // }
-        },
-        announcementDetail() {
-            webSockets().then((res) => {
-                if (res.state == 1) {
-                    // 接收到信息
-                    // 延迟 1 秒显示欢迎信息
-                    setTimeout(() => {
-                        this.$notification.success({
-                            message: this.user.CnName + '发布了公告',
-                            description: '哈哈',
-                        })
-                    }, 1000)
-                }
-            })
+            setTimeout(() => {
+                this.$socket.emit('announcement', data)
+            }, 1000)
         },
     },
     mounted() {

@@ -1,16 +1,19 @@
 /*
- * @Description: 组织架构模块接口
+ * @Description: 综合组件模块接口
  * @Version: 2.0
  * @Autor: Xie Mingwei
  * @Date: 2020-11-10 16:07:02
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-10 17:08:16
+ * @LastEditTime: 2020-11-19 18:03:17
  */
 import request from '@/utils/request'
 const Api = {
     departmentList: '/integrated/getDepartmentList',
     addEditDepartment: '/integrated/addEditDepartment',
-    deleteDepartment: '/integrated/deleteDepartment'
+    deleteDepartment: '/integrated/deleteDepartment',
+    seniorFormsList: '/integrated/getseniorFormsList',
+    addEditSeniorForms: '/integrated/addEditSeniorForms',
+    deleteSeniorForms: '/integrated/deleteSeniorForms',
 }
 
 // 获取组织架构-部门列表
@@ -33,6 +36,30 @@ export function addEditDepartment(parameter) {
 export function deleteDepartment(parameter) {
     return request({
         url: Api.deleteDepartment,
+        method: 'post',
+        data: parameter
+    })
+}
+// 获取高级表格列表
+export function seniorFormsList(parameter) {
+    return request({
+        url: Api.seniorFormsList,
+        method: 'get',
+        params: parameter
+    })
+}
+// 添加-编辑高级表格
+export function addEditSeniorForms(parameter) {
+    return request({
+        url: Api.addEditSeniorForms,
+        method: 'post',
+        data: parameter
+    })
+}
+// 删除高级表格
+export function deleteSeniorForms(parameter) {
+    return request({
+        url: Api.deleteSeniorForms,
         method: 'post',
         data: parameter
     })

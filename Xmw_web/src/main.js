@@ -1,5 +1,4 @@
 
-
 // with polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
@@ -24,7 +23,7 @@ import VueSocketIO from 'vue-socket.io'
 Vue.use(Vue2OrgTree)
 
 Vue.use(new VueSocketIO({
-    debug: true,
+    debug: false,
     connection: 'http://127.0.0.1:7001/'
 }))
 
