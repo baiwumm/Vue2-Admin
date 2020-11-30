@@ -96,6 +96,24 @@
                         <a-space size="middle">
                             <a-button type="primary" icon="plus" @click="addBug">新建</a-button>
                             <a-tooltip>
+                                <template slot="title"> 批量上传 </template>
+                                <a-upload :before-upload="beforeUpload" :showUploadList="false">
+                                    <a-button icon="upload" />
+                                </a-upload>
+                            </a-tooltip>
+                            <a-tooltip>
+                                <template slot="title"> 上传模板 </template>
+                                <a-button icon="file-text" @click="exportTemplate()" />
+                            </a-tooltip>
+                            <a-tooltip>
+                                <template slot="title"> 导出文件 </template>
+                                <export-file
+                                    :tHeader="columns.map((c) => c.title)"
+                                    :filterVal="columns.map((c) => c.key)"
+                                    :exportData="exportData"
+                                ></export-file>
+                            </a-tooltip>
+                            <a-tooltip>
                                 <template slot="title"> 删除选中 </template>
                                 <a-button
                                     type="danger"
@@ -317,7 +335,12 @@ import { seniorFormsList, addEditSeniorForms, deleteSeniorForms } from '@/api/in
 import { dataFormat } from '@/utils/util.js'
 import moment from 'moment'
 import formType from './components/formType.json'
+import exportFile from './components/exportFile'
+import { export_json_to_excel } from '@/utils/Excel/Export2Excel'
 export default {
+    components: {
+        exportFile,
+    },
     data() {
         return {
             typeList: formType,
@@ -566,6 +589,7 @@ export default {
             },
             colShow: false,
             queryLoading: false,
+            exportData: [],
         }
     },
     computed: {
@@ -687,6 +711,26 @@ export default {
                         v.endTime = dataFormat(v.endTime, 'yyyy-MM-dd')
                     })
                     _this.userList = res.userList
+                    // 深克隆导出数据
+                    _this.exportData = JSON.parse(JSON.stringify(_this.data))
+                    _this.exportData.forEach((v) => {
+                        _this.typeList.BugTypeList.map((a) => {
+                            if (v.type == a.value) v.type = a.text
+                        })
+                        _this.typeList.degreeList.map((a) => {
+                            if (v.degree == a.value) v.degree = a.text
+                        })
+                        _this.typeList.priorityList.map((a) => {
+                            if (v.priority == a.value) v.priority = a.text
+                        })
+                        _this.typeList.stateList.map((a) => {
+                            if (v.state == a.value) v.state = a.text
+                        })
+                        _this.userList.map((a) => {
+                            if (v.designated == a.key) v.designated = a.label
+                            if (v.creator == a.key) v.creator = a.label
+                        })
+                    })
                     // 过滤指派给谁和创建人筛选
                     _this.columns.forEach((v) => {
                         if (v.key == 'designated' || v.key == 'creator') {
@@ -875,6 +919,125 @@ export default {
                 createTime: [],
                 endTime: [],
             }
+        },
+        // 上传excel文件
+        beforeUpload(file) {
+            console.log(file)
+            // 获取文件名
+            this.fileName = file.name
+            // 获取文件类型
+            let fileType = file.name.substring(file.name.lastIndexOf('.') + 1)
+            let whitelist = ['xls', 'xlsx', 'csv'].indexOf(fileType.toLowerCase()) !== -1
+            // 判断图片大小
+            let isLt10M = file.size / 1024 / 1024 < 10
+            if (!isLt10M || !whitelist) {
+                this.$message.warning('请上传excel表格，且大小不能超过 10MB!')
+                return false
+            }
+            this.importf(file)
+            return false //  取消默认上传
+        },
+        importf(obj) {
+            let _this = this
+            // 通过DOM取文件数据
+            let f = obj,
+                reader = new FileReader(),
+                rABS = false
+            FileReader.prototype.readAsBinaryString = function (f) {
+                //rABS是否将文件读取为二进制字符串,wb读取完成的数据
+                let binary = '',
+                    rABS = false,
+                    wb,
+                    outdata
+                reader.onload = async function (e) {
+                    let bytes = new Uint8Array(reader.result)
+                    let length = bytes.byteLength
+                    for (let i = 0; i < length; i++) {
+                        binary += String.fromCharCode(bytes[i])
+                    }
+                    let XLSX = require('xlsx')
+                    if (rABS) {
+                        wb = XLSX.read(btoa(fixdata(binary)), {
+                            //手动转化
+                            type: 'base64',
+                            cellDates: true,
+                        })
+                    } else {
+                        wb = XLSX.read(binary, {
+                            type: 'binary',
+                            cellDates: true,
+                        })
+                    }
+                    outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //outdata就是读取excel内容之后输出的东西
+                    // 全局替换表头字段
+                    let formData = JSON.parse(
+                        JSON.stringify(outdata)
+                            .replace(/Bug标题/g, 'title')
+                            .replace(/Bug类型/g, 'type')
+                            .replace(/严重程度/g, 'degree')
+                            .replace(/优先级/g, 'priority')
+                            .replace(/进度/g, 'progress')
+                            .replace(/状态/g, 'state')
+                            .replace(/创建人/g, 'creator')
+                            .replace(/指派给谁/g, 'designated')
+                            .replace(/截止日期/g, 'endTime')
+                    )
+                    // 插入数据库
+                    let params = { upload: true, formData: formData }
+                    _this.loading = true
+                    await addEditSeniorForms(params)
+                        .then((res) => {
+                            if (res.state) {
+                                _this.$message.success(res.msg)
+                                _this.getseniorFormsList()
+                            } else {
+                                _this.$message.error('上传文件字段不对,请下载模板上传!')
+                            }
+                        })
+                        .finally(() => {
+                            _this.loading = false
+                        })
+                }
+                reader.readAsArrayBuffer(f)
+            }
+            if (rABS) {
+                reader.readAsArrayBuffer(f)
+            } else {
+                reader.readAsBinaryString(f)
+            }
+        },
+        // 上传模板
+        exportTemplate() {
+            require.ensure([], () => {
+                const tHeader = [
+                    'Bug标题',
+                    'Bug类型',
+                    '严重程度',
+                    '优先级',
+                    '状态',
+                    '进度',
+                    '指派给谁',
+                    '创建人',
+                    '截止日期',
+                ]
+                const filterVal = [
+                    'title',
+                    'type',
+                    'degree',
+                    'priority',
+                    'state',
+                    'progress',
+                    'designated',
+                    'creator',
+                    'endTime',
+                ]
+                const list = []
+                const data = this.formatJson(filterVal, list)
+                export_json_to_excel(tHeader, data, '上传模板')
+            })
+        },
+        formatJson(filterVal, jsonData) {
+            return jsonData.map((v) => filterVal.map((j) => v[j]))
         },
     },
     mounted() {

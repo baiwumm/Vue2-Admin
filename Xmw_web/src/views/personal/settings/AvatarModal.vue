@@ -118,7 +118,7 @@ export default {
             // 判断图片大小
             let isLt5M = file.size / 1024 / 1024 < 2
             if (!isLt5M || !whitelist) {
-                this.$message.error('文件只能是jpg、jpeg、png格式，且大小不能超过 2MB!')
+                this.$message.warning('文件只能是jpg、jpeg、png格式，且大小不能超过 2MB!')
                 return false
             }
             const reader = new FileReader()

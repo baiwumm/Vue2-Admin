@@ -29,7 +29,6 @@
         </div>
         <!-- 表格数据 -->
         <a-table
-            v-if="data.length"
             :columns="columns"
             rowKey="roleID"
             :data-source="data"
@@ -170,7 +169,7 @@ export default {
             },
             loading: false,
             roleName: '',
-            status: '',
+            status: undefined,
             title: '',
             visible: false,
             roleID: '',

@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-11-19 13:54:00
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-27 13:41:12
+ * @LastEditTime: 2020-11-30 15:30:25
  */
 'use strict';
 
@@ -42,12 +42,20 @@ class SeniorFormsController extends Controller {
         try {
             let { UserID, username, CnName } = ctx.session.userInfo
             let params = ctx.request.body
+            //批量上传
+            if (params.upload) {
+                params.formData.forEach(v => {
+                    v.createTime = new Date()
+                })
+                await Raw.InsertList('xmw_bug', params.formData);
+                await ctx.service.logs.saveLogs(username, CnName, '批量上传:' + params.formData.length + '条数据', '/integrated/seniorForms')
+                ctx.body = { state: 1, msg: '上传成功!' }
+            }
             // 新增
-            if (!params.BugID) {
+            else if (!params.BugID) {
                 params.createTime = new Date()
                 params.creator = UserID
                 delete params.BugID
-                console.log(params)
                 await Raw.Insert('xmw_bug', params);
                 await ctx.service.logs.saveLogs(username, CnName, '添加BUG:' + params.title, '/integrated/seniorForms')
                 ctx.body = { state: 1, msg: '添加成功!' }

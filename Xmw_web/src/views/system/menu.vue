@@ -26,7 +26,6 @@
         </div>
         <!-- 表格数据 -->
         <a-table
-            v-if="data.length"
             :columns="columns"
             rowKey="ID"
             :data-source="data"

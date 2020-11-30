@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-27 16:17:21
+ * @LastEditTime: 2020-11-30 16:18:07
  */
 'use strict';
 
@@ -180,7 +180,7 @@ class SystemController extends Controller {
             let { roleName, status, current, pageSize } = ctx.query;
             let where = `1+1`
             if (roleName) where += ` and roleName like '%${roleName}%'`
-            if (status != '') where += ` and status = ${status}`
+            if (status || status == 0) where += ` and status = ${status}`
             const result = await Raw.QueryPageData(`select * from xmw_role where ${where}`, current, pageSize);
             const roleList = await Raw.QueryList(`select ID,parentId,permission,actions,subTitle as title from xmw_menu where name != 'index'`);
             ctx.body = { state: 1, msg: '请求成功!', result: result, roleList: roleList }

@@ -15,7 +15,7 @@
                     </a-col>
                     <a-col :md="6" :sm="24">
                         <a-form-item label="状态">
-                            <a-select placeholder="请选择" v-model="Status" allowClear>
+                            <a-select placeholder="请选择状态" v-model="Status" allowClear>
                                 <a-select-option value="1">启用</a-select-option>
                                 <a-select-option value="0">禁用</a-select-option>
                             </a-select>
@@ -228,7 +228,7 @@ export default {
         return {
             username: '',
             CnName: '',
-            Status: '',
+            Status: undefined,
             columns: [
                 { title: '用户名', dataIndex: 'username', key: 'username', ellipsis: true },
                 { title: '中文名', dataIndex: 'CnName', key: 'CnName', ellipsis: true },

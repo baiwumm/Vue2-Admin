@@ -113,7 +113,7 @@ export default {
             parentList: [],
             form: this.$form.createForm(this),
             rules: {
-                parentId: ['parentId', { initialValue: '' }],
+                parentId: ['parentId', { initialValue: undefined }],
                 name: ['name', { initialValue: '', rules: [{ required: true, message: '请输入部门名称' }] }],
             },
             DepartmentID: '',
