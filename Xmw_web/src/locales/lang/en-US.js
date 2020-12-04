@@ -12,7 +12,7 @@ const locale = {
     'menu.home': 'Home',
     'menu.workbench': 'Workbench',
     'menu.integrated': 'Integrated',
-    'menu.integrated.salesAnalysis': 'SalesAnalysis',
+    'menu.integrated.advancedForm': 'AdvancedForm',
     'menu.integrated.organizational': 'Organizational',
     'menu.integrated.seniorForms': 'SeniorForms',
     'menu.personal.center': 'PersonalCenter',

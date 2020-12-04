@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-10 17:46:41
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-30 16:18:07
+ * @LastEditTime: 2020-12-02 11:40:24
  */
 'use strict';
 
@@ -16,10 +16,9 @@ class SystemController extends Controller {
         const { Raw } = app.Db.xmw;
         try {
             let { username, createTime, current, pageSize } = ctx.query;
-            createTime = JSON.parse(createTime)
             let where = '1+1'
             if (username) where += ` and username like '%${username}%'`
-            if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
+            if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
             const result = await Raw.QueryPageData(`select * from xmw_logs where ${where} order by createTime desc`, current, pageSize);
             ctx.body = { state: 1, msg: '请求成功!', result: result }
         } catch (error) {
@@ -35,10 +34,9 @@ class SystemController extends Controller {
             // 判断是否有参数，如果有则是菜单页面，没有就路由请求
             if (Object.keys(ctx.query).length) {
                 let { routerName, createTime, current, pageSize } = ctx.query;
-                createTime = JSON.parse(createTime)
                 let where = `name != 'index'`
                 if (routerName) where += ` and name like '%${routerName}%'`
-                if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
+                if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
                 let parentList = await Raw.QueryList(`select ID,parentId,subTitle as title from xmw_menu`)
                 const result = await Raw.QueryPageData(`select * from xmw_menu where ${where}`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result, parentList: parentList }
@@ -66,10 +64,10 @@ class SystemController extends Controller {
             let { username, CnName } = ctx.session.userInfo
             let params = ctx.request.body
             params.createTime = new Date()
+            let { name, path, permission } = params
             // 新增菜单
             if (!params.ID) {
                 delete params.ID
-                let { name, path, permission } = params
                 let exitData = await Raw.QueryList(`select count(1) as total from xmw_menu where name = '${name}' or path = '${path}' or permission = '${permission}'`)
                 // 判断名称、路径、权限是否相同
                 if (exitData[0].total) {
@@ -178,12 +176,16 @@ class SystemController extends Controller {
         const { Raw } = app.Db.xmw;
         try {
             let { roleName, status, current, pageSize } = ctx.query;
-            let where = `1+1`
+            let where = `1+1`, actionObj = {}
             if (roleName) where += ` and roleName like '%${roleName}%'`
             if (status || status == 0) where += ` and status = ${status}`
             const result = await Raw.QueryPageData(`select * from xmw_role where ${where}`, current, pageSize);
-            const roleList = await Raw.QueryList(`select ID,parentId,permission,actions,subTitle as title from xmw_menu where name != 'index'`);
-            ctx.body = { state: 1, msg: '请求成功!', result: result, roleList: roleList }
+            const roleList = await Raw.QueryList(`select ID,parentId,permission,actions,icon,subTitle as title from xmw_menu where name != 'index'`);
+            const actionList = await Raw.QueryList(`select * from xmw_action`)
+            actionList.map(v => {
+                actionObj[v.key] = v.label
+            })
+            ctx.body = { state: 1, msg: '请求成功!', result: result, roleList: roleList, actionList: actionObj }
         } catch (error) {
             ctx.logger.info('getRoleList方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
@@ -209,22 +211,17 @@ class SystemController extends Controller {
             let permissionList = await Raw.QueryList(`select permission,subTitle from xmw_menu`)
             // 过滤勾选的路由权限，如果只有操作权限，不勾选路由，则过滤掉
             roleList.map(v => {
-                let splitArr = v.value.split('-')
+                let splitArr = v.split('-')
                 permissionList.map(e => {
                     if (splitArr[0] == e.permission) {
                         if (!roleObj[splitArr[0]]) {
                             roleObj[splitArr[0]] = {
                                 permissionId: splitArr[0],
                                 permissionName: e.subTitle,
-                                actions: [],
                                 actionList: []
                             }
                         }
                         if (splitArr.length > 1) {
-                            roleObj[splitArr[0]].actions.push({
-                                action: splitArr[1],
-                                describe: v.label
-                            })
                             roleObj[splitArr[0]].actionList.push(splitArr[1])
                         }
 
@@ -371,11 +368,10 @@ class SystemController extends Controller {
         try {
             if (Object.keys(ctx.query).length != 2) {
                 let { author, title, createTime, current, pageSize } = ctx.query;
-                createTime = JSON.parse(createTime)
                 let where = `1+1`
                 if (author) where += ` and author like '%${author}%'`
                 if (title) where += ` and title like '%${title}%'`
-                if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
+                if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
                 const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where} order by createTime desc`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result }
             } else {

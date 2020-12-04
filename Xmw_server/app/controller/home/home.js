@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:44:16
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-13 17:05:29
+ * @LastEditTime: 2020-12-01 17:51:42
  */
 'use strict';
 
@@ -188,6 +188,7 @@ class HomeController extends Controller {
         const { Raw } = app.Db.xmw;
         try {
             let host = ctx.request.header.host
+            let { UserID } = ctx.session.userInfo
             //1.获取文件流
             const stream = await this.ctx.getFileStream();
             //2.获取图片类型

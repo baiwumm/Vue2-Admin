@@ -1,169 +1,171 @@
 <template>
-    <a-card :bordered="false">
-        <div class="table-page-search-wrapper">
-            <a-form layout="inline">
-                <a-row :gutter="48">
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="名称">
-                            <a-input placeholder="请输入" v-model="routerName" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="创建时间">
-                            <a-range-picker @change="logTime" />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <span class="table-page-search-submitButtons">
-                            <a-space>
-                                <a-button type="primary" @click="query" v-action:query>查询</a-button>
-                                <a-button type="primary" @click="addMenu" v-action:add>添加</a-button>
-                            </a-space>
-                        </span>
-                    </a-col>
-                </a-row>
-            </a-form>
-        </div>
-        <!-- 表格数据 -->
-        <a-table
-            :columns="columns"
-            rowKey="ID"
-            :data-source="data"
-            :pagination="pagination"
-            @change="tableChange"
-            :loading="loading"
-            :defaultExpandAllRows="true"
-        >
-            <span slot="keepAlive" slot-scope="text, record">
-                {{ record.keepAlive ? '是' : '否' }}
-            </span>
-            <span slot="hidden" slot-scope="text, record">
-                {{ record.hidden == 0 ? '是' : '否' }}
-            </span>
-            <span slot="icon" slot-scope="text, record">
-                <a-icon
-                    :type="record.icon"
-                    :style="{ fontSize: '20px', color: 'rgb(24, 144, 255)' }"
-                    v-if="record.icon"
-                />
-            </span>
-            <span slot="permission" slot-scope="text, record">
-                <a-tag color="purple" v-if="record.permission">
-                    {{ record.permission }}
-                </a-tag>
-            </span>
-            <span slot="action" slot-scope="text, record">
-                <a @click="onEdit(record)" v-action:edit>编辑</a>
-                <a-divider type="vertical" />
-                <a @click="onDelete(record)" v-action:delete>删除</a>
-            </span>
-        </a-table>
+    <page-header-wrapper content="动态路由权限配置">
+        <a-card :bordered="false">
+            <div class="table-page-search-wrapper">
+                <a-form layout="inline">
+                    <a-row :gutter="48">
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="名称">
+                                <a-input placeholder="请输入" v-model="queryForm.routerName" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="创建时间">
+                                <a-range-picker v-model="queryForm.createTime" valueFormat="YYYY-MM-DD" />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <span class="table-page-search-submitButtons">
+                                <a-space>
+                                    <a-button type="primary" @click="query" v-action:query>查询</a-button>
+                                    <a-button type="primary" @click="addMenu" v-action:add>添加</a-button>
+                                </a-space>
+                            </span>
+                        </a-col>
+                    </a-row>
+                </a-form>
+            </div>
+            <!-- 表格数据 -->
+            <a-table
+                :columns="columns"
+                rowKey="ID"
+                :data-source="data"
+                :pagination="pagination"
+                @change="tableChange"
+                :loading="loading"
+                :defaultExpandAllRows="true"
+            >
+                <span slot="keepAlive" slot-scope="text, record">
+                    {{ record.keepAlive ? '是' : '否' }}
+                </span>
+                <span slot="hidden" slot-scope="text, record">
+                    {{ record.hidden == 0 ? '是' : '否' }}
+                </span>
+                <span slot="icon" slot-scope="text, record">
+                    <a-icon
+                        :type="record.icon"
+                        :style="{ fontSize: '20px', color: 'rgb(24, 144, 255)' }"
+                        v-if="record.icon"
+                    />
+                </span>
+                <span slot="permission" slot-scope="text, record">
+                    <a-tag color="purple" v-if="record.permission">
+                        {{ record.permission }}
+                    </a-tag>
+                </span>
+                <span slot="action" slot-scope="text, record">
+                    <a @click="onEdit(record)" v-action:edit>编辑</a>
+                    <a-divider type="vertical" />
+                    <a @click="onDelete(record)" v-action:delete>删除</a>
+                </span>
+            </a-table>
 
-        <!-- 抽屉-添加编辑 -->
-        <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
-            <a-form ref="formLogin" :form="form" @submit="handleSubmit">
-                <a-row :gutter="16">
-                    <a-col :span="12">
-                        <a-form-item label="父级">
-                            <a-tree-select
-                                v-decorator="rules.parentId"
-                                style="width: 100%"
-                                :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-                                :tree-data="parentList"
-                                placeholder="请选择父级"
-                                tree-default-expand-all
-                            >
-                            </a-tree-select>
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-item label="名称">
-                            <a-input v-decorator="rules.name" placeholder="请输入名称" allowClear />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <a-row :gutter="16">
-                    <a-col :span="12">
-                        <a-form-item label="路由路径">
-                            <a-input v-decorator="rules.path" placeholder="请输入路由路径" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-item label="重定向">
-                            <a-input v-decorator="rules.redirect" placeholder="请输入重定向" allowClear />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <a-row :gutter="16">
-                    <a-col :span="12">
-                        <a-form-item label="vue文件路径">
-                            <a-input v-decorator="rules.component" placeholder="请输入vue文件路径" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-item label="标题">
-                            <a-input v-decorator="rules.subTitle" placeholder="请输入标题" allowClear />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <a-row :gutter="16">
-                    <a-col :span="12">
-                        <a-form-item label="图标icon">
-                            <a-input v-decorator="rules.icon" placeholder="请输入图标icon" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-item label="用户权限Key">
-                            <a-input v-decorator="rules.permission" placeholder="请输入用户权限Key" allowClear />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <a-row :gutter="16">
-                    <a-col :span="12">
-                        <a-form-item label="是否隐藏">
-                            <a-radio-group v-decorator="rules.hidden">
-                                <a-radio :value="1"> 否 </a-radio>
-                                <a-radio :value="0"> 是 </a-radio>
-                            </a-radio-group>
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-item label="是否缓存">
-                            <a-radio-group v-decorator="rules.keepAlive">
-                                <a-radio :value="1"> 是 </a-radio>
-                                <a-radio :value="0"> 否 </a-radio>
-                            </a-radio-group>
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <a-row :gutter="16">
-                    <a-col :span="24">
-                        <a-form-item label="国际化字段">
-                            <a-input v-decorator="rules.title" placeholder="请输入国际化字段" allowClear />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
+            <!-- 抽屉-添加编辑 -->
+            <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
+                <a-form ref="formLogin" :form="form" @submit="handleSubmit">
+                    <a-row :gutter="16">
+                        <a-col :span="12">
+                            <a-form-item label="父级">
+                                <a-tree-select
+                                    v-decorator="rules.parentId"
+                                    style="width: 100%"
+                                    :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+                                    :tree-data="parentList"
+                                    placeholder="请选择父级"
+                                    tree-default-expand-all
+                                >
+                                </a-tree-select>
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                            <a-form-item label="名称">
+                                <a-input v-decorator="rules.name" placeholder="请输入名称" allowClear />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <a-row :gutter="16">
+                        <a-col :span="12">
+                            <a-form-item label="路由路径">
+                                <a-input v-decorator="rules.path" placeholder="请输入路由路径" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                            <a-form-item label="重定向">
+                                <a-input v-decorator="rules.redirect" placeholder="请输入重定向" allowClear />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <a-row :gutter="16">
+                        <a-col :span="12">
+                            <a-form-item label="vue文件路径">
+                                <a-input v-decorator="rules.component" placeholder="请输入vue文件路径" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                            <a-form-item label="标题">
+                                <a-input v-decorator="rules.subTitle" placeholder="请输入标题" allowClear />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <a-row :gutter="16">
+                        <a-col :span="12">
+                            <a-form-item label="图标icon">
+                                <a-input v-decorator="rules.icon" placeholder="请输入图标icon" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                            <a-form-item label="用户权限Key">
+                                <a-input v-decorator="rules.permission" placeholder="请输入用户权限Key" allowClear />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <a-row :gutter="16">
+                        <a-col :span="12">
+                            <a-form-item label="是否隐藏">
+                                <a-radio-group v-decorator="rules.hidden">
+                                    <a-radio :value="1"> 否 </a-radio>
+                                    <a-radio :value="0"> 是 </a-radio>
+                                </a-radio-group>
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                            <a-form-item label="是否缓存">
+                                <a-radio-group v-decorator="rules.keepAlive">
+                                    <a-radio :value="1"> 是 </a-radio>
+                                    <a-radio :value="0"> 否 </a-radio>
+                                </a-radio-group>
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <a-row :gutter="16">
+                        <a-col :span="24">
+                            <a-form-item label="国际化字段">
+                                <a-input v-decorator="rules.title" placeholder="请输入国际化字段" allowClear />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
 
-                <div
-                    :style="{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        borderTop: '1px solid #e9e9e9',
-                        padding: '10px 16px',
-                        background: '#fff',
-                        textAlign: 'right',
-                        zIndex: 1,
-                    }"
-                >
-                    <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
-                        提交
-                    </a-button>
-                </div>
-            </a-form>
-        </a-drawer>
-    </a-card>
+                    <div
+                        :style="{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            zIndex: 1,
+                        }"
+                    >
+                        <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
+                            提交
+                        </a-button>
+                    </div>
+                </a-form>
+            </a-drawer>
+        </a-card>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -217,8 +219,7 @@ export default {
                 },
             ],
             data: [],
-            routerName: '',
-            createTime: [],
+            queryForm: {},
             pagination: {
                 total: 0,
                 defaultCurrent: 1,
@@ -236,15 +237,12 @@ export default {
             parentList: [],
             rules: {
                 parentId: ['parentId', { rules: [{ required: true, message: '请选择父级' }] }],
-                name: ['name', { initialValue: '', rules: [{ required: true, message: '请输入名称' }] }],
-                path: ['path', { initialValue: '', rules: [{ required: true, message: '请输入路由路径' }] }],
-                redirect: ['redirect', { initialValue: '' }],
-                component: [
-                    'component',
-                    { initialValue: '', rules: [{ required: true, message: '请输入vue文件路径' }] },
-                ],
-                title: ['title', { initialValue: '', rules: [{ required: true, message: '请输入标题' }] }],
-                icon: ['icon', { initialValue: '' }],
+                name: ['name', { rules: [{ required: true, message: '请输入名称' }] }],
+                path: ['path', { rules: [{ required: true, message: '请输入路由路径' }] }],
+                redirect: ['redirect'],
+                component: ['component', { rules: [{ required: true, message: '请输入vue文件路径' }] }],
+                title: ['title', { rules: [{ required: true, message: '请输入标题' }] }],
+                icon: ['icon'],
                 permission: [
                     'permission',
                     {
@@ -252,17 +250,14 @@ export default {
                         rules: [{ required: true, message: '请输入用户权限Key' }],
                     },
                 ],
-                hidden: ['hidden', { initialValue: '', rules: [{ required: true, message: '请选择是否隐藏' }] }],
-                keepAlive: ['keepAlive', { initialValue: '', rules: [{ required: true, message: '请选择是否缓存' }] }],
-                subTitle: ['subTitle', { initialValue: '', rules: [{ required: true, message: '请输入国际化字段' }] }],
+                hidden: ['hidden', { initialValue: 1, rules: [{ required: true, message: '请选择是否隐藏' }] }],
+                keepAlive: ['keepAlive', { initialValue: 1, rules: [{ required: true, message: '请选择是否缓存' }] }],
+                subTitle: ['subTitle', { rules: [{ required: true, message: '请输入国际化字段' }] }],
             },
             ID: '',
         }
     },
     methods: {
-        logTime(date, dateString) {
-            this.createTime = dateString
-        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
@@ -272,8 +267,8 @@ export default {
             let _this = this
             _this.loading = true
             let params = {
-                routerName: _this.routerName,
-                createTime: JSON.stringify(_this.createTime),
+                routerName: _this.queryForm.routerName,
+                createTime: JSON.stringify(_this.queryForm.createTime),
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
@@ -340,10 +335,6 @@ export default {
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        let keys = Object.keys(_this.rules)
-                                        keys.map((v) => {
-                                            _this.rules[v][1].initialValue = ''
-                                        })
                                         _this.ID = ''
                                         _this.visible = false
                                         _this.$message.success(res.msg)
@@ -376,20 +367,20 @@ export default {
             _this.visible = false
             _this.form.resetFields()
             _this.ID = ''
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                _this.rules[v][1].initialValue = ''
-            })
         },
         // 编辑表格数据
         onEdit(record) {
-            let _this = this
+            let _this = this,
+                cloneData = _this._.cloneDeep(record)
             _this.visible = true
-            _this.title = '编辑菜单:' + record.subTitle
-            _this.ID = record.ID
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                _this.rules[v][1].initialValue = record[v]
+            _this.title = '编辑菜单:' + cloneData.subTitle
+            _this.ID = cloneData.ID
+            delete cloneData.ID
+            delete cloneData.children
+            delete cloneData.actions
+            delete cloneData.createTime
+            _this.$nextTick(() => {
+                _this.form.setFieldsValue(cloneData)
             })
         },
         // 删除数据

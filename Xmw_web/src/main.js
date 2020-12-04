@@ -13,6 +13,9 @@ import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
 import Vue2OrgTree from 'vue2-org-tree'
 
+import _ from 'lodash'
+Vue.prototype._ = _
+
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
 import './permission' // permission control

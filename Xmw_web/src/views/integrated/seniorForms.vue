@@ -1,333 +1,376 @@
 <template>
-    <div class="seniorForms">
-        <a-card :bordered="false" :bodyStyle="{ 'margin-bottom': '24px' }">
-            <div class="table-page-search-wrapper">
-                <a-form layout="inline">
-                    <a-row :gutter="48">
-                        <a-col :md="6" :sm="24">
-                            <a-form-item label="标题">
-                                <a-input placeholder="请输入标题" v-model="queryForm.bugTitle" allowClear />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24">
-                            <a-form-item label="Bug类型">
-                                <a-select placeholder="请选择Bug类型" v-model="queryForm.type" allowClear>
-                                    <a-select-option
-                                        :value="item.value"
-                                        v-for="(item, index) in typeList.BugTypeList"
-                                        :key="index"
-                                        >{{ item.text }}</a-select-option
-                                    >
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24">
-                            <a-form-item label="严重程度">
-                                <a-select placeholder="请选择严重程度" v-model="queryForm.degree" allowClear>
-                                    <a-select-option
-                                        :value="item.value"
-                                        v-for="(item, index) in typeList.degreeList"
-                                        :key="index"
-                                        >{{ item.text }}</a-select-option
-                                    >
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24" v-if="colShow">
-                            <a-form-item label="优先级">
-                                <a-select placeholder="请选择优先级" v-model="queryForm.priority" allowClear>
-                                    <a-select-option
-                                        :value="item.value"
-                                        v-for="(item, index) in typeList.priorityList"
-                                        :key="index"
-                                        >{{ item.text }}</a-select-option
-                                    >
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24" v-if="colShow">
-                            <a-form-item label="状态">
-                                <a-select placeholder="请选择状态" v-model="queryForm.state" allowClear>
-                                    <a-select-option
-                                        :value="item.value"
-                                        v-for="(item, index) in typeList.stateList"
-                                        :key="index"
-                                        >{{ item.text }}</a-select-option
-                                    >
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24" v-if="colShow">
-                            <a-form-item label="创建时间">
-                                <a-range-picker @change="setCreateTime" style="width: 100%" />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24" v-if="colShow">
-                            <a-form-item label="截止时间">
-                                <a-range-picker @change="setEndTime" style="width: 100%" />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="6" :sm="24" style="text-align: right">
-                            <a-space>
-                                <a-button @click="reset">重置</a-button>
-                                <a-button type="primary" @click="query" :loading="queryLoading"> 查询 </a-button>
-                                <a @click="togglePackUp">
-                                    {{ colShow ? '收起' : '展开' }}
-                                    <a-icon
-                                        type="down"
-                                        style="
-                                            transition: all 0.3s ease 0s;
-                                            transform: rotate(0turn);
-                                            margin-left: 0.5em;
-                                        "
-                                        :style="{ transform: colShow ? 'rotate(0.5turn)' : 'rotate(0turn)' }"
-                                /></a>
-                            </a-space>
-                        </a-col>
-                    </a-row>
-                </a-form>
-            </div>
-        </a-card>
-        <a-card :bordered="false" :bodyStyle="{ paddingBottom: 0, paddingTop: 0 }">
-            <div class="toolbar">
-                <a-row type="flex" justify="space-between">
-                    <a-col style="color: rgba(0, 0, 0, 0.85); font-weight: bold">高级表格</a-col>
-                    <a-col>
-                        <a-space size="middle">
-                            <a-button type="primary" icon="plus" @click="addBug">新建</a-button>
-                            <a-tooltip>
-                                <template slot="title"> 批量上传 </template>
-                                <a-upload :before-upload="beforeUpload" :showUploadList="false">
-                                    <a-button icon="upload" />
-                                </a-upload>
-                            </a-tooltip>
-                            <a-tooltip>
-                                <template slot="title"> 上传模板 </template>
-                                <a-button icon="file-text" @click="exportTemplate()" />
-                            </a-tooltip>
-                            <a-tooltip>
-                                <template slot="title"> 导出文件 </template>
-                                <export-file
-                                    :tHeader="columns.map((c) => c.title)"
-                                    :filterVal="columns.map((c) => c.key)"
-                                    :exportData="exportData"
-                                ></export-file>
-                            </a-tooltip>
-                            <a-tooltip>
-                                <template slot="title"> 删除选中 </template>
-                                <a-button
-                                    type="danger"
-                                    icon="delete"
-                                    @click="deleteSeleted"
-                                    :disabled="!selectedRowKeys.length"
-                                    :loading="delLoading"
-                                />
-                            </a-tooltip>
-                            <a-space size="middle">
-                                <a-tooltip
-                                    ><template slot="title"> 刷新 </template
-                                    ><a-icon type="reload" style="cursor: pointer" @click="query"
-                                /></a-tooltip>
-                                <a-tooltip>
-                                    <template slot="title"> 密度 </template>
-                                    <a-dropdown
-                                        :trigger="['click']"
-                                        placement="bottomCenter"
-                                        overlayClassName="ant-dropdown-menu-item-selected"
-                                    >
-                                        <a-icon
-                                            type="column-height"
-                                            style="cursor: pointer"
-                                            @click="(e) => e.preventDefault()"
-                                        />
-                                        <a-menu slot="overlay" @click="menuClick">
-                                            <a-menu-item
-                                                v-for="(item, index) in menuItem"
+    <page-header-wrapper
+        content="高级表格参考了ProTable的设计理念，在其基础上增加了多种格式导出、批量导入、自定义列等功能，在其中封装了很多常用的逻辑。"
+    >
+        <div class="seniorForms">
+            <a-card :bordered="false" :bodyStyle="{ 'margin-bottom': '24px' }">
+                <div class="table-page-search-wrapper">
+                    <a-form layout="inline">
+                        <a-row :gutter="48">
+                            <a-col :md="6" :sm="24">
+                                <a-form-item label="标题">
+                                    <a-input placeholder="请输入标题" v-model="queryForm.bugTitle" allowClear />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :md="6" :sm="24">
+                                <a-form-item label="Bug类型">
+                                    <a-select placeholder="请选择Bug类型" v-model="queryForm.type" allowClear>
+                                        <a-select-option
+                                            :value="item.value"
+                                            v-for="(item, index) in typeList.BugTypeList"
+                                            :key="index"
+                                            >{{ item.text }}</a-select-option
+                                        >
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :md="6" :sm="24">
+                                <a-form-item label="严重程度">
+                                    <a-select placeholder="请选择严重程度" v-model="queryForm.degree" allowClear>
+                                        <a-select-option
+                                            :value="item.value"
+                                            v-for="(item, index) in typeList.degreeList"
+                                            :key="index"
+                                            >{{ item.text }}</a-select-option
+                                        >
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <template v-if="colShow">
+                                <a-col :md="6" :sm="24">
+                                    <a-form-item label="优先级">
+                                        <a-select placeholder="请选择优先级" v-model="queryForm.priority" allowClear>
+                                            <a-select-option
+                                                :value="item.value"
+                                                v-for="(item, index) in typeList.priorityList"
                                                 :key="index"
-                                                :class="{ 'ant-dropdown-menu-item-selected': item.key == density }"
+                                                >{{ item.text }}</a-select-option
                                             >
-                                                {{ item.label }}
-                                            </a-menu-item>
-                                        </a-menu>
-                                    </a-dropdown>
+                                        </a-select>
+                                    </a-form-item>
+                                </a-col>
+                                <a-col :md="6" :sm="24">
+                                    <a-form-item label="状态">
+                                        <a-select placeholder="请选择状态" v-model="queryForm.state" allowClear>
+                                            <a-select-option
+                                                :value="item.value"
+                                                v-for="(item, index) in typeList.stateList"
+                                                :key="index"
+                                                >{{ item.text }}</a-select-option
+                                            >
+                                        </a-select>
+                                    </a-form-item>
+                                </a-col>
+                                <a-col :md="6" :sm="24">
+                                    <a-form-item label="创建时间">
+                                        <a-range-picker
+                                            style="width: 100%"
+                                            v-model="queryForm.createTime"
+                                            valueFormat="YYYY-MM-DD"
+                                        />
+                                    </a-form-item>
+                                </a-col>
+                                <a-col :md="6" :sm="24">
+                                    <a-form-item label="截止时间">
+                                        <a-range-picker
+                                            style="width: 100%"
+                                            v-model="queryForm.endTime"
+                                            valueFormat="YYYY-MM-DD"
+                                        />
+                                    </a-form-item>
+                                </a-col>
+                            </template>
+                            <a-col :md="6" :sm="24" style="text-align: right">
+                                <a-space>
+                                    <a-button @click="() => (queryForm = {})">重置</a-button>
+                                    <a-button type="primary" @click="query" :loading="queryLoading" v-action:query>
+                                        查询
+                                    </a-button>
+                                    <a @click="togglePackUp">
+                                        {{ colShow ? '收起' : '展开' }}
+                                        <a-icon :type="colShow ? 'up' : 'down'"
+                                    /></a>
+                                </a-space>
+                            </a-col>
+                        </a-row>
+                    </a-form>
+                </div>
+            </a-card>
+            <a-card :bordered="false" :bodyStyle="{ paddingBottom: 0, paddingTop: 0 }">
+                <div class="toolbar">
+                    <a-row type="flex" justify="space-between">
+                        <a-col style="color: rgba(0, 0, 0, 0.85); font-weight: bold">高级表格</a-col>
+                        <a-col>
+                            <a-space size="middle">
+                                <a-button type="primary" icon="plus" @click="addBug" v-action:add>新建</a-button>
+                                <a-tooltip v-action:import>
+                                    <template slot="title"> 批量上传 </template>
+                                    <a-upload :before-upload="beforeUpload" :showUploadList="false">
+                                        <a-button icon="upload" />
+                                    </a-upload>
                                 </a-tooltip>
+                                <a-tooltip>
+                                    <template slot="title"> 上传模板 </template>
+                                    <a-button icon="file-text" @click="exportTemplate()" />
+                                </a-tooltip>
+                                <a-tooltip v-action:export>
+                                    <template slot="title"> 导出文件 </template>
+                                    <export-file
+                                        :tHeader="columns.map((c) => c.title)"
+                                        :filterVal="columns.map((c) => c.key)"
+                                        :exportData="exportData"
+                                    ></export-file>
+                                </a-tooltip>
+                                <a-tooltip v-action:delete>
+                                    <template slot="title"> 删除选中 </template>
+                                    <a-button
+                                        type="danger"
+                                        icon="delete"
+                                        @click="deleteSeleted"
+                                        :disabled="!selectedRowKeys.length"
+                                        :loading="delLoading"
+                                    />
+                                </a-tooltip>
+                                <a-space size="middle">
+                                    <a-tooltip
+                                        ><template slot="title"> 刷新 </template
+                                        ><a-icon type="reload" style="cursor: pointer" @click="query"
+                                    /></a-tooltip>
+                                    <a-tooltip>
+                                        <template slot="title"> 密度 </template>
+                                        <a-dropdown
+                                            :trigger="['click']"
+                                            placement="bottomCenter"
+                                            overlayClassName="ant-dropdown-menu-item-selected"
+                                        >
+                                            <a-icon
+                                                type="column-height"
+                                                style="cursor: pointer"
+                                                @click="(e) => e.preventDefault()"
+                                            />
+                                            <a-menu slot="overlay" @click="menuClick">
+                                                <a-menu-item
+                                                    v-for="(item, index) in menuItem"
+                                                    :key="index"
+                                                    :class="{ 'ant-dropdown-menu-item-selected': item.key == density }"
+                                                >
+                                                    {{ item.label }}
+                                                </a-menu-item>
+                                            </a-menu>
+                                        </a-dropdown>
+                                    </a-tooltip>
+                                    <a-tooltip>
+                                        <template slot="title"> 列设置 </template>
+                                        <a-popover trigger="click" placement="bottomRight">
+                                            <template slot="title">
+                                                <a-checkbox
+                                                    :indeterminate="indeterminate"
+                                                    :checked="checkAll"
+                                                    @change="onCheckAllChange"
+                                                >
+                                                    列设置
+                                                </a-checkbox>
+                                            </template>
+                                            <template slot="content">
+                                                <a-checkbox-group v-model="checkedList" @change="onChange">
+                                                    <a-row style="width: 200px">
+                                                        <a-col
+                                                            :span="12"
+                                                            v-for="(item, index) in plainOptions"
+                                                            :key="index"
+                                                        >
+                                                            <a-checkbox :value="item.value">
+                                                                {{ item.label }}
+                                                            </a-checkbox>
+                                                        </a-col>
+                                                    </a-row>
+                                                </a-checkbox-group>
+                                            </template>
+                                            <a-icon type="setting" style="cursor: pointer" />
+                                        </a-popover>
+                                    </a-tooltip>
+                                </a-space>
                             </a-space>
-                        </a-space>
-                    </a-col>
-                </a-row>
-            </div>
-            <!-- 表格数据 -->
-            <a-table
-                :row-selection="rowSelection"
-                :size="density"
-                :columns="columns"
-                rowKey="BugID"
-                :data-source="data"
-                :pagination="pagination"
-                @change="tableChange"
-                :loading="loading"
-            >
-                <span slot="progress" slot-scope="text, record">
-                    <a-progress
-                        :percent="record.progress"
-                        size="small"
-                        :status="!record.progress ? 'exception' : record.progress == '100' ? 'success' : 'active'"
-                        :stroke-color="{
-                            '0%': '#108ee9',
-                            '100%': '#87d068',
-                        }"
-                    />
-                </span>
-                <span slot="endTime" slot-scope="text, record">
-                    {{ record.endTime }}
-                    <a-tooltip v-if="new Date(record.endTime).getTime() < new Date().getTime()">
-                        <template slot="title"> 已延期 </template>
-                        <a-icon type="exclamation-circle" style="cursor: pointer; margin-left: 5px; color: red" />
-                    </a-tooltip>
-                </span>
-                <span slot="createTime" slot-scope="text, record">
-                    <a-icon type="clock-circle" />
-                    {{ record.createTime }}
-                </span>
-                <span slot="action" slot-scope="text, record">
-                    <a @click="onEdit(record)">编辑</a>
-                    <a-divider type="vertical" />
-                    <a @click="onDelete(record)">删除</a>
-                </span>
-            </a-table>
-            <!-- 抽屉-新建编辑 -->
-            <a-drawer :title="drawerTitle" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
-                <a-form ref="seniorForms" :form="form" @submit="handleSubmit">
-                    <a-row :gutter="16">
-                        <a-col :span="12">
-                            <a-form-item label="Bug标题">
-                                <a-input v-decorator="rules.title" placeholder="请输入Bug标题" allowClear />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="Bug类型">
-                                <a-select
-                                    v-decorator="rules.type"
-                                    style="width: 100%"
-                                    placeholder="请选择Bug类型"
-                                    allowClear
-                                >
-                                    <a-select-option
-                                        v-for="item in typeList.BugTypeList"
-                                        :key="item.value"
-                                        :value="item.value"
-                                    >
-                                        {{ item.text }}
-                                    </a-select-option>
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="严重程度">
-                                <a-select
-                                    v-decorator="rules.degree"
-                                    style="width: 100%"
-                                    placeholder="请选择严重程度"
-                                    allowClear
-                                >
-                                    <a-select-option
-                                        v-for="item in typeList.degreeList"
-                                        :key="item.value"
-                                        :value="item.value"
-                                    >
-                                        {{ item.text }}
-                                    </a-select-option>
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="优先级">
-                                <a-select
-                                    v-decorator="rules.priority"
-                                    style="width: 100%"
-                                    placeholder="请选择优先级"
-                                    allowClear
-                                >
-                                    <a-select-option
-                                        v-for="item in typeList.priorityList"
-                                        :key="item.value"
-                                        :value="item.value"
-                                    >
-                                        {{ item.text }}
-                                    </a-select-option>
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="状态">
-                                <a-select
-                                    v-decorator="rules.state"
-                                    style="width: 100%"
-                                    placeholder="请选择状态"
-                                    allowClear
-                                    @change="changeState"
-                                >
-                                    <a-select-option
-                                        v-for="item in typeList.stateList"
-                                        :key="item.value"
-                                        :value="item.value"
-                                    >
-                                        {{ item.text }}
-                                    </a-select-option>
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="进度">
-                                <a-slider
-                                    :tip-formatter="formatter"
-                                    v-decorator="rules.progress"
-                                    :marks="marks"
-                                    :disabled="sliderDis"
-                                />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="指派给谁">
-                                <a-select
-                                    v-decorator="rules.designated"
-                                    style="width: 100%"
-                                    placeholder="请选择指派给谁"
-                                    allowClear
-                                >
-                                    <a-select-option v-for="item in userList" :key="item.key" :value="item.key">
-                                        {{ item.label }}
-                                    </a-select-option>
-                                </a-select>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                            <a-form-item label="截止日期">
-                                <a-date-picker v-decorator="rules.endTime" style="width: 100%" format="YYYY-MM-DD" />
-                            </a-form-item>
                         </a-col>
                     </a-row>
-                    <div
-                        :style="{
-                            position: 'absolute',
-                            right: 0,
-                            bottom: 0,
-                            width: '100%',
-                            borderTop: '1px solid #e9e9e9',
-                            padding: '10px 16px',
-                            background: '#fff',
-                            textAlign: 'right',
-                            zIndex: 1,
-                        }"
-                    >
-                        <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
-                            提交
-                        </a-button>
-                    </div>
-                </a-form>
-            </a-drawer>
-        </a-card>
-    </div>
+                </div>
+                <!-- 表格数据 -->
+                <a-table
+                    :row-selection="rowSelection"
+                    :size="density"
+                    :columns="columns.filter((v) => checkedList.includes(v.key))"
+                    rowKey="BugID"
+                    :data-source="data"
+                    :pagination="pagination"
+                    @change="tableChange"
+                    :loading="loading"
+                >
+                    <span slot="progress" slot-scope="text, record">
+                        <a-progress
+                            :percent="record.progress"
+                            size="small"
+                            :status="!record.progress ? 'exception' : record.progress == '100' ? 'success' : 'active'"
+                            :stroke-color="{
+                                '0%': '#108ee9',
+                                '100%': '#87d068',
+                            }"
+                        />
+                    </span>
+                    <span slot="endTime" slot-scope="text, record">
+                        {{ record.endTime }}
+                        <a-tooltip v-if="new Date(record.endTime).getTime() < new Date().getTime()">
+                            <template slot="title"> 已延期 </template>
+                            <a-icon type="exclamation-circle" style="cursor: pointer; margin-left: 5px; color: red" />
+                        </a-tooltip>
+                    </span>
+                    <span slot="createTime" slot-scope="text, record">
+                        <a-icon type="clock-circle" />
+                        {{ record.createTime }}
+                    </span>
+                    <span slot="action" slot-scope="text, record">
+                        <a @click="onEdit(record)" v-action:edit>编辑</a>
+                        <a-divider type="vertical" />
+                        <a @click="onDelete(record)" v-action:delete>删除</a>
+                    </span>
+                </a-table>
+                <!-- 抽屉-新建编辑 -->
+                <a-drawer :title="drawerTitle" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
+                    <a-form :form="form" @submit="handleSubmit">
+                        <a-row :gutter="16">
+                            <a-col :span="12">
+                                <a-form-item label="Bug标题">
+                                    <a-input v-decorator="rules.title" placeholder="请输入Bug标题" allowClear />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="Bug类型">
+                                    <a-select
+                                        v-decorator="rules.type"
+                                        style="width: 100%"
+                                        placeholder="请选择Bug类型"
+                                        allowClear
+                                    >
+                                        <a-select-option
+                                            v-for="item in typeList.BugTypeList"
+                                            :key="item.value"
+                                            :value="item.value"
+                                        >
+                                            {{ item.text }}
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="严重程度">
+                                    <a-select
+                                        v-decorator="rules.degree"
+                                        style="width: 100%"
+                                        placeholder="请选择严重程度"
+                                        allowClear
+                                    >
+                                        <a-select-option
+                                            v-for="item in typeList.degreeList"
+                                            :key="item.value"
+                                            :value="item.value"
+                                        >
+                                            {{ item.text }}
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="优先级">
+                                    <a-select
+                                        v-decorator="rules.priority"
+                                        style="width: 100%"
+                                        placeholder="请选择优先级"
+                                        allowClear
+                                    >
+                                        <a-select-option
+                                            v-for="item in typeList.priorityList"
+                                            :key="item.value"
+                                            :value="item.value"
+                                        >
+                                            {{ item.text }}
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="状态">
+                                    <a-select
+                                        v-decorator="rules.state"
+                                        style="width: 100%"
+                                        placeholder="请选择状态"
+                                        allowClear
+                                        @change="changeState"
+                                    >
+                                        <a-select-option
+                                            v-for="item in typeList.stateList"
+                                            :key="item.value"
+                                            :value="item.value"
+                                        >
+                                            {{ item.text }}
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="进度">
+                                    <a-slider
+                                        :tip-formatter="formatter"
+                                        v-decorator="rules.progress"
+                                        :marks="marks"
+                                        :disabled="sliderDis"
+                                    />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="指派给谁">
+                                    <a-select
+                                        v-decorator="rules.designated"
+                                        style="width: 100%"
+                                        placeholder="请选择指派给谁"
+                                        allowClear
+                                    >
+                                        <a-select-option v-for="item in userList" :key="item.key" :value="item.key">
+                                            {{ item.label }}
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item label="截止日期">
+                                    <a-date-picker
+                                        v-decorator="rules.endTime"
+                                        style="width: 100%"
+                                        format="YYYY-MM-DD"
+                                    />
+                                </a-form-item>
+                            </a-col>
+                        </a-row>
+                        <div
+                            :style="{
+                                position: 'absolute',
+                                right: 0,
+                                bottom: 0,
+                                width: '100%',
+                                borderTop: '1px solid #e9e9e9',
+                                padding: '10px 16px',
+                                background: '#fff',
+                                textAlign: 'right',
+                                zIndex: 1,
+                            }"
+                        >
+                            <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
+                                提交
+                            </a-button>
+                        </div>
+                    </a-form>
+                </a-drawer>
+            </a-card>
+        </div>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -383,16 +426,16 @@ export default {
                                 result = v.text
                             }
                             switch (text) {
-                                case 1:
+                                case '1':
                                     color = 'red'
                                     break
-                                case 2:
+                                case '2':
                                     color = 'pink'
                                     break
-                                case 3:
+                                case '3':
                                     color = 'blue'
                                     break
-                                case 4:
+                                case '4':
                                     color = 'cyan'
                                     break
                             }
@@ -447,16 +490,16 @@ export default {
                                 result = v.text
                             }
                             switch (text) {
-                                case 1:
+                                case '1':
                                     status = 'success'
                                     break
-                                case 2:
+                                case '2':
                                     status = 'processing'
                                     break
-                                case 3:
+                                case '3':
                                     status = 'error'
                                     break
-                                case 4:
+                                case '4':
                                     status = 'default'
                                     break
                             }
@@ -547,7 +590,7 @@ export default {
             form: this.$form.createForm(this),
             loginState: false,
             rules: {
-                title: ['title', { rules: [{ required: true, message: '请输入标题' }] }],
+                title: ['title', { rules: [{ required: true, message: '请输入Bug标题' }] }],
                 type: ['type', { rules: [{ required: true, message: '请选择Bug类型' }] }],
                 degree: ['degree', { rules: [{ required: true, message: '请选择严重程度' }] }],
                 priority: ['priority', { rules: [{ required: true, message: '请选择优先级' }] }],
@@ -578,18 +621,14 @@ export default {
             popoverVisible: false,
             selectedRowKeys: [],
             delLoading: false,
-            queryForm: {
-                bugTitle: '',
-                type: undefined,
-                degree: undefined,
-                priority: undefined,
-                state: undefined,
-                createTime: [],
-                endTime: [],
-            },
+            queryForm: {},
             colShow: false,
             queryLoading: false,
             exportData: [],
+            indeterminate: false,
+            checkedList: [],
+            checkAll: true,
+            plainOptions: [],
         }
     },
     computed: {
@@ -648,12 +687,6 @@ export default {
         },
     },
     methods: {
-        setCreateTime(date, dateString) {
-            this.queryForm.createTime = dateString
-        },
-        setEndTime(date, dateString) {
-            this.queryForm.endTime = dateString
-        },
         // 进度显示控制
         formatter(value) {
             return `${value}%`
@@ -661,14 +694,26 @@ export default {
         changeState(value, option) {
             let _this = this
             if (value == '1' || value == '4') {
-                _this.rules['progress'][1].initialValue = 100
+                _this.$nextTick(() => {
+                    _this.form.setFieldsValue({
+                        progress: 100,
+                    })
+                })
                 _this.sliderDis = true
             } else if (value == '3') {
-                _this.rules['progress'][1].initialValue = 0
+                _this.$nextTick(() => {
+                    _this.form.setFieldsValue({
+                        progress: 0,
+                    })
+                })
                 _this.sliderDis = true
             } else {
+                _this.$nextTick(() => {
+                    _this.form.setFieldsValue({
+                        progress: 50,
+                    })
+                })
                 _this.sliderDis = false
-                _this.rules['progress'][1].initialValue = 50
             }
         },
         // 表格密度
@@ -749,6 +794,11 @@ export default {
                             }
                             v.filters = result
                         }
+                        _this.checkedList.push(v.key)
+                        _this.plainOptions.push({
+                            label: v.title,
+                            value: v.key,
+                        })
                     })
                     _this.pagination.total = res.result.total
                 } else {
@@ -788,11 +838,6 @@ export default {
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        let keys = Object.keys(_this.rules)
-                                        keys.map((v) => {
-                                            if (v == 'progress') _this.rules[v][1].initialValue = 50
-                                            else _this.rules[v][1].initialValue = undefined
-                                        })
                                         _this.BugID = ''
                                         _this.visible = false
                                         _this.sliderDis = false
@@ -824,26 +869,21 @@ export default {
             _this.visible = false
             _this.form.resetFields()
             _this.BugID = ''
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                if (v == 'progress') _this.rules[v][1].initialValue = 50
-                else _this.rules[v][1].initialValue = undefined
-            })
             _this.sliderDis = false
         },
         // 编辑行
         onEdit(record) {
-            let _this = this
+            let _this = this,
+                cloneData = _this._.cloneDeep(record)
             _this.visible = true
-            _this.title = '编辑BUG:' + record.title
-            _this.BugID = record.BugID
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                if (v == 'endTime') {
-                    _this.rules[v][1].initialValue = moment(record[v], 'YYYY-MM-DD')
-                } else {
-                    _this.rules[v][1].initialValue = record[v]
-                }
+            _this.title = '编辑BUG:' + cloneData.title
+            _this.BugID = cloneData.BugID
+            cloneData.endTime = moment(cloneData.endTime, 'YYYY-MM-DD')
+            delete cloneData.BugID
+            delete cloneData.createTime
+            delete cloneData.creator
+            _this.$nextTick(() => {
+                _this.form.setFieldsValue(cloneData)
             })
             if (record.state == '2') {
                 _this.sliderDis = false
@@ -907,18 +947,6 @@ export default {
         query() {
             this.pagination.defaultCurrent = 1
             this.getseniorFormsList()
-        },
-        // 重置
-        reset() {
-            this.queryForm = {
-                bugTitle: '',
-                type: undefined,
-                degree: undefined,
-                priority: undefined,
-                state: undefined,
-                createTime: [],
-                endTime: [],
-            }
         },
         // 上传excel文件
         beforeUpload(file) {
@@ -1038,6 +1066,17 @@ export default {
         },
         formatJson(filterVal, jsonData) {
             return jsonData.map((v) => filterVal.map((j) => v[j]))
+        },
+        onChange(checkedList) {
+            this.indeterminate = !!checkedList.length && checkedList.length < this.plainOptions.length
+            this.checkAll = checkedList.length === this.plainOptions.length
+        },
+        onCheckAllChange(e) {
+            Object.assign(this, {
+                checkedList: e.target.checked ? this.plainOptions.map((v) => v.value) : [],
+                indeterminate: false,
+                checkAll: e.target.checked,
+            })
         },
     },
     mounted() {

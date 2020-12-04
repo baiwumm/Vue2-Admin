@@ -1,4 +1,3 @@
-
 'use strict';
 
 /**
@@ -8,6 +7,8 @@ module.exports = app => {
     const { router, controller, io } = app;
     // websocket消息推送
     require('./io/router/socket-io-api')(app)
+    // 获取表字典表数据
+    router.get('/public/getCDTable', controller.publicmethods.getCDTable);
     // 用户登录及信息修改模块
     router.post('/home/login', controller.home.home.login); // 用户登录
     router.post('/home/logout', controller.home.home.logout); // 注销登录
@@ -43,4 +44,7 @@ module.exports = app => {
     router.get('/integrated/getseniorFormsList', controller.integrated.seniorforms.getseniorFormsList); // 获取高级表格列表
     router.post('/integrated/addEditSeniorForms', controller.integrated.seniorforms.addEditSeniorForms); // 添加-编辑高级表格
     router.post('/integrated/deleteSeniorForms', controller.integrated.seniorforms.deleteSeniorForms); // 删除高级表格
+    router.get('/integrated/getVehicleInfo', controller.integrated.seniorforms.getVehicleInfo); // 获取车辆信息
+    router.post('/integrated/addEditVehicleInfo', controller.integrated.seniorforms.addEditVehicleInfo); // 添加编辑车辆信息
+    router.post('/integrated/deleteVehicleInfo', controller.integrated.seniorforms.deleteVehicleInfo); // 删除车辆信息
 }; 

@@ -21,6 +21,7 @@
     "csv-exportor": "^1.0.2",
     "file-saver": "^2.0.5",
     "fuse.js": "^6.4.2",
+    "lodash": "^4.17.20",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
     "screenfull": "^5.0.2",

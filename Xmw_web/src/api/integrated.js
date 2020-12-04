@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-11-10 16:07:02
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-19 18:03:17
+ * @LastEditTime: 2020-12-03 17:32:56
  */
 import request from '@/utils/request'
 const Api = {
@@ -14,6 +14,9 @@ const Api = {
     seniorFormsList: '/integrated/getseniorFormsList',
     addEditSeniorForms: '/integrated/addEditSeniorForms',
     deleteSeniorForms: '/integrated/deleteSeniorForms',
+    vehicleInfo: '/integrated/getVehicleInfo',
+    addEditVehicleInfo: '/integrated/addEditVehicleInfo',
+    deleteVehicleInfo: '/integrated/deleteVehicleInfo',
 }
 
 // 获取组织架构-部门列表
@@ -60,6 +63,30 @@ export function addEditSeniorForms(parameter) {
 export function deleteSeniorForms(parameter) {
     return request({
         url: Api.deleteSeniorForms,
+        method: 'post',
+        data: parameter
+    })
+}
+// 获取车辆信息
+export function vehicleInfo(parameter) {
+    return request({
+        url: Api.vehicleInfo,
+        method: 'get',
+        params: parameter
+    })
+}
+// 添加编辑车辆信息
+export function addEditVehicleInfo(parameter) {
+    return request({
+        url: Api.addEditVehicleInfo,
+        method: 'post',
+        data: parameter
+    })
+}
+// 删除部门
+export function deleteVehicleInfo(parameter) {
+    return request({
+        url: Api.deleteVehicleInfo,
         method: 'post',
         data: parameter
     })

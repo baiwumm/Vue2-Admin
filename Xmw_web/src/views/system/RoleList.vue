@@ -1,133 +1,134 @@
 <template>
-    <a-card :bordered="false">
-        <div class="table-page-search-wrapper">
-            <a-form layout="inline">
-                <a-row :gutter="48">
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="角色名称">
-                            <a-input placeholder="请输入角色名称" allowClear v-model="roleName" />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="状态">
-                            <a-select placeholder="请选择状态" allowClear v-model="status">
-                                <a-select-option value="1">正常</a-select-option>
-                                <a-select-option value="0">禁用</a-select-option>
-                            </a-select>
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <span class="table-page-search-submitButtons">
-                            <a-space>
-                                <a-button type="primary" @click="query" v-action:query>查询</a-button>
-                                <a-button type="primary" @click="addRole" v-action:add>添加</a-button>
-                            </a-space>
-                        </span>
-                    </a-col>
-                </a-row>
-            </a-form>
-        </div>
-        <!-- 表格数据 -->
-        <a-table
-            :columns="columns"
-            rowKey="roleID"
-            :data-source="data"
-            :pagination="pagination"
-            @change="tableChange"
-            :loading="loading"
-            :defaultExpandAllRows="true"
-        >
-            <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
-                <a-row :gutter="24">
-                    <a-col
-                        :span="12"
-                        v-for="(role, index) in record.roleList"
-                        :key="index"
-                        :style="{ margin: '5px 0', height: '22px' }"
-                    >
-                        <a-col :span="4">
-                            <span>{{ role.permissionName }}：</span>
+    <page-header-wrapper content="该模块主要给角色组赋予路由菜单和按钮操作权限">
+        <a-card :bordered="false">
+            <div class="table-page-search-wrapper">
+                <a-form layout="inline">
+                    <a-row :gutter="48">
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="角色名称">
+                                <a-input placeholder="请输入角色名称" allowClear v-model="roleName" />
+                            </a-form-item>
                         </a-col>
-                        <a-col :span="20" v-if="role.actions.length">
-                            <a-tag color="purple" v-for="(action, k) in role.actions" :key="k">{{
-                                action.describe
-                            }}</a-tag>
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="状态">
+                                <a-select placeholder="请选择状态" allowClear v-model="status">
+                                    <a-select-option value="1">正常</a-select-option>
+                                    <a-select-option value="0">禁用</a-select-option>
+                                </a-select>
+                            </a-form-item>
                         </a-col>
-                        <a-col :span="20" v-else>-</a-col>
-                    </a-col>
-                </a-row>
+                        <a-col :md="8" :sm="24">
+                            <span class="table-page-search-submitButtons">
+                                <a-space>
+                                    <a-button type="primary" @click="query" v-action:query>查询</a-button>
+                                    <a-button type="primary" @click="addRole" v-action:add>添加</a-button>
+                                </a-space>
+                            </span>
+                        </a-col>
+                    </a-row>
+                </a-form>
             </div>
-            <span slot="status" slot-scope="text, record">
-                <a-tag :color="record.status ? 'blue' : 'red'">
-                    {{ record.status ? '启用' : '禁用' }}
-                </a-tag>
-            </span>
-            <span slot="createTime" slot-scope="text, record">
-                {{ record.createTime, }}
-            </span>
-            <span slot="action" slot-scope="text, record">
-                <a @click="onEdit(record)" v-action:edit>编辑</a>
-                <a-divider type="vertical" />
-                <a @click="onDelete(record)" v-action:delete>删除</a>
-            </span>
-        </a-table>
-        <!-- 抽屉-编辑权限 -->
-        <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
-            <a-form ref="formLogin" :form="form" @submit="handleSubmit">
-                <a-row>
-                    <a-col :span="24">
-                        <a-form-item label="角色名称">
-                            <a-input v-decorator="rules.roleName" placeholder="请输入角色名称" />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-item label="状态">
-                            <a-radio-group v-decorator="rules.status">
-                                <a-radio :value="1"> 启用 </a-radio>
-                                <a-radio :value="0"> 禁用 </a-radio>
-                            </a-radio-group>
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-item label="角色权限">
-                            <a-tree-select
-                                show-search
-                                style="width: 100%"
-                                v-decorator="rules.roleList"
-                                :tree-data="treeData"
-                                :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-                                placeholder="请选择角色权限"
-                                allow-clear
-                                tree-checkable
-                                labelInValue
-                                :maxTagCount="5"
-                                :show-checked-strategy="SHOW_ALL"
-                            >
-                                <a-icon slot="suffixIcon" type="smile" />
-                            </a-tree-select>
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <div
-                    :style="{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        borderTop: '1px solid #e9e9e9',
-                        padding: '10px 16px',
-                        background: '#fff',
-                        textAlign: 'right',
-                        zIndex: 1,
-                    }"
-                >
-                    <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
-                        提交
-                    </a-button>
+            <!-- 表格数据 -->
+            <a-table
+                :columns="columns"
+                rowKey="roleID"
+                :data-source="data"
+                :pagination="pagination"
+                @change="tableChange"
+                :loading="loading"
+                :defaultExpandAllRows="true"
+            >
+                <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
+                    <a-row :gutter="24">
+                        <a-col
+                            :span="12"
+                            v-for="(role, index) in record.roleList"
+                            :key="index"
+                            :style="{ margin: '5px 0', height: '22px' }"
+                        >
+                            <a-col :span="4">
+                                <span>{{ role.permissionName }}：</span>
+                            </a-col>
+                            <a-col :span="20" v-if="role.actionList.length">
+                                <a-tag color="purple" v-for="(action, k) in role.actionList" :key="k">{{
+                                    actionList[action]
+                                }}</a-tag>
+                            </a-col>
+                            <a-col :span="20" v-else>-</a-col>
+                        </a-col>
+                    </a-row>
                 </div>
-            </a-form>
-        </a-drawer>
-    </a-card>
+                <span slot="status" slot-scope="text, record">
+                    <a-tag :color="record.status ? 'blue' : 'red'">
+                        {{ record.status ? '启用' : '禁用' }}
+                    </a-tag>
+                </span>
+                <span slot="createTime" slot-scope="text, record">
+                    {{ record.createTime, }}
+                </span>
+                <span slot="action" slot-scope="text, record">
+                    <a @click="onEdit(record)" v-action:edit>编辑</a>
+                    <a-divider type="vertical" />
+                    <a @click="onDelete(record)" v-action:delete>删除</a>
+                </span>
+            </a-table>
+            <!-- 抽屉-编辑权限 -->
+            <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
+                <a-form ref="formLogin" :form="form" @submit="handleSubmit">
+                    <a-row>
+                        <a-col :span="24">
+                            <a-form-item label="角色名称">
+                                <a-input v-decorator="rules.roleName" placeholder="请输入角色名称" />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="状态">
+                                <a-radio-group v-decorator="rules.status">
+                                    <a-radio :value="1"> 启用 </a-radio>
+                                    <a-radio :value="0"> 禁用 </a-radio>
+                                </a-radio-group>
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="角色权限">
+                                <a-tree
+                                    v-model="checkedKeys"
+                                    checkable
+                                    show-icon
+                                    :tree-data="treeData"
+                                    @check="onCheckTree"
+                                >
+                                    <a-icon
+                                        slot="icon"
+                                        :type="item.icon"
+                                        slot-scope="item"
+                                        style="color: rgb(24, 144, 255)"
+                                    />
+                                </a-tree>
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <div
+                        :style="{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            zIndex: 1,
+                        }"
+                    >
+                        <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
+                            提交
+                        </a-button>
+                    </div>
+                </a-form>
+            </a-drawer>
+        </a-card>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -176,12 +177,14 @@ export default {
             form: this.$form.createForm(this),
             loginState: false,
             rules: {
-                roleName: ['roleName', { initialValue: '', rules: [{ required: true, message: '请输入角色名称' }] }],
+                roleName: ['roleName', { rules: [{ required: true, message: '请输入角色名称' }] }],
                 status: ['status', { initialValue: 1, rules: [{ required: true, message: '请选择状态' }] }],
-                roleList: ['roleList', { initialValue: [] }],
             },
             treeData: [],
             SHOW_ALL: TreeSelect.SHOW_ALL,
+            checkedKeys: [],
+            duplicateKeys: [],
+            actionList: {},
         }
     },
     methods: {
@@ -209,11 +212,12 @@ export default {
                         v.updateTime = dataFormat(v.updateTime, 'yyyy-MM-dd hh:mm:ss')
                     })
                     _this.data = res.result.list
+                    _this.actionList = res.actionList
                     _this.pagination.total = res.result.total
                     // 处理树形数据
                     res.roleList.forEach((v) => {
                         v.key = v.permission
-                        v.value = v.permission
+                        if (v.icon) v.scopedSlots = { icon: 'icon' }
                         if (v.actions) v.actions = JSON.parse(v.actions)
                     })
                     res.roleList.forEach((v, index, arr) => {
@@ -222,7 +226,6 @@ export default {
                             v.actions.forEach((e) => {
                                 v.children.push({
                                     key: v.permission + '-' + e.action,
-                                    value: v.permission + '-' + e.action,
                                     title: e.describe,
                                 })
                             })
@@ -246,12 +249,13 @@ export default {
             const {
                 form: { validateFields },
             } = _this
-            _this.loginState = true
-            const validateFieldsKey = ['roleName', 'status', 'roleList']
+            // _this.loginState = true
+            const validateFieldsKey = ['roleName', 'status']
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
                     const params = { ...values }
                     params.roleID = _this.roleID
+                    params.roleList = _this.duplicateKeys
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
@@ -260,10 +264,8 @@ export default {
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        _this.rules['roleName'][1].initialValue = ''
-                                        _this.rules['status'][1].initialValue = 1
-                                        _this.rules['roleList'][1].initialValue = []
                                         _this.roleID = ''
+                                        _this.checkedKeys = []
                                         _this.visible = false
                                         _this.$message.success(res.msg)
                                         _this.getRoleList()
@@ -297,26 +299,26 @@ export default {
         onClose() {
             let _this = this
             _this.visible = false
-            _this.form.resetFields()
             _this.ID = ''
-            _this.rules['roleName'][1].initialValue = ''
-            _this.rules['status'][1].initialValue = 1
-            _this.rules['roleList'][1].initialValue = []
+            _this.checkedKeys = []
+            _this.form.resetFields()
         },
         onEdit(record) {
-            let _this = this
+            let _this = this,
+                cloneData = _this._.cloneDeep(record)
             _this.roleID = record.roleID
             _this.visible = true
-            _this.title = '编辑角色规则:' + record.roleName
-            _this.rules['roleName'][1].initialValue = record.roleName
-            _this.rules['status'][1].initialValue = record.status
-            record.roleList.map((v) => {
-                if (v.actions.length) {
-                    v.actions.map((e) => {
-                        _this.rules['roleList'][1].initialValue.push({
-                            label: e.describe,
-                            value: v.permissionId + '-' + e.action,
-                        })
+            _this.title = '编辑角色规则:' + cloneData.roleName
+            _this.$nextTick(() => {
+                _this.form.setFieldsValue({
+                    roleName: cloneData.roleName,
+                    status: cloneData.status,
+                })
+            })
+            cloneData.roleList.map((v) => {
+                if (v.actionList.length) {
+                    v.actionList.map((e) => {
+                        _this.checkedKeys.push(v.permissionId + '-' + e)
                     })
                 }
             })
@@ -342,6 +344,10 @@ export default {
                     })
                 },
             })
+        },
+        onCheckTree(checkedKeys, e) {
+            let _this = this
+            _this.duplicateKeys = Array.from(new Set([...checkedKeys, ...e.halfCheckedKeys]))
         },
     },
     mounted() {

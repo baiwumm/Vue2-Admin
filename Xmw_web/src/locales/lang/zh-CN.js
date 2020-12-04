@@ -12,7 +12,7 @@ const locale = {
     'menu.home': '主页',
     'menu.workbench': '工作台',
     'menu.integrated': '综合组件',
-    'menu.integrated.salesAnalysis': '销售分析',
+    'menu.integrated.advancedForm': '高级表单',
     'menu.integrated.organizational': '组织架构',
     'menu.integrated.seniorForms': '高级表格',
     'menu.personal.center': '个人中心',

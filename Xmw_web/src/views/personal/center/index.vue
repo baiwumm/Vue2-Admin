@@ -1,75 +1,77 @@
 <template>
-    <div class="page-header-index-wide page-header-wrapper-grid-content-main">
-        <a-row :gutter="24">
-            <a-col :md="24" :lg="7">
-                <a-card :bordered="false">
-                    <div class="account-center-avatarHolder">
-                        <div class="avatar">
-                            <img :src="user.avatar" />
+    <page-header-wrapper content="个人中心主要用于用户信息资料的修改，支持自定义头像、用户标签等，并可在其基础拓展。">
+        <div class="page-header-index-wide page-header-wrapper-grid-content-main">
+            <a-row :gutter="24">
+                <a-col :md="24" :lg="7">
+                    <a-card :bordered="false">
+                        <div class="account-center-avatarHolder">
+                            <div class="avatar">
+                                <img :src="user.avatar" />
+                            </div>
+                            <div class="username">{{ user.CnName }}</div>
+                            <div class="bio">{{ user.motto }}</div>
                         </div>
-                        <div class="username">{{ user.CnName }}</div>
-                        <div class="bio">{{ user.motto }}</div>
-                    </div>
-                    <div class="account-center-detail">
-                        <p><i class="title"></i>{{ jobs }}</p>
-                        <p><i class="group"></i>{{ department }}</p>
-                        <p>
-                            <i class="address"></i>
-                            {{ address }}
-                        </p>
-                    </div>
-                    <a-divider />
+                        <div class="account-center-detail">
+                            <p><i class="title"></i>{{ jobs }}</p>
+                            <p><i class="group"></i>{{ department }}</p>
+                            <p>
+                                <i class="address"></i>
+                                {{ address }}
+                            </p>
+                        </div>
+                        <a-divider />
 
-                    <div class="account-center-tags">
-                        <div class="tagsTitle">标签</div>
-                        <div>
-                            <template v-for="(tag, index) in tags" v-key="index">
-                                <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
+                        <div class="account-center-tags">
+                            <div class="tagsTitle">标签</div>
+                            <div>
+                                <template v-for="(tag, index) in tags" v-key="index">
+                                    <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
+                                        <a-tag
+                                            :key="tag"
+                                            :closable="true"
+                                            @close="handleTagClose(tag)"
+                                            :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
+                                            >{{ `${tag.slice(0, 8)}...` }}</a-tag
+                                        >
+                                    </a-tooltip>
                                     <a-tag
+                                        v-else
                                         :key="tag"
                                         :closable="true"
                                         @close="handleTagClose(tag)"
                                         :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
-                                        >{{ `${tag.slice(0, 8)}...` }}</a-tag
+                                        >{{ tag }}</a-tag
                                     >
-                                </a-tooltip>
+                                </template>
+                                <a-input
+                                    v-if="tagInputVisible"
+                                    ref="tagInput"
+                                    type="text"
+                                    size="small"
+                                    :style="{ width: '78px' }"
+                                    :value="tagInputValue"
+                                    @change="handleInputChange"
+                                    @blur="handleTagInputConfirm"
+                                    @keyup.enter="handleTagInputConfirm"
+                                />
                                 <a-tag
                                     v-else
-                                    :key="tag"
-                                    :closable="true"
-                                    @close="handleTagClose(tag)"
-                                    :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
-                                    >{{ tag }}</a-tag
+                                    @click="showTagInput"
+                                    style="background: #fff; borderstyle: dashed"
+                                    v-action:add
                                 >
-                            </template>
-                            <a-input
-                                v-if="tagInputVisible"
-                                ref="tagInput"
-                                type="text"
-                                size="small"
-                                :style="{ width: '78px' }"
-                                :value="tagInputValue"
-                                @change="handleInputChange"
-                                @blur="handleTagInputConfirm"
-                                @keyup.enter="handleTagInputConfirm"
-                            />
-                            <a-tag
-                                v-else
-                                @click="showTagInput"
-                                style="background: #fff; borderstyle: dashed"
-                                v-action:add
-                            >
-                                <a-icon type="plus" />New Tag
-                            </a-tag>
+                                    <a-icon type="plus" />New Tag
+                                </a-tag>
+                            </div>
                         </div>
-                    </div>
-                </a-card>
-            </a-col>
-            <a-col :md="24" :lg="17">
-                <Base-Setting></Base-Setting>
-            </a-col>
-        </a-row>
-    </div>
+                    </a-card>
+                </a-col>
+                <a-col :md="24" :lg="17">
+                    <Base-Setting></Base-Setting>
+                </a-col>
+            </a-row>
+        </div>
+    </page-header-wrapper>
 </template>
 
 <script>

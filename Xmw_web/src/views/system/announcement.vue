@@ -1,120 +1,118 @@
 <template>
-    <a-card :bordered="false">
-        <div class="table-page-search-wrapper">
-            <a-form layout="inline">
-                <a-row :gutter="48">
-                    <a-col :md="6" :sm="24">
-                        <a-form-item label="作者">
-                            <a-input placeholder="请输入" v-model="author" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="6" :sm="24">
-                        <a-form-item label="标题">
-                            <a-input placeholder="请输入" v-model="title" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="6" :sm="24">
-                        <a-form-item label="创建时间">
-                            <a-range-picker @change="dealTime" />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="6" :sm="24">
-                        <span class="table-page-search-submitButtons">
-                            <a-space>
-                                <a-button type="primary" @click="query">查询</a-button>
-                                <a-button type="primary" @click="release">发布公告</a-button>
-                            </a-space>
-                        </span>
-                    </a-col>
-                </a-row>
-            </a-form>
-        </div>
-        <!-- 表格数据 -->
-        <a-table
-            :columns="columns"
-            rowKey="AnnouncementID"
-            :data-source="data"
-            :pagination="pagination"
-            @change="tableChange"
-            :loading="loading"
-        >
-            <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
-                <a-descriptions title="公告详情" :column="{ xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }">
-                    <a-descriptions-item label="作者">
-                        <template>
-                            <a-tag color="purple">
-                                {{ record.author }}
-                            </a-tag>
-                        </template>
-                    </a-descriptions-item>
-                    <a-descriptions-item label="中文名">
-                        {{ record.CnName }}
-                    </a-descriptions-item>
-                    <a-descriptions-item label="创建时间">
-                        {{ record.createTime }}
-                    </a-descriptions-item>
-                    <a-descriptions-item label="标题">
-                        <template>
-                            <a-tag color="blue">
-                                {{ record.title }}
-                            </a-tag>
-                        </template>
-                    </a-descriptions-item>
-                    <a-descriptions-item label="内容">
-                        {{ record.content.length > 180 ? record.content.substr(0, 180) + '...' : record.content }}
-                    </a-descriptions-item>
-                </a-descriptions>
+    <page-header-wrapper
+        content="该模块主要是为了实现websocket的推送和小铃铛的功能，并可在其基础上拓展，在即时通讯、通知与消息推送，实时分析等场景中有较为广泛的应用。"
+    >
+        <a-card :bordered="false">
+            <div class="table-page-search-wrapper">
+                <a-form layout="inline">
+                    <a-row :gutter="48">
+                        <a-col :md="6" :sm="24">
+                            <a-form-item label="作者">
+                                <a-input placeholder="请输入" v-model="author" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="6" :sm="24">
+                            <a-form-item label="标题">
+                                <a-input placeholder="请输入" v-model="title" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="6" :sm="24">
+                            <a-form-item label="创建时间">
+                                <a-range-picker v-model="createTime" valueFormat="YYYY-MM-DD" />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="6" :sm="24">
+                            <span class="table-page-search-submitButtons">
+                                <a-space>
+                                    <a-button type="primary" @click="query" v-action:query>查询</a-button>
+                                    <a-button type="primary" @click="release">发布公告</a-button>
+                                </a-space>
+                            </span>
+                        </a-col>
+                    </a-row>
+                </a-form>
             </div>
-            <span slot="action" slot-scope="text, record">
-                <a @click="onDelete(record)">删除</a>
-            </span>
-        </a-table>
-        <!-- 抽屉-发布公告 -->
-        <a-drawer
-            :title="announcementTitle"
-            :width="600"
-            :visible="visible"
-            @close="visible = false"
-            :maskClosable="false"
-        >
-            <a-form :form="form" @submit="handleSubmit">
-                <a-row :gutter="16">
-                    <a-col :span="24">
-                        <a-form-item label="标题">
-                            <a-input v-decorator="rules.title" placeholder="请输入标题" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-item label="内容">
-                            <a-textarea
-                                allowClear
-                                v-decorator="rules.content"
-                                placeholder="请输入内容"
-                                :auto-size="{ minRows: 3, maxRows: 5 }"
-                            />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <div
-                    :style="{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        borderTop: '1px solid #e9e9e9',
-                        padding: '10px 16px',
-                        background: '#fff',
-                        textAlign: 'right',
-                        zIndex: 1,
-                    }"
-                >
-                    <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
-                        提交
-                    </a-button>
+            <!-- 表格数据 -->
+            <a-table
+                :columns="columns"
+                rowKey="AnnouncementID"
+                :data-source="data"
+                :pagination="pagination"
+                @change="tableChange"
+                :loading="loading"
+            >
+                <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
+                    <a-descriptions title="公告详情" :column="{ xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }">
+                        <a-descriptions-item label="作者">
+                            <template>
+                                <a-tag color="purple">
+                                    {{ record.author }}
+                                </a-tag>
+                            </template>
+                        </a-descriptions-item>
+                        <a-descriptions-item label="中文名">
+                            {{ record.CnName }}
+                        </a-descriptions-item>
+                        <a-descriptions-item label="创建时间">
+                            {{ record.createTime }}
+                        </a-descriptions-item>
+                        <a-descriptions-item label="标题">
+                            <template>
+                                <a-tag color="blue">
+                                    {{ record.title }}
+                                </a-tag>
+                            </template>
+                        </a-descriptions-item>
+                        <a-descriptions-item label="内容">
+                            {{ record.content.length > 180 ? record.content.substr(0, 180) + '...' : record.content }}
+                        </a-descriptions-item>
+                    </a-descriptions>
                 </div>
-            </a-form>
-        </a-drawer>
-    </a-card>
+                <span slot="action" slot-scope="text, record">
+                    <a @click="onDelete(record)" v-action:delete>删除</a>
+                </span>
+            </a-table>
+            <!-- 抽屉-发布公告 -->
+            <a-drawer :title="announcementTitle" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
+                <a-form :form="form" @submit="handleSubmit">
+                    <a-row :gutter="16">
+                        <a-col :span="24">
+                            <a-form-item label="标题">
+                                <a-input v-decorator="rules.title" placeholder="请输入标题" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="内容">
+                                <a-textarea
+                                    allowClear
+                                    v-decorator="rules.content"
+                                    placeholder="请输入内容"
+                                    :auto-size="{ minRows: 3, maxRows: 5 }"
+                                />
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <div
+                        :style="{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            zIndex: 1,
+                        }"
+                    >
+                        <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
+                            提交
+                        </a-button>
+                    </div>
+                </a-form>
+            </a-drawer>
+        </a-card>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -172,9 +170,6 @@ export default {
         this.sendMessageToServer()
     },
     methods: {
-        dealTime(date, dateString) {
-            this.createTime = dateString
-        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
@@ -232,10 +227,6 @@ export default {
                                 .then(async (res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        let keys = Object.keys(_this.rules)
-                                        keys.map((v) => {
-                                            _this.rules[v][1].initialValue = ''
-                                        })
                                         _this.visible = false
                                         _this.$message.success(res.msg)
                                         await _this.getAnnouncementList()
@@ -262,6 +253,11 @@ export default {
                     }, 600)
                 }
             })
+        },
+        onClose() {
+            let _this = this
+            _this.visible = false
+            _this.form.resetFields()
         },
         // 删除数据
         onDelete(record) {

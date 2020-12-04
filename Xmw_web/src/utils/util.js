@@ -189,3 +189,47 @@ export const relativeTime = (ele) => {
         return parseInt(s / 60 / 60 / 24 / 30 / 12) + '年前';
     }
 }
+
+// 设置车牌颜色
+export const setVLPNColor = (VLPNColor) => {
+    const vlpn_c = {
+        "01": {
+            Background: "rgb(105, 131, 239)",
+            BorderColor: "#ffffff",
+            TextColor: "#ffffff",
+        },
+        "02": {
+            Background: "rgb(255, 228, 149)",
+            BorderColor: "#000",
+            TextColor: "#000000",
+        },
+        "03": {
+            Background: "rgb(125, 125, 125)",
+            BorderColor: "#ffffff",
+            TextColor: "#ffffff",
+        },
+        "04": { Background: "#ffffff", BorderColor: "#000", TextColor: "#000000" },
+        "05": {
+            Background: "rgba(158, 236, 169, 0.58)",
+            BorderColor: "#6da067",
+            TextColor: "#000",
+        },
+    }
+    if (!vlpn_c[VLPNColor]) return {};
+    let vlpn_c_sty = vlpn_c[VLPNColor];
+    return {
+        display: "inline-block",
+        margin: "-2 auto",
+        "border-radius": "6px",
+        "border-style": "double",
+        "text-align": "center",
+        "line-height": "21px",
+        "height": "25px",
+        padding: "0px 2px",
+        background: `${vlpn_c_sty.Background}`,
+        color: `${vlpn_c_sty.TextColor}`,
+        "border-color": `${vlpn_c_sty.BorderColor}`,
+        "font-weight": "bold",
+        "font-size": "10pt"
+    };
+}

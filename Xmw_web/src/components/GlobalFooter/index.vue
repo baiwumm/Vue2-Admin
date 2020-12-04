@@ -1,13 +1,11 @@
 <template>
     <global-footer class="footer custom-render">
         <template v-slot:links>
-            <a href="https://www.github.com/vueComponent/pro-layout" target="_blank">Pro Layout</a>
-            <a href="https://www.github.com/vueComponent/ant-design-vue-pro" target="_blank">Github</a>
-            <a href="https://www.github.com/sendya/" target="_blank">@Sendya</a>
+            <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Antd vue</a>
+            <a title="github" href="https://github.com/vueComponent/ant-design-vue-pro"><a-icon type="github" /></a
+            ><a title="Antd pro vue" href="https://pro.antdv.com/">Antd pro vue</a>
         </template>
-        <template v-slot:copyright>
-            <a href="https://github.com/vueComponent" target="_blank">vueComponent</a>
-        </template>
+        <template v-slot:copyright> Copyright 2020 蚂蚁集团体验技术部出品 </template>
     </global-footer>
 </template>
 

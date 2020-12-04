@@ -1,92 +1,96 @@
 <template>
-    <a-card :bordered="false">
-        <div class="table-page-search-wrapper">
-            <a-form layout="inline">
-                <a-row :gutter="48">
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="菜单名称">
-                            <a-input placeholder="请输入菜单名称" v-model="subTitle" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="用户权限Key">
-                            <a-input placeholder="请输入用户权限Key" v-model="permission" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <span class="table-page-search-submitButtons">
-                            <a-button type="primary" @click="query" v-action:query>查询</a-button>
-                        </span>
-                    </a-col>
-                </a-row>
-            </a-form>
-        </div>
-        <!-- 表格数据 -->
-        <a-table
-            :columns="columns"
-            rowKey="ID"
-            :data-source="data"
-            :pagination="pagination"
-            @change="tableChange"
-            :loading="loading"
-            :defaultExpandAllRows="true"
-        >
-            <span slot="actions" slot-scope="text, record">
-                <a-tag v-for="(item, index) in record.actions" color="purple" :key="index">{{ item.describe }}</a-tag>
-            </span>
-            <span slot="action" slot-scope="text, record" v-if="!record.redirect">
-                <a @click="onEdit(record)">编辑</a>
-            </span>
-        </a-table>
-        <!-- 抽屉-编辑权限 -->
-        <a-drawer :title="title" :width="600" :visible="visible" @close="onClose">
-            <a-form ref="formLogin" :form="form" @submit="handleSubmit">
-                <a-row>
-                    <a-col :span="24">
-                        <a-form-item label="用户权限Key">
-                            <a-input v-decorator="rules.permission" disabled />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-item label="菜单名称">
-                            <a-input v-decorator="rules.subTitle" disabled />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-item label="可操作性权限">
-                            <a-select
-                                v-decorator="rules.actions"
-                                mode="multiple"
-                                style="width: 100%"
-                                placeholder="请选择操作权限"
-                            >
-                                <a-select-option v-for="item in actionList" :key="item.ActionID" :value="item.key">
-                                    {{ item.label }}
-                                </a-select-option>
-                            </a-select>
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-                <div
-                    :style="{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: 0,
-                        width: '100%',
-                        borderTop: '1px solid #e9e9e9',
-                        padding: '10px 16px',
-                        background: '#fff',
-                        textAlign: 'right',
-                        zIndex: 1,
-                    }"
-                >
-                    <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
-                        提交
-                    </a-button>
-                </div>
-            </a-form>
-        </a-drawer>
-    </a-card>
+    <page-header-wrapper content="该模块主要给路由菜单赋予对应的按钮操作权限，需配合封装的指令权限操作。">
+        <a-card :bordered="false">
+            <div class="table-page-search-wrapper">
+                <a-form layout="inline">
+                    <a-row :gutter="48">
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="菜单名称">
+                                <a-input placeholder="请输入菜单名称" v-model="subTitle" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="用户权限Key">
+                                <a-input placeholder="请输入用户权限Key" v-model="permission" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <span class="table-page-search-submitButtons">
+                                <a-button type="primary" @click="query" v-action:query>查询</a-button>
+                            </span>
+                        </a-col>
+                    </a-row>
+                </a-form>
+            </div>
+            <!-- 表格数据 -->
+            <a-table
+                :columns="columns"
+                rowKey="ID"
+                :data-source="data"
+                :pagination="pagination"
+                @change="tableChange"
+                :loading="loading"
+                :defaultExpandAllRows="true"
+            >
+                <span slot="actions" slot-scope="text, record">
+                    <a-tag v-for="(item, index) in record.actions" color="purple" :key="index">{{
+                        item.describe
+                    }}</a-tag>
+                </span>
+                <span slot="action" slot-scope="text, record" v-if="!record.redirect">
+                    <a @click="onEdit(record)">编辑</a>
+                </span>
+            </a-table>
+            <!-- 抽屉-编辑权限 -->
+            <a-drawer :title="title" :width="600" :visible="visible" @close="onClose">
+                <a-form ref="formLogin" :form="form" @submit="handleSubmit">
+                    <a-row>
+                        <a-col :span="24">
+                            <a-form-item label="用户权限Key">
+                                <a-input v-decorator="rules.permission" disabled />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="菜单名称">
+                                <a-input v-decorator="rules.subTitle" disabled />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="可操作性权限">
+                                <a-select
+                                    v-decorator="rules.actions"
+                                    mode="multiple"
+                                    style="width: 100%"
+                                    placeholder="请选择操作权限"
+                                >
+                                    <a-select-option v-for="item in actionList" :key="item.ActionID" :value="item.key">
+                                        {{ item.label }}
+                                    </a-select-option>
+                                </a-select>
+                            </a-form-item>
+                        </a-col>
+                    </a-row>
+                    <div
+                        :style="{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            zIndex: 1,
+                        }"
+                    >
+                        <a-button type="primary" htmlType="submit" :loading="loginState" :disabled="loginState">
+                            提交
+                        </a-button>
+                    </div>
+                </a-form>
+            </a-drawer>
+        </a-card>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -173,21 +177,20 @@ export default {
         },
         // 编辑
         onEdit(record) {
-            let _this = this
+            let _this = this,
+                cloneData = _this._.cloneDeep(record),
+                actions = cloneData.actions
             _this.visible = true
-            _this.title = '编辑权限:' + record.subTitle
-            _this.ID = record.ID
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                if (v == 'actions') {
-                    let action = []
-                    if (record[v] && record[v].length) {
-                        record[v].map((v) => {
-                            action.push(v.action)
-                        })
-                    }
-                    _this.rules[v][1].initialValue = action
-                } else _this.rules[v][1].initialValue = record[v]
+            _this.title = '编辑权限:' + cloneData.subTitle
+            _this.ID = cloneData.ID
+            cloneData.actions = []
+            if (actions && actions.length) {
+                actions.map((v) => {
+                    cloneData.actions.push(v.action)
+                })
+            }
+            _this.$nextTick(() => {
+                _this.form.setFieldsValue(_this._.pick(cloneData, ['permission', 'subTitle', 'actions']))
             })
         },
         // 保存
@@ -211,11 +214,6 @@ export default {
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        let keys = Object.keys(_this.rules)
-                                        keys.map((v) => {
-                                            if (v == 'actions') _this.rules[v][1].initialValue = []
-                                            else _this.rules[v][1].initialValue = ''
-                                        })
                                         _this.ID = ''
                                         _this.visible = false
                                         _this.$message.success(res.msg)
@@ -246,11 +244,6 @@ export default {
             _this.visible = false
             _this.form.resetFields()
             _this.ID = ''
-            let keys = Object.keys(_this.rules)
-            keys.map((v) => {
-                if (v == 'actions') _this.rules[v][1].initialValue = []
-                else _this.rules[v][1].initialValue = ''
-            })
         },
     },
     mounted() {

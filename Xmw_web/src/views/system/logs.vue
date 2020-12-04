@@ -1,37 +1,41 @@
 <template>
-    <a-card :bordered="false">
-        <div class="table-page-search-wrapper">
-            <a-form layout="inline">
-                <a-row :gutter="48">
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="用户名">
-                            <a-input placeholder="请输入" v-model="username" allowClear />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <a-form-item label="创建时间">
-                            <a-range-picker @change="logTime" />
-                        </a-form-item>
-                    </a-col>
-                    <a-col :md="8" :sm="24">
-                        <span class="table-page-search-submitButtons">
-                            <a-button type="primary" @click="query" v-action:query>查询</a-button>
-                        </span>
-                    </a-col>
-                </a-row>
-            </a-form>
-        </div>
-        <!-- 表格数据 -->
-        <a-table
-            :columns="columns"
-            rowKey="ID"
-            :data-source="data"
-            :pagination="pagination"
-            @change="tableChange"
-            :loading="loading"
-        >
-        </a-table>
-    </a-card>
+    <page-header-wrapper
+        content="该模块主要是为了记录用户在内部系统上的操作日志，记录操作日志是web系统做安全审计和系统维护的重要手段。"
+    >
+        <a-card :bordered="false">
+            <div class="table-page-search-wrapper">
+                <a-form layout="inline">
+                    <a-row :gutter="48">
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="用户名">
+                                <a-input placeholder="请输入" v-model="username" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <a-form-item label="创建时间">
+                                <a-range-picker v-model="createTime" valueFormat="YYYY-MM-DD" />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :md="8" :sm="24">
+                            <span class="table-page-search-submitButtons">
+                                <a-button type="primary" @click="query" v-action:query>查询</a-button>
+                            </span>
+                        </a-col>
+                    </a-row>
+                </a-form>
+            </div>
+            <!-- 表格数据 -->
+            <a-table
+                :columns="columns"
+                rowKey="ID"
+                :data-source="data"
+                :pagination="pagination"
+                @change="tableChange"
+                :loading="loading"
+            >
+            </a-table>
+        </a-card>
+    </page-header-wrapper>
 </template>
 
 <script>
@@ -64,9 +68,6 @@ export default {
         }
     },
     methods: {
-        logTime(date, dateString) {
-            this.createTime = dateString
-        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
