@@ -230,7 +230,7 @@
 <script>
 import CryptoJS from 'crypto-js'
 import { User, updateUserList, deleteUser } from '@/api/system'
-import { dataFormat, treeData } from '@/utils/util.js'
+import { crypto_key, crypto_iv, dataFormat, treeData } from '@/utils/util.js'
 import { departmentList } from '@/api/integrated'
 import cities from '@/core/cities.json'
 export default {
@@ -299,8 +299,6 @@ export default {
             cityJson: cities.options,
             ID: '',
             roleList: [],
-            key: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥
-            iv: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥偏移量
         }
     },
     methods: {
@@ -404,8 +402,8 @@ export default {
                      * @param {String}   keyStr  对密码加密的秘钥
                      * @return {String}   加密的密文
                      * */
-                    params.password = CryptoJS.AES.encrypt(params.password, _this.key, {
-                        iv: _this.iv,
+                    params.password = CryptoJS.AES.encrypt(params.password, crypto_key, {
+                        iv: crypto_iv,
                         mode: CryptoJS.mode.CBC,
                         padding: CryptoJS.pad.Pkcs7,
                     }).toString()
@@ -455,8 +453,8 @@ export default {
             _this.title = '编辑用户:' + cloneData.username
             _this.ID = cloneData.UserID
             //拿到加密后的密码并解密
-            let decrypted = CryptoJS.AES.decrypt(cloneData.password, _this.key, {
-                iv: _this.iv,
+            let decrypted = CryptoJS.AES.decrypt(cloneData.password, crypto_key, {
+                iv: crypto_iv,
                 mode: CryptoJS.mode.CBC,
                 padding: CryptoJS.pad.Pkcs7,
             })

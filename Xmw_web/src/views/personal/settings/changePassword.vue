@@ -73,6 +73,7 @@
 <script>
 import CryptoJS from 'crypto-js'
 import { changeUserPassword } from '@/api/login'
+import { crypto_key, crypto_iv } from '@/utils/util'
 export default {
     data() {
         return {
@@ -83,8 +84,6 @@ export default {
                 error: 'error',
                 message: '',
             },
-            key: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥
-            iv: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥偏移量
         }
     },
     methods: {
@@ -113,13 +112,13 @@ export default {
                     }
                     passwordParams.lastPassword = _this.$options.methods.getAesString(
                         values.newPassword,
-                        _this.key,
-                        _this.iv
+                        crypto_key,
+                        crypto_iv
                     )
                     passwordParams.originalPassword = _this.$options.methods.getAesString(
                         values.originalPassword,
-                        _this.key,
-                        _this.iv
+                        crypto_key,
+                        crypto_iv
                     )
                     _this.$confirm({
                         title: '确认操作',

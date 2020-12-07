@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import Router from 'vue-router'
 import { constantRouterMap } from '@/config/router.config'
@@ -25,7 +24,6 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 export function resetRouter() {
-  console.log(111)
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // the relevant part
 }

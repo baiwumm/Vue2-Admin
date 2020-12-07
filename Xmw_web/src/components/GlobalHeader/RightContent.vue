@@ -2,7 +2,10 @@
 <template>
     <div :class="wrpCls">
         <div class="header-search">
-            <a-icon type="search" style="font-size: 20px; vertical-align: middle" @click.stop="showSelect" />
+            <a-tooltip>
+                <template slot="title"> 全局搜索 </template>
+                <a-icon type="search" style="font-size: 20px; vertical-align: middle" @click.stop="showSelect" />
+            </a-tooltip>
             <a-select
                 ref="headerSearchSelect"
                 show-search
@@ -22,6 +25,25 @@
                 </a-select-option>
             </a-select>
         </div>
+        <!-- 锁屏 -->
+        <div :class="prefixCls">
+            <a-tooltip>
+                <template slot="title"> 锁屏 </template>
+                <a-icon type="lock" style="font-size: 20px" @click="lockVisible = true" />
+            </a-tooltip>
+        </div>
+        <a-modal v-model="lockVisible" title="设置锁屏密码" @ok="handleSubmit" @cancel="clearPw">
+            <a-form :form="form">
+                <a-form-item label="锁屏密码">
+                    <a-input-password
+                        v-decorator="['lockPasswd', { rules: [{ required: true, message: '请输入锁屏密码' }] }]"
+                        placeholder="请输入锁屏密码"
+                        allowClear
+                    />
+                </a-form-item>
+            </a-form>
+        </a-modal>
+        <!-- 公告详情 -->
         <a-popover trigger="hover" arrow-point-at-center>
             <template slot="content">
                 <div class="infinite-container">
@@ -73,7 +95,6 @@
                 </a-badge>
             </div>
         </a-popover>
-        <!-- 公告详情 -->
         <a-drawer width="640" placement="right" :visible="detailVisible" @close="detailVisible = false" :zIndex="1200">
             <a-descriptions title="公告详情" bordered :column="1">
                 <a-descriptions-item label="发布者：">{{ announcementDetail.author }} </a-descriptions-item>
@@ -100,19 +121,26 @@
             </div>
         </a-drawer>
         <div :class="prefixCls" @click="toggleFullscreen">
-            <a-icon :type="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" style="font-size: 20px" />
+            <a-tooltip>
+                <template slot="title"> 全屏 </template>
+                <a-icon :type="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" style="font-size: 20px" />
+            </a-tooltip>
         </div>
-        <avatar-dropdown :menu="showMenu" :class="prefixCls" />
+        <avatar-dropdown :menu="showMenu" :class="prefixCls" ref="avatar" />
         <select-lang :class="prefixCls" />
     </div>
 </template>
 
 <script>
+import store from '../../store'
+import storage from 'store'
+import { SET_LOCK_PASSWD, IS_LOCK } from '@/store/mutation-types'
+import CryptoJS from 'crypto-js'
 import AvatarDropdown from './AvatarDropdown'
 import SelectLang from '@/components/SelectLang'
 import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
-import { treeData, relativeTime } from '@/utils/util.js'
+import { crypto_key, crypto_iv, treeData, relativeTime } from '@/utils/util.js'
 import Fuse from 'fuse.js'
 import { Announcement, saveAnnouncementRead, webSockets } from '@/api/system'
 export default {
@@ -202,6 +230,8 @@ export default {
             user: {},
             detailVisible: false,
             announcementDetail: {},
+            lockVisible: false,
+            form: this.$form.createForm(this),
         }
     },
     computed: {
@@ -362,6 +392,36 @@ export default {
             if (this.show) {
                 this.$refs.headerSearchSelect && this.$refs.headerSearchSelect.focus()
             }
+        },
+        clearPw() {
+            this.form.resetFields()
+        },
+        // 设置锁屏密码
+        handleSubmit(e) {
+            let _this = this
+            e.preventDefault()
+            const {
+                form: { validateFields },
+            } = _this
+            const validateFieldsKey = ['lockPasswd']
+            validateFields(validateFieldsKey, { force: true }, (err, values) => {
+                if (!err) {
+                    let lockPasswd = CryptoJS.AES.encrypt(values.lockPasswd, crypto_key, {
+                        iv: crypto_iv,
+                        mode: CryptoJS.mode.CBC,
+                        padding: CryptoJS.pad.Pkcs7,
+                    }).toString()
+                    console.log(lockPasswd)
+                    store.commit('SET_LOCK_PASSWD', lockPasswd)
+                    _this.handleLock()
+                }
+            })
+        },
+        handleLock() {
+            store.commit('SET_LOCK')
+            setTimeout(() => {
+                this.$router.push({ path: '/lock' })
+            }, 100)
         },
     },
     mounted() {

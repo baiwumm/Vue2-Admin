@@ -1,6 +1,7 @@
 import storage from 'store'
+import router from '@/router'
 import { login, logout } from '@/api/login'
-import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO } from '@/store/mutation-types'
+import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO, SET_LOCK_PASSWD, IS_LOCK, LOCK_PATH } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
 const user = {
@@ -10,7 +11,10 @@ const user = {
         welcome: '',
         avatar: '',
         roles: [],
-        info: {}
+        info: {},
+        lockPasswd: storage.get(SET_LOCK_PASSWD) || '',
+        isLock: storage.get(IS_LOCK) || false,
+        lockPath: ''
     },
 
     mutations: {
@@ -29,6 +33,24 @@ const user = {
         },
         SET_INFO: (state, info) => {
             state.info = info
+        },
+        SET_LOCK_PASSWD: (state, lockPasswd) => {
+            state.lockPasswd = lockPasswd
+            state.lockPath = router.app._route.path
+            storage.set(SET_LOCK_PASSWD, lockPasswd)
+            storage.set(LOCK_PATH, router.app._route.path)
+        },
+        SET_LOCK: (state) => {
+            state.isLock = true
+            storage.set(IS_LOCK, true)
+        },
+        CLEAR_LOCK: (state) => {
+            state.isLock = false;
+            state.lockPasswd = '';
+            state.lockPath = ''
+            storage.set(IS_LOCK, false)
+            storage.set(SET_LOCK_PASSWD, '')
+            storage.set(LOCK_PATH, '')
         }
     },
 
@@ -92,11 +114,13 @@ const user = {
                 }).finally(() => {
                     commit('SET_TOKEN', '')
                     commit('SET_ROLES', [])
-                    // commit("SET_ROUTERS", [], { root: true });
                     storage.remove(ACCESS_TOKEN)
                     storage.remove(TOKEN_CREATETIME)
                     storage.remove(TOKEN_EXPIRESIN)
                     storage.remove(USER_INFO)
+                    storage.remove(SET_LOCK_PASSWD)
+                    storage.remove(IS_LOCK)
+                    storage.remove(LOCK_PATH)
                 })
             })
         }

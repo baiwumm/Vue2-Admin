@@ -25,7 +25,6 @@
 
 <script>
 import { Modal } from 'ant-design-vue'
-
 export default {
     name: 'AvatarDropdown',
     props: {
@@ -60,13 +59,12 @@ export default {
                 title: this.$t('layouts.usermenu.dialog.title'),
                 content: this.$t('layouts.usermenu.dialog.content'),
                 onOk: () => {
-                    return this.$store.dispatch('Logout').then(async () => {
-                        await window.location.reload()
+                    return this.$store.dispatch('Logout').then(() => {
                         this.$message.success('注销成功!')
                         this.$router.push({ name: 'login' })
+                        window.location.reload()
                     })
                 },
-                onCancel() {},
             })
         },
     },

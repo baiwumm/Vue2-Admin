@@ -82,6 +82,11 @@ export const constantRouterMap = [
         ]
     },
     {
+        path: '/lock',
+        name: 'lock',
+        component: () => import('@/views/user/Lock')
+    },
+    {
         path: '/404',
         component: () => import('@/views/exception/404')
     }

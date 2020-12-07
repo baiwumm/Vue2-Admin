@@ -1,3 +1,4 @@
+
 export const ACCESS_TOKEN = 'Access-Token'
 export const TOKEN_CREATETIME = 'Token_CreateTime'
 export const TOKEN_EXPIRESIN = 'Token_ExpiresIn'
@@ -14,6 +15,9 @@ export const TOGGLE_COLOR = 'color'
 export const TOGGLE_WEAK = 'weak'
 export const TOGGLE_MULTI_TAB = 'multi_tab'
 export const APP_LANGUAGE = 'app_language'
+export const SET_LOCK_PASSWD = 'set_lock_passwd'
+export const IS_LOCK = 'is_lock'
+export const LOCK_PATH = 'lock_path'
 
 export const CONTENT_WIDTH_TYPE = {
     Fluid: 'Fluid',

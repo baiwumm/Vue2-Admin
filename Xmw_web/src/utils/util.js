@@ -1,3 +1,27 @@
+import config from '@/config/defaultSettings'
+import CryptoJS from 'crypto-js'
+export const setDocumentTitle = function (title) {
+    document.title = title
+    const ua = navigator.userAgent
+    // eslint-disable-next-line
+    const regex = /\bMicroMessenger\/([\d\.]+)/
+    if (regex.test(ua) && /ip(hone|od|ad)/i.test(ua)) {
+        const i = document.createElement('iframe')
+        i.src = '/favicon.ico'
+        i.style.display = 'none'
+        i.onload = function () {
+            setTimeout(function () {
+                i.remove()
+            }, 9)
+        }
+        document.body.appendChild(i)
+    }
+}
+
+export const domTitle = config.title
+export const crypto_key = CryptoJS.enc.Utf8.parse('ABCDEF0123456789') //十六位十六进制数作为密钥
+export const crypto_iv = CryptoJS.enc.Utf8.parse('ABCDEF0123456789') //十六位十六进制数作为密钥偏移量
+
 export function timeFix() {
     const time = new Date()
     const hour = time.getHours()

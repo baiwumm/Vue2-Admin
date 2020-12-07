@@ -1,6 +1,6 @@
 <template>
     <page-header-wrapper
-        content="该模块主要是为了实现websocket的推送和小铃铛的功能，并可在其基础上拓展，在即时通讯、通知与消息推送，实时分析等场景中有较为广泛的应用。"
+        content="该模块主要是为了实现websocket的推送和小铃铛的功能，并可在其基础上拓展，websocket在即时通讯、通知与消息推送，实时分析等场景中有较为广泛的应用。"
     >
         <a-card :bordered="false">
             <div class="table-page-search-wrapper">

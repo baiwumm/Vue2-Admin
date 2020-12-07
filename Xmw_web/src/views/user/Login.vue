@@ -55,9 +55,8 @@
 
 <script>
 import CryptoJS from 'crypto-js'
-import storage from 'store'
 import { mapActions } from 'vuex'
-import { timeFix } from '@/utils/util'
+import { crypto_key, crypto_iv, timeFix } from '@/utils/util'
 export default {
     components: {
         'remote-js': {
@@ -86,8 +85,6 @@ export default {
                 error: 'error',
                 message: '账户或密码错误',
             },
-            key: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥
-            iv: CryptoJS.enc.Utf8.parse('ABCDEF0123456789'), //十六位十六进制数作为密钥偏移量
             aliyun_icLogin: false,
         }
     },
@@ -187,8 +184,8 @@ export default {
                      * 对密码进行加密，传输给后台进行验证
                      * */
                     // Encrypt 加密
-                    loginParams.password = CryptoJS.AES.encrypt(loginParams.password, _this.key, {
-                        iv: _this.iv,
+                    loginParams.password = CryptoJS.AES.encrypt(loginParams.password, crypto_key, {
+                        iv: crypto_iv,
                         mode: CryptoJS.mode.CBC,
                         padding: CryptoJS.pad.Pkcs7,
                     }).toString()

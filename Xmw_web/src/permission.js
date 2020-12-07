@@ -4,14 +4,15 @@ import storage from 'store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
-import { setDocumentTitle, domTitle } from '@/utils/domUtil'
-import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO } from '@/store/mutation-types'
+import { setDocumentTitle, domTitle } from '@/utils/util'
+import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO, IS_LOCK } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['login'] // no redirect whitelist
-const loginRoutePath = '/user/login'
-const defaultRoutePath = '/workbench'
+const loginRoutePath = '/user/login' // 登录页
+const defaultRoutePath = '/workbench' // 默认跳转主页
+const lockPage = '/lock'  // 锁屏页
 
 router.beforeEach((to, from, next) => {
     NProgress.start() // start progress bar
@@ -23,7 +24,11 @@ router.beforeEach((to, from, next) => {
     if (nowtime > token_createTime + token_expiresIn) storage.remove(ACCESS_TOKEN)
     /* 是否有token*/
     if (storage.get(ACCESS_TOKEN)) {
-        if (to.path === loginRoutePath) {
+        if (storage.get(IS_LOCK) && to.path != lockPage) { //如果系统激活锁屏，全部跳转到锁屏页
+            next({ path: lockPage })
+            NProgress.done()
+        }
+        else if (to.path === loginRoutePath || (to.path === lockPage && !storage.get(IS_LOCK))) {
             next({ path: defaultRoutePath })
             NProgress.done()
         } else {
@@ -69,7 +74,13 @@ router.beforeEach((to, from, next) => {
             // 在免登录白名单，直接进入
             next()
         } else {
-            next({ path: loginRoutePath, query: { redirect: to.fullPath } })
+            // 如果从锁屏页退出，则不带参数
+            if (to.path == lockPage) {
+                next({ path: loginRoutePath })
+            } else {
+                next({ path: loginRoutePath, query: { redirect: to.fullPath } })
+            }
+
             NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
         }
     }

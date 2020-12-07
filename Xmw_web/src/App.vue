@@ -8,9 +8,8 @@
 </template>
 
 <script>
-import { domTitle, setDocumentTitle } from '@/utils/domUtil'
+import { domTitle, setDocumentTitle } from '@/utils/util'
 import { i18nRender } from '@/locales'
-import { mapState } from 'vuex'
 export default {
     computed: {
         locale() {
