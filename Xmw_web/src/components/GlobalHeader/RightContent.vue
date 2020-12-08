@@ -128,6 +128,7 @@
         </div>
         <avatar-dropdown :menu="showMenu" :class="prefixCls" ref="avatar" />
         <select-lang :class="prefixCls" />
+        <lock-screen></lock-screen>
     </div>
 </template>
 
@@ -137,6 +138,7 @@ import storage from 'store'
 import { SET_LOCK_PASSWD, IS_LOCK } from '@/store/mutation-types'
 import CryptoJS from 'crypto-js'
 import AvatarDropdown from './AvatarDropdown'
+import LockScreen from './LockScreen'
 import SelectLang from '@/components/SelectLang'
 import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
@@ -147,6 +149,7 @@ export default {
     name: 'RightContent',
     components: {
         AvatarDropdown,
+        LockScreen,
         SelectLang,
     },
     props: {
@@ -411,7 +414,6 @@ export default {
                         mode: CryptoJS.mode.CBC,
                         padding: CryptoJS.pad.Pkcs7,
                     }).toString()
-                    console.log(lockPasswd)
                     store.commit('SET_LOCK_PASSWD', lockPasswd)
                     _this.handleLock()
                 }

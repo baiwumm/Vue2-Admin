@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -16,6 +17,7 @@ module.exports = app => {
     router.post('/home/changeUserPassword', controller.home.home.changeUserPassword); // 修改用户密码
     router.post('/home/changeUserLabel', controller.home.home.changeUserLabel); // 修改用户标签
     router.post('/home/changeUserImg', controller.home.home.changeUserImg); // 修改用户头像
+    router.get('/home/getUserPw', controller.home.home.getUserPw); // 获取当前用户密码
 
     // 系统设置模块接口
     router.get('/system/getLogsList', controller.system.admin.getLogsList); // 请求操作日志列表

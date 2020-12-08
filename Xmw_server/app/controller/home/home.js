@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:44:16
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-12-01 17:51:42
+ * @LastEditTime: 2020-12-07 17:23:51
  */
 'use strict';
 
@@ -226,6 +226,20 @@ class HomeController extends Controller {
         } catch (error) {
             ctx.logger.info('changeUserImg方法报错：' + error)
             ctx.body = { state: 0, msg: '上传失败!', error: error }
+        }
+    }
+
+    // 获取当前用户密码
+    async getUserPw() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { UserID } = ctx.session.userInfo
+            let password = await Raw.Query(`select password from xmw_user where UserID = '${UserID}'`)
+            ctx.body = { state: 1, msg: '请求成功!', result: password }
+        } catch (error) {
+            ctx.logger.info('getUserPw方法报错：' + error)
+            ctx.body = { state: 0, msg: '请求失败!', error: error }
         }
     }
 }

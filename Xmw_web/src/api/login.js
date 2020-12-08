@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:34:18
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-10-23 10:20:28
+ * @LastEditTime: 2020-12-07 17:25:16
  */
 import request from '@/utils/request'
 
@@ -15,6 +15,7 @@ const userApi = {
     changeUserPassword: '/home/changeUserPassword',
     changeUserLabel: '/home/changeUserLabel',
     changeUserImg: '/home/changeUserImg',
+    UserPw: '/home/getUserPw',
 }
 // 用户登录
 export function login(parameter) {
@@ -63,5 +64,13 @@ export function changeUserImg(parameter) {
         url: userApi.changeUserImg,
         method: 'post',
         data: parameter
+    })
+}
+// 修改用户头像
+export function UserPw(parameter) {
+    return request({
+        url: userApi.UserPw,
+        method: 'get',
+        params: parameter
     })
 }
