@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-11-10 16:07:02
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-12-03 17:32:56
+ * @LastEditTime: 2020-12-08 10:06:35
  */
 import request from '@/utils/request'
 const Api = {
@@ -17,6 +17,7 @@ const Api = {
     vehicleInfo: '/integrated/getVehicleInfo',
     addEditVehicleInfo: '/integrated/addEditVehicleInfo',
     deleteVehicleInfo: '/integrated/deleteVehicleInfo',
+    saveSeniorExcel: '/integrated/saveSeniorExcel',
 }
 
 // 获取组织架构-部门列表
@@ -87,6 +88,14 @@ export function addEditVehicleInfo(parameter) {
 export function deleteVehicleInfo(parameter) {
     return request({
         url: Api.deleteVehicleInfo,
+        method: 'post',
+        data: parameter
+    })
+}
+// 保存高级表格上传
+export function saveSeniorExcel(parameter) {
+    return request({
+        url: Api.saveSeniorExcel,
         method: 'post',
         data: parameter
     })

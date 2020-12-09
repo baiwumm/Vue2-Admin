@@ -12,6 +12,9 @@
         v-bind="settings"
     >
         <setting-drawer :settings="settings" @change="handleSettingChange" />
+        <template v-slot:links>
+            <div>menuFooterRender</div>
+        </template>
         <template v-slot:rightContentRender>
             <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
         </template>
@@ -22,10 +25,7 @@
             <global-footer />
         </template>
         <transition name="fade-transform" mode="out-in">
-            <keep-alive v-if="$route.meta.keepAlive">
-                <router-view></router-view>
-            </keep-alive>
-            <router-view v-else></router-view>
+            <router-view></router-view>
         </transition>
         <!-- 回到顶部 -->
         <div id="components-back-top-custom">
@@ -37,10 +37,22 @@
 </template>
 
 <script>
+import storage from 'store'
 import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
-import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
+import {
+    TOGGLE_LAYOUT,
+    TOGGLE_COLOR,
+    TOGGLE_CONTENT_WIDTH,
+    TOGGLE_NAV_THEME,
+    CONTENT_WIDTH_TYPE,
+    SIDEBAR_TYPE,
+    TOGGLE_MOBILE_TYPE,
+    TOGGLE_FIXED_HEADER,
+    TOGGLE_FIXED_SIDEBAR,
+    TOGGLE_WEAK,
+} from '@/store/mutation-types'
 import { MultiTab } from '@/components'
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
@@ -67,17 +79,19 @@ export default {
             title: defaultSettings.title,
             settings: {
                 // 布局类型
-                layout: defaultSettings.layout, // 'sidemenu', 'topmenu'
+                layout: storage.get(TOGGLE_LAYOUT) || defaultSettings.layout, // 'sidemenu', 'topmenu'
                 // CONTENT_WIDTH_TYPE
                 contentWidth:
-                    defaultSettings.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : defaultSettings.contentWidth,
+                    storage.get(TOGGLE_CONTENT_WIDTH) || defaultSettings.layout === 'sidemenu'
+                        ? CONTENT_WIDTH_TYPE.Fluid
+                        : defaultSettings.contentWidth,
                 // 主题 'dark' | 'light'
-                theme: defaultSettings.navTheme,
+                theme: storage.get(TOGGLE_NAV_THEME) || defaultSettings.navTheme,
                 // 主色调
-                primaryColor: defaultSettings.primaryColor,
-                fixedHeader: defaultSettings.fixedHeader,
-                fixSiderbar: defaultSettings.fixSiderbar,
-                colorWeak: defaultSettings.colorWeak,
+                primaryColor: storage.get(TOGGLE_COLOR) || defaultSettings.primaryColor,
+                fixedHeader: storage.get(TOGGLE_FIXED_HEADER) || defaultSettings.fixedHeader,
+                fixSiderbar: storage.get(TOGGLE_FIXED_SIDEBAR) || defaultSettings.fixSiderbar,
+                colorWeak: storage.get(TOGGLE_WEAK) || defaultSettings.colorWeak,
 
                 hideHintAlert: false,
                 hideCopyButton: false,
@@ -144,6 +158,7 @@ export default {
         },
         handleSettingChange({ type, value }) {
             console.log('type', type, value)
+            storage.set(type, value)
             type && (this.settings[type] = value)
             switch (type) {
                 case 'contentWidth':
@@ -207,5 +222,6 @@ export default {
 }
 .ant-layout.topmenu /deep/ .ant-layout-header {
     height: 64px;
+    z-index: 88 !important;
 }
 </style>

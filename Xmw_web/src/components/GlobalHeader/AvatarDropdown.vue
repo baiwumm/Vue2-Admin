@@ -62,7 +62,7 @@ export default {
                     return this.$store.dispatch('Logout').then(() => {
                         this.$message.success('注销成功!')
                         this.$router.push({ name: 'login' })
-                        window.location.reload()
+                        // window.location.reload()
                     })
                 },
             })

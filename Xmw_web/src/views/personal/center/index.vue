@@ -24,25 +24,27 @@
                         <div class="account-center-tags">
                             <div class="tagsTitle">标签</div>
                             <div>
-                                <template v-for="(tag, index) in tags" v-key="index">
-                                    <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
+                                <vuedraggable :list="tags" @change="changeDra">
+                                    <template v-for="(tag, index) in tags" v-key="index">
+                                        <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
+                                            <a-tag
+                                                :key="tag"
+                                                :closable="true"
+                                                @close="handleTagClose(tag)"
+                                                :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
+                                                >{{ `${tag.slice(0, 8)}...` }}</a-tag
+                                            >
+                                        </a-tooltip>
                                         <a-tag
+                                            v-else
                                             :key="tag"
                                             :closable="true"
                                             @close="handleTagClose(tag)"
                                             :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
-                                            >{{ `${tag.slice(0, 8)}...` }}</a-tag
+                                            >{{ tag }}</a-tag
                                         >
-                                    </a-tooltip>
-                                    <a-tag
-                                        v-else
-                                        :key="tag"
-                                        :closable="true"
-                                        @close="handleTagClose(tag)"
-                                        :color="tag.length > 4 ? 'cyan' : tag.length > 2 ? 'blue' : 'purple'"
-                                        >{{ tag }}</a-tag
-                                    >
-                                </template>
+                                    </template>
+                                </vuedraggable>
                                 <a-input
                                     v-if="tagInputVisible"
                                     ref="tagInput"
@@ -80,11 +82,13 @@ import { USER_INFO } from '@/store/mutation-types'
 import { PageView, RouteView } from '@/layouts'
 import BaseSetting from '../settings/Index'
 import { changeUserLabel } from '@/api/login'
+import vuedraggable from 'vuedraggable'
 export default {
     components: {
         RouteView,
         PageView,
         BaseSetting,
+        vuedraggable,
     },
     data() {
         return {
@@ -148,7 +152,7 @@ export default {
             this.tagInputValue = e.target.value
         },
 
-        handleTagInputConfirm() {
+        async handleTagInputConfirm() {
             const inputValue = this.tagInputValue
             let tags = this.tags || []
             if (inputValue && !tags.includes(inputValue)) {
@@ -156,7 +160,7 @@ export default {
                 let labelParams = {
                     label: tags,
                 }
-                changeUserLabel(labelParams).then((res) => {
+                await changeUserLabel(labelParams).then((res) => {
                     if (res.state == 1) {
                         let storeUser = Object.assign(this.user, labelParams)
                         this.$message.success(res.msg)
@@ -170,6 +174,21 @@ export default {
                 tags,
                 tagInputVisible: false,
                 tagInputValue: '',
+            })
+        },
+        // 标签拖拽
+        async changeDra() {
+            let labelParams = {
+                label: this.tags,
+            }
+            await changeUserLabel(labelParams).then((res) => {
+                if (res.state == 1) {
+                    let storeUser = Object.assign(this.user, labelParams)
+                    this.$message.success(res.msg)
+                    storage.set(USER_INFO, storeUser)
+                } else {
+                    this.$message.error(res.msg)
+                }
             })
         },
     },

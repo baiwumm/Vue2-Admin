@@ -1,5 +1,6 @@
 import { asyncRouterMap, constantRouterMap, notFoundRouter } from '@/config/router.config'
 
+
 /**
  * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除
  *
@@ -37,7 +38,23 @@ function hasRole(roles, route) {
     }
 }
 
-function filterAsyncRouter(routerMap, roles) {
+// 深度拷贝方法
+function deepCopy(obj) {
+    var objClone = Array.isArray(obj) ? [] : {}
+    if (obj && typeof obj === 'object') {
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (obj[key] && typeof obj[key] === 'object') {
+                    objClone[key] = deepCopy(obj[key])
+                } else {
+                    objClone[key] = obj[key]
+                }
+            }
+        } return objClone
+    }
+}
+function filterAsyncRouter(routerMaps, roles) {
+    let routerMap = deepCopy(routerMaps)
     const accessedRouters = routerMap.filter(route => {
         if (hasPermission(roles.permissionList, route)) {
             if (route.children && route.children.length) {

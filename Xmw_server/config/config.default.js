@@ -80,7 +80,7 @@ module.exports = appInfo => {
     config.multipart = {
         fileSize: "2mb",
         mode: "stream",
-        whitelist: ['.jpg', '.jpeg', '.png']
+        whitelist: ['.jpg', '.jpeg', '.png', '.xlsx', 'xls']
     };
     return {
         ...config

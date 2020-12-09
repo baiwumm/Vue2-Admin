@@ -49,4 +49,5 @@ module.exports = app => {
     router.get('/integrated/getVehicleInfo', controller.integrated.seniorforms.getVehicleInfo); // 获取车辆信息
     router.post('/integrated/addEditVehicleInfo', controller.integrated.seniorforms.addEditVehicleInfo); // 添加编辑车辆信息
     router.post('/integrated/deleteVehicleInfo', controller.integrated.seniorforms.deleteVehicleInfo); // 删除车辆信息
+    router.post('/integrated/saveSeniorExcel', controller.integrated.seniorforms.saveSeniorExcel); // 保存高级表格上传
 }; 

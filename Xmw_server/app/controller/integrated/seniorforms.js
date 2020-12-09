@@ -4,11 +4,15 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-11-19 13:54:00
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-12-03 17:31:56
+ * @LastEditTime: 2020-12-08 10:44:05
  */
 'use strict';
 
 const Controller = require('egg').Controller;
+//异步二进制 写入流
+const awaitWriteStream = require("await-stream-ready").write;
+const fs = require('fs');
+const path = require('path');
 class SeniorFormsController extends Controller {
     // 获取高级表格列表
     async getseniorFormsList() {
@@ -150,6 +154,41 @@ class SeniorFormsController extends Controller {
         } catch (error) {
             ctx.logger.info('deleteVehicleInfo方法报错：' + error)
             ctx.body = { state: 0, msg: '删除失败!', error: error }
+        }
+    }
+
+    // 保存高级表格上传
+    async saveSeniorExcel() {
+        const { ctx } = this;
+        try {
+            //1.获取文件流
+            const stream = await this.ctx.getFileStream();
+            //2.获取图片类型
+            const fileExt = stream.filename.substr(stream.filename.lastIndexOf("."));
+            const SaveFileName = stream.fields.SaveFileName;
+            let filename = ctx.helper.dataFormat(new Date(), "yyyyMMddhhmmss") + "_" + Math.floor(Math.random() * 10000 + 1000) + fileExt;
+            const url = 'app/public/' + SaveFileName;
+            //2.保存路径是否存在,不存在则逐级创建目录
+            if (!fs.existsSync(url)) {
+                url.split(path.sep).reduce((currentPath, folder) => {
+                    currentPath += folder + path.sep;
+                    if (!fs.existsSync(currentPath)) {
+                        fs.mkdirSync(currentPath);
+                    }
+                    return currentPath;
+                }, "");
+            }
+            //3.保存文件
+            const savepath = path.join(url, filename);
+            const writeStream = fs.createWriteStream(savepath);
+            await awaitWriteStream(stream.pipe(writeStream));
+            ctx.body = {
+                state: 1,
+                msg: "上传成功"
+            }
+        } catch (error) {
+            ctx.logger.info('saveSeniorExcel方法报错：' + error)
+            ctx.body = { state: 0, msg: '上传失败!', error: error }
         }
     }
 }

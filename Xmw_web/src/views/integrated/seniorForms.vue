@@ -119,6 +119,7 @@
                                         :tHeader="columns.map((c) => c.title)"
                                         :filterVal="columns.map((c) => c.key)"
                                         :exportData="exportData"
+                                        :selectedRowKeys="selectedRowKeys"
                                     ></export-file>
                                 </a-tooltip>
                                 <a-tooltip v-action:delete>
@@ -374,7 +375,7 @@
 </template>
 
 <script>
-import { seniorFormsList, addEditSeniorForms, deleteSeniorForms } from '@/api/integrated'
+import { seniorFormsList, addEditSeniorForms, deleteSeniorForms, saveSeniorExcel } from '@/api/integrated'
 import { dataFormat } from '@/utils/util.js'
 import moment from 'moment'
 import formType from './components/formType.json'
@@ -580,7 +581,7 @@ export default {
                 total: 0,
                 defaultCurrent: 1,
                 defaultPageSize: 20,
-                showTotal: (total) => `共 ${total} 条数据`,
+                showTotal: (total, range) => `第${range[0]}-${range[1]}条/总共 ${total} 条数据`,
                 showSizeChanger: true,
                 pageSizeOptions: ['20', '40', '60', '100'],
             },
@@ -683,6 +684,7 @@ export default {
                     },
                 ],
                 onSelection: this.onSelection,
+                file: '',
             }
         },
     },
@@ -952,7 +954,7 @@ export default {
         beforeUpload(file) {
             console.log(file)
             // 获取文件名
-            this.fileName = file.name
+            this.file = file
             // 获取文件类型
             let fileType = file.name.substring(file.name.lastIndexOf('.') + 1)
             let whitelist = ['xls', 'xlsx', 'csv'].indexOf(fileType.toLowerCase()) !== -1
@@ -962,8 +964,24 @@ export default {
                 this.$message.warning('请上传excel表格，且大小不能超过 10MB!')
                 return false
             }
+            this.saveExcel()
             this.importf(file)
             return false //  取消默认上传
+        },
+        async saveExcel() {
+            let _this = this
+            console.log(_this.file)
+            const formData = new FormData()
+            let fileOfBlob = new File([_this.file], _this.file.name)
+            formData.append('SaveFileName', 'seniorForm')
+            formData.append('file', fileOfBlob)
+            await saveSeniorExcel(formData).then((res) => {
+                if (res.state == 1) {
+                    _this.$message.success(res.msg)
+                } else {
+                    _this.$message.error(res.msg)
+                }
+            })
         },
         importf(obj) {
             let _this = this
@@ -998,7 +1016,7 @@ export default {
                     }
                     outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) //outdata就是读取excel内容之后输出的东西
                     // 全局替换表头字段
-                    let formData = JSON.parse(
+                    let excelData = JSON.parse(
                         JSON.stringify(outdata)
                             .replace(/Bug标题/g, 'title')
                             .replace(/Bug类型/g, 'type')
@@ -1011,7 +1029,7 @@ export default {
                             .replace(/截止日期/g, 'endTime')
                     )
                     // 插入数据库
-                    let params = { upload: true, formData: formData }
+                    let params = { upload: true, excelData: excelData }
                     _this.loading = true
                     await addEditSeniorForms(params)
                         .then((res) => {

@@ -470,10 +470,10 @@ export default {
 
 .ant-pro-global-header-index-dark {
     .header-search {
-        color: #fff;
+        color: hsla(0, 0%, 100%, 0.85);
     }
     .ant-pro-global-header-index-action {
-        color: #fff;
+        color: hsla(0, 0%, 100%, 0.85);
     }
 }
 </style>
