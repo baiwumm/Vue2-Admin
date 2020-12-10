@@ -1,3 +1,4 @@
+
 <template>
     <page-header-wrapper content="个人中心主要用于用户信息资料的修改，支持自定义头像、用户标签等，并可在其基础拓展。">
         <div class="page-header-index-wide page-header-wrapper-grid-content-main">
@@ -24,7 +25,7 @@
                         <div class="account-center-tags">
                             <div class="tagsTitle">标签</div>
                             <div>
-                                <vuedraggable :list="tags" @change="changeDra">
+                                <vuedraggable  :list="tags" @change="changeDra">
                                     <template v-for="(tag, index) in tags" v-key="index">
                                         <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
                                             <a-tag
@@ -82,13 +83,11 @@ import { USER_INFO } from '@/store/mutation-types'
 import { PageView, RouteView } from '@/layouts'
 import BaseSetting from '../settings/Index'
 import { changeUserLabel } from '@/api/login'
-import vuedraggable from 'vuedraggable'
 export default {
     components: {
         RouteView,
         PageView,
-        BaseSetting,
-        vuedraggable,
+        BaseSetting
     },
     data() {
         return {

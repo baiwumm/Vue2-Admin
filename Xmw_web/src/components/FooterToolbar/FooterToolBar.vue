@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import storage from 'store'
 export default {
   name: 'FooterToolBar',
   props: {
@@ -36,7 +37,16 @@ export default {
   },
   computed: {
     barWidth () {
-      return this.isMobile ? undefined : `calc(100% - ${this.collapsed ? 80 : this.siderWidth || 256}px)`
+      if(this.isMobile){
+        return undefined
+      }else{
+        if(storage.get('layout') == 'topmenu'){
+          return undefined
+        }else{
+          return `calc(100% - ${this.collapsed ? 80 : this.siderWidth || 256}px)`
+        }
+      }
+      // return this.isMobile ? undefined : `calc(100% - ${this.collapsed ? 80 : this.siderWidth || 256}px)`
     }
   }
 }

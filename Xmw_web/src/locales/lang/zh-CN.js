@@ -15,6 +15,8 @@ const locale = {
     'menu.integrated.advancedForm': '高级表单',
     'menu.integrated.organizational': '组织架构',
     'menu.integrated.seniorForms': '高级表格',
+    'menu.features': '功能页',
+    'menu.features.qrcode': '生成二维码',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',

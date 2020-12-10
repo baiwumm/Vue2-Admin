@@ -15,6 +15,8 @@ const locale = {
     'menu.integrated.advancedForm': 'AdvancedForm',
     'menu.integrated.organizational': 'Organizational',
     'menu.integrated.seniorForms': 'SeniorForms',
+    'menu.features': 'Features',
+    'menu.features.qrcode': 'Qrcode',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',
