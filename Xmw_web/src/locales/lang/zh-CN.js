@@ -17,6 +17,8 @@ const locale = {
     'menu.integrated.seniorForms': '高级表格',
     'menu.features': '功能页',
     'menu.features.qrcode': '生成二维码',
+    'menu.features.multistage': '嵌套路由',
+    'menu.features.multistage.contrast': '图片对比',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',

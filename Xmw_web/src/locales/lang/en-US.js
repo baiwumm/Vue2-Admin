@@ -1,3 +1,4 @@
+
 import antdEnUS from 'ant-design-vue/es/locale-provider/en_US'
 import momentEU from 'moment/locale/eu'
 
@@ -17,6 +18,8 @@ const locale = {
     'menu.integrated.seniorForms': 'SeniorForms',
     'menu.features': 'Features',
     'menu.features.qrcode': 'Qrcode',
+    'menu.features.multistage': 'Multistage',
+    'menu.features.multistage.contrast': 'Contrast',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',

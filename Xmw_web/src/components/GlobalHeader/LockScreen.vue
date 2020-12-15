@@ -8,6 +8,7 @@
                     v-decorator="['password', { rules: [{ required: true, message: '请输入登录密码' }] }]"
                     placeholder="请输入登录密码"
                     allowClear
+                    @pressEnter="handleSubmit"
                 />
             </a-form-item>
         </a-form>
@@ -67,6 +68,7 @@ export default {
                             // 当确认密码后，再次启用定时器和设置storage
                             _this.setTimer()
                             storage.set('LockScreen', false)
+                            storage.set('lastTime', new Date().getTime())
                             _this.lockVisible = false
                             _this.form.resetFields()
                         } else {
