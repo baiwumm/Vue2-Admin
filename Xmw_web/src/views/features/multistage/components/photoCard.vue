@@ -9,13 +9,13 @@ export default {
     data() {
         return {
             imgList: [
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0001.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0002.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0003.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0004.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0005.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0006.jpg',
-                'https://www.jq22.com/demo/jquery-css3hover20151014/images/studio_0001.jpg',
+                require('@/assets/images/studio_0001.jpg'),
+                require('@/assets/images/studio_0002.jpg'),
+                require('@/assets/images/studio_0003.jpg'),
+                require('@/assets/images/studio_0004.jpg'),
+                require('@/assets/images/studio_0005.jpg'),
+                require('@/assets/images/studio_0006.jpg'),
+                require('@/assets/images/studio_0001.jpg'),
             ],
         }
     },
