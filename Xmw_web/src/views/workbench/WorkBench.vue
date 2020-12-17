@@ -29,12 +29,12 @@
         <a-row :gutter="20">
             <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
                 <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
-                    <column-plot :value="columnPlotData" :Height="196"></column-plot>
+                    <column-plot :value="columnPlotData" :Height="177"></column-plot>
                 </a-card>
             </a-col>
-            <a-col :xs="12" :sm="8" :md="4" :lg="4" :xl="4" v-for="(item, index) in navList" :key="index">
+            <a-col :xs="24" :sm="12" :md="6" :lg="3" :xl="3" v-for="(item, index) in navList" :key="index">
                 <router-link :to="item.link">
-                    <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center', height: '140px' }">
+                    <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center', height: '130px' }">
                         <a-icon :type="item.icon" :style="{ color: item.color, fontSize: '50px' }" />
                         <p style="color: #303133; font-size: 16px; margin-top: 10px">{{ item.title }}</p>
                     </a-card>
@@ -44,7 +44,7 @@
         <a-row :gutter="20">
             <a-col :xs="24" :sm="24" :md="24" :lg="10" :xl="10">
                 <a-card title="开发技术栈" hoverable>
-                    <a-button type="primary" slot="extra"> egg.js+vue全家桶+antd+mysql </a-button>
+                    <a-button type="primary" slot="extra"> node.js+egg.js+vue+antd-vue+mysql </a-button>
                     <a-descriptions bordered :column="2">
                         <a-descriptions-item
                             :label="item.technology"

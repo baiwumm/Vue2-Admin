@@ -12,7 +12,7 @@ import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
 import Vue2OrgTree from 'vue2-org-tree'
-import vuedraggable  from 'vuedraggable'
+import vuedraggable from 'vuedraggable'
 Vue.component("vuedraggable", vuedraggable);
 
 import _ from 'lodash'
@@ -21,7 +21,6 @@ Vue.prototype._ = _
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
 import './permission' // permission control
-import './utils/filter' // global filter
 import './global.less'
 
 import VueSocketIO from 'vue-socket.io'

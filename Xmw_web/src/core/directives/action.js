@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import store from '@/store'
 
 /**
@@ -14,7 +13,7 @@ import store from '@/store'
  *
  *  @see https://github.com/vueComponent/ant-design-vue-pro/pull/53
  */
-const action = Vue.directive('action', {
+const action = {
     inserted: function (el, binding, vnode) {
         const actionName = binding.arg
         const roles = store.getters.roles
@@ -29,6 +28,6 @@ const action = Vue.directive('action', {
             }
         })
     }
-})
+}
 
 export default action

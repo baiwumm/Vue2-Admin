@@ -12,9 +12,6 @@
         v-bind="settings"
     >
         <setting-drawer :settings="settings" @change="handleSettingChange" />
-        <template v-slot:links>
-            <div>menuFooterRender</div>
-        </template>
         <template v-slot:rightContentRender>
             <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
         </template>

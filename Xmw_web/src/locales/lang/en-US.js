@@ -22,6 +22,7 @@ const locale = {
     'menu.features.multistage': 'Multistage',
     'menu.features.multistage.contrast': 'Contrast',
     'menu.features.quillEditor': 'QuillEditor',
+    'menu.features.customDirective': 'CustomDirective',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',

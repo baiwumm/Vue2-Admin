@@ -18,7 +18,7 @@
                 <a-card :hoverable="true" title="富文本编辑器转换成html演示">
                     <!-- 从数据库读取展示 -->
                     <div class="ql-container ql-snow">
-                        <div v-html="conversion" class="ql-editor">
+                        <div class="ql-editor">
                             {{ conversion }}
                         </div>
                     </div>

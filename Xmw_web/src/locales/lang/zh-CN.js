@@ -21,6 +21,7 @@ const locale = {
     'menu.features.multistage': '嵌套路由',
     'menu.features.multistage.contrast': '图片对比',
     'menu.features.quillEditor': '富文本编辑器',
+    'menu.features.customDirective': '自定义Vue指令',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',
