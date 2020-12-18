@@ -1,55 +1,79 @@
 <template>
-    <div class="main">
-        <a-form id="formLogin" class="user-layout-login" ref="formLogin" :form="form" @submit="handleSubmit">
-            <a-alert
-                v-if="isLoginError.state"
-                :type="isLoginError.error"
-                showIcon
-                style="margin-bottom: 24px"
-                :message="isLoginError.message"
-            />
-            <a-form-item>
-                <a-input
-                    size="large"
-                    type="text"
-                    placeholder="请输入帐户名"
-                    v-decorator="[
-                        'username',
-                        { rules: [{ required: true, message: '请输入帐户名' }], validateTrigger: 'change' },
-                    ]"
-                >
-                    <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
-                </a-input>
-            </a-form-item>
+    <div class="login-container">
+        <div class="top">
+            <div class="header">
+                <img :src="logoSvg" class="logo" alt="logo" />
+                <span class="title">Xmw Pro</span>
+            </div>
+            <div class="desc">真正的大师永远都怀着一颗学徒的心。</div>
+        </div>
+        <a-card :bordered="false">
+            <p class="welcome_login">欢迎登陆<em>智能后台管理系统</em></p>
+            <a-form
+                id="formLogin"
+                class="user-layout-login"
+                ref="formLogin"
+                :form="form"
+                @submit="handleSubmit"
+                :label-col="{ span: 5 }"
+                :wrapper-col="{ span: 19 }"
+            >
+                <a-alert
+                    v-if="isLoginError.state"
+                    :type="isLoginError.error"
+                    showIcon
+                    style="margin-bottom: 24px"
+                    :message="isLoginError.message"
+                />
+                <a-form-item label="用户名">
+                    <a-input
+                        size="large"
+                        type="text"
+                        placeholder="请输入用户名"
+                        v-decorator="[
+                            'username',
+                            { rules: [{ required: true, message: '请输入用户名' }], validateTrigger: 'change' },
+                        ]"
+                    >
+                        <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
+                    </a-input>
+                </a-form-item>
 
-            <a-form-item>
-                <a-input-password
-                    size="large"
-                    placeholder="请输入密码"
-                    v-decorator="[
-                        'password',
-                        { rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' },
-                    ]"
-                >
-                    <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
-                </a-input-password>
-            </a-form-item>
-            <a-form-item>
-                <div id="aliyunVerify"></div>
-                <remote-js src="//g.alicdn.com/sd/nvc/1.1.112/guide.js" @loaded="initCaptcha"></remote-js>
-            </a-form-item>
-            <a-form-item style="margin-top: 24px">
-                <a-button
-                    size="large"
-                    type="primary"
-                    htmlType="submit"
-                    class="login-button"
-                    :loading="loginState"
-                    :disabled="loginState"
-                    >确定</a-button
-                >
-            </a-form-item>
-        </a-form>
+                <a-form-item label="密码">
+                    <a-input-password
+                        size="large"
+                        placeholder="请输入密码"
+                        v-decorator="[
+                            'password',
+                            { rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' },
+                        ]"
+                    >
+                        <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
+                    </a-input-password>
+                </a-form-item>
+                <a-form-item label="智能验证">
+                    <div
+                        id="aliyunVerify"
+                        v-decorator="[
+                            'aliyunVerify',
+                            { rules: [{ required: true, message: '请完成智能验证' }], validateTrigger: 'blur' },
+                        ]"
+                    ></div>
+                    <remote-js src="//g.alicdn.com/sd/nvc/1.1.112/guide.js" @loaded="initCaptcha"></remote-js>
+                </a-form-item>
+                <a-form-item style="margin-top: 24px" :wrapper-col="{ span: 19, offset: 5 }">
+                    <a-button
+                        size="large"
+                        type="primary"
+                        htmlType="submit"
+                        class="login-button"
+                        :loading="loginState"
+                        :disabled="loginState"
+                        >登录</a-button
+                    >
+                </a-form-item>
+            </a-form>
+        </a-card>
     </div>
 </template>
 
@@ -78,6 +102,7 @@ export default {
     },
     data() {
         return {
+            logoSvg: require('@/assets/logo.svg'),
             form: this.$form.createForm(this),
             loginState: false,
             isLoginError: {
@@ -85,7 +110,6 @@ export default {
                 error: 'error',
                 message: '账户或密码错误',
             },
-            aliyun_icLogin: false,
         }
     },
     created() {
@@ -168,17 +192,9 @@ export default {
                 Login,
             } = _this
             _this.loginState = true
-            const validateFieldsKey = ['username', 'password']
+            const validateFieldsKey = ['username', 'password', 'aliyunVerify']
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
-                    if (!_this.aliyun_icLogin) {
-                        _this.isLoginError.state = true
-                        _this.isLoginError.message = '请完成智能验证!'
-                        setTimeout(() => {
-                            _this.loginState = false
-                        }, 600)
-                        return
-                    }
                     const loginParams = { ...values }
                     /*
                      * 对密码进行加密，传输给后台进行验证
@@ -228,7 +244,7 @@ export default {
                 //声明智能验证需要渲染的目标元素ID。
                 renderTo: '#aliyunVerify',
                 //智能验证组件的宽度。
-                width: 368,
+                width: 318.23,
                 //智能验证组件的高度。
                 height: 40,
                 //智能验证组件初始状态文案。
@@ -241,10 +257,10 @@ export default {
                 scaning_txt: '智能检测中',
                 //前端智能验证通过时会触发该回调参数。您可以在该回调参数中将请求标识（token）、会话ID（sessionid）、签名串（sig）字段记录下来，随业务请求一同发送至您的服务端调用验签。
                 success: function (data) {
-                    _this.aliyun_icLogin = true
+                    _this.form.setFieldsValue({ aliyunVerify: true })
                 },
                 fail: function () {
-                    _this.aliyun_icLogin = false
+                    _this.form.setFieldsValue({ aliyunVerify: undefined })
                 },
             })
             ic.init()
@@ -255,20 +271,70 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.user-layout-login {
-    label {
-        font-size: 14px;
+.login-container {
+    float: right;
+    width: 450px;
+    margin-right: 10%;
+    .top {
+        text-align: center;
+        .header {
+            height: 44px;
+            line-height: 44px;
+            .logo {
+                height: 44px;
+                vertical-align: top;
+                margin-right: 16px;
+                border-style: none;
+            }
+            .title {
+                font-size: 33px;
+                color: rgba(0, 0, 0, 0.85);
+                font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                font-weight: 600;
+                position: relative;
+                top: 2px;
+            }
+        }
+        .desc {
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.45);
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
     }
-    button.login-button {
-        padding: 0 15px;
-        font-size: 16px;
-        height: 40px;
-        width: 100%;
+    .ant-card {
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        .welcome_login {
+            text-align: center;
+            font-size: 22px;
+            font-family: SimSun;
+            margin-bottom: 15px;
+            em {
+                color: #47a7fb;
+            }
+        }
     }
-}
-#aliyunVerify {
-    /deep/ .sm-txt {
-        vertical-align: initial;
+    .user-layout-login {
+        label {
+            font-size: 14px;
+        }
+        button.login-button {
+            padding: 0 15px;
+            font-size: 16px;
+            height: 40px;
+            width: 100%;
+        }
+        @media (max-width: 575px) {
+            /deep/ .ant-form-item-label,
+            .ant-form-item-control-wrapper {
+                width: auto;
+            }
+        }
+    }
+    #aliyunVerify {
+        /deep/ .sm-txt {
+            vertical-align: initial;
+        }
     }
 }
 </style>

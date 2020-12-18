@@ -1,5 +1,5 @@
 <template>
-    <page-header-wrapper content="自定义一些使用的Vue指令，系统的按钮权限就是用了自定义的指令v-action控制。">
+    <page-header-wrapper content="自定义一些实用的Vue指令，系统的按钮权限就是用了自定义的指令v-action控制。">
         <a-row :gutter="20">
             <!-- 复制粘贴指令 v-copy -->
             <a-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">

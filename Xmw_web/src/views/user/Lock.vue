@@ -1,7 +1,7 @@
 <template>
     <div class="lock-container">
         <div class="lock-form">
-            <h1 style="font-weight: bold">{{ nickname }}</h1>
+            <h1 style="font-weight: bold; color: rgba(255, 255, 255, 0.8)">{{ nickname }}</h1>
             <a-input-password v-model="lockpd" placeholder="请输入锁屏密码" size="large" allowClear>
                 <div slot="addonAfter">
                     <a-space size="middle">
@@ -94,7 +94,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../../assets/background.svg');
+    background-image: url('../../assets/lockScreen.jpg');
     background-size: cover;
 }
 .lock-form {
