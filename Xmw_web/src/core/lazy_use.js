@@ -51,7 +51,8 @@ import {
     Tree,
     BackTop,
     Slider,
-    Timeline
+    Timeline,
+    Empty
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -110,6 +111,7 @@ Vue.use(Tree)
 Vue.use(BackTop)
 Vue.use(Slider)
 Vue.use(Timeline)
+Vue.use(Empty)
 
 
 Vue.prototype.$confirm = Modal.confirm
