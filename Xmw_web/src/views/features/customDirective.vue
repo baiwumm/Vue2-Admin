@@ -117,7 +117,6 @@ export default {
             this.$message.success(`最后一次点击延迟${this.debounceTime / 1000}s后触发`)
         },
         throllteClick() {
-            console.log(111)
             this.$message.success(`首次点击${this.throllteTime / 1000}s内只触发一次`)
         },
     },

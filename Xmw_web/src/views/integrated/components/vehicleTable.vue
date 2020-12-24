@@ -294,7 +294,6 @@ export default {
         },
         changeTime(date, dateString) {
             this.formData.registrationTime = dateString
-            console.log(this.formData)
         },
         // 编辑
         editInfo(ID) {

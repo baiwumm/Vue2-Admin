@@ -113,7 +113,6 @@ export default {
             Promise.all([vehicleBasicForm, vehicleOtherForm])
                 .then(async (values) => {
                     let params = Object.assign(values[0], values[1])
-                    console.log(params)
                     this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',

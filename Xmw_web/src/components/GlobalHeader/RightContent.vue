@@ -144,7 +144,7 @@ import screenfull from 'screenfull'
 import { Menu } from '@/api/system'
 import { crypto_key, crypto_iv, treeData, relativeTime } from '@/utils/util.js'
 import Fuse from 'fuse.js'
-import { Announcement, saveAnnouncementRead, webSockets } from '@/api/system'
+import { Announcement, saveAnnouncementRead, webSockets, User } from '@/api/system'
 export default {
     name: 'RightContent',
     components: {
@@ -172,8 +172,8 @@ export default {
     },
     // 监听websocket信息
     sockets: {
+        // 监听发布公告
         announcement(data) {
-            console.log('接收：' + data)
             if (data) {
                 this.unread = 0
                 this.current = 1
@@ -211,6 +211,42 @@ export default {
                     } else {
                         this.$message.error(res.msg)
                     }
+                })
+            }
+        },
+        // 监听聊天消息
+        async chat(data) {
+            let _this = this
+            if (data && data.ToUserID == _this.user.UserID && this.$route.path != '/features/chatRoom') {
+                const key = `open${Date.now()}`
+                let params = {
+                    UserID: data.UserID,
+                }
+                let res = await User(params)
+                console.log(res)
+                this.$notification.success({
+                    message: res.result.CnName + '给你发送了一条消息',
+                    description: data.Content,
+                    duration: 0,
+                    btn: (h) => {
+                        return h(
+                            'a-button',
+                            {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small',
+                                },
+                                on: {
+                                    click: () => {
+                                        this.$notification.close(key)
+                                        this.showChatMsg(data.UserID)
+                                    },
+                                },
+                            },
+                            '马上查看'
+                        )
+                    },
+                    key,
                 })
             }
         },
@@ -424,6 +460,10 @@ export default {
             setTimeout(() => {
                 this.$router.push({ path: '/lock' })
             }, 100)
+        },
+        // 跳转到聊天页面
+        showChatMsg(UserID) {
+            this.$router.push({ name: 'chatRoom', params: { UserID: UserID } })
         },
     },
     mounted() {

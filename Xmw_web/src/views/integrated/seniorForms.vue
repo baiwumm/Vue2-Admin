@@ -952,7 +952,6 @@ export default {
         },
         // 上传excel文件
         beforeUpload(file) {
-            console.log(file)
             // 获取文件名
             this.file = file
             // 获取文件类型
@@ -970,7 +969,6 @@ export default {
         },
         async saveExcel() {
             let _this = this
-            console.log(_this.file)
             const formData = new FormData()
             let fileOfBlob = new File([_this.file], _this.file.name)
             formData.append('SaveFileName', 'seniorForm')

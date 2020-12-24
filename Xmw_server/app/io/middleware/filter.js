@@ -7,6 +7,6 @@ module.exports = () => {
         console.log(ctx.packet);
         ctx.socket.emit('res', 'packet!');
         await next();
-        console.log('packet response!');
+        console.log('接收包响应!');
     };
 };

@@ -1,5 +1,5 @@
 <template>
-    <page-header-wrapper content="基于阿里云智能的图像识别技术">
+    <page-header-wrapper content="基于百度智能云的图像识别技术">
         <a-row :gutter="20">
             <a-col :span="24">
                 <a-card :bordered="false">
@@ -93,10 +93,19 @@ export default {
         // 发起调用百度图像识别接口
         async initiateCall() {
             this.loading = true
+            if (!this.uploadImg) {
+                this.$message.warning('请上传图片!')
+                this.loading = false
+                return false
+            }
+            // 调用token的三个必须参数,grant_type固定为client_credentials,client_id是应用APIKey,client_secret是应用SecretKey
+            let grant_type = 'client_credentials',
+                APIKey = '9dL8XaGrF2CwbwU2PeCQzpYV',
+                SecretKey = 'g1wq2AFb5Xz7K7PBsvdk6eKutZXxtwHe'
             // 获取token
             await axios
                 .get(
-                    '/baiduApi/oauth/2.0/token?grant_type=client_credentials&client_id=9dL8XaGrF2CwbwU2PeCQzpYV&client_secret=g1wq2AFb5Xz7K7PBsvdk6eKutZXxtwHe',
+                    `/baiduApi/oauth/2.0/token?grant_type=${grant_type}&client_id=${APIKey}&client_secret=${SecretKey}`,
                     {
                         headers: {
                             dataType: 'json',
@@ -117,7 +126,6 @@ export default {
                     })
                 )
                 .then((res) => {
-                    console.log(res)
                     this.data = res.data.result
                     this.loading = false
                 })

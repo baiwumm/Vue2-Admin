@@ -120,11 +120,7 @@ export default {
                 }
             })
         },
-        onNodeClick(e, data) {
-            // console.log(e)
-            // console.log(data)
-            // alert(data.label)
-        },
+        onNodeClick(e, data) {},
         collapse(list) {
             var _this = this
             list.forEach(function (child) {

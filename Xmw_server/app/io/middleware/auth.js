@@ -4,8 +4,13 @@
 
 module.exports = () => {
     return async (ctx, next) => {
-        ctx.socket.emit('res', 'auth!');
+        const { socket, app } = ctx;
+        // 根据用户ID存储socket.id
+        let { UserID } = ctx.session.userInfo
+        const id = socket.id; // 获取 Socket ID
+        app.redis.set(UserID, id); // 设置 Socket ID
+        ctx.socket.emit('res', `Your id is ${id}`);
         await next();
-        console.log('disconnect!');
+        console.log('websocket服务器已断开连接!');
     };
 };

@@ -285,14 +285,20 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { username, CnName, Status, current, pageSize } = ctx.query;
-            let where = `1=1`
-            if (username) where += ` and username like '%${username}%'`
-            if (CnName) where += ` and CnName like '%${CnName}%'`
-            if (Status && Status != '') where += ` and Status = ${Status}`
-            let roleList = await Raw.QueryList(`select roleName from xmw_role where status = 1`)
-            const result = await Raw.QueryPageData(`select * from xmw_user where ${where}`, current, pageSize);
-            ctx.body = { state: 1, msg: '请求成功!', result: result, roleList: roleList }
+            let { UserID, username, CnName, Status, current, pageSize } = ctx.query;
+            if (UserID) {
+                const result = await Raw.Query(`select CnName from xmw_user where UserID = '${UserID}'`);
+                ctx.body = { state: 1, msg: '请求成功!', result: result }
+            } else {
+                let where = `1=1`
+                if (username) where += ` and username like '%${username}%'`
+                if (CnName) where += ` and CnName like '%${CnName}%'`
+                if (Status && Status != '') where += ` and Status = ${Status}`
+                let roleList = await Raw.QueryList(`select roleName from xmw_role where status = 1`)
+                const result = await Raw.QueryPageData(`select * from xmw_user where ${where}`, current, pageSize);
+                ctx.body = { state: 1, msg: '请求成功!', result: result, roleList: roleList }
+            }
+
         } catch (error) {
             ctx.logger.info('getUserList方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }

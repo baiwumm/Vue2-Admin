@@ -24,6 +24,7 @@ const locale = {
     'menu.features.quillEditor': 'QuillEditor',
     'menu.features.customDirective': 'CustomDirective',
     'menu.features.imageRecognition': 'ImageRecognition',
+    'menu.features.chatRoom': 'ChatRoom',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',

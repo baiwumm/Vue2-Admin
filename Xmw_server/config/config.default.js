@@ -43,6 +43,15 @@ module.exports = appInfo => {
             },
         },
     };
+    // redis客户端
+    config.redis = {
+        client: {
+            port: 6379, // Redis port
+            host: '127.0.0.1', // Redis host
+            password: '',
+            db: 0,
+        },
+    }
     // 配置需要的中间件，数组顺序即为中间件的加载顺序
     // config.middleware = ['tokenAuthentication'],
     config.cluster = {
