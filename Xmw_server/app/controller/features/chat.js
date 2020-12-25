@@ -30,6 +30,7 @@ class ChatRoomController extends Controller {
         try {
             let { username, CnName } = ctx.session.userInfo
             let params = ctx.request.body
+            console.log(params)
             await Raw.Insert('xmw_chat', params);
             await ctx.service.logs.saveLogs(username, CnName, '发送消息:' + params.Content, '/features/chatRoom')
             ctx.body = { state: 1, msg: '保存成功!' }

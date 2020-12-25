@@ -11,6 +11,8 @@ module.exports = () => {
         app.redis.set(UserID, id); // 设置 Socket ID
         ctx.socket.emit('res', `Your id is ${id}`);
         await next();
+        // 当websocket服务器断开连接移除socket.id
+        app.redis.del(UserID);
         console.log('websocket服务器已断开连接!');
     };
 };

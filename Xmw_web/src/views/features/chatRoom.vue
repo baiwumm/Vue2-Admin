@@ -1,5 +1,5 @@
 <template>
-    <page-header-wrapper content="基于websocket的聊天室,向指定的客户端发送消息">
+    <page-header-wrapper content="基于websocket的仿微信聊天室,向指定的客户端发送消息">
         <div class="chat-container">
             <div class="wechat">
                 <div class="sidestrip">
@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="user_text">
                                         <p class="user_name">{{ v.CnName }}</p>
-                                        <p class="user_message">{{ v.lastMsg }}</p>
+                                        <p class="user_message" v-html="parMsg(v.lastMsg)"></p>
                                     </div>
                                     <div class="user_time">
                                         {{ formatTime(v.createTime) }}
@@ -80,7 +80,7 @@
                                 <template v-for="(v, i) in chatList">
                                     <li class="me" v-if="v.UserID == user.UserID && v.ToUserID == user_active" :key="i">
                                         <a-avatar :src="user.avatar" shape="square" :size="35" style="float: right" />
-                                        <span class="me_msg">{{ v.Content }}</span>
+                                        <span class="me_msg" v-html="parMsg(v.Content)"></span>
                                     </li>
                                     <li
                                         class="other"
@@ -88,7 +88,7 @@
                                         :key="i"
                                     >
                                         <a-avatar :src="v.avatar" shape="square" :size="35" style="float: left" />
-                                        <span class="other_msg">{{ v.Content }}</span>
+                                        <span class="other_msg" v-html="parMsg(v.Content)"></span>
                                     </li>
                                 </template>
                             </ul>
@@ -96,13 +96,20 @@
                     </div>
                     <div class="windows_input" id="talkbox">
                         <div class="input_icon">
-                            <span><a-icon type="smile" style="font-size: 24px" /></span>
+                            <span>
+                                <a-popover trigger="click" placement="topLeft">
+                                    <template #content>
+                                        <VEmojiPicker @select="selectEmoji" />
+                                    </template>
+                                    <a-icon type="smile" style="font-size: 24px; cursor: pointer" />
+                                </a-popover>
+                            </span>
                         </div>
                         <div class="input_box">
                             <a-textarea
                                 placeholder="输入点什么"
                                 id="input_box"
-                                v-model="msgContent"
+                                v-model.trim="msgContent"
                                 @pressEnter="sendMsg"
                             />
                             <a-button id="send" @click="sendMsg">发送(S)</a-button>
@@ -118,7 +125,11 @@
 import { getChatRecord, saveCharMsg } from '@/api/features'
 import { dataFormat } from '@/utils/util.js'
 import Fuse from 'fuse.js'
+import { VEmojiPicker } from 'v-emoji-picker'
 export default {
+    components: {
+        VEmojiPicker,
+    },
     data() {
         return {
             dropContent: false,
@@ -186,6 +197,25 @@ export default {
                 }
             })
         },
+        // 解析emoji
+        parMsg(val) {
+            if (!val) return
+            let patt = /&#\d+;/g
+            let H, L, code
+            let arr = val.match(patt) || []
+            for (let i = 0; i < arr.length; i++) {
+                code = arr[i]
+                code = code.replace('&#', '').replace(';', '')
+                // 高位
+                H = Math.floor((code - 0x10000) / 0x400) + 0xd800
+                // 低位
+                L = ((code - 0x10000) % 0x400) + 0xdc00
+                code = '&#' + code + ';'
+                let s = String.fromCharCode(H, L)
+                val = val.replace(code, s)
+            }
+            return val
+        },
         changeUser(UserID, CnName) {
             let _this = this
             _this.msgContent = ''
@@ -237,6 +267,22 @@ export default {
         // 发送消息
         async sendMsg() {
             let _this = this
+            let patt = /[\ud800-\udbff][\udc00-\udfff]/g
+            // 检测utf16字符正则
+            _this.msgContent = _this.msgContent.replace(patt, function (char) {
+                let H, L, code
+                if (char.length === 2) {
+                    H = char.charCodeAt(0)
+                    // 取出高位
+                    L = char.charCodeAt(1)
+                    // 取出低位
+                    code = (H - 0xd800) * 0x400 + 0x10000 + L - 0xdc00
+                    // 转换算法
+                    return '&#' + code + ';'
+                } else {
+                    return char
+                }
+            })
             let params = {
                 UserID: _this.user.UserID,
                 ToUserID: _this.user_active,
@@ -262,6 +308,24 @@ export default {
             setTimeout(() => {
                 this.$socket.emit('chat', data)
             }, 1000)
+        },
+        // 选择表情
+        selectEmoji(emoji) {
+            let _this = this
+            let elInput = document.getElementById('input_box')
+            console.log(elInput)
+            let start = elInput.selectionStart // 记录光标开始的位置
+            let end = elInput.selectionEnd // 记录选中的字符 最后的字符的位置
+            if (start === undefined || end === undefined) return
+            let txt = elInput.value
+            // 将表情添加到选中的光标位置
+            let result = txt.substring(0, start) + emoji.data + txt.substring(end)
+            elInput.value = result // 赋值给input的value
+            // 重置光标位置
+            elInput.focus()
+            elInput.selectionStart = start + emoji.data.length
+            elInput.selectionEnd = start + emoji.data.length
+            _this.msgContent = result // 赋值(注意这里一定要赋值给表情输入框绑定的那个值)
         },
     },
     // 监听websocket信息

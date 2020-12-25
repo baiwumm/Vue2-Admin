@@ -25,7 +25,7 @@ class RawClass {
     for (const key in data) {
       var val = data[key];
       if (val === undefined || val === '') data[key] = null;
-      else if (Date.prototype.isPrototypeOf(val) || (isNaN(val) && !isNaN(Date.parse(val)))) {
+      else if (Date.prototype.isPrototypeOf(val) || (isNaN(val) && !isNaN(Date.parse(val)) && !val.includes('&#'))) {
         data[key] = moment(val).format("YYYY-MM-DD HH:mm:ss");
       }
       // else{
@@ -108,19 +108,13 @@ class RawClass {
   async Insert(tablename, insertobj, opts) {
     var self = this;
     let { sequelize, dataBaseType } = this;
-
     var rowData = { ...insertobj };
     self.save_amending(rowData);
-
     var str1 = Object.keys(rowData).join(",");
     var str2 = Object.keys(rowData).map(key => `:${key}`).join(",");
-
     var sql = `insert into ${tablename} (${str1}) values (${str2})`;
-
     let _opts = Object.assign({}, { type: sequelize.QueryTypes.INSERT }, opts);
     _opts.replacements = Object.assign({}, rowData, _opts.replacements);
-
-
     var [res1, res2] = await sequelize.query(sql, _opts);
     return res2;
   }

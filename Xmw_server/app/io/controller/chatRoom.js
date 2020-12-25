@@ -9,7 +9,7 @@ module.exports = app => {
             var data = this.ctx.packet[1];
             const id = await app.redis.get(data.ToUserID); // 获取 ID
             const nsp = app.io.of('/')
-            nsp.sockets[id].emit('chat', data)
+            if (id) nsp.sockets[id].emit('chat', data)
         }
     }
     return Controller;

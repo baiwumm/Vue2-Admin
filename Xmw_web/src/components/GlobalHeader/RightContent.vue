@@ -223,10 +223,9 @@ export default {
                     UserID: data.UserID,
                 }
                 let res = await User(params)
-                console.log(res)
                 this.$notification.success({
                     message: res.result.CnName + '给你发送了一条消息',
-                    description: data.Content,
+                    description: this.parMsg(data.Content),
                     duration: 0,
                     btn: (h) => {
                         return h(
@@ -295,6 +294,23 @@ export default {
         })
     },
     methods: {
+        parMsg(val) {
+            var patt = /&#\d+;/g
+            var H, L, code
+            var arr = val.match(patt) || []
+            for (var i = 0; i < arr.length; i++) {
+                code = arr[i]
+                code = code.replace('&#', '').replace(';', '')
+                // 高位
+                H = Math.floor((code - 0x10000) / 0x400) + 0xd800
+                // 低位
+                L = ((code - 0x10000) % 0x400) + 0xdc00
+                code = '&#' + code + ';'
+                var s = String.fromCharCode(H, L)
+                val = val.replace(code, s)
+            }
+            return val
+        },
         // 计算相对时间
         culTime(time) {
             return relativeTime(time)

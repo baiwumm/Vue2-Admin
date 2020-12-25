@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>logo.png">
+  <link rel="icon" href="<%= BASE_URL %>logo.svg">
   <title>Xmw Pro</title>
   <style>
     .first-loading-wrp {
@@ -123,11 +123,11 @@
   </style>
   <!-- require cdn assets css -->
   <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
-  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
-  <% } %>
-  <!-- 阿里云智能验证 -->
-  <script src="//g.alicdn.com/sd/smartCaptcha/0.0.4/index.js"></script>
-  <script src="//g.alicdn.com/sd/quizCaptcha/0.0.1/index.js"></script>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
+    <% } %>
+      <!-- 阿里云智能验证 -->
+      <script src="//g.alicdn.com/sd/smartCaptcha/0.0.4/index.js"></script>
+      <script src="//g.alicdn.com/sd/quizCaptcha/0.0.1/index.js"></script>
 </head>
 
 <body>
@@ -146,9 +146,9 @@
   </div>
   <!-- require cdn assets js -->
   <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
-  <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
-  <% } %>
-  <!-- built files will be auto injected -->
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+      <!-- built files will be auto injected -->
 </body>
 
 </html>
