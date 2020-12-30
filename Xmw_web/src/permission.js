@@ -22,7 +22,14 @@ router.beforeEach((to, from, next) => {
     if (User_Info) store.commit('SET_INFO', User_Info)
     // 判断token是否过期，过期直接删除token
     let nowtime = new Date().getTime(), token_createTime = storage.get(TOKEN_CREATETIME), token_expiresIn = storage.get(TOKEN_EXPIRESIN)
-    if (nowtime > token_createTime + token_expiresIn) storage.remove(ACCESS_TOKEN)
+    if (nowtime > token_createTime + token_expiresIn) {
+        storage.remove(ACCESS_TOKEN)
+        notification.error({
+            message: '温馨提示!',
+            description: '登录超时,请重新登录!',
+            duration: 0
+        })
+    }
     /* 是否有token*/
     if (storage.get(ACCESS_TOKEN)) {
         if (storage.get(IS_LOCK) && to.path != lockPage) { //如果系统激活锁屏，全部跳转到锁屏页

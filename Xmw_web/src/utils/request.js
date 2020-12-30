@@ -5,7 +5,7 @@ import storage from 'store'
 import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-
+import router from '../router'
 // 创建 axios 实例
 const request = axios.create({
     // API 请求的默认前缀
@@ -16,20 +16,21 @@ const request = axios.create({
 
 // 异常拦截处理器
 const errorHandler = (error) => {
+    console.log(error)
     if (error.response) {
         const data = error.response.data
         // 从 localstorage 获取 token
         const token = storage.get(ACCESS_TOKEN)
         if (error.response.status === 403) {
             notification.error({
-                message: 'Forbidden',
+                message: '禁止访问',
                 description: data.message
             })
         }
         if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
             notification.error({
-                message: 'Unauthorized',
-                description: 'Authorization verification failed'
+                message: '没有权限',
+                description: '授权验证失败'
             })
             if (token) {
                 store.dispatch('Logout').then(() => {
@@ -54,9 +55,40 @@ request.interceptors.request.use(config => {
     return config
 }, errorHandler)
 
+// 用户重复登录防抖操作
+function debounce(fn, wait) {
+    let timerId = null;
+    let flag = true;
+    return function () {
+        // clearTimeout(timerId);
+        if (flag) {
+            fn.apply(this, arguments);
+            flag = false;
+            timerId = setTimeout(() => {
+                flag = true;
+            }, wait);
+        }
+    };
+}
+
+const authError = debounce(() => {
+    notification.error({
+        message: '温馨提示!',
+        description: '此账号已在别的地方登陆，请联系管理员!',
+        duration: 0
+    })
+}, 3000);
 // response interceptor
 request.interceptors.response.use((response) => {
-    return response.data
+    // 判断用户是否二次登录
+    if (response.data.state === 102) {
+        store.dispatch('Logout').then(() => {
+            router.push({ name: 'login' })
+            authError()
+        })
+    } else {
+        return response.data
+    }
 }, errorHandler)
 
 const installer = {

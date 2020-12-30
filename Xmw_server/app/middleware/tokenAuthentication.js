@@ -22,10 +22,10 @@ module.exports = (options, app) => {
             const token = ctx.request.header['access-token']; //获取头部token信息
             if (token) {
                 let overdue = true;
-                // 查看请求头token是否存在，不存在直接return
+                // 查看请求头token是否存在，不存在直接return，返回102状态码提示用户二次登录
                 const exist = await Raw.Query(`select count(1) as total from xmw_user where token = '${token}'`);
                 if (!exist.total) {
-                    ctx.body = { state: 2, msg: 'token令牌非法!' }
+                    ctx.body = { state: 102, msg: 'token令牌不存在!' }
                     return
                 }
                 // 解析token生成用户信息
@@ -34,17 +34,17 @@ module.exports = (options, app) => {
                         ctx.logger.info('token认证信息失败：' + JSON.stringify(decoded));
                         ctx.logger.error(err);
                         overdue = false;
-                        ctx.body = { code: 0, data: "", message: "token令牌失效或已过期!" };
+                        ctx.body = { state: 0, data: "", message: "token令牌失效或已过期!" };
                         return true;
                     }
                 })
                 if (overdue) await next()
             } else {
-                ctx.body = { state: 2, msg: 'token令牌非法!' }
+                ctx.body = { state: 401, msg: 'token令牌非法!' }
             }
         } catch (error) {
             ctx.logger.error(error);
-            ctx.body = { code: 0, data: "", message: "token令牌认证失败!" };
+            ctx.body = { state: 0, message: "token令牌认证失败!" };
         }
 
     }
