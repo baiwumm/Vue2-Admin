@@ -5,7 +5,7 @@
                 <img :src="logoSvg" class="logo" alt="logo" />
                 <span class="title">Xmw Pro</span>
             </div>
-            <div class="desc">真正的大师永远都怀着一颗学徒的心。</div>
+            <div class="desc">真正的大师永远怀着一颗学徒的心。</div>
         </div>
         <a-card :bordered="false">
             <p class="welcome_login">欢迎登陆<em>后台管理系统</em></p>

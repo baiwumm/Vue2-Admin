@@ -26,19 +26,97 @@
                 </div>
             </div>
         </template>
-        <a-row :gutter="20">
-            <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
-                    <column-plot :value="columnPlotData" :Height="177"></column-plot>
-                </a-card>
+        <a-row :gutter="24">
+            <!-- 总销售额 -->
+            <a-col :sm="24" :md="12" :xl="6">
+                <chart-card :loading="loading" title="总销售额" total="￥126,560">
+                    <a-tooltip title="指标说明" slot="action">
+                        <a-icon type="info-circle-o" />
+                    </a-tooltip>
+                    <div>
+                        <trend flag="up" style="margin-right: 16px">
+                            <span slot="term">周同比</span>
+                            12%
+                        </trend>
+                        <trend flag="down">
+                            <span slot="term">日同比</span>
+                            11%
+                        </trend>
+                    </div>
+                    <template slot="footer">日均销售额<span>￥ 234.56</span></template>
+                </chart-card>
             </a-col>
+            <!-- 访问量 -->
+            <a-col :sm="24" :md="12" :xl="6">
+                <chart-card :loading="loading" title="访问量" total="8846">
+                    <a-tooltip title="指标说明" slot="action">
+                        <a-icon type="info-circle-o" />
+                    </a-tooltip>
+                    <div style="margin-bottom: -10px">
+                        <mini-area :value="miniAreaData" :Height="60" />
+                    </div>
+                    <template slot="footer">日访问量<span>5263</span></template>
+                </chart-card>
+            </a-col>
+            <!-- 支付笔数 -->
+            <a-col :sm="24" :md="12" :xl="6">
+                <chart-card :loading="loading" title="支付笔数" total="6560">
+                    <a-tooltip title="指标说明" slot="action">
+                        <a-icon type="info-circle-o" />
+                    </a-tooltip>
+                    <div style="margin-bottom: -10px">
+                        <mini-bar :value="miniBarData" :Height="60" />
+                    </div>
+                    <template slot="footer">转化率<span>60%</span></template>
+                </chart-card>
+            </a-col>
+            <!-- 客户满意度 -->
+            <a-col :sm="24" :md="12" :xl="6">
+                <chart-card :loading="loading" title="客户满意度" total="80">
+                    <a-tooltip title="指标说明" slot="action">
+                        <a-icon type="info-circle-o" />
+                    </a-tooltip>
+                    <div style="margin-bottom: -15px">
+                        <mini-bullet :value="miniBulletData" :Height="60" />
+                    </div>
+                    <template slot="footer">
+                        <trend flag="down" style="margin-right: 16px">
+                            <span slot="term">周同比</span>
+                            12%
+                        </trend>
+                        <trend flag="up">
+                            <span slot="term">日同比</span>
+                            80%
+                        </trend>
+                    </template>
+                </chart-card>
+            </a-col>
+        </a-row>
+        <a-row :gutter="20">
             <a-col :xs="24" :sm="12" :md="6" :lg="3" :xl="3" v-for="(item, index) in navList" :key="index">
                 <router-link :to="item.link">
-                    <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center', height: '130px' }">
+                    <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center' }">
                         <a-icon :type="item.icon" :style="{ color: item.color, fontSize: '50px' }" />
-                        <p style="color: #303133; font-size: 16px; margin-top: 10px">{{ item.title }}</p>
+                        <p style="color: #303133; font-size: 16px; margin: 10px 0 0">{{ item.title }}</p>
                     </a-card>
                 </router-link>
+            </a-col>
+        </a-row>
+        <a-row :gutter="20">
+            <a-col :sm="24" :md="12" :xl="12">
+                <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
+                    <column-plot :value="columnPlotData" :Height="180"></column-plot>
+                </a-card>
+            </a-col>
+            <a-col :sm="24" :md="12" :xl="6">
+                <a-card :bordered="false" hoverable title="销售业绩进度">
+                    <Liquid :Height="180"></Liquid>
+                </a-card>
+            </a-col>
+            <a-col :sm="24" :md="12" :xl="6">
+                <a-card :bordered="false" hoverable title="热门搜索">
+                    <WordCloud :Height="180"></WordCloud>
+                </a-card>
             </a-col>
         </a-row>
         <a-row :gutter="20">
@@ -77,11 +155,19 @@ import { timeFix } from '@/utils/util'
 import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import columnPlot from './columnPlot'
+import { ChartCard, Trend, MiniArea, MiniBar, MiniBullet, Liquid, WordCloud } from '@/components'
 export default {
     name: 'WorkBench',
     components: {
         PageHeaderWrapper,
         columnPlot,
+        ChartCard,
+        Trend,
+        MiniArea,
+        MiniBar,
+        MiniBullet,
+        Liquid,
+        WordCloud,
     },
     data() {
         return {
@@ -130,6 +216,99 @@ export default {
                     Ratings: 1.76,
                 },
             ],
+            miniAreaData: [
+                {
+                    time: '2021-01-01',
+                    total: 264,
+                },
+                {
+                    time: '2021-01-02',
+                    total: 417,
+                },
+                {
+                    time: '2021-01-03',
+                    total: 438,
+                },
+                {
+                    time: '2021-01-04',
+                    total: 887,
+                },
+                {
+                    time: '2021-01-05',
+                    total: 309,
+                },
+                {
+                    time: '2021-01-06',
+                    total: 397,
+                },
+                {
+                    time: '2021-01-07',
+                    total: 550,
+                },
+                {
+                    time: '2021-01-08',
+                    total: 575,
+                },
+                {
+                    time: '2021-01-09',
+                    total: 430,
+                },
+                {
+                    time: '2021-01-10',
+                    total: 340,
+                },
+            ],
+
+            miniBarData: [
+                {
+                    time: '2021-01-01',
+                    total: 274,
+                },
+                {
+                    time: '2021-01-02',
+                    total: 337,
+                },
+                {
+                    time: '2021-01-03',
+                    total: 81,
+                },
+                {
+                    time: '2021-01-04',
+                    total: 497,
+                },
+                {
+                    time: '2021-01-05',
+                    total: 666,
+                },
+                {
+                    time: '2021-01-06',
+                    total: 219,
+                },
+                {
+                    time: '2021-01-07',
+                    total: 269,
+                },
+                {
+                    time: '2021-01-08',
+                    total: 342,
+                },
+                {
+                    time: '2021-01-09',
+                    total: 653,
+                },
+                {
+                    time: '2021-01-10',
+                    total: 185,
+                },
+            ],
+            miniBulletData: [
+                {
+                    title: '满意度',
+                    ranges: [40, 70, 100],
+                    measures: [80],
+                    target: 85,
+                },
+            ],
             technologyStack: [
                 { technology: 'vue', version: '^2.6.10' },
                 { technology: 'vue-i18n', version: '^8.17.4' },
@@ -174,13 +353,16 @@ export default {
                 },
             ],
             navList: [
-                { title: '公告', icon: 'sound', link: '/integrated/announcement', color: 'rgb(255, 133, 192)' },
-                { title: '架构', icon: 'team', link: '/integrated/organizational', color: 'rgb(255, 156, 110)' },
+                { title: '消息公告', icon: 'sound', link: '/integrated/announcement', color: 'rgb(255, 133, 192)' },
+                { title: '组织架构', icon: 'team', link: '/integrated/organizational', color: 'rgb(255, 156, 110)' },
                 { title: '二维码', icon: 'qrcode', link: '/features/qrcode', color: 'rgb(179, 127, 235)' },
-                { title: '表格', icon: 'table', link: '/integrated/seniorForms', color: 'rgb(92, 219, 211)' },
+                { title: '高级表格', icon: 'table', link: '/integrated/seniorForms', color: 'rgb(92, 219, 211)' },
+                { title: '个人中心', icon: 'user', link: '/personal/center', color: 'rgb(255, 133, 192)' },
+                { title: '聊天室', icon: 'message', link: '/features/chatRoom', color: 'rgb(255, 156, 110)' },
                 { title: '阅读', icon: 'read', link: '/', color: 'rgb(105, 192, 255)' },
                 { title: '休息一下', icon: 'coffee', link: '/', color: 'rgb(149, 222, 100)' },
             ],
+            loading: false,
         }
     },
     computed: {
