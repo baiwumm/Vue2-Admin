@@ -41,13 +41,18 @@
     </div>
 </template>
 <script>
+import Vue2OrgTree from 'vue2-org-tree'
 import 'vue2-org-tree/src/styles/org-tree.less'
 import { departmentList, addEditDepartment, deleteDepartment } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
 export default {
+    components: {
+        Vue2OrgTree,
+    },
     data() {
         return {
             labelClassNameItem: [
+                { value: 'bg-primary', label: '主题背景' },
                 { value: 'bg-white', label: '洁白无瑕' },
                 { value: 'bg-orange', label: '金橙' },
                 { value: 'bg-gold', label: '金光灿灿' },
@@ -60,7 +65,7 @@ export default {
             horizontal: false,
             collapsable: true,
             expandAll: true,
-            labelClassName: 'bg-gold',
+            labelClassName: 'bg-primary',
             spinning: true,
             modelVisible: false,
             modelTitle: '',
@@ -235,8 +240,12 @@ export default {
 }
 </script>
 <style lang="less">
+@import '~@/components/index.less';
 .org-tree-node-label {
     white-space: nowrap;
+}
+.bg-primary {
+    background-color: @primary-color;
 }
 .bg-white {
     background-color: white;

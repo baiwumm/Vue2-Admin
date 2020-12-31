@@ -162,7 +162,7 @@ export default {
                     this.settings[type] = value
                     break
                 case 'layout':
-                    if (value === 'sidemenu') {
+                    if (value === 'sidemenu' || value === 'topmenu') {
                         this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fluid
                     } else {
                         this.settings.fixSiderbar = false
@@ -179,6 +179,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '~@/components/index.less';
 @import './BasicLayout.less';
 #components-back-top-custom .ant-back-top {
     bottom: 100px;
@@ -188,7 +189,7 @@ export default {
     width: 40px;
     line-height: 40px;
     border-radius: 4px;
-    background-color: #1088e9;
+    background-color: @primary-color;
     color: #fff;
     text-align: center;
     font-size: 20px;
@@ -213,8 +214,8 @@ export default {
     }
     /deep/ .ant-layout-header .ant-pro-global-header-content {
         position: absolute;
-        bottom: -29px;
         width: 100%;
+        display: block;
     }
 }
 .ant-layout.topmenu /deep/ .ant-layout-header {

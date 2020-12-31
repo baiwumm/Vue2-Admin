@@ -54,13 +54,10 @@ import {
     Timeline,
     Empty
 } from 'ant-design-vue'
-import Viser from 'viser-vue'
 
 // ext library
 import VueCropper from 'vue-cropper'
-import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
-import PageLoading from '@/components/PageLoading'
 import Directives from './directives'
 
 Vue.use(ConfigProvider)
@@ -122,10 +119,7 @@ Vue.prototype.$success = Modal.success
 Vue.prototype.$error = Modal.error
 Vue.prototype.$warning = Modal.warning
 
-Vue.use(Viser)
-Vue.use(Dialog) // this.$dialog func
 Vue.use(MultiTab)
-Vue.use(PageLoading)
 Vue.use(VueCropper)
 Vue.use(Directives)
 

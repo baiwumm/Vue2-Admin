@@ -44,7 +44,7 @@
         <a-row :gutter="20">
             <a-col :xs="24" :sm="24" :md="24" :lg="10" :xl="10">
                 <a-card title="开发技术栈" hoverable>
-                    <a-button type="primary" slot="extra"> node.js+egg.js+vue+antd-vue+mysql </a-button>
+                    <a-button type="primary" slot="extra"> egg.js+vue+antd-vue+mysql+redis </a-button>
                     <a-descriptions bordered :column="2">
                         <a-descriptions-item
                             :label="item.technology"
@@ -138,7 +138,7 @@ export default {
                 { technology: 'ant-design-vue', version: '^1.6.5' },
                 { technology: '@antv/g2plot', version: '^2.0.7' },
                 { technology: 'egg', version: '^2.29.1' },
-                { technology: 'jsonwebtoken', version: '^8.5.1' },
+                { technology: 'egg-redis', version: '^2.4.0' },
                 { technology: 'sequelize', version: '^5.21.3' },
                 { technology: 'mysql2', version: '^2.1.0' },
             ],

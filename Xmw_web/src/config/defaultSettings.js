@@ -13,9 +13,9 @@
  */
 
 export default {
-    navTheme: 'dark', // theme for nav menu
-    primaryColor: '#2f54eb', // primary color of ant design
-    layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
+    navTheme: 'light', // theme for nav menu
+    primaryColor: '#13C2C2', // primary color of ant design
+    layout: 'topmenu', // nav menu position: `sidemenu` or `topmenu`
     contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
     fixedHeader: true, // sticky header
     fixSiderbar: true, // sticky siderbar

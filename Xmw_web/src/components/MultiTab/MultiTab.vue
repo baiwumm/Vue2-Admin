@@ -186,6 +186,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import '~@/components/index.less';
 .ant-pro-multi-tab .ant-tabs {
     /deep/ .ant-tabs-nav-container {
         height: 28px;
@@ -200,7 +201,7 @@ export default {
     /deep/ .ant-tabs-tab-active {
         height: 26px;
         line-height: 26px;
-        background: #42b983;
+        background: @primary-color;
         .ant-badge-status-text {
             color: #fff;
             font-size: 12px;

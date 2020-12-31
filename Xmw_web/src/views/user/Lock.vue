@@ -2,7 +2,13 @@
     <div class="lock-container">
         <div class="lock-form">
             <h1 style="font-weight: bold; color: rgba(255, 255, 255, 0.8)">{{ nickname }}</h1>
-            <a-input-password v-model="lockpd" placeholder="请输入锁屏密码" size="large" allowClear>
+            <a-input-password
+                v-model="lockpd"
+                placeholder="请输入锁屏密码"
+                size="large"
+                allowClear
+                @pressEnter="handleLogin"
+            >
                 <div slot="addonAfter">
                     <a-space size="middle">
                         <a-tooltip>

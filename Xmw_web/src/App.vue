@@ -22,3 +22,21 @@ export default {
     },
 }
 </script>
+<style lang="less">
+@import '~@/components/index.less';
+::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: @primary-color;
+    background-clip: padding-box;
+    min-height: 100px;
+}
+
+::-webkit-scrollbar-track {
+    width: 3px;
+    background-color: #f9f9f9;
+}
+</style>

@@ -33,12 +33,17 @@
             </a-tooltip>
         </div>
         <a-modal v-model="lockVisible" title="设置锁屏密码" @ok="handleSubmit" @cancel="clearPw">
+            <div class="user-avatar">
+                <a-avatar :size="100" :src="user.avatar" />
+                <p>{{ user.CnName }}</p>
+            </div>
             <a-form :form="form">
                 <a-form-item label="锁屏密码">
                     <a-input-password
                         v-decorator="['lockPasswd', { rules: [{ required: true, message: '请输入锁屏密码' }] }]"
                         placeholder="请输入锁屏密码"
                         allowClear
+                        @pressEnter="handleSubmit"
                     />
                 </a-form-item>
             </a-form>
@@ -531,5 +536,13 @@ export default {
     .ant-pro-global-header-index-action {
         color: hsla(0, 0%, 100%, 0.85);
     }
+}
+.user-avatar {
+    text-align: center;
+}
+.user-avatar p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
 }
 </style>

@@ -8,7 +8,7 @@
             <div class="desc">真正的大师永远都怀着一颗学徒的心。</div>
         </div>
         <a-card :bordered="false">
-            <p class="welcome_login">欢迎登陆<em>智能后台管理系统</em></p>
+            <p class="welcome_login">欢迎登陆<em>后台管理系统</em></p>
             <a-form
                 id="formLogin"
                 class="user-layout-login"

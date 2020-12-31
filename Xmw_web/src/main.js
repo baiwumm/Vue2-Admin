@@ -1,8 +1,3 @@
-
-// with polyfills
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
-
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -11,7 +6,6 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
-import Vue2OrgTree from 'vue2-org-tree'
 import vuedraggable from 'vuedraggable'
 Vue.component("vuedraggable", vuedraggable);
 
@@ -24,7 +18,6 @@ import './permission' // permission control
 import './global.less'
 
 import VueSocketIO from 'vue-socket.io'
-Vue.use(Vue2OrgTree)
 
 Vue.use(new VueSocketIO({
     debug: false,
