@@ -13,16 +13,22 @@
     >
         <setting-drawer :settings="settings" @change="handleSettingChange" />
         <template v-slot:rightContentRender>
+            <MultiTab
+                v-if="settings.layout === 'topmenu'"
+                style="position: absolute; left: 0; top: 64px"
+                @update="reload"
+            ></MultiTab>
             <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
         </template>
         <template v-slot:headerContentRender>
-            <MultiTab></MultiTab>
+            <MultiTab @update="reload"></MultiTab>
         </template>
         <template v-slot:footerRender>
             <global-footer />
         </template>
+
         <transition name="fade-transform" mode="out-in">
-            <router-view></router-view>
+            <router-view v-if="isRouterAlive"></router-view>
         </transition>
         <!-- 回到顶部 -->
         <div id="components-back-top-custom">
@@ -99,6 +105,7 @@ export default {
             // 是否手机模式
             isMobile: false,
             ops: {}, // 滚动条样式
+            isRouterAlive: true,
         }
     },
     computed: {
@@ -174,6 +181,11 @@ export default {
         logoRender() {
             return <LogoSvg />
         },
+        // 重载局部路由
+        reload(e) {
+            this.isRouterAlive = false
+            this.$nextTick(() => (this.isRouterAlive = true))
+        },
     },
 }
 </script>
@@ -219,7 +231,7 @@ export default {
     }
 }
 .ant-layout.topmenu /deep/ .ant-layout-header {
-    height: 64px;
+    height: 92px;
     z-index: 88 !important;
 }
 </style>

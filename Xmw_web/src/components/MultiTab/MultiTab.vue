@@ -99,6 +99,10 @@ export default {
         closeMenuClick(key, route) {
             this[key](route)
         },
+        // 刷新路由
+        reloadRouter(e) {
+            this.$emit('update', e)
+        },
         renderTabPaneMenu(e) {
             return (
                 <a-menu
@@ -110,6 +114,7 @@ export default {
                         },
                     }}
                 >
+                    <a-menu-item key="reloadRouter">刷新当前页</a-menu-item>
                     <a-menu-item key="closeThat">关闭当前标签</a-menu-item>
                     <a-menu-item key="closeRight">关闭右侧</a-menu-item>
                     <a-menu-item key="closeLeft">关闭左侧</a-menu-item>

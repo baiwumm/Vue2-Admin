@@ -135,7 +135,7 @@
                                 <a-space size="middle">
                                     <a-tooltip
                                         ><template slot="title"> 刷新 </template
-                                        ><a-icon type="reload" style="cursor: pointer" @click="query"
+                                        ><a-icon type="reload" style="cursor: pointer" :spin="addRotate" @click="query"
                                     /></a-tooltip>
                                     <a-tooltip>
                                         <template slot="title"> 密度 </template>
@@ -630,6 +630,7 @@ export default {
             checkedList: [],
             checkAll: true,
             plainOptions: [],
+            addRotate: false,
         }
     },
     computed: {
@@ -739,6 +740,7 @@ export default {
             let _this = this
             _this.loading = true
             _this.queryLoading = true
+            _this.addRotate = true
             let params = {
                 title: _this.queryForm.bugTitle,
                 type: _this.queryForm.type,
@@ -808,6 +810,7 @@ export default {
                 }
                 _this.loading = false
                 _this.queryLoading = false
+                _this.addRotate = false
             })
         },
         // 提交表单
