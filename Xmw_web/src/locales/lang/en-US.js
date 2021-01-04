@@ -17,6 +17,7 @@ const locale = {
     'menu.integrated.organizational': 'Organizational',
     'menu.integrated.seniorForms': 'SeniorForms',
     'menu.integrated.Announcement': 'Announcement',
+    'menu.integrated.seniorDetails': 'SeniorDetails',
     'menu.features': 'Features',
     'menu.features.qrcode': 'Qrcode',
     'menu.features.multistage': 'Multistage',

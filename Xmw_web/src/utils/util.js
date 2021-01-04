@@ -257,3 +257,12 @@ export const setVLPNColor = (VLPNColor) => {
         "font-size": "10pt"
     };
 }
+
+// 千位格式化数字
+export const filterDigital = (value, decimal) => {
+    if (!value) {
+        return '0'
+    }
+    const intPartFormat = (+value || 0).toFixed(decimal).replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,') // 将整数部分逢三一断
+    return intPartFormat
+}

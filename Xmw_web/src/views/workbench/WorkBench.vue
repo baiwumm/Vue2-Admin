@@ -29,7 +29,7 @@
         <a-row :gutter="24">
             <!-- 总销售额 -->
             <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="总销售额" total="￥126,560">
+                <chart-card :loading="loading" title="总销售额" :total="'¥' + formatDigital(126560, 2)">
                     <a-tooltip title="指标说明" slot="action">
                         <a-icon type="info-circle-o" />
                     </a-tooltip>
@@ -43,24 +43,28 @@
                             11%
                         </trend>
                     </div>
-                    <template slot="footer">日均销售额<span>￥ 234.56</span></template>
+                    <template slot="footer"
+                        >日均销售额 <span>{{ '¥' + formatDigital(234.56, 2) }}</span></template
+                    >
                 </chart-card>
             </a-col>
             <!-- 访问量 -->
             <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="访问量" total="8846">
+                <chart-card :loading="loading" title="访问量" :total="formatDigital(8846.02)">
                     <a-tooltip title="指标说明" slot="action">
                         <a-icon type="info-circle-o" />
                     </a-tooltip>
                     <div style="margin-bottom: -10px">
                         <mini-area :value="miniAreaData" :Height="60" />
                     </div>
-                    <template slot="footer">日访问量<span>5263</span></template>
+                    <template slot="footer"
+                        >日访问量<span>{{ formatDigital(5623, 0) }}</span></template
+                    >
                 </chart-card>
             </a-col>
             <!-- 支付笔数 -->
             <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="支付笔数" total="6560">
+                <chart-card :loading="loading" title="支付笔数" :total="formatDigital(6560, 0)">
                     <a-tooltip title="指标说明" slot="action">
                         <a-icon type="info-circle-o" />
                     </a-tooltip>
@@ -96,7 +100,7 @@
             <a-col :xs="24" :sm="12" :md="6" :lg="3" :xl="3" v-for="(item, index) in navList" :key="index">
                 <router-link :to="item.link">
                     <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center' }">
-                        <a-icon :type="item.icon" :style="{ color: item.color, fontSize: '50px' }" />
+                        <a-icon :type="item.icon" :style="{ color: item.color, fontSize: '30px' }" />
                         <p style="color: #303133; font-size: 16px; margin: 10px 0 0">{{ item.title }}</p>
                     </a-card>
                 </router-link>
@@ -151,7 +155,7 @@
 </template>
 
 <script>
-import { timeFix } from '@/utils/util'
+import { timeFix, filterDigital } from '@/utils/util'
 import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import columnPlot from './columnPlot'
@@ -383,7 +387,12 @@ export default {
         this.avatar = this.userInfo.avatar
     },
     mounted() {},
-    methods: {},
+    methods: {
+        // 格式化数字
+        formatDigital(value, decimal) {
+            return filterDigital(value, decimal)
+        },
+    },
 }
 </script>
 
