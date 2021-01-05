@@ -1,5 +1,7 @@
 <template>
-    <page-header-wrapper content="基于websocket的仿微信聊天室,向指定的客户端发送消息">
+    <page-header-wrapper
+        content="基于websocket的仿微信聊天室,向指定的客户端发送消息,websocket在即时通讯、通知与消息推送，实时分析等场景中有较为广泛的应用。"
+    >
         <div class="chat-container">
             <div class="wechat">
                 <div class="sidestrip">
@@ -313,7 +315,6 @@ export default {
         selectEmoji(emoji) {
             let _this = this
             let elInput = document.getElementById('input_box')
-            console.log(elInput)
             let start = elInput.selectionStart // 记录光标开始的位置
             let end = elInput.selectionEnd // 记录选中的字符 最后的字符的位置
             if (start === undefined || end === undefined) return

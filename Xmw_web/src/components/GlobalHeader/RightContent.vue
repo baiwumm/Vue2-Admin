@@ -1,7 +1,7 @@
 
 <template>
     <div :class="wrpCls">
-        <div class="header-search">
+        <div class="header-search" v-if="!isMobile">
             <a-tooltip>
                 <template slot="title"> 全局搜索 </template>
                 <a-icon type="search" style="font-size: 20px; vertical-align: middle" @click.stop="showSelect" />
@@ -49,7 +49,7 @@
             </a-form>
         </a-modal>
         <!-- 公告详情 -->
-        <a-popover trigger="hover" arrow-point-at-center>
+        <a-popover trigger="hover" arrow-point-at-center v-if="!isMobile">
             <template slot="content">
                 <div class="infinite-container">
                     <a-list :data-source="announcementList">
@@ -125,7 +125,7 @@
                 <a-button type="primary" @click="detailVisible = false"> 关闭 </a-button>
             </div>
         </a-drawer>
-        <div :class="prefixCls" @click="toggleFullscreen">
+        <div :class="prefixCls" @click="toggleFullscreen" v-if="!isMobile">
             <a-tooltip>
                 <template slot="title"> 全屏 </template>
                 <a-icon :type="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" style="font-size: 20px" />
