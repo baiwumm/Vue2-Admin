@@ -27,7 +27,6 @@ export default {
                 this.closeThat(val)
             })
             .$on('rename', ({ key, name }) => {
-                console.log('rename', key, name)
                 try {
                     const item = this.pages.find((item) => item.path === key)
                     item.meta.customTitle = name
@@ -172,7 +171,7 @@ export default {
         })
 
         return (
-            <div class="ant-pro-multi-tab">
+            <div class="ant-pro-multi-tab" id="ant-pro-multi-tab">
                 <div class="ant-pro-multi-tab-wrapper">
                     <a-tabs
                         size={'small'}

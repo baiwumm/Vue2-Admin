@@ -1,7 +1,7 @@
 
 <template>
     <div :class="wrpCls">
-        <div class="header-search" v-if="!isMobile">
+        <div class="header-search" v-if="!isMobile" id="header-search">
             <a-tooltip>
                 <template slot="title"> 全局搜索 </template>
                 <a-icon type="search" style="font-size: 20px; vertical-align: middle" @click.stop="showSelect" />
@@ -26,7 +26,7 @@
             </a-select>
         </div>
         <!-- 锁屏 -->
-        <div :class="prefixCls">
+        <div :class="prefixCls" id="lockScreen">
             <a-tooltip>
                 <template slot="title"> 锁屏 </template>
                 <a-icon type="lock" style="font-size: 20px" @click="lockVisible = true" />
@@ -94,7 +94,7 @@
                     </a-list>
                 </div>
             </template>
-            <div :class="prefixCls">
+            <div :class="prefixCls" id="AnnouncementList">
                 <a-badge :count="unread">
                     <a-icon type="bell" style="font-size: 20px" />
                 </a-badge>

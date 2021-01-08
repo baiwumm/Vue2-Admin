@@ -1,17 +1,21 @@
 <template>
     <pro-layout
-        :title="title"
         :menus="menus"
         :collapsed="collapsed"
         :mediaQuery="query"
         :isMobile="isMobile"
         :handleMediaQuery="handleMediaQuery"
         :handleCollapse="handleCollapse"
-        :logo="logoRender"
         :i18nRender="i18nRender"
         v-bind="settings"
     >
         <setting-drawer :settings="settings" @change="handleSettingChange" />
+        <template v-slot:menuHeaderRender>
+            <div class="menu-logo" id="menu-logo">
+                <img src="../assets/logo.svg" />
+                <h1>{{ title }}</h1>
+            </div>
+        </template>
         <template v-slot:rightContentRender>
             <MultiTab
                 v-if="settings.layout === 'topmenu'"
@@ -60,7 +64,6 @@ import { MultiTab } from '@/components'
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
-import LogoSvg from '../assets/logo.svg?inline'
 export default {
     name: 'BasicLayout',
     components: {
@@ -161,7 +164,6 @@ export default {
             this.collapsed = val
         },
         handleSettingChange({ type, value }) {
-            console.log('type', type, value)
             storage.set(type, value)
             type && (this.settings[type] = value)
             switch (type) {
@@ -177,9 +179,6 @@ export default {
                     }
                     break
             }
-        },
-        logoRender() {
-            return <LogoSvg />
         },
         // 重载局部路由
         reload(e) {
@@ -221,6 +220,7 @@ export default {
     transform: translateX(30px);
 }
 .ant-layout {
+    display: flex !important;
     /deep/ .ant-layout-header {
         height: 92px;
     }
@@ -233,5 +233,19 @@ export default {
 .ant-layout.topmenu /deep/ .ant-layout-header {
     height: 92px;
     z-index: 88 !important;
+}
+.menu-logo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    h1 {
+        margin-bottom: 0;
+    }
+}
+.ant-layout-sider-dark .ant-pro-sider-menu-logo h1 {
+    color: #fff;
+}
+.ant-pro-top-nav-header.dark h1 {
+    color: #fff;
 }
 </style>
