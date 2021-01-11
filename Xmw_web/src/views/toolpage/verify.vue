@@ -41,26 +41,37 @@
             <!-- 滑块验证码 -->
             <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
                 <a-card :bordered="false" hoverable title="滑块验证码">
-                    <slide-verify ref="slideVerify"></slide-verify>
+                    <slide-verify ref="slideVerify" :isPassing.sync="slidePassing">
+                        <a-icon type="lock" slot="textBefore" v-show="!slidePassing" style="color: #333" />
+                    </slide-verify>
                     <a-button type="primary" block @click="validateGeneraCode('slideVerify')" style="margin-top: 10px"
                         >验证</a-button
                     >
                 </a-card>
             </a-col>
-            <!-- 图形验证码 -->
+            <!-- 图片旋转验证码 -->
             <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <a-card :bordered="false" hoverable title="图形验证码">
+                <a-card :bordered="false" hoverable title="图片旋转验证码">
+                    <rotate-verify
+                        ref="rotateVerify"
+                        :isPassing.sync="rotatePassing"
+                        :imgsrc="rotateImg"
+                        :width="250"
+                        @refresh="rotateRefresh"
+                    ></rotate-verify>
+                    <a-button type="primary" block @click="validateGeneraCode('rotateVerify')" style="margin-top: 10px"
+                        >验证</a-button
+                    >
+                </a-card>
+            </a-col>
+            <!-- 拼图验证码 -->
+            <a-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+                <a-card :bordered="false" hoverable title="拼图验证码">
                     <graphics-verify
                         ref="graphicsVerify"
-                        :l="42"
-                        :r="10"
-                        :w="310"
-                        :h="155"
-                        :imgs="imgList"
-                        slider-text="向右滑动"
-                        @success="graphicsSuccess"
-                        @fail="graphicsFail"
-                        @again="graphicsAgain"
+                        :isPassing.sync="graphicsPassing"
+                        :imgsrc="graphicsImg"
+                        @refresh="graphicsRefresh"
                     ></graphics-verify>
                     <a-button
                         type="primary"
@@ -77,6 +88,10 @@
                     <points-verify
                         @callback="validateGeneraCode('pointsVerify', arguments)"
                         :imgArr="imgList"
+                        :setSize="{
+                            imgHeight: 282,
+                            imgWidth: 300,
+                        }"
                     ></points-verify>
                 </a-card>
             </a-col>
@@ -98,12 +113,13 @@ import { _code_chars, randomNum } from '@/utils/util'
 import generaVerify from './components/Verification/generaVerify' // 常规验证码
 import operationVerify from './components/Verification/operationVerify' // 运算验证码
 import slideVerify from './components/Verification/slideVerify' // 滑块验证码
+import rotateVerify from './components/Verification/rotateVerify' // 图片旋转验证码
 import graphicsVerify from './components/Verification/graphicsVerify' // 图形验证码
 import pointsVerify from './components/Verification/pointsVerify' // 文字点选验证码
 import phoneVerify from './components/Verification/phoneVerify' // 模拟手机发送验证码
 export default {
     name: 'verify',
-    components: { generaVerify, operationVerify, slideVerify, graphicsVerify, pointsVerify, phoneVerify },
+    components: { generaVerify, operationVerify, slideVerify, rotateVerify, graphicsVerify, pointsVerify, phoneVerify },
     data() {
         return {
             // 常规验证码
@@ -118,6 +134,11 @@ export default {
                 require('@/assets/images/studio_0006.jpg'),
             ],
             graphicsMsg: '',
+            slidePassing: false,
+            rotatePassing: false,
+            graphicsPassing: false,
+            graphicsImg: '',
+            rotateImg: '',
         }
     },
     methods: {
@@ -130,17 +151,11 @@ export default {
                 this.identifyCode += _code_chars[randomNum(0, _code_chars.length)]
             }
         },
-        // 图形验证码成功回调
-        graphicsSuccess(times) {
-            this.graphicsMsg = `验证成功, 耗时${(times / 1000).toFixed(1)}s`
+        graphicsRefresh() {
+            this.graphicsImg = this.imgList[randomNum(0, this.imgList.length)]
         },
-        // 图形验证码失败回调
-        graphicsFail() {
-            this.graphicsMsg = ''
-        },
-        graphicsAgain() {
-            this.$message.warning('检测到非人为操作!')
-            this.$refs.graphicsVerify.reset()
+        rotateRefresh() {
+            this.rotateImg = this.imgList[randomNum(0, this.imgList.length)]
         },
         // 验证码验证
         validateGeneraCode(code, vals) {
@@ -160,13 +175,18 @@ export default {
                     break
                 // 滑块验证码
                 case 'slideVerify':
-                    this.$refs.slideVerify.checkCode()
+                    if (!_this.slidePassing) _this.$message.error('验证失败!')
+                    else _this.$message.success('验证通过')
+                    break
+                // 图片旋转验证码
+                case 'rotateVerify':
+                    if (!_this.rotatePassing) _this.$message.error('验证失败!')
+                    else _this.$message.success('验证通过')
                     break
                 // 图像验证码
                 case 'graphicsVerify':
-                    if (!this.graphicsMsg) _this.$message.error('验证失败!')
-                    else _this.$message.success(this.graphicsMsg)
-                    _this.$refs.graphicsVerify.reset()
+                    if (!_this.graphicsPassing) _this.$message.error('验证失败!')
+                    else _this.$message.success('验证通过')
                     break
                 // 文字点选验证
                 case 'pointsVerify':
@@ -186,6 +206,8 @@ export default {
     },
     mounted() {
         this.refreshCode()
+        this.graphicsRefresh()
+        this.rotateRefresh()
     },
 }
 </script>

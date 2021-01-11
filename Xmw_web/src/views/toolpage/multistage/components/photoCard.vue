@@ -25,7 +25,7 @@ export default {
 <style lang="less" scoped>
 .photoCard {
     position: relative;
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     img {
         position: absolute;

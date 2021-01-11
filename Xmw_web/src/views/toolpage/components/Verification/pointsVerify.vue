@@ -406,7 +406,6 @@ export default {
     }
     .verify-img-panel .icon-refresh {
         font-size: 20px;
-        color: #fff;
     }
 }
 </style>

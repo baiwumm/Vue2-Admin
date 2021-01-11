@@ -38,7 +38,8 @@ const generator = () => {
                         icon: item.icon || undefined,
                         permission: [item.permission],
                         keepAlive: item.keepAlive ? true : false,
-                        hidden: item.hidden ? true : false
+                        hidden: item.hidden ? true : false,
+                        target: reg.test(item.path) ? '_blank' : ''
                     }
                 }
                 // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
@@ -114,3 +115,5 @@ const treeData = (source, id, parentId, children) => {
         return father[parentId] === null || !tempObj[father[parentId]]
     })
 }
+// 判断路由是否是外链(即判断path是否是网址)
+const reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/

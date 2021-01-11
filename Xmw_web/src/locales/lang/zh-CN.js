@@ -31,6 +31,7 @@ const locale = {
     'menu.toolpage.multistage.contrast': '图片对比',
     'menu.toolpage.verify': '验证码',
     'menu.toolpage.guide': '引导页',
+    'menu.toolpage.outerChain': '外链',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',

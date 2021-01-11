@@ -30,10 +30,16 @@
         <template v-slot:footerRender>
             <global-footer />
         </template>
-
+        <!-- 路由切换过渡和缓存 -->
         <transition name="fade-transform" mode="out-in">
-            <router-view v-if="isRouterAlive"></router-view>
+            <keep-alive>
+                <router-view v-if="$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
+            </keep-alive>
         </transition>
+        <transition name="fade-transform" mode="out-in">
+            <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view
+        ></transition>
+        <!--这里是不会被缓存的组件-->
         <!-- 回到顶部 -->
         <div id="components-back-top-custom">
             <a-back-top>
@@ -111,11 +117,20 @@ export default {
             isRouterAlive: true,
         }
     },
+    watch: {
+        // 这里监听路由keepAlive变化,防止当路由从keepAlive的不同状态切换时，会出现页面重叠
+        $route(to, from) {
+            if (to.meta.keepAlive != from.meta.keepAlive) this.reload()
+        },
+    },
     computed: {
         ...mapState({
             // 动态主路由
             mainMenu: (state) => state.permission.addRouters,
         }),
+        key() {
+            return this.$route.fullPath
+        },
     },
     created() {
         const routes = this.mainMenu.find((item) => item.path === '/')
@@ -183,7 +198,9 @@ export default {
         // 重载局部路由
         reload(e) {
             this.isRouterAlive = false
-            this.$nextTick(() => (this.isRouterAlive = true))
+            setTimeout(() => {
+                this.$nextTick(() => (this.isRouterAlive = true))
+            }, 500)
         },
     },
 }
@@ -221,6 +238,7 @@ export default {
 }
 .ant-layout {
     display: flex !important;
+    overflow: hidden;
     /deep/ .ant-layout-header {
         height: 92px;
     }

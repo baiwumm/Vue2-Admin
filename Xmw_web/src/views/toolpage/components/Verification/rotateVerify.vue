@@ -1,19 +1,15 @@
 <template>
     <div class="drag-verify-container">
-        <div :style="dragVerifyImgStyle" style="margin: 0 auto">
+        <div :style="dragVerifyImgStyle" style="margin: 0 auto" @click="refreshimg">
             <img
                 ref="checkImg"
-                crossOrigin="anonymous"
                 :src="imgsrc"
+                class="check-img"
+                :class="{ goOrigin: isOk }"
                 @load="checkimgLoaded"
-                style="width: 100%"
+                :style="imgStyle"
                 alt=""
             />
-            <canvas ref="maincanvas" class="main-canvas"></canvas>
-            <canvas ref="movecanvas" :class="{ goFirst: isOk, goKeep: isKeep }" class="move-canvas"></canvas>
-            <div class="refresh" v-if="showRefresh" @click="refreshimg">
-                <a-icon :type="refreshIcon" />
-            </div>
             <div class="tips success" v-if="showTips && isPassing">{{ successTip }}</div>
             <div class="tips danger" v-if="showTips && !isPassing && showErrorTip">{{ failTip }}</div>
         </div>
@@ -49,7 +45,7 @@
 </template>
 <script>
 export default {
-    name: 'graphicsVerify',
+    name: 'rotateVerify',
     props: {
         isPassing: {
             type: Boolean,
@@ -114,37 +110,29 @@ export default {
         imgsrc: {
             type: String,
         },
-        barWidth: {
-            type: Number,
-            default: 40,
-        },
-        barRadius: {
-            type: Number,
-            default: 8,
-        },
-        showRefresh: {
-            type: Boolean,
-            default: true,
-        },
-        refreshIcon: {
-            type: String,
-            default: 'reload',
-        },
         showTips: {
             type: Boolean,
             default: true,
         },
         successTip: {
             type: String,
-            default: '验证通过，超过80%用户',
+            default: '验证通过',
         },
         failTip: {
             type: String,
-            default: '验证未通过，拖动滑块将悬浮图像正确合并',
+            default: '验证失败',
         },
-        diffWidth: {
+        diffDegree: {
             type: Number,
-            default: 20,
+            default: 10,
+        },
+        minDegree: {
+            type: Number,
+            default: 90,
+        },
+        maxDegree: {
+            type: Number,
+            default: 270,
         },
     },
     mounted: function () {
@@ -180,8 +168,10 @@ export default {
         dragVerifyImgStyle: function () {
             return {
                 width: this.width + 'px',
+                height: this.width + 'px',
                 position: 'relative',
                 overflow: 'hidden',
+                'border-radius': '50%',
             }
         },
         progressBarStyle: function () {
@@ -198,69 +188,36 @@ export default {
                 fontSize: this.textSize,
             }
         },
+        factor: function () {
+            //避免指定旋转角度时一直拖动到最右侧才验证通过
+            if (this.minDegree == this.maxDegree) {
+                return Math.floor(1 + Math.random() * 6) / 10 + 1
+            }
+            return 1
+        },
     },
     data() {
         return {
             isMoving: false,
             x: 0,
             isOk: false,
-            isKeep: false,
-            clipBarx: 0,
+            showBar: false,
             showErrorTip: false,
+            ranRotate: 0,
+            cRotate: 0,
+            imgStyle: {},
         }
     },
     methods: {
-        draw: function (ctx, x, y, operation) {
-            var l = this.barWidth
-            var r = this.barRadius
-            const PI = Math.PI
-            ctx.beginPath()
-            ctx.moveTo(x, y)
-            ctx.arc(x + l / 2, y - r + 2, r, 0.72 * PI, 2.26 * PI)
-            ctx.lineTo(x + l, y)
-            ctx.arc(x + l + r - 2, y + l / 2, r, 1.21 * PI, 2.78 * PI)
-            ctx.lineTo(x + l, y + l)
-            ctx.lineTo(x, y + l)
-            ctx.arc(x + r - 2, y + l / 2, r + 0.4, 2.76 * PI, 1.24 * PI, true)
-            ctx.lineTo(x, y)
-            ctx.lineWidth = 2
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)'
-            ctx.stroke()
-            ctx[operation]()
-            ctx.globalCompositeOperation = 'destination-over'
-        },
         checkimgLoaded: function () {
-            // 生成图片缺失位置
-            var barWidth = this.barWidth
-            var imgHeight = this.$refs.checkImg.height
-            var imgWidth = this.$refs.checkImg.width
-            var halfWidth = Math.floor(this.width / 2)
-            var refreshHeigth = 25
-            var tipHeight = 20
-            var x = halfWidth + Math.ceil(Math.random() * (halfWidth - barWidth - this.barRadius - 5))
-            var y = refreshHeigth + Math.floor(Math.random() * (imgHeight - barWidth - refreshHeigth - tipHeight))
-            this.$refs.maincanvas.setAttribute('width', imgWidth)
-            this.$refs.maincanvas.setAttribute('height', imgHeight)
-            this.$refs.maincanvas.style.display = 'block'
-            var canvasCtx = this.$refs.maincanvas.getContext('2d')
-            this.draw(canvasCtx, x, y, 'fill')
-            this.clipBarx = x
-
-            var moveCanvas = this.$refs.movecanvas
-            moveCanvas.setAttribute('width', imgWidth)
-            moveCanvas.setAttribute('height', imgHeight)
-            this.$refs.movecanvas.style.display = 'block'
-            const L = barWidth + this.barRadius * 2 + 3 //实际宽度
-            var moveCtx = this.$refs.movecanvas.getContext('2d')
-            moveCtx.clearRect(0, 0, imgWidth, imgHeight)
-            this.draw(moveCtx, x, y, 'clip')
-            moveCtx.drawImage(this.$refs.checkImg, 0, 0, imgWidth, imgHeight)
-            var y = y - this.barRadius * 2 - 1
-            const ImageData = moveCtx.getImageData(x, y, L, L)
-            moveCanvas.setAttribute('width', L)
-            moveCanvas.setAttribute('height', imgHeight)
-            moveCtx.putImageData(ImageData, 0, y)
+            //生成旋转角度
+            var minDegree = this.minDegree
+            var maxDegree = this.maxDegree
+            var ranRotate = Math.floor(minDegree + Math.random() * (maxDegree - minDegree)) //生成随机角度
+            this.ranRotate = ranRotate
+            this.imgStyle = {
+                transform: `rotateZ(${ranRotate}deg)`,
+            }
         },
         dragStart: function (e) {
             if (!this.isPassing) {
@@ -278,23 +235,29 @@ export default {
                 var handler = this.$refs.handler
                 handler.style.left = _x + 'px'
                 this.$refs.progressBar.style.width = _x + this.height / 2 + 'px'
-                this.$refs.movecanvas.style.left = _x + 'px'
+                var cRotate = Math.ceil((_x / (this.width - this.height)) * this.maxDegree * this.factor)
+                this.cRotate = cRotate
+                var rotate = this.ranRotate - cRotate
+                this.imgStyle = {
+                    transform: `rotateZ(${rotate}deg)`,
+                }
             }
         },
         dragFinish: function (e) {
             if (this.isMoving && !this.isPassing) {
-                var _x = (e.pageX || e.changedTouches[0].pageX) - this.x
-                if (Math.abs(_x - this.clipBarx) > this.diffWidth) {
+                if (Math.abs(this.ranRotate - this.cRotate) > this.diffDegree) {
                     this.isOk = true
+                    this.imgStyle = {
+                        transform: `rotateZ(${this.ranRotate}deg)`,
+                    }
                     var that = this
                     setTimeout(function () {
                         that.$refs.handler.style.left = '0'
                         that.$refs.progressBar.style.width = '0'
-                        that.$refs.movecanvas.style.left = '0'
                         that.isOk = false
                     }, 500)
-                    this.$emit('passfail')
                     this.showErrorTip = true
+                    this.$emit('passfail')
                 } else {
                     this.passVerify()
                 }
@@ -305,20 +268,12 @@ export default {
             this.$emit('update:isPassing', true)
             this.isMoving = false
             var handler = this.$refs.handler
+            handler.children[0].className = this.successIcon
             this.$refs.progressBar.style.background = this.completedBg
             this.$refs.message.style['-webkit-text-fill-color'] = 'unset'
             this.$refs.message.style.animation = 'slidetounlock2 3s infinite'
             this.$refs.progressBar.style.color = '#fff'
             this.$refs.progressBar.style.fontSize = this.textSize
-            this.isKeep = true
-            setTimeout(() => {
-                this.$refs.movecanvas.style.left = this.clipBarx + 'px'
-                setTimeout(() => {
-                    this.isKeep = false
-                    this.$refs.maincanvas.style.display = 'none'
-                    this.$refs.movecanvas.style.display = 'none'
-                }, 200)
-            }, 100)
             this.$emit('passcallback')
         },
         reset: function () {
@@ -337,10 +292,10 @@ export default {
             var message = this.$refs.message
             handler.style.left = '0'
             this.$refs.progressBar.style.width = '0'
+            handler.children[0].className = this.handlerIcon
             message.style['-webkit-text-fill-color'] = 'transparent'
             message.style.animation = 'slidetounlock 3s infinite'
             message.style.color = this.background
-            this.$refs.movecanvas.style.left = '0px'
         },
         refreshimg: function () {
             this.$emit('refresh')
@@ -375,10 +330,6 @@ export default {
     color: #666;
     padding-left: 0;
     font-size: 16px;
-}
-.drag_verify .dv_handler .el-icon-circle-check {
-    color: #6c6;
-    margin-top: 9px;
 }
 .drag_verify .dv_progress_bar {
     position: absolute;
@@ -416,6 +367,9 @@ export default {
     left: 0px !important;
     transition: left 0.5s;
 }
+.goOrigin {
+    transition: transform 0.5s;
+}
 .goKeep {
     transition: left 0.2s;
 }
@@ -426,6 +380,15 @@ export default {
 .drag-verify-container {
     position: relative;
     line-height: 0;
+    border-radius: 50%;
+}
+.move-bar {
+    position: absolute;
+    z-index: 100;
+}
+.clip-bar {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
 }
 .refresh {
     position: absolute;
@@ -437,7 +400,7 @@ export default {
 }
 .tips {
     position: absolute;
-    bottom: 0;
+    bottom: 25px;
     height: 20px;
     line-height: 20px;
     text-align: center;
@@ -453,17 +416,10 @@ export default {
     background: rgba(0, 0, 0, 0.6);
     color: yellow;
 }
-.main-canvas {
+.check-img {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.move-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+    border-radius: 50%;
 }
 </style>
 <style>

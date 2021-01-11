@@ -32,6 +32,7 @@ const locale = {
     'menu.toolpage.multistage.contrast': 'Contrast',
     'menu.toolpage.verify': 'Verify',
     'menu.toolpage.guide': 'Guide',
+    'menu.toolpage.outerChain': 'OuterChain',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',
