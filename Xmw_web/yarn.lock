@@ -11544,6 +11544,11 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
+vue-the-mask@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.npm.taobao.org/vue-the-mask/download/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
+  integrity sha1-ke4BAINUrle8zHm7YbZfMtlx2dU=
+
 vue-video-player@^5.0.2:
   version "5.0.2"
   resolved "https://registry.npm.taobao.org/vue-video-player/download/vue-video-player-5.0.2.tgz#34a42239ff304efc7698da20a4165051d766c1e6"

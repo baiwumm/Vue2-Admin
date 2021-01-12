@@ -32,6 +32,7 @@ const locale = {
     'menu.toolpage.verify': '验证码',
     'menu.toolpage.guide': '引导页',
     'menu.toolpage.outerChain': '外链',
+    'menu.toolpage.cardFrom': '信用卡表单',
     'menu.personal.center': '个人中心',
     'menu.system': '系统设置',
     'menu.system.logs': '操作日志',

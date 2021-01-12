@@ -33,6 +33,7 @@ const locale = {
     'menu.toolpage.verify': 'Verify',
     'menu.toolpage.guide': 'Guide',
     'menu.toolpage.outerChain': 'OuterChain',
+    'menu.toolpage.cardFrom': 'CardFrom',
     'menu.personal.center': 'PersonalCenter',
     'menu.system': 'System',
     'menu.system.logs': 'Logs',
