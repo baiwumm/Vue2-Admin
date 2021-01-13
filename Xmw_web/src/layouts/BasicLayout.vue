@@ -246,6 +246,8 @@ export default {
         position: absolute;
         width: 100%;
         display: block;
+        height: 30px !important;
+        line-height: 30px !important;
     }
 }
 .ant-layout.topmenu /deep/ .ant-layout-header {

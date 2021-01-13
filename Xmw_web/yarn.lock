@@ -11521,6 +11521,11 @@ vue-svg-component-builder@2.0.3:
   resolved "https://registry.npm.taobao.org/vue-svg-component-builder/download/vue-svg-component-builder-2.0.3.tgz#c4e0a19073587ab882fd6f72bb7b3b63b4396801"
   integrity sha1-xOChkHNYeriC/W9yu3s7Y7Q5aAE=
 
+vue-svg-component-runtime@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/vue-svg-component-runtime/download/vue-svg-component-runtime-1.0.1.tgz#c4c241cdf92fead742ef33133b997ff42d8b9ee6"
+  integrity sha1-xMJBzfkv6tdC7zMTO5l/9C2LnuY=
+
 vue-svg-icon-loader@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npm.taobao.org/vue-svg-icon-loader/download/vue-svg-icon-loader-2.1.1.tgz#7b999ccb0647ce3b3903bfbf535fe247e11b032a"

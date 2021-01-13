@@ -43,9 +43,14 @@
                 </span>
                 <span slot="icon" slot-scope="text, record">
                     <a-icon
-                        :type="record.icon"
+                        :component="iconfontSvg(record.icon)"
                         :style="{ fontSize: '20px', color: 'rgb(24, 144, 255)' }"
-                        v-if="record.icon"
+                        v-if="record.icon && record.icon.includes('Icon')"
+                    />
+                    <a-icon
+                        :type="iconfontSvg(record.icon)"
+                        :style="{ fontSize: '20px', color: 'rgb(24, 144, 255)' }"
+                        v-else-if="record.icon"
                     />
                 </span>
                 <span slot="permission" slot-scope="text, record">
@@ -74,6 +79,20 @@
                                     placeholder="请选择父级"
                                     tree-default-expand-all
                                 >
+                                    <!-- <a-icon
+                                        slot="icon"
+                                        slot-scope="item"
+                                        :component="iconfontSvg(item.icon)"
+                                        style="color: rgb(24, 144, 255)"
+                                        v-if="item.icon && item.icon.includes('Icon')"
+                                    />
+                                    <a-icon
+                                        slot="icon"
+                                        slot-scope="item"
+                                        :type="iconfontSvg(item.icon)"
+                                        style="color: rgb(24, 144, 255)"
+                                        v-else-if="item.icon"
+                                    /> -->
                                 </a-tree-select>
                             </a-form-item>
                         </a-col>
@@ -171,6 +190,7 @@
 <script>
 import { Menu, addMenu, deleteMenu } from '@/api/system'
 import { dataFormat, treeData } from '@/utils/util.js'
+import iconfont from '@/core/icons'
 export default {
     data() {
         return {
@@ -223,7 +243,7 @@ export default {
             pagination: {
                 total: 0,
                 defaultCurrent: 1,
-                defaultPageSize: 20,
+                defaultPageSize: 60,
                 showTotal: (total) => `共 ${total} 条数据`,
                 showSizeChanger: true,
                 pageSizeOptions: ['20', '40', '60', '100'],
@@ -258,6 +278,10 @@ export default {
         }
     },
     methods: {
+        // 引用图表静态文件
+        iconfontSvg(icon) {
+            return iconfont[icon] || icon
+        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize

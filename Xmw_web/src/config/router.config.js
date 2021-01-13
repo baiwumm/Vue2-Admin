@@ -1,5 +1,6 @@
 import { UserLayout, BasicLayout, PageView } from '@/layouts'
 import { Menu } from '@/api/system'
+import iconfont from '@/core/icons'
 const RouteView = {
     name: 'RouteView',
     render: (h) => h('router-view')
@@ -35,7 +36,7 @@ const generator = () => {
                     // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
                     meta: {
                         title: item.title,
-                        icon: item.icon || undefined,
+                        icon: iconfont[item.icon] || item.icon,
                         permission: [item.permission],
                         keepAlive: item.keepAlive ? true : false,
                         hidden: item.hidden ? true : false,

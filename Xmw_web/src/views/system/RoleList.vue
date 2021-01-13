@@ -46,15 +46,15 @@
                             :key="index"
                             :style="{ margin: '5px 0', height: '22px' }"
                         >
-                            <a-col :span="4">
+                            <a-col :span="6">
                                 <span>{{ role.permissionName }}：</span>
                             </a-col>
-                            <a-col :span="20" v-if="role.actionList.length">
+                            <a-col :span="18" v-if="role.actionList.length">
                                 <a-tag color="purple" v-for="(action, k) in role.actionList" :key="k">{{
                                     actionList[action]
                                 }}</a-tag>
                             </a-col>
-                            <a-col :span="20" v-else>-</a-col>
+                            <a-col :span="18" v-else>-</a-col>
                         </a-col>
                     </a-row>
                 </div>
@@ -98,11 +98,25 @@
                                     :tree-data="treeData"
                                     @check="onCheckTree"
                                 >
-                                    <a-icon
+                                    <!-- <a-icon
                                         slot="icon"
                                         :type="item.icon"
                                         slot-scope="item"
                                         style="color: rgb(24, 144, 255)"
+                                    /> -->
+                                    <a-icon
+                                        slot="icon"
+                                        slot-scope="item"
+                                        :component="iconfontSvg(item.icon)"
+                                        style="color: rgb(24, 144, 255)"
+                                        v-if="item.icon && item.icon.includes('Icon')"
+                                    />
+                                    <a-icon
+                                        slot="icon"
+                                        slot-scope="item"
+                                        :type="iconfontSvg(item.icon)"
+                                        style="color: rgb(24, 144, 255)"
+                                        v-else-if="item.icon"
                                     />
                                 </a-tree>
                             </a-form-item>
@@ -135,6 +149,7 @@
 import { Role, updateRoleList, deleteRole } from '@/api/system'
 import { dataFormat, treeData } from '@/utils/util.js'
 import { TreeSelect } from 'ant-design-vue'
+import iconfont from '@/core/icons'
 export default {
     data() {
         return {
@@ -188,6 +203,10 @@ export default {
         }
     },
     methods: {
+        // 引用图表静态文件
+        iconfontSvg(icon) {
+            return iconfont[icon] || icon
+        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize

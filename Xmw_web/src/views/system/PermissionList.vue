@@ -32,6 +32,29 @@
                 :loading="loading"
                 :defaultExpandAllRows="true"
             >
+                <span slot="subTitle" slot-scope="text, record">
+                    <a-icon
+                        :component="iconfontSvg(record.icon)"
+                        :style="{
+                            fontSize: '16px',
+                            color: 'rgb(24, 144, 255)',
+                            marginRight: '5px',
+                            verticalAlign: 'middle',
+                        }"
+                        v-if="record.icon && record.icon.includes('Icon')"
+                    />
+                    <a-icon
+                        :type="iconfontSvg(record.icon)"
+                        :style="{
+                            fontSize: '16px',
+                            color: 'rgb(24, 144, 255)',
+                            marginRight: '5px',
+                            verticalAlign: 'middle',
+                        }"
+                        v-else-if="record.icon"
+                    />
+                    {{ record.subTitle }}
+                </span>
                 <span slot="actions" slot-scope="text, record">
                     <a-tag v-for="(item, index) in record.actions" color="purple" :key="index">{{
                         item.describe
@@ -96,11 +119,18 @@
 <script>
 import { Action, updateActionList } from '@/api/system'
 import { dataFormat, treeData } from '@/utils/util.js'
+import iconfont from '@/core/icons'
 export default {
     data() {
         return {
             columns: [
-                { title: '菜单名称', dataIndex: 'subTitle', key: 'subTitle', ellipsis: true },
+                {
+                    title: '菜单名称',
+                    dataIndex: 'subTitle',
+                    key: 'subTitle',
+                    ellipsis: true,
+                    scopedSlots: { customRender: 'subTitle' },
+                },
                 { title: '用户权限Key', dataIndex: 'permission', key: 'permission', ellipsis: true },
                 {
                     title: '可操作性权限',
@@ -123,7 +153,7 @@ export default {
             pagination: {
                 total: 0,
                 defaultCurrent: 1,
-                defaultPageSize: 20,
+                defaultPageSize: 60,
                 showTotal: (total) => `共 ${total} 条数据`,
                 showSizeChanger: true,
                 pageSizeOptions: ['20', '40', '60', '100'],
@@ -143,6 +173,10 @@ export default {
         }
     },
     methods: {
+        // 引用图表静态文件
+        iconfontSvg(icon) {
+            return iconfont[icon] || icon
+        },
         tableChange(e) {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize

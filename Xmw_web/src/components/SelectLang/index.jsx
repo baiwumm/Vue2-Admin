@@ -3,7 +3,7 @@ import './index.less'
 import { Icon, Menu, Dropdown } from 'ant-design-vue'
 import { i18nRender } from '@/locales'
 import i18nMixin from '@/store/i18n-mixin'
-
+import iconfont from '@/core/icons'
 const locales = ['zh-CN', 'en-US']
 const languageLabels = {
     'zh-CN': '简体中文',
@@ -48,7 +48,7 @@ const SelectLang = {
         return (
             <Dropdown overlay={langMenu} placement="bottomRight">
                 <span class={prefixCls}>
-                    <Icon type="global" title={i18nRender('navBar.lang')} />
+                    <Icon component={iconfont['language']} title={i18nRender('navBar.lang')} style="font-size:20px !important" />
                 </span>
             </Dropdown>
         )

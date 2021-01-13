@@ -37,7 +37,7 @@ class SystemController extends Controller {
                 let where = `name != 'index'`
                 if (routerName) where += ` and name like '%${routerName}%'`
                 if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
-                let parentList = await Raw.QueryList(`select ID,parentId,subTitle as title from xmw_menu`)
+                let parentList = await Raw.QueryList(`select ID,parentId,icon,subTitle as title from xmw_menu`)
                 const result = await Raw.QueryPageData(`select * from xmw_menu where ${where}`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result, parentList: parentList }
             } else {
@@ -127,7 +127,7 @@ class SystemController extends Controller {
             let where = `name != 'index'`
             if (permission) where += ` and permission like '%${permission}%'`
             if (subTitle) where += ` and subTitle like '%${subTitle}%'`
-            const result = await Raw.QueryPageData(`select ID,permission,subTitle,actions,parentId,redirect from xmw_menu where ${where}`, current, pageSize);
+            const result = await Raw.QueryPageData(`select ID,permission,subTitle,actions,parentId,redirect,icon from xmw_menu where ${where}`, current, pageSize);
             let actionList = await Raw.QueryList('select * from xmw_action');
             ctx.body = { state: 1, msg: '请求成功!', result: result, actionList: actionList }
         } catch (error) {
