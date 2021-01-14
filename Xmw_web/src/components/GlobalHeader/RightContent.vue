@@ -52,13 +52,9 @@
         <a-popover trigger="hover" arrow-point-at-center v-if="!isMobile">
             <template slot="content">
                 <div class="infinite-container">
-                    <a-list :data-source="announcementList">
+                    <a-list :data-source="announcementList" :loading="listLoading">
                         <a-list-item slot="renderItem" slot-scope="item" style="position: relative; height: 80px">
-                            <a-list-item-meta
-                                :description="
-                                    item.content.length > 30 ? item.content.substr(0, 30) + '...' : item.content
-                                "
-                            >
+                            <a-list-item-meta>
                                 <a slot="title" @click="showAnnouncementDetail(item)">
                                     <a-tooltip>
                                         <template slot="title">
@@ -67,64 +63,50 @@
                                         <a-badge
                                             :dot="!(item.already ? JSON.parse(item.already) : []).includes(user.UserID)"
                                             >{{
-                                                item.title.length > 15 ? item.title.substr(0, 15) + '...' : item.title
+                                                item.title.length > 30 ? item.title.substr(0, 30) + '...' : item.title
                                             }}</a-badge
                                         >
                                     </a-tooltip>
                                 </a>
-                                <a-avatar slot="avatar" :src="item.avatar" />
-                            </a-list-item-meta>
-                            <div>
-                                <a-tag color="purple">
-                                    {{ item.CnName }}
-                                </a-tag>
-                                <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px; margin-top: 10px">
+                                <a-avatar slot="avatar" :src="item.avatar" :size="50" style="vertical-align: middle" />
+                                <div slot="description">
+                                    <a-tag color="purple">
+                                        {{ item.CnName }}
+                                    </a-tag>
                                     <a-icon type="clock-circle" /> {{ culTime(item.createTime) }}
                                 </div>
-                            </div>
+                            </a-list-item-meta>
                         </a-list-item>
-                        <div slot="header" style="font-size: 20px; font-weight: bold; margin-top: -20px">公告列表</div>
+                        <div slot="header">
+                            <a-radio-group v-model="articleType" @change="changeArticleType">
+                                <a-radio-button :value="1"> 公告 </a-radio-button>
+                                <a-radio-button :value="2"> 通知 </a-radio-button>
+                            </a-radio-group>
+                        </div>
                         <div
                             slot="loadMore"
                             :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
                         >
                             <a-spin v-if="loadingMore" />
-                            <a-button v-else @click="onLoadMore" type="primary"> 加载更多 </a-button>
+                            <a-button
+                                v-else-if="!loadingMore && announcementList.length"
+                                @click="onLoadMore"
+                                type="primary"
+                            >
+                                加载更多
+                            </a-button>
                         </div>
                     </a-list>
                 </div>
             </template>
+            <!-- 详情 -->
+            <article-details ref="articleDetails"></article-details>
             <div :class="prefixCls" id="AnnouncementList">
                 <a-badge :count="unread">
                     <a-icon type="bell" style="font-size: 20px" />
                 </a-badge>
             </div>
         </a-popover>
-        <a-drawer width="640" placement="right" :visible="detailVisible" @close="detailVisible = false" :zIndex="1200">
-            <a-descriptions title="公告详情" bordered :column="1">
-                <a-descriptions-item label="发布者：">{{ announcementDetail.author }} </a-descriptions-item>
-                <a-descriptions-item label="标题：">{{ announcementDetail.title }} </a-descriptions-item>
-                <a-descriptions-item label="发布时间："
-                    ><a-badge status="processing" :text="announcementDetail.createTime"
-                /></a-descriptions-item>
-                <a-descriptions-item label="发布内容：">{{ announcementDetail.content }} </a-descriptions-item>
-            </a-descriptions>
-            <div
-                :style="{
-                    position: 'absolute',
-                    right: 0,
-                    bottom: 0,
-                    width: '100%',
-                    borderTop: '1px solid #e9e9e9',
-                    padding: '10px 16px',
-                    background: '#fff',
-                    textAlign: 'right',
-                    zIndex: 1,
-                }"
-            >
-                <a-button type="primary" @click="detailVisible = false"> 关闭 </a-button>
-            </div>
-        </a-drawer>
         <div :class="prefixCls" @click="toggleFullscreen" v-if="!isMobile">
             <a-tooltip>
                 <template slot="title"> 全屏 </template>
@@ -150,12 +132,15 @@ import { Menu } from '@/api/system'
 import { crypto_key, crypto_iv, treeData, relativeTime } from '@/utils/util.js'
 import Fuse from 'fuse.js'
 import { Announcement, saveAnnouncementRead, webSockets, User } from '@/api/system'
+import articleDetails from './articleDetails'
+import bus from '@/utils/bus'
 export default {
     name: 'RightContent',
     components: {
         AvatarDropdown,
         LockScreen,
         SelectLang,
+        articleDetails,
     },
     props: {
         prefixCls: {
@@ -271,10 +256,11 @@ export default {
             loadingMore: false,
             unread: 0, // 公告未读条数
             user: {},
-            detailVisible: false,
             announcementDetail: {},
             lockVisible: false,
             form: this.$form.createForm(this),
+            articleType: 1,
+            listLoading: false,
         }
     },
     computed: {
@@ -290,13 +276,13 @@ export default {
     },
     created() {
         this.user = this.userInfo
-    },
-    beforeMount() {
-        let _this = this
-        _this.fetchData((res) => {
-            _this.announcementList = res.result.list
-            _this.total = res.result.total
+        bus.$on('showArticle', (value) => {
+            if (value) this.showAnnouncementDetail(value)
+            else this.changeArticleType()
         })
+    },
+    beforeDestroy() {
+        bus.$off('showArticle')
     },
     methods: {
         parMsg(val) {
@@ -322,18 +308,29 @@ export default {
         },
         fetchData(callback) {
             let _this = this
+            _this.listLoading = true
             let params = {
                 current: _this.current,
                 pageSize: _this.pageSize,
+                type: _this.articleType,
             }
             Announcement(params).then((res) => {
                 callback(res)
+                _this.listLoading = false
                 res.result.list.map((v) => {
                     let readList = JSON.parse(v.already) || []
                     if (!readList.includes(_this.user.UserID)) {
                         _this.unread += 1
                     }
                 })
+            })
+        },
+        initData() {
+            let _this = this
+            _this.unread = 0
+            _this.fetchData((res) => {
+                _this.announcementList = res.result.list
+                _this.total = res.result.total
             })
         },
         // 加载更多
@@ -352,15 +349,19 @@ export default {
             })
         },
         // 公告详情
-        showAnnouncementDetail(data) {
+        async showAnnouncementDetail(data) {
             let _this = this
-            _this.detailVisible = true
             _this.announcementDetail = data
+            _this.$refs.articleDetails.showDetails(data)
             // 如果点击未读信息，则请求将用户ID添加到已读字段
             let readList = JSON.parse(data.already) || []
             if (!readList.includes(_this.user.UserID)) {
-                let params = { AnnouncementID: data.AnnouncementID, title: data.title }
-                saveAnnouncementRead(params).then((res) => {
+                let params = {
+                    AnnouncementID: data.AnnouncementID,
+                    title: data.title,
+                    already: readList,
+                }
+                await saveAnnouncementRead(params).then((res) => {
                     _this.unread -= 1
                     _this.announcementList.forEach((v) => {
                         if (v.AnnouncementID == data.AnnouncementID) {
@@ -486,9 +487,14 @@ export default {
         showChatMsg(UserID) {
             this.$router.push({ name: 'chatRoom', params: { UserID: UserID } })
         },
+        changeArticleType() {
+            this.current = 1
+            this.initData()
+        },
     },
     mounted() {
         this.$nextTick(() => {
+            this.initData()
             this.getMenuList()
         })
     },
@@ -523,7 +529,7 @@ export default {
     padding: 8px 10px;
     overflow: auto;
     height: 300px;
-    width: 400px;
+    width: 360px;
 }
 .ant-descriptions /deep/ .ant-descriptions-view .ant-descriptions-row th {
     width: 120px;

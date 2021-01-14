@@ -67,7 +67,7 @@
 
             <!-- 抽屉-添加编辑 -->
             <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
-                <a-form ref="formLogin" :form="form" @submit="handleSubmit">
+                <a-form :form="form" @submit="handleSubmit">
                     <a-row :gutter="16">
                         <a-col :span="12">
                             <a-form-item label="父级">
@@ -79,15 +79,16 @@
                                     placeholder="请选择父级"
                                     tree-default-expand-all
                                 >
+                                    <div slot="title">111</div>
                                     <!-- <a-icon
-                                        slot="icon"
+                                        slot="title"
                                         slot-scope="item"
                                         :component="iconfontSvg(item.icon)"
                                         style="color: rgb(24, 144, 255)"
                                         v-if="item.icon && item.icon.includes('Icon')"
                                     />
                                     <a-icon
-                                        slot="icon"
+                                        slot="title"
                                         slot-scope="item"
                                         :type="iconfontSvg(item.icon)"
                                         style="color: rgb(24, 144, 255)"

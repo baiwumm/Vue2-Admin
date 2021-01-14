@@ -336,7 +336,7 @@ class SystemController extends Controller {
                     return
                 }
                 const options = {
-                    wherestr: `where UserID = '${ID}'`
+                    wherestr: `where UserID = ${ID}`
                 };
                 await Raw.Update('xmw_user', params, options);
                 await ctx.service.logs.saveLogs(username, CnName, '编辑用户:' + params.username, '/system/userList')
@@ -372,17 +372,19 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            if (Object.keys(ctx.query).length != 2) {
+            if (Object.keys(ctx.query).length != 3) {
                 let { author, title, createTime, current, pageSize } = ctx.query;
                 let where = `1+1`
                 if (author) where += ` and author like '%${author}%'`
                 if (title) where += ` and title like '%${title}%'`
                 if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
-                const result = await Raw.QueryPageData(`select * from xmw_announcement where ${where} order by createTime desc`, current, pageSize);
+                const result = await Raw.QueryPageData(`select a.*,b.username,b.CnName from xmw_announcement a LEFT JOIN xmw_user b on a.author = b.UserID where ${where} order by createTime desc`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result }
             } else {
-                let { current, pageSize } = ctx.query;
-                const result = await Raw.QueryPageData(`SELECT a.*,b.avatar FROM xmw_announcement a LEFT JOIN xmw_user b on a.author = b.username order by createTime desc`, current, pageSize);
+                let { current, pageSize, type } = ctx.query;
+                let where = `where a.status = 0`
+                if (type) where += ` and type = ${type}`
+                const result = await Raw.QueryPageData(`SELECT a.*,b.avatar,b.username,b.CnName FROM xmw_announcement a LEFT JOIN xmw_user b on a.author = b.UserID ${where} order by createTime desc`, current, pageSize);
                 ctx.body = { state: 1, msg: '请求成功!', result: result }
             }
         } catch (error) {
@@ -396,14 +398,24 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { username, CnName } = ctx.session.userInfo
-            let params = ctx.request.body
-            params.author = username
-            params.CnName = CnName
-            params.createTime = new Date()
-            await Raw.Insert('xmw_announcement', params);
-            await ctx.service.logs.saveLogs(username, CnName, '发布公告:' + params.title, '/system/announcement')
-            ctx.body = { state: 1, msg: '保存成功!' }
+            let { UserID, username, CnName } = ctx.session.userInfo
+            let { AnnouncementID, ...params } = ctx.request.body
+            params.author = UserID
+            if (!AnnouncementID) { // 发布公告
+                params.createTime = new Date()
+                await Raw.Insert('xmw_announcement', params);
+                await ctx.service.logs.saveLogs(username, CnName, '发布公告:' + params.title, '/integrated/announcement')
+                ctx.body = { state: 1, msg: '保存成功!' }
+            } else { // 编辑公告
+                params.updateTime = new Date()
+                const options = {
+                    wherestr: `where AnnouncementID = ${AnnouncementID}`
+                };
+                console.log(params)
+                await Raw.Update('xmw_announcement', params, options);
+                await ctx.service.logs.saveLogs(username, CnName, '编辑公告:' + params.title, '/integrated/announcement')
+                ctx.body = { state: 1, msg: '保存成功!' }
+            }
 
         } catch (error) {
             ctx.logger.info('updateAnnouncement方法报错：' + error)
@@ -421,7 +433,7 @@ class SystemController extends Controller {
             await Raw.Delete("xmw_announcement", {
                 wherestr: `where AnnouncementID = '${AnnouncementID}'`
             });
-            await ctx.service.logs.saveLogs(username, CnName, '删除公告:' + title, '/system/announcement')
+            await ctx.service.logs.saveLogs(username, CnName, '删除公告:' + title, '/integrated/announcement')
             ctx.body = { state: 1, msg: '删除成功!' }
         } catch (error) {
             ctx.logger.info('deleteAnnouncement方法报错：' + error)
@@ -434,17 +446,14 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { AnnouncementID, title } = ctx.request.body
+            let { AnnouncementID, title, already } = ctx.request.body
             let { UserID, username, CnName } = ctx.session.userInfo
-            let result = await Raw.Query(`select already from xmw_announcement where AnnouncementID = ${AnnouncementID}`)
-            result.already = JSON.parse(result.already) || []
-            result.already.push(UserID)
-            result.already = JSON.stringify(result.already)
+            already.push(UserID)
             const options = {
                 wherestr: `where AnnouncementID=${AnnouncementID}`
             };
-            await Raw.Update('xmw_announcement', result, options);
-            await ctx.service.logs.saveLogs(username, CnName, '读取公告:' + title, '/system/announcement')
+            await Raw.Update('xmw_announcement', { already: JSON.stringify(already) }, options);
+            await ctx.service.logs.saveLogs(username, CnName, '读取公告:' + title, '/integrated/announcement')
             ctx.body = { state: 1, msg: '保存成功!' }
         } catch (error) {
             ctx.logger.info('saveAnnouncementRead方法报错：' + error)
@@ -457,7 +466,7 @@ class SystemController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            const result = await Raw.Query(`select * from xmw_announcement order by createTime desc limit 1`)
+            const result = await Raw.Query(`select a.*,b.username,b.CnName from xmw_announcement a LEFT JOIN xmw_user b on a.author = b.UserID order by createTime desc limit 1`)
             ctx.body = { state: 1, msg: '请求成功!', data: result }
         } catch (error) {
             ctx.logger.info('webSockets方法报错：' + error)
