@@ -100,7 +100,16 @@
             <a-col :xs="24" :sm="12" :md="6" :lg="3" :xl="3" v-for="(item, index) in navList" :key="index">
                 <router-link :to="item.link">
                     <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center' }">
-                        <a-icon :type="item.icon" :style="{ color: item.color, fontSize: '30px' }" />
+                        <a-icon
+                            :component="iconfontSvg(item.icon)"
+                            :style="{ fontSize: '30px', color: item.color }"
+                            v-if="item.icon && item.icon.includes('Icon')"
+                        />
+                        <a-icon
+                            :type="iconfontSvg(item.icon)"
+                            :style="{ fontSize: '30px', color: item.color }"
+                            v-else-if="item.icon"
+                        />
                         <p style="color: #303133; font-size: 16px; margin: 10px 0 0">{{ item.title }}</p>
                     </a-card>
                 </router-link>
@@ -160,6 +169,7 @@ import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import columnPlot from './columnPlot'
 import { ChartCard, Trend, MiniArea, MiniBar, MiniBullet, Liquid, WordCloud } from '@/components'
+import iconfont from '@/core/icons'
 export default {
     name: 'WorkBench',
     components: {
@@ -359,20 +369,20 @@ export default {
             navList: [
                 {
                     title: '消息公告',
-                    icon: 'notification',
+                    icon: 'notificationIcon',
                     link: '/integrated/announcement',
                     color: 'rgb(255, 133, 192)',
                 },
                 {
                     title: '组织架构',
-                    icon: 'apartment',
+                    icon: 'apartmentIcon',
                     link: '/integrated/organizational',
                     color: 'rgb(255, 156, 110)',
                 },
                 { title: '二维码', icon: 'qrcode', link: '/features/qrcode', color: 'rgb(179, 127, 235)' },
                 { title: '高级表格', icon: 'table', link: '/integrated/seniorForms', color: 'rgb(92, 219, 211)' },
                 { title: '个人中心', icon: 'idcard', link: '/personal/center', color: 'rgb(255, 133, 192)' },
-                { title: '聊天室', icon: 'message', link: '/features/chatRoom', color: 'rgb(255, 156, 110)' },
+                { title: '聊天室', icon: 'chatRoomIcon', link: '/features/chatRoom', color: 'rgb(255, 156, 110)' },
                 { title: '阅读', icon: 'read', link: '/', color: 'rgb(105, 192, 255)' },
                 { title: '休息一下', icon: 'coffee', link: '/', color: 'rgb(149, 222, 100)' },
             ],
@@ -398,6 +408,10 @@ export default {
     },
     mounted() {},
     methods: {
+        // 引用图表静态文件
+        iconfontSvg(icon) {
+            return iconfont[icon] || icon
+        },
         // 格式化数字
         formatDigital(value, decimal) {
             return filterDigital(value, decimal)
