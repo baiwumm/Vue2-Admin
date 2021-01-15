@@ -20,6 +20,7 @@ import language from '@/assets/icons/language.svg?inline' // 多语言
 import dictionaryIcon from '@/assets/icons/dictionary.svg?inline' // 字典管理
 import jobsIcon from '@/assets/icons/jobs.svg?inline' // 岗位
 import departmentIcon from '@/assets/icons/department.svg?inline' // 部门
+import lazyLoadIcon from '@/assets/icons/lazyLoad.svg?inline' // 懒加载
 const iconfont = {
     workbenchIcon,
     integratedIcon,
@@ -41,7 +42,8 @@ const iconfont = {
     language,
     dictionaryIcon,
     jobsIcon,
-    departmentIcon
+    departmentIcon,
+    lazyLoadIcon
 }
 
 export default iconfont

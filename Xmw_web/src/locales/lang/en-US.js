@@ -27,6 +27,7 @@ const locale = {
     'menu.features.waterfall': 'WaterFall',
     'menu.features.musicPlayer': 'MusicPlayer',
     'menu.features.videoPlayer': 'VideoPlayer',
+    'menu.features.lazyLoad': 'LazyLoad',
     'menu.toolpage': 'ToolPage',
     'menu.toolpage.multistage': 'Multistage',
     'menu.toolpage.multistage.menu1': 'Menu1',

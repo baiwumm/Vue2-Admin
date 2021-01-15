@@ -79,6 +79,10 @@
                                     placeholder="请选择父级"
                                     tree-default-expand-all
                                 >
+                                    <!-- <template slot-scope="text" slot="home">
+                                        <a-icon type="cluster" />
+                                        {{ text.value }}
+                                    </template> -->
                                     <!-- <a-icon
                                         slot="home"
                                         slot-scope="item"

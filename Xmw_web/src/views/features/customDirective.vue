@@ -42,7 +42,9 @@
             <!-- 图片懒加载 v-LazyLoad -->
             <a-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
                 <a-card :bordered="false" hoverable title="图片懒加载 v-LazyLoad">
-                    <a-button type="primary" block> 往下滚动 </a-button>
+                    <router-link to="/features/lazyLoad">
+                        <a-button type="primary" block> 前往查看 </a-button>
+                    </router-link>
                 </a-card>
             </a-col>
             <!-- 权限校验指令 v-premission -->
@@ -74,23 +76,6 @@
                 </a-card>
             </a-col>
         </a-row>
-        <a-row :gutter="20">
-            <a-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" v-for="(v, i) in 20" :key="i">
-                <div class="lazy-img-cpntainer">
-                    <div
-                        class="img-waterMarker"
-                        v-waterMarker="{ text: 'XmwPro版权所有', textColor: 'rgba(255, 255, 255,1)' }"
-                    ></div>
-                    <img
-                        class="lazy-img"
-                        v-LazyLoad="{
-                            src: picLazyLoad,
-                            callback: onCallback,
-                        }"
-                    />
-                </div>
-            </a-col>
-        </a-row>
     </page-header-wrapper>
 </template>
 
@@ -99,17 +84,12 @@ export default {
     data() {
         return {
             copyText: 'Vue XmwPro',
-            picLazyLoad: require('@/assets/images/pic_zoom.jpg'),
             longpressTime: 1000, //长按指令间隔时间,默认1s
             debounceTime: 1000, // 防抖指令间隔时间,默认1s
             throllteTime: 1000, // 节流指令间隔时间,默认1s
         }
     },
     methods: {
-        onCallback(el) {
-            el.style.opacity = 1
-            el.style.display = 'block'
-        },
         longpress() {
             this.$message.success(`长按指令${this.longpressTime / 1000}s生效`)
         },
@@ -126,23 +106,6 @@ export default {
 <style lang="less" scoped>
 .ant-card /deep/ .ant-card-body {
     margin-bottom: 20px;
-}
-.lazy-img-cpntainer {
-    position: relative;
-    margin-bottom: 20px;
-    .img-waterMarker {
-        position: absolute;
-        width: 170px;
-        height: 65px;
-        top: 0;
-        right: 0;
-    }
-    .lazy-img {
-        height: 200px;
-        width: 100%;
-        opacity: 0;
-        transition: opacity 1s;
-    }
 }
 </style>
 <style>

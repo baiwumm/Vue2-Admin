@@ -26,6 +26,7 @@ const locale = {
     'menu.features.waterfall': '瀑布流',
     'menu.features.musicPlayer': '音乐播放器',
     'menu.features.videoPlayer': '视频播放器',
+    'menu.features.lazyLoad': '懒加载',
     'menu.toolpage': '工具页',
     'menu.toolpage.multistage': '嵌套路由',
     'menu.toolpage.multistage.menu1': '菜单1',

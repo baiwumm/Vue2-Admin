@@ -62,6 +62,7 @@ const user = {
                     if (response.state == 1) {
                         const result = response.result
                         result.label = JSON.parse(result.label)
+                        result.department = JSON.parse(result.department)
                         result.SectorJobs = JSON.parse(result.SectorJobs)
                         result.address = JSON.parse(result.address)
                         storage.set(ACCESS_TOKEN, result.token)
