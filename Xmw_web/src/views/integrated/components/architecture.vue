@@ -50,7 +50,7 @@
 <script>
 import Vue2OrgTree from 'vue2-org-tree'
 import 'vue2-org-tree/src/styles/org-tree.less'
-import { departmentList, addEditDepartment, deleteDepartment } from '@/api/integrated'
+import { getOrganizationList, addEditOrganization, deleteOrganization } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
 export default {
     components: {
@@ -77,7 +77,7 @@ export default {
             modelVisible: false,
             modelTitle: '',
             departmentName: '',
-            DepartmentID: '',
+            OrganizationID: '',
             parentId: '',
             category: 1,
         }
@@ -122,11 +122,11 @@ export default {
                 current: 1,
                 pageSize: 1,
             }
-            await departmentList(params).then((res) => {
+            await getOrganizationList(params).then((res) => {
                 if (res.state == 1) {
                     if (res.parentList.length) {
                         res.parentList.forEach((v) => {
-                            ;(v.id = v.DepartmentID), (v.label = v.name)
+                            ;(v.id = v.OrganizationID), (v.label = v.name)
                         })
                         _this.data = treeData(res.parentList, 'id', 'parentId', 'children')[0]
                     }
@@ -175,14 +175,14 @@ export default {
                     _this.$message.info('当前节点存在子级，请先删除子级')
                 } else {
                     let params = {
-                        DepartmentID: node.DepartmentID,
+                        OrganizationID: node.OrganizationID,
                         name: node.name,
                     }
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
                         onOk: async () => {
-                            await deleteDepartment(params).then((res) => {
+                            await deleteOrganization(params).then((res) => {
                                 if (res.state == 1) {
                                     _this.$message.success(res.msg)
                                     _this.getDepartmentList()
@@ -199,17 +199,17 @@ export default {
             } else if (keyObj.key === 'edit') {
                 // 编辑部门
                 _this.modelTitle = `编辑部门:${node.name}`
-                _this.DepartmentID = node.DepartmentID
+                _this.OrganizationID = node.OrganizationID
                 _this.parentId = node.parentId
                 _this.departmentName = node.name
             } else if (keyObj.key === 'addChild') {
                 _this.modelTitle = `添加下级部门:[${node.name}]`
-                _this.DepartmentID = ''
-                _this.parentId = node.DepartmentID
+                _this.OrganizationID = ''
+                _this.parentId = node.OrganizationID
                 _this.departmentName = ''
             } else if (keyObj.key === 'add') {
                 _this.modelTitle = `添加同级部门:[${node.name}]`
-                _this.DepartmentID = ''
+                _this.OrganizationID = ''
                 _this.parentId = node.parentId
                 _this.departmentName = ''
             }
@@ -222,7 +222,7 @@ export default {
                 return false
             }
             let params = {
-                DepartmentID: _this.DepartmentID,
+                OrganizationID: _this.OrganizationID,
                 name: _this.departmentName,
                 parentId: _this.parentId,
                 category: _this.category,
@@ -232,7 +232,7 @@ export default {
                 title: '确认操作',
                 content: '您确认提交吗?',
                 onOk: async () => {
-                    await addEditDepartment(params).then((res) => {
+                    await addEditOrganization(params).then((res) => {
                         if (res.state == 1) {
                             _this.modelVisible = false
                             _this.$message.success(res.msg)

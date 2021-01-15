@@ -59,7 +59,7 @@
                         <a-table
                             v-if="tableData.length"
                             :columns="columns"
-                            rowKey="DepartmentID"
+                            rowKey="OrganizationID"
                             :data-source="tableData"
                             :pagination="pagination"
                             @change="tableChange"
@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import { departmentList, addEditDepartment, deleteDepartment } from '@/api/integrated'
+import { getOrganizationList, addEditOrganization, deleteOrganization } from '@/api/integrated'
 import { dataFormat, treeData } from '@/utils/util.js'
 import iconfont from '@/core/icons'
 export default {
@@ -175,7 +175,7 @@ export default {
                 parentId: ['parentId'],
                 name: ['name', { rules: [{ required: true, message: '请输入部门名称' }] }],
             },
-            DepartmentID: '',
+            OrganizationID: '',
             parentId: '',
             cloneData: [],
             keyword: '',
@@ -207,27 +207,27 @@ export default {
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
-            await departmentList(params).then((res) => {
+            await getOrganizationList(params).then((res) => {
                 if (res.state == 1) {
                     _this.tableData = res.result.list
                     _this.tableData.forEach((v) => {
                         v.createTime = dataFormat(v.createTime, 'yyyy-MM-dd hh:mm:ss')
                     })
-                    _this.tableData = treeData(res.result.list, 'DepartmentID', 'parentId', 'children')
+                    _this.tableData = treeData(res.result.list, 'OrganizationID', 'parentId', 'children')
                     _this.pagination.total = res.result.total
                     res.parentList.forEach((v) => {
-                        v.value = v.DepartmentID
-                        v.key = v.DepartmentID
+                        v.value = v.OrganizationID
+                        v.key = v.OrganizationID
                         v.title = v.name
                         v.slots = {
                             icon: 'smile',
                         }
                     })
                     _this.cloneData = _this._.cloneDeep(res.parentList)
-                    _this.parentList = treeData(res.parentList, 'DepartmentID', 'parentId', 'children')
+                    _this.parentList = treeData(res.parentList, 'OrganizationID', 'parentId', 'children')
                     _this.organizationTree = treeData(
                         res.parentList.filter((v) => v.title.includes(_this.keyword)),
-                        'DepartmentID',
+                        'OrganizationID',
                         'parentId',
                         'children'
                     )
@@ -245,7 +245,7 @@ export default {
             let _this = this,
                 cloneData = _this._.cloneDeep(record)
             _this.title = '编辑:' + record.name
-            _this.DepartmentID = record.DepartmentID
+            _this.OrganizationID = record.OrganizationID
             _this.modelVisible = true
             _this.$nextTick(() => {
                 _this.form.setFieldsValue({
@@ -260,14 +260,14 @@ export default {
         onDelete(record) {
             let _this = this
             let params = {
-                DepartmentID: record.DepartmentID,
+                OrganizationID: record.OrganizationID,
                 name: record.name,
             }
             _this.$confirm({
                 title: '确认操作',
                 content: '您确认提交吗?',
                 onOk: async () => {
-                    await deleteDepartment(params).then((res) => {
+                    await deleteOrganization(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
                             _this.getDepartmentList()
@@ -301,17 +301,17 @@ export default {
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
                     const params = { ...values }
-                    params.DepartmentID = _this.DepartmentID
+                    params.OrganizationID = _this.OrganizationID
                     params.category = _this.category
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
                         onOk: async () => {
-                            await addEditDepartment(params)
+                            await addEditOrganization(params)
                                 .then((res) => {
                                     if (res.state == 1) {
                                         _this.form.resetFields()
-                                        _this.DepartmentID = ''
+                                        _this.OrganizationID = ''
                                         _this.modelVisible = false
                                         _this.$message.success(res.msg)
                                         _this.getDepartmentList()
@@ -354,7 +354,7 @@ export default {
             const value = e.target.value
             this.organizationTree = treeData(
                 this.cloneData.filter((v) => v.title.includes(value)),
-                'DepartmentID',
+                'OrganizationID',
                 'parentId',
                 'children'
             )

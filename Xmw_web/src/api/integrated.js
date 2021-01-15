@@ -8,9 +8,9 @@
  */
 import request from '@/utils/request'
 const Api = {
-    departmentList: '/integrated/getDepartmentList',
-    addEditDepartment: '/integrated/addEditDepartment',
-    deleteDepartment: '/integrated/deleteDepartment',
+    getOrganizationList: '/integrated/getOrganizationList',
+    addEditOrganization: '/integrated/addEditOrganization',
+    deleteOrganization: '/integrated/deleteOrganization',
     seniorFormsList: '/integrated/getseniorFormsList',
     addEditSeniorForms: '/integrated/addEditSeniorForms',
     deleteSeniorForms: '/integrated/deleteSeniorForms',
@@ -21,25 +21,25 @@ const Api = {
 }
 
 // 获取组织架构-部门列表
-export function departmentList(parameter) {
+export function getOrganizationList(parameter) {
     return request({
-        url: Api.departmentList,
+        url: Api.getOrganizationList,
         method: 'get',
         params: parameter
     })
 }
 // 添加-编辑部门
-export function addEditDepartment(parameter) {
+export function addEditOrganization(parameter) {
     return request({
-        url: Api.addEditDepartment,
+        url: Api.addEditOrganization,
         method: 'post',
         data: parameter
     })
 }
 // 删除部门
-export function deleteDepartment(parameter) {
+export function deleteOrganization(parameter) {
     return request({
-        url: Api.deleteDepartment,
+        url: Api.deleteOrganization,
         method: 'post',
         data: parameter
     })

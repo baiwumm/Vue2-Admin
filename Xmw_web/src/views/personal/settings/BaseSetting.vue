@@ -146,7 +146,7 @@ import { USER_INFO } from '@/store/mutation-types'
 import AvatarModal from './AvatarModal'
 import { updateUserInfo } from '@/api/login'
 import cities from '@/core/cities.json'
-import { departmentList } from '@/api/integrated'
+import { getOrganizationList } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
 export default {
     name: 'BaseSetting',
@@ -198,20 +198,20 @@ export default {
                 current: 1,
                 pageSize: 1,
             }
-            await departmentList(params).then((res) => {
+            await getOrganizationList(params).then((res) => {
                 if (res.state == 1) {
                     res.parentList.forEach((v) => {
                         ;(v.value = v.name), (v.label = v.name)
                     })
                     _this.SectorDepartments = treeData(
                         res.parentList.filter((v) => v.category == 1),
-                        'DepartmentID',
+                        'OrganizationID',
                         'parentId',
                         'children'
                     )
                     _this.SectorJobs = treeData(
                         res.parentList.filter((v) => v.category == 2),
-                        'DepartmentID',
+                        'OrganizationID',
                         'parentId',
                         'children'
                     )

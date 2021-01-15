@@ -39,9 +39,9 @@ module.exports = app => {
     router.post('/system/saveAnnouncementRead', controller.system.admin.saveAnnouncementRead); // 添加公告已读列表
 
     // 组织架构模块接口
-    router.get('/integrated/getDepartmentList', controller.integrated.organizational.getDepartmentList); // 获取组织架构-部门列表
-    router.post('/integrated/addEditDepartment', controller.integrated.organizational.addEditDepartment); // 添加-编辑部门
-    router.post('/integrated/deleteDepartment', controller.integrated.organizational.deleteDepartment); // 删除部门
+    router.get('/integrated/getOrganizationList', controller.integrated.organizational.getOrganizationList); // 获取组织架构-部门列表
+    router.post('/integrated/addEditOrganization', controller.integrated.organizational.addEditOrganization); // 添加-编辑部门
+    router.post('/integrated/deleteOrganization', controller.integrated.organizational.deleteOrganization); // 删除部门
     // 高级表格模块接口
     router.get('/integrated/getseniorFormsList', controller.integrated.seniorforms.getseniorFormsList); // 获取高级表格列表
     router.post('/integrated/addEditSeniorForms', controller.integrated.seniorforms.addEditSeniorForms); // 添加-编辑高级表格
