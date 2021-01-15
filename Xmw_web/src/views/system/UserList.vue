@@ -66,7 +66,10 @@
                                 {{ record.SEX ? '男' : '女' }}
                             </a-tag>
                         </a-descriptions-item>
-                        <a-descriptions-item label="部门岗位">
+                        <a-descriptions-item label="工作部门">
+                            {{ record.department.join('-') }}
+                        </a-descriptions-item>
+                        <a-descriptions-item label="工作岗位">
                             {{ record.SectorJobs.join('-') }}
                         </a-descriptions-item>
                         <a-descriptions-item label="工作地址">
@@ -125,7 +128,7 @@
             <a-drawer :title="title" :width="600" :visible="visible" @close="onClose" :maskClosable="false">
                 <a-form ref="formLogin" :form="form" @submit="handleSubmit">
                     <a-row :gutter="16">
-                        <a-col :span="24">
+                        <a-col :span="12">
                             <a-form-item label="角色权限">
                                 <a-select
                                     allowClear
@@ -156,6 +159,16 @@
                             </a-form-item>
                         </a-col>
                         <a-col :span="12">
+                            <a-form-item label="工作部门">
+                                <a-cascader
+                                    change-on-select
+                                    placeholder="请选择工作部门"
+                                    v-decorator="rules.department"
+                                    :options="SectorDepartments"
+                                />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
                             <a-form-item label="性别">
                                 <a-radio-group v-decorator="rules.SEX">
                                     <a-radio :value="1"> 男 </a-radio>
@@ -172,11 +185,12 @@
                             </a-form-item>
                         </a-col>
                         <a-col :span="12">
-                            <a-form-item label="部门岗位">
+                            <a-form-item label="工作岗位">
                                 <a-cascader
+                                    change-on-select
                                     placeholder="请选择部门岗位"
                                     v-decorator="rules.SectorJobs"
-                                    :options="residences"
+                                    :options="SectorJobs"
                                 />
                             </a-form-item>
                         </a-col>
@@ -231,7 +245,7 @@
 import CryptoJS from 'crypto-js'
 import { User, updateUserList, deleteUser } from '@/api/system'
 import { crypto_key, crypto_iv, dataFormat, treeData } from '@/utils/util.js'
-import { departmentList } from '@/api/integrated'
+import { getOrganizationList } from '@/api/integrated'
 import cities from '@/core/cities.json'
 export default {
     data() {
@@ -289,20 +303,22 @@ export default {
                 CnName: ['CnName', { rules: [{ required: true, message: '请输入中文名' }] }],
                 SEX: ['SEX', { initialValue: 1, rules: [{ required: true, message: '请选择性别' }] }],
                 Status: ['Status', { initialValue: 1, rules: [{ required: true, message: '请选择性别' }] }],
-                SectorJobs: ['SectorJobs', { rules: [{ required: true, message: '请选择部门岗位' }] }],
+                department: ['department', { rules: [{ required: true, message: '请选择工作部门' }] }],
+                SectorJobs: ['SectorJobs', { rules: [{ required: true, message: '请选择工作岗位' }] }],
                 address: ['address', { rules: [{ required: true, message: '请选择工作地址' }] }],
                 roleList: ['roleList', { rules: [{ required: true, message: '请选择角色权限' }] }],
                 password: ['password', { rules: [{ required: true, message: '请输入密码' }] }],
                 confirmPassword: ['confirmPassword', { rules: [{ required: true, message: '请确认密码' }] }],
             },
-            residences: [],
             cityJson: cities.options,
             ID: '',
             roleList: [],
+            SectorJobs: [],
+            SectorDepartments: [],
         }
     },
     methods: {
-        async getDepartmentList() {
+        async getOrganizationList() {
             let _this = this
             let params = {
                 departmentName: '',
@@ -310,12 +326,23 @@ export default {
                 current: 1,
                 pageSize: 1,
             }
-            await departmentList(params).then((res) => {
+            await getOrganizationList(params).then((res) => {
                 if (res.state == 1) {
                     res.parentList.forEach((v) => {
                         ;(v.value = v.name), (v.label = v.name)
                     })
-                    _this.residences = treeData(res.parentList, 'DepartmentID', 'parentId', 'children')
+                    _this.SectorDepartments = treeData(
+                        res.parentList.filter((v) => v.category == 1),
+                        'OrganizationID',
+                        'parentId',
+                        'children'
+                    )
+                    _this.SectorJobs = treeData(
+                        res.parentList.filter((v) => v.category == 2),
+                        'OrganizationID',
+                        'parentId',
+                        'children'
+                    )
                 } else {
                     _this.$message.error(res.msg)
                 }
@@ -341,6 +368,7 @@ export default {
                 if (res.state == 1) {
                     res.result.list.forEach((v) => {
                         v.CreateTime = dataFormat(v.CreateTime, 'yyyy-MM-dd hh:mm:ss')
+                        v.department = JSON.parse(v.department)
                         v.SectorJobs = JSON.parse(v.SectorJobs)
                         v.address = JSON.parse(v.address)
                         v.label = JSON.parse(v.label)
@@ -373,6 +401,7 @@ export default {
                 'CnName',
                 'SEX',
                 'Status',
+                'department',
                 'SectorJobs',
                 'address',
                 'roleList',
@@ -468,6 +497,7 @@ export default {
                         'CnName',
                         'SEX',
                         'Status',
+                        'department',
                         'SectorJobs',
                         'address',
                         'roleList',
@@ -515,7 +545,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.getUserList()
-            this.getDepartmentList()
+            this.getOrganizationList()
         })
     },
 }

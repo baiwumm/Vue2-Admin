@@ -12,8 +12,8 @@
                         </a-select-option>
                     </a-select>
                     <a-radio-group v-model="category" @change="changeCategory" size="small">
-                        <a-radio-button :value="1"> 部门管理 </a-radio-button>
-                        <a-radio-button :value="2"> 岗位管理 </a-radio-button>
+                        <a-radio-button :value="1"> 部门架构 </a-radio-button>
+                        <a-radio-button :value="2"> 岗位架构 </a-radio-button>
                     </a-radio-group>
                 </a-space>
             </a-col>

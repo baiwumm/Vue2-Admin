@@ -79,16 +79,15 @@
                                     placeholder="请选择父级"
                                     tree-default-expand-all
                                 >
-                                    <div slot="title">111</div>
                                     <!-- <a-icon
-                                        slot="title"
+                                        slot="home"
                                         slot-scope="item"
                                         :component="iconfontSvg(item.icon)"
                                         style="color: rgb(24, 144, 255)"
                                         v-if="item.icon && item.icon.includes('Icon')"
                                     />
                                     <a-icon
-                                        slot="title"
+                                        slot="home"
                                         slot-scope="item"
                                         :type="iconfontSvg(item.icon)"
                                         style="color: rgb(24, 144, 255)"
@@ -307,8 +306,12 @@ export default {
                     res.parentList.forEach((v) => {
                         v.value = v.ID
                         v.key = v.ID
+                        // v.scopedSlots = {
+                        //     title: v.icon,
+                        // }
                     })
                     _this.parentList = treeData(res.parentList, 'ID', 'parentId', 'children')
+                    console.log(_this.parentList)
                     _this.loading = false
                 } else {
                     _this.$message.error(res.msg)

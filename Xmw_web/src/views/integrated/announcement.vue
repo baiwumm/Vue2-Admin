@@ -46,11 +46,6 @@
                         <a @click="showDetails(record)">{{ text }}</a>
                     </a-tooltip>
                 </span>
-                <span slot="type" slot-scope="text, record">
-                    <a-tag :color="record.type == 1 ? 'cyan' : 'purple'">
-                        {{ typeObj[record.type] }}
-                    </a-tag>
-                </span>
                 <span slot="status" slot-scope="text, record">
                     <a-popconfirm ok-text="是" cancel-text="否" @confirm="confirmHandleStatus(record)">
                         <span slot="title">确认{{ record.status === '1' ? '开启' : '关闭' }}吗?</span>
@@ -162,7 +157,24 @@ export default {
                     dataIndex: 'type',
                     key: 'type',
                     ellipsis: true,
-                    scopedSlots: { customRender: 'type' },
+                    customRender: (text, row, index) => {
+                        let result = '',
+                            color = ''
+                        this.typeList.map((v) => {
+                            if (text == v.value) {
+                                result = v.text
+                            }
+                            switch (text) {
+                                case 1:
+                                    color = 'cyan'
+                                    break
+                                case 2:
+                                    color = 'purple'
+                                    break
+                            }
+                        })
+                        return <a-tag color={color}>{result}</a-tag>
+                    },
                 },
                 { title: '创建时间', dataIndex: 'createTime', key: 'createTime', ellipsis: true },
                 {
@@ -220,14 +232,16 @@ export default {
                 },
             },
             editContent: '', // 编辑器内容
-            typeObj: {
-                1: '公告',
-                2: '通知',
-            },
-            status: {
-                0: '开启',
-                1: '关闭',
-            },
+            typeList: [
+                {
+                    value: 1,
+                    text: '公告',
+                },
+                {
+                    value: 2,
+                    text: '通知',
+                },
+            ],
             switchLoading: false,
         }
     },

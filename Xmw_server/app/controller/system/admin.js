@@ -313,6 +313,7 @@ class SystemController extends Controller {
             let { username, CnName } = ctx.session.userInfo
             let host = ctx.request.header.host
             let { ID, ...params } = ctx.request.body
+            params.department = JSON.stringify(params.department)
             params.SectorJobs = JSON.stringify(params.SectorJobs)
             params.address = JSON.stringify(params.address)
             params.roleList = JSON.stringify(params.roleList)
