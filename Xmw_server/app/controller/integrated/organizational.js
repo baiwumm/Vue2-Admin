@@ -15,13 +15,15 @@ class OrganizationalController extends Controller {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { departmentName, createTime, current, pageSize } = ctx.query;
+            let { departmentName, createTime, parentId, category, current, pageSize } = ctx.query;
             createTime = JSON.parse(createTime)
             let where = `1=1`
             if (departmentName) where += ` and name like '%${departmentName}%'`
             if (createTime.length && createTime[0] != '' && createTime[1] != '') where += ` and createTime between '${createTime[0]} 00:00:00' and '${createTime[1]} 23:59:59'`
-            const result = await Raw.QueryPageData(`select * from xmw_department where ${where}`, current, pageSize);
-            let parentList = await Raw.QueryList(`select * from xmw_department`)
+            if (parentId) where += ` and parentId = ${parentId}`
+            if (category) where += ` and category = ${category}`
+            const result = await Raw.QueryPageData(`select * from xmw_organization where ${where}`, current, pageSize);
+            let parentList = await Raw.QueryList(`select * from xmw_organization  where ${where}`)
             ctx.body = { state: 1, msg: '请求成功!', result: result, parentList: parentList }
         } catch (error) {
             ctx.logger.info('getDepartmentList方法报错：' + error)
@@ -40,19 +42,19 @@ class OrganizationalController extends Controller {
             // 新增部门
             if (!params.DepartmentID) {
                 delete params.DepartmentID
-                // let exitData = await Raw.QueryList(`select count(1) as total from xmw_department where name = '${params.name}'`)
+                // let exitData = await Raw.QueryList(`select count(1) as total from xmw_organization where name = '${params.name}'`)
                 // // 部门名称是否已存在
                 // if (exitData[0].total) {
                 //     ctx.body = { state: 2, msg: '部门名称已存在!' }
                 //     return
                 // }
-                await Raw.Insert('xmw_department', params);
+                await Raw.Insert('xmw_organization', params);
                 await ctx.service.logs.saveLogs(username, CnName, '添加部门:' + params.name, '/integrated/organizational')
                 ctx.body = { state: 1, msg: '添加成功!' }
             } else { // 编辑部门
                 let DepartmentID = params.DepartmentID
                 delete params.DepartmentID
-                // let exitData = await Raw.QueryList(`select count(1) as total from xmw_department where name = '${params.name}' and DepartmentID != '${DepartmentID}'`)
+                // let exitData = await Raw.QueryList(`select count(1) as total from xmw_organization where name = '${params.name}' and DepartmentID != '${DepartmentID}'`)
                 // // 部门名称是否已存在
                 // if (exitData[0].total) {
                 //     ctx.body = { state: 2, msg: '部门名称已存在!' }
@@ -61,7 +63,7 @@ class OrganizationalController extends Controller {
                 const options = {
                     wherestr: `where DepartmentID=${DepartmentID}`
                 };
-                await Raw.Update('xmw_department', params, options);
+                await Raw.Update('xmw_organization', params, options);
                 await ctx.service.logs.saveLogs(username, CnName, '编辑部门:' + params.name, '/integrated/organizational')
                 ctx.body = { state: 1, msg: '保存成功!' }
             }
@@ -79,13 +81,13 @@ class OrganizationalController extends Controller {
         try {
             let { username, CnName } = ctx.session.userInfo
             let { DepartmentID, name } = ctx.request.body
-            let exitData = await Raw.QueryList(`select count(1) as total from xmw_department where parentId = '${DepartmentID}'`)
+            let exitData = await Raw.QueryList(`select count(1) as total from xmw_organization where parentId = '${DepartmentID}'`)
             // 部门名称是否存在子部门
             if (exitData[0].total) {
                 ctx.body = { state: 2, msg: '当前部门存在子部门，请先删除子部门!' }
                 return
             }
-            await Raw.Delete("xmw_department", {
+            await Raw.Delete("xmw_organization", {
                 wherestr: `where DepartmentID = '${DepartmentID}'`
             });
             await ctx.service.logs.saveLogs(username, CnName, '删除部门:' + name, '/integrated/organizational')

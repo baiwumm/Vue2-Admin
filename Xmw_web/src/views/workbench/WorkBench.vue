@@ -398,8 +398,8 @@ export default {
             return this.$store.getters.userInfo
         },
         department() {
-            let sectorJobs = JSON.parse(JSON.stringify(this.user.SectorJobs))
-            return sectorJobs.join('-')
+            let department = JSON.parse(JSON.stringify(this.user.department))
+            return department.join('-')
         },
     },
     created() {

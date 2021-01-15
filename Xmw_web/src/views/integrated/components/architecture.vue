@@ -2,19 +2,25 @@
     <div class="architecture">
         <a-row>
             <a-col :span="24">
-                <a-checkbox v-model="horizontal"> 垂直展示 </a-checkbox>
-                <a-checkbox v-model="collapsable"> 显示节点 </a-checkbox>
-                <a-checkbox v-model="expandAll" @change="expandChange"> 展开全部 </a-checkbox>
-                <a-select :default-value="labelClassName" style="width: 120px" @change="handleChange" size="small">
-                    <a-select-option :value="item.value" v-for="(item, index) in labelClassNameItem" :key="index">
-                        {{ item.label }}
-                    </a-select-option>
-                </a-select>
+                <a-space>
+                    <a-checkbox v-model="horizontal"> 垂直展示 </a-checkbox>
+                    <a-checkbox v-model="collapsable"> 显示节点 </a-checkbox>
+                    <a-checkbox v-model="expandAll" @change="expandChange"> 展开全部 </a-checkbox>
+                    <a-select :default-value="labelClassName" style="width: 120px" @change="handleChange" size="small">
+                        <a-select-option :value="item.value" v-for="(item, index) in labelClassNameItem" :key="index">
+                            {{ item.label }}
+                        </a-select-option>
+                    </a-select>
+                    <a-radio-group v-model="category" @change="changeCategory" size="small">
+                        <a-radio-button :value="1"> 部门管理 </a-radio-button>
+                        <a-radio-button :value="2"> 岗位管理 </a-radio-button>
+                    </a-radio-group>
+                </a-space>
             </a-col>
             <a-col :span="24" style="text-align: center; overflow: auto">
                 <a-spin v-if="spinning" />
                 <vue2-org-tree
-                    v-else
+                    v-else-if="!spinning && Object.keys(data).length"
                     name="test"
                     :data="data"
                     :horizontal="horizontal"
@@ -24,6 +30,7 @@
                     @on-expand="onExpand"
                     @on-node-click="onNodeClick"
                 />
+                <a-empty v-if="!Object.keys(data).length" />
                 <!-- 添加编辑Modal框 -->
                 <a-modal v-model="modelVisible" :title="modelTitle" on-ok="handleOk">
                     <template slot="footer">
@@ -72,6 +79,7 @@ export default {
             departmentName: '',
             DepartmentID: '',
             parentId: '',
+            category: 1,
         }
     },
     methods: {
@@ -79,16 +87,17 @@ export default {
             this.labelClassName = value
         },
         renderContent(h, data) {
+            let name = this.category == 1 ? '部门' : '岗位'
             return (
                 <a-dropdown trigger={['contextmenu']}>
                     <div>{data.label}</div>
                     <a-menu slot="overlay" onclick={(key) => this.onClick(key, data)}>
-                        <a-menu-item v-show={data.DepartmentID !== 1} key={'add'}>
-                            添加同级部门
+                        <a-menu-item v-show={data.parentId} key={'add'}>
+                            添加同级{name}
                         </a-menu-item>
-                        <a-menu-item key={'addChild'}>添加下级部门</a-menu-item>
-                        <a-menu-item key={'edit'}>修改部门</a-menu-item>
-                        <a-menu-item key={'del'}>删除部门</a-menu-item>
+                        <a-menu-item key={'addChild'}>添加下级{name}</a-menu-item>
+                        <a-menu-item key={'edit'}>修改{name}</a-menu-item>
+                        <a-menu-item key={'del'}>删除{name}</a-menu-item>
                     </a-menu>
                 </a-dropdown>
             )
@@ -109,15 +118,19 @@ export default {
             let params = {
                 departmentName: '',
                 createTime: JSON.stringify([]),
+                category: _this.category,
                 current: 1,
                 pageSize: 1,
             }
             await departmentList(params).then((res) => {
                 if (res.state == 1) {
-                    res.parentList.forEach((v) => {
-                        ;(v.id = v.DepartmentID), (v.label = v.name)
-                    })
-                    _this.data = treeData(res.parentList, 'id', 'parentId', 'children')[0]
+                    if (res.parentList.length) {
+                        res.parentList.forEach((v) => {
+                            ;(v.id = v.DepartmentID), (v.label = v.name)
+                        })
+                        _this.data = treeData(res.parentList, 'id', 'parentId', 'children')[0]
+                    }
+
                     _this.spinning = false
                     _this.toggleExpand(this.data, this.expandAll)
                 } else {
@@ -159,7 +172,7 @@ export default {
             if (keyObj.key === 'del') {
                 // 删除部门
                 if (node.children && node.children.length > 0) {
-                    _this.$message.info('当前部门存在子部门，请先删除子部门')
+                    _this.$message.info('当前节点存在子级，请先删除子级')
                 } else {
                     let params = {
                         DepartmentID: node.DepartmentID,
@@ -212,6 +225,8 @@ export default {
                 DepartmentID: _this.DepartmentID,
                 name: _this.departmentName,
                 parentId: _this.parentId,
+                category: _this.category,
+                status: 0,
             }
             _this.$confirm({
                 title: '确认操作',
@@ -230,6 +245,9 @@ export default {
                     })
                 },
             })
+        },
+        changeCategory() {
+            this.getDepartmentList()
         },
     },
     mounted() {

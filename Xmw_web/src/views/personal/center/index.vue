@@ -25,7 +25,7 @@
                         <div class="account-center-tags">
                             <div class="tagsTitle">标签</div>
                             <div>
-                                <vuedraggable  :list="tags" @change="changeDra">
+                                <vuedraggable :list="tags" @change="changeDra">
                                     <template v-for="(tag, index) in tags" v-key="index">
                                         <a-tooltip v-if="tag.length > 8" :key="tag" :title="tag">
                                             <a-tag
@@ -87,7 +87,7 @@ export default {
     components: {
         RouteView,
         PageView,
-        BaseSetting
+        BaseSetting,
     },
     data() {
         return {
@@ -108,9 +108,8 @@ export default {
             return sectorJobs[sectorJobs.length - 1]
         },
         department() {
-            let sectorJobs = JSON.parse(JSON.stringify(this.user.SectorJobs))
-            sectorJobs.pop()
-            return sectorJobs.join('-')
+            let department = JSON.parse(JSON.stringify(this.user.department))
+            return department.join('-')
         },
         tags: {
             get() {

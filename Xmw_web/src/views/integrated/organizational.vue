@@ -4,8 +4,8 @@
     >
         <div class="architecture">
             <a-card>
-                <a-tabs default-active-key="architecture">
-                    <a-tab-pane key="department" tab="部门管理">
+                <a-tabs default-active-key="department">
+                    <a-tab-pane key="department" tab="组织管理">
                         <department></department>
                     </a-tab-pane>
                     <a-tab-pane key="architecture" tab="组织架构">

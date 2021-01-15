@@ -58,8 +58,23 @@
                                 <a-radio :value="1"> 男 </a-radio>
                             </a-radio-group>
                         </a-form-item>
-                        <a-form-item label="部门岗位">
+                        <a-form-item label="工作部门">
                             <a-cascader
+                                change-on-select
+                                placeholder="选择自己的工作部门哟!"
+                                v-decorator="[
+                                    'department',
+                                    {
+                                        initialValue: user.department,
+                                        rules: [{ type: 'array', required: true, message: '选择自己的部门岗位哟!' }],
+                                    },
+                                ]"
+                                :options="SectorDepartments"
+                            />
+                        </a-form-item>
+                        <a-form-item label="工作岗位">
+                            <a-cascader
+                                change-on-select
                                 placeholder="选择自己的部门岗位哟!"
                                 v-decorator="[
                                     'SectorJobs',
@@ -68,7 +83,7 @@
                                         rules: [{ type: 'array', required: true, message: '选择自己的部门岗位哟!' }],
                                     },
                                 ]"
-                                :options="residences"
+                                :options="SectorJobs"
                             />
                         </a-form-item>
                         <a-form-item label="工作地址">
@@ -160,7 +175,8 @@ export default {
                 fixedNumber: [1, 1],
             },
             user: {},
-            residences: [],
+            SectorJobs: [],
+            SectorDepartments: [],
             cityJson: cities.options,
         }
     },
@@ -187,7 +203,18 @@ export default {
                     res.parentList.forEach((v) => {
                         ;(v.value = v.name), (v.label = v.name)
                     })
-                    _this.residences = treeData(res.parentList, 'DepartmentID', 'parentId', 'children')
+                    _this.SectorDepartments = treeData(
+                        res.parentList.filter((v) => v.category == 1),
+                        'DepartmentID',
+                        'parentId',
+                        'children'
+                    )
+                    _this.SectorJobs = treeData(
+                        res.parentList.filter((v) => v.category == 2),
+                        'DepartmentID',
+                        'parentId',
+                        'children'
+                    )
                 } else {
                     _this.$message.error(res.msg)
                 }
@@ -200,7 +227,16 @@ export default {
                 form: { validateFields },
             } = _this
             _this.loginState = true
-            const validateFieldsKey = ['CnName', 'Phone', 'Email', 'SEX', 'SectorJobs', 'address', 'motto']
+            const validateFieldsKey = [
+                'CnName',
+                'Phone',
+                'Email',
+                'SEX',
+                'department',
+                'SectorJobs',
+                'address',
+                'motto',
+            ]
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
                     const userParams = { ...values }

@@ -18,6 +18,8 @@ import guideIcon from '@/assets/icons/guide.svg?inline' // 引导页
 import cardFromIcon from '@/assets/icons/cardFrom.svg?inline' // 信用卡表单
 import language from '@/assets/icons/language.svg?inline' // 多语言
 import dictionaryIcon from '@/assets/icons/dictionary.svg?inline' // 字典管理
+import jobsIcon from '@/assets/icons/jobs.svg?inline' // 岗位
+import departmentIcon from '@/assets/icons/department.svg?inline' // 部门
 const iconfont = {
     workbenchIcon,
     integratedIcon,
@@ -37,7 +39,9 @@ const iconfont = {
     guideIcon,
     cardFromIcon,
     language,
-    dictionaryIcon
+    dictionaryIcon,
+    jobsIcon,
+    departmentIcon
 }
 
 export default iconfont

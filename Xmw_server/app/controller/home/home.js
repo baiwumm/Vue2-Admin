@@ -124,6 +124,7 @@ class HomeController extends Controller {
             let userinfo = ctx.request.body
             userinfo.UpdateLastTime = new Date()
             userinfo.SectorJobs = JSON.stringify(userinfo.SectorJobs)
+            userinfo.department = JSON.stringify(userinfo.department)
             userinfo.address = JSON.stringify(userinfo.address)
             const options = {
                 wherestr: `where UserID=${UserID}`
