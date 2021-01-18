@@ -1,17 +1,12 @@
 <template>
-    <page-header-wrapper content="对系统中经常使用的一些较为固定的数据进行维护">
+    <page-header-wrapper>
         <a-card :bordered="false">
             <div class="table-page-search-wrapper">
                 <a-form layout="inline">
                     <a-row :gutter="48">
                         <a-col :md="8" :sm="24">
                             <a-form-item label="字典名称">
-                                <a-input placeholder="请输入字典名称" v-model="queryForm.name" allowClear />
-                            </a-form-item>
-                        </a-col>
-                        <a-col :md="8" :sm="24">
-                            <a-form-item label="字典类别">
-                                <a-input placeholder="请输入字典类别" v-model="queryForm.category" allowClear />
+                                <a-input placeholder="请输入字典名称" v-model="queryForm.DictionaryLabel" allowClear />
                             </a-form-item>
                         </a-col>
                         <a-col :md="8" :sm="24">
@@ -32,11 +27,6 @@
                 @change="tableChange"
                 :loading="loading"
             >
-                <span slot="category" slot-scope="text, record">
-                    <router-link :to="'/subDictionary/category/' + record.DictionaryID">
-                        <span>{{ record.category }}</span>
-                    </router-link>
-                </span>
                 <span slot="status" slot-scope="text, record">
                     <a-tag :color="record.status ? 'cyan' : 'purple'">{{ record.status ? '禁用' : '正常' }}</a-tag>
                 </span>
@@ -58,13 +48,18 @@
                 <a-row :gutter="20">
                     <a-form :form="form">
                         <a-col :span="24">
-                            <a-form-item label="字典名称">
-                                <a-input v-decorator="rules.name" placeholder="请输入字典名称" allowClear />
+                            <a-form-item label="字典类别">
+                                <a-input v-model="dictionaryCategory" allowClear :disabled="true" />
                             </a-form-item>
                         </a-col>
                         <a-col :span="24">
-                            <a-form-item label="字典类别">
-                                <a-input v-decorator="rules.category" placeholder="请输入字典类别" allowClear />
+                            <a-form-item label="字典标签">
+                                <a-input v-decorator="rules.DictionaryLabel" placeholder="请输入字典标签" allowClear />
+                            </a-form-item>
+                        </a-col>
+                        <a-col :span="24">
+                            <a-form-item label="字典键值">
+                                <a-input v-decorator="rules.DictionaryValue" placeholder="请输入字典键值" allowClear />
                             </a-form-item>
                         </a-col>
                         <a-col :span="24">
@@ -73,11 +68,6 @@
                                     <a-radio-button :value="0"> 开启 </a-radio-button>
                                     <a-radio-button :value="1"> 关闭 </a-radio-button>
                                 </a-radio-group>
-                            </a-form-item>
-                        </a-col>
-                        <a-col :span="24">
-                            <a-form-item label="备注">
-                                <a-textarea rows="4" placeholder="请输入备注" v-decorator="rules.remark" />
                             </a-form-item>
                         </a-col>
                     </a-form>
@@ -97,15 +87,13 @@ export default {
             queryForm: {},
             columns: [
                 { title: '字典编号', dataIndex: 'DictionaryID', key: 'DictionaryID' },
-                { title: '字典名称', dataIndex: 'name', key: 'name' },
+                { title: '字典标签', dataIndex: 'DictionaryLabel', key: 'DictionaryLabel' },
                 {
-                    title: '字典类别',
-                    dataIndex: 'category',
-                    key: 'category',
-                    scopedSlots: { customRender: 'category' },
+                    title: '字典键值',
+                    dataIndex: 'DictionaryValue',
+                    key: 'DictionaryValue',
                 },
                 { title: '字典状态', dataIndex: 'status', key: 'status', scopedSlots: { customRender: 'status' } },
-                { title: '备注', dataIndex: 'remark', key: 'remark' },
                 { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
                 {
                     title: '操作',
@@ -131,14 +119,19 @@ export default {
             visible: false,
             form: this.$form.createForm(this),
             rules: {
-                name: ['name', { rules: [{ required: true, message: '请输入字典名称' }] }],
-                category: ['category', { rules: [{ required: true, message: '请输入字典类别' }] }],
+                DictionaryLabel: ['DictionaryLabel', { rules: [{ required: true, message: '请输入字典标签' }] }],
+                DictionaryValue: ['DictionaryValue', { rules: [{ required: true, message: '请输入字典键值' }] }],
                 status: ['status', { initialValue: 0 }],
                 remark: ['remark'],
             },
             confirmLoading: false,
             DictionaryID: '',
+            parentId: '', // 路由传过来的父级ID
+            dictionaryCategory: '',
         }
+    },
+    created() {
+        this.parentId = this.$route.params && this.$route.params.DictionaryID
     },
     methods: {
         // 切换分页
@@ -153,14 +146,15 @@ export default {
             let _this = this
             _this.loading = true
             let params = {
-                name: _this.queryForm.name,
-                category: _this.queryForm.category,
+                DictionaryLabel: _this.queryForm.DictionaryLabel,
+                parentId: _this.parentId,
                 current: _this.pagination.defaultCurrent,
                 pageSize: _this.pagination.defaultPageSize,
             }
             await DictionaryList(params).then((res) => {
                 if (res.state == 1) {
                     _this.data = res.result.list
+                    _this.dictionaryCategory = res.parentName.category
                     _this.data.forEach((v) => {
                         v.createTime = dataFormat(v.createTime, 'yyyy-MM-dd hh:mm:ss')
                     })
@@ -178,11 +172,12 @@ export default {
                 form: { validateFields },
             } = _this
             _this.confirmLoading = true
-            const validateFieldsKey = ['name', 'category', 'status', 'remark']
+            const validateFieldsKey = ['DictionaryLabel', 'DictionaryValue', 'status']
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
                     const params = { ...values }
                     params.DictionaryID = _this.DictionaryID
+                    params.parentId = _this.parentId
                     _this.$confirm({
                         title: '确认操作',
                         content: '您确认提交吗?',
@@ -231,10 +226,9 @@ export default {
             _this.DictionaryID = cloneData.DictionaryID
             _this.$nextTick(() => {
                 _this.form.setFieldsValue({
-                    ['name']: cloneData.name,
-                    ['category']: cloneData.category,
+                    ['DictionaryLabel']: cloneData.DictionaryLabel,
+                    ['DictionaryValue']: cloneData.DictionaryValue,
                     ['status']: cloneData.status,
-                    ['remark']: cloneData.remark,
                 })
             })
             if (record.state == '2') {

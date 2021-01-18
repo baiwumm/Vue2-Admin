@@ -25,6 +25,9 @@ const sysApi = {
     deleteAnnouncement: '/system/deleteAnnouncement',
     saveAnnouncementRead: '/system/saveAnnouncementRead',
     webSockets: '/system/webSockets',
+    DictionaryList: '/system/getDictionaryList',
+    addDictionary: '/system/addEditDictionary',
+    deleteDictionary: '/system/deleteDictionary',
 }
 
 // 获取操作日志列表
@@ -165,5 +168,32 @@ export function webSockets(parameter) {
         url: sysApi.webSockets,
         method: 'get',
         params: parameter
+    })
+}
+
+// 获取字典列表
+export function DictionaryList(parameter) {
+    return request({
+        url: sysApi.DictionaryList,
+        method: 'get',
+        params: parameter
+    })
+}
+
+// 新增-编辑字典
+export function addDictionary(parameter) {
+    return request({
+        url: sysApi.addDictionary,
+        method: 'post',
+        data: parameter
+    })
+}
+
+// 删除字典
+export function deleteDictionary(parameter) {
+    return request({
+        url: sysApi.deleteDictionary,
+        method: 'post',
+        data: parameter
     })
 }

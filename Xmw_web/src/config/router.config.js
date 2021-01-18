@@ -17,6 +17,23 @@ const constantRouterComponents = {
 export const notFoundRouter = {
     path: '*', redirect: '/404', hidden: true
 }
+// 静态路由(写死的路由)
+const staticRouter =
+// 字典子页
+{
+    path: '/subDictionary',
+    name: 'subDictionary',
+    redirect: '/system/dictionary',
+    component: RouteView,
+    meta: { title: 'menu.system.dictionary', keepAlive: true, icon: 'control' },
+    hidden: true,
+    children: [{
+        path: 'category/:DictionaryID(\\d+)',
+        name: 'category',
+        component: () => import('@/views/system/subDictionary'),
+        meta: { title: 'menu.system.subDictionary' },
+    }]
+}
 const generator = () => {
     return new Promise((resolve, reject) => {
         Menu().then(res => {
@@ -57,6 +74,7 @@ const generator = () => {
                 return currentRouter
             })
             let routerList = treeData(asyncRouters, 'ID', 'parentId', 'children')
+            routerList[0].children.push(staticRouter)
             resolve(routerList)
         }).catch(err => {
             reject(err)

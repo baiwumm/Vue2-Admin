@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { CDTable } from '@/api/public'
+import { DictionaryCD } from '@/api/public'
 export default {
     name: 'vehicleBasicForm',
     props: {
@@ -103,31 +103,13 @@ export default {
             }
             callback() //必须调用，参数为空视为校验通过
         },
-        async getCDTable() {
+        async getDictionaryCD() {
             let _this = this
-            const CDTableList = [
-                {
-                    tableName: 'xmw_cd_cartype',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_vlpncolor',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_fueltype',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_emissionstandard',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-            ]
-            await CDTable(CDTableList).then((res) => {
-                _this.CarTypeList = res.data[0]
-                _this.VLPNColorList = res.data[1]
-                _this.FuelTypeList = res.data[2]
-                _this.EmissionstandardList = res.data[3]
+            await DictionaryCD().then((res) => {
+                _this.CarTypeList = res.result.cd_car_type
+                _this.VLPNColorList = res.result.cd_vlpn_color
+                _this.FuelTypeList = res.result.cd_fuel_type
+                _this.EmissionstandardList = res.result.cd_emissionstandard
             })
         },
         handleSubmit(e) {
@@ -140,7 +122,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.getCDTable()
+            this.getDictionaryCD()
         })
     },
 }

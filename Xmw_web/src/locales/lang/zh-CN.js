@@ -45,6 +45,7 @@ const locale = {
     'menu.system.RoleList': '角色管理',
     'menu.system.PermissionList': '权限管理',
     'menu.system.dictionary': '字典管理',
+    'menu.system.subDictionary': '字典子页',
     'layouts.usermenu.dialog.title': '确认操作',
     'layouts.usermenu.dialog.content': '你真的要退出吗?',
     'app.setting.pagestyle': '页面样式',

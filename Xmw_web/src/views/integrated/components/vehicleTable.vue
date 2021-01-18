@@ -119,7 +119,7 @@
 <script>
 import { vehicleInfo } from '@/api/integrated'
 import { dataFormat, setVLPNColor } from '@/utils/util.js'
-import { CDTable } from '@/api/public'
+import { DictionaryCD } from '@/api/public'
 import moment from 'moment'
 import cities from '@/core/cities.json'
 import { addEditVehicleInfo, deleteVehicleInfo } from '@/api/integrated'
@@ -224,37 +224,19 @@ export default {
         setVLPNColor(VLPNColor) {
             return setVLPNColor(VLPNColor)
         },
-        async getCDTable() {
+        async getDictionaryCD() {
             let _this = this
-            const CDTableList = [
-                {
-                    tableName: 'xmw_cd_cartype',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_vlpncolor',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_fueltype',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-                {
-                    tableName: 'xmw_cd_emissionstandard',
-                    columns: 'CodeValue as value,CodeName as text',
-                },
-            ]
-            await CDTable(CDTableList).then((res) => {
-                _this.CarTypeList = res.data[0]
+            await DictionaryCD().then((res) => {
+                _this.CarTypeList = res.result.cd_car_type
                 _this.CarTypeList.map((v) => {
                     _this.CarTypeObj[v.value] = v.text
                 })
-                _this.VLPNColorList = res.data[1]
-                _this.FuelTypeList = res.data[2]
+                _this.VLPNColorList = res.result.cd_vlpn_color
+                _this.FuelTypeList = res.result.cd_fuel_type
                 _this.FuelTypeList.map((v) => {
                     _this.FuelTypeObj[v.value] = v.text
                 })
-                _this.EmissionstandardList = res.data[3]
+                _this.EmissionstandardList = res.result.cd_emissionstandard
                 _this.EmissionstandardList.map((v) => {
                     _this.EmissionstandardObj[v.value] = v.text
                 })
@@ -357,7 +339,7 @@ export default {
     },
     mounted() {
         this.$nextTick(async () => {
-            await this.getCDTable()
+            await this.getDictionaryCD()
             this.getVehicleInfo()
         })
     },

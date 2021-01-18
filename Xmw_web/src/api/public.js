@@ -8,13 +8,13 @@
  */
 import request from '@/utils/request'
 const publicApi = {
-    CDTable: '/public/getCDTable',
+    DictionaryCD: '/public/getDictionaryCD',
 }
 
 // 获取表字典表数据
-export function CDTable(parameter) {
+export function DictionaryCD(parameter) {
     return request({
-        url: publicApi.CDTable,
+        url: publicApi.DictionaryCD,
         method: 'get',
         params: parameter
     })

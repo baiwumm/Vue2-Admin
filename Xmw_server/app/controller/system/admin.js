@@ -474,5 +474,78 @@ class SystemController extends Controller {
         }
     }
 
+    // 获取字典列表
+    async getDictionaryList() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { name, category, DictionaryLabel, parentId, current, pageSize } = ctx.query;
+            let where = `1+1`, parentName = {}
+            if (name) where += ` and name like '%${name}%'`
+            if (category) where += ` and category like '%${category}%'`
+            if (DictionaryLabel) where += ` and DictionaryLabel like '%${DictionaryLabel}%'`
+            if (parentId) {
+                where += ` and parentId = ${parentId}`
+                parentName = await Raw.Query(`select name,category from xmw_dictionary where DictionaryID = ${parentId}`)
+            } else {
+                where += ` and parentId is null or parentId = ''`
+            }
+            const result = await Raw.QueryPageData(`select * from xmw_dictionary where ${where}`, current, pageSize);
+            ctx.body = { state: 1, msg: '请求成功!', result: result, parentName: parentName }
+        } catch (error) {
+            ctx.logger.info('getDictionaryList方法报错：' + error)
+            ctx.body = { state: 0, msg: '请求失败!', error: error }
+        }
+    }
+
+    // 添加-编辑字典
+    async addEditDictionary() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { username, CnName } = ctx.session.userInfo
+            let params = ctx.request.body
+            let logName = params.name || params.DictionaryLabel
+            // 新增字典
+            if (!params.DictionaryID) {
+                params.createTime = new Date()
+                delete params.DictionaryID
+                await Raw.Insert('xmw_dictionary', params);
+                await ctx.service.logs.saveLogs(username, CnName, '添加字典:' + logName, '/system/dictionary')
+                ctx.body = { state: 1, msg: '添加成功!' }
+            } else { // 编辑字典
+                let DictionaryID = params.DictionaryID
+                delete params.DictionaryID
+                const options = {
+                    wherestr: `where DictionaryID=${DictionaryID}`
+                };
+                await Raw.Update('xmw_dictionary', params, options);
+                await ctx.service.logs.saveLogs(username, CnName, '编辑字典:' + logName, '/system/dictionary')
+                ctx.body = { state: 1, msg: '保存成功!' }
+            }
+
+        } catch (error) {
+            ctx.logger.info('addEditDictionary方法报错：' + error)
+            ctx.body = { state: 0, msg: '请求失败!', error: error }
+        }
+    }
+
+    // 删除字典
+    async deleteDictionary() {
+        const { app, ctx } = this;
+        const { Raw } = app.Db.xmw;
+        try {
+            let { username, CnName } = ctx.session.userInfo
+            let { DictionaryID, name } = ctx.request.body
+            await Raw.Delete("xmw_dictionary", {
+                wherestr: `where DictionaryID = '${DictionaryID}'`
+            });
+            await ctx.service.logs.saveLogs(username, CnName, '删除字典:' + name, '/system/dictionary')
+            ctx.body = { state: 1, msg: '删除成功!' }
+        } catch (error) {
+            ctx.logger.info('deleteDictionary方法报错：' + error)
+            ctx.body = { state: 0, msg: '删除失败!', error: error }
+        }
+    }
 }
 module.exports = SystemController;

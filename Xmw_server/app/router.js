@@ -9,7 +9,7 @@ module.exports = app => {
     // websocket消息推送
     require('./io/router/socket-io-api')(app)
     // 获取表字典表数据
-    router.get('/public/getCDTable', controller.publicmethods.getCDTable);
+    router.get('/public/getDictionaryCD', controller.publicmethods.getDictionaryCD);
     // 用户登录及信息修改模块
     router.post('/home/login', controller.home.home.login); // 用户登录
     router.post('/home/logout', controller.home.home.logout); // 注销登录
@@ -37,6 +37,9 @@ module.exports = app => {
     router.post('/system/deleteAnnouncement', controller.system.admin.deleteAnnouncement); // 删除公告
     router.get('/system/webSockets', controller.system.admin.webSockets); // 接收webSockets消息推送
     router.post('/system/saveAnnouncementRead', controller.system.admin.saveAnnouncementRead); // 添加公告已读列表
+    router.get('/system/getDictionaryList', controller.system.admin.getDictionaryList); // 获取字典列表
+    router.post('/system/addEditDictionary', controller.system.admin.addEditDictionary); // 添加-编辑字典
+    router.post('/system/deleteDictionary', controller.system.admin.deleteDictionary); // 删除字典
 
     // 组织架构模块接口
     router.get('/integrated/getOrganizationList', controller.integrated.organizational.getOrganizationList); // 获取组织架构-部门列表

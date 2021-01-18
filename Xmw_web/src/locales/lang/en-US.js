@@ -46,6 +46,7 @@ const locale = {
     'menu.system.RoleList': 'RoleList',
     'menu.system.PermissionList': 'PermissionList',
     'menu.system.dictionary': 'Dictionary',
+    'menu.system.subDictionary': 'SubDictionary',
 
     'layouts.usermenu.dialog.title': 'Message',
     'layouts.usermenu.dialog.content': 'Do you really log-out?',

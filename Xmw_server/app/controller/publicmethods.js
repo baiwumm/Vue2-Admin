@@ -11,26 +11,28 @@
 const Controller = require('egg').Controller;
 class PublicMethods extends Controller {
     /**
-    * 获取CD字典表数据  例:[{tableName:'字符串',columns:'字符串',where:'字符串'},...]
+    * 获取CD字典表数据 xmw_dictionary
     * */
-    async getCDTable() {
+    async getDictionaryCD() {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let params = Object.values(ctx.query)
-            let CDDataList = params.map(v => {
-                return JSON.parse(v)
+            const result = await Raw.QueryList(`select * from xmw_dictionary`);
+            // 处理字典数据
+            let dictTemp = {}, dictResult = {}
+            result.map(v => {
+                if (!v.parentId) dictTemp[v.DictionaryID] = []
+                if (dictTemp[v.parentId]) dictTemp[v.parentId].push({
+                    value: v.DictionaryValue,
+                    text: v.DictionaryLabel
+                })
             })
-            let result = [];
-            for (var i = 0; i < CDDataList.length; i++) {
-                let where = ``
-                if (CDDataList[i].where) where = CDDataList[i].where
-                const list = await Raw.QueryList(`select ${CDDataList[i].columns} from ${CDDataList[i].tableName} ${where}`);
-                result.push(list);
-            }
-            ctx.body = { state: 1, data: result, msg: "请求成功" };
+            result.map(v => {
+                if (dictTemp[v.DictionaryID]) dictResult[v.category] = dictTemp[v.DictionaryID]
+            })
+            ctx.body = { state: 1, result: dictResult, msg: "请求成功" };
         } catch (error) {
-            ctx.logger.info('getCDTable方法报错：' + error)
+            ctx.logger.info('getDictionaryCD方法报错：' + error)
             ctx.body = { code: 500, message: '请求失败!' }
         }
     }
