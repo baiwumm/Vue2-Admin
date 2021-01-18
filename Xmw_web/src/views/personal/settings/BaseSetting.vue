@@ -131,7 +131,10 @@
                         <div class="mask">
                             <a-icon type="plus" />
                         </div>
-                        <img :src="option.img" />
+                        <a-avatar :size="180" :src="option.img" v-if="option.img" />
+                        <a-avatar :size="180" :src="option.img" v-else class="user-avatar">{{
+                            user.CnName.substr(user.CnName.length - 2, 2)
+                        }}</a-avatar>
                     </div>
                 </a-col>
             </a-row>
@@ -294,6 +297,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '~@/components/index.less';
 .avatar-upload-wrapper {
     height: 200px;
     width: 100%;
@@ -320,6 +324,7 @@ export default {
     .mask {
         opacity: 0;
         position: absolute;
+        z-index: 2;
         background: rgba(0, 0, 0, 0.4);
         cursor: pointer;
         transition: opacity 0.4s;
@@ -347,5 +352,12 @@ export default {
         border-radius: 50%;
         overflow: hidden;
     }
+}
+.ant-avatar {
+    position: initial;
+}
+.user-avatar {
+    background: @primary-color;
+    font-size: 42px !important;
 }
 </style>

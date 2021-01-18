@@ -3,7 +3,10 @@
         <template v-slot:content>
             <div class="page-header-content">
                 <div class="avatar">
-                    <a-avatar size="large" :src="user.avatar" />
+                    <a-avatar size="large" :src="user.avatar" v-if="user.avatar" />
+                    <a-avatar size="large" v-else class="user-avatar">{{
+                        user.CnName.substr(user.CnName.length - 2, 2)
+                    }}</a-avatar>
                 </div>
                 <div class="content">
                     <div class="content-title">
@@ -422,7 +425,15 @@ export default {
 
 <style lang="less" scoped>
 @import './WorkBench.less';
+@import '~@/components/index.less';
 .ant-card /deep/ .ant-card-body {
     margin-bottom: 20px;
+}
+.user-avatar {
+    background: @primary-color;
+    /deep/ .ant-avatar-string {
+        line-height: 68px;
+        font-size: 30px;
+    }
 }
 </style>

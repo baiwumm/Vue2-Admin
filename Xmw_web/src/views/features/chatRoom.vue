@@ -6,7 +6,12 @@
             <div class="wechat">
                 <div class="sidestrip">
                     <div class="am-dropdown">
-                        <div class="own_head" @click="dropContent = !dropContent"><a-avatar :src="user.avatar" /></div>
+                        <div class="own_head" @click="dropContent = !dropContent">
+                            <a-avatar :src="user.avatar" v-if="user.avatar" />
+                            <a-avatar v-else class="user-avatar">
+                                {{ user.CnName.charAt(user.CnName.length - 1) }}
+                            </a-avatar>
+                        </div>
                         <div class="am-dropdown-content" v-show="dropContent">
                             <div class="own_head_top">
                                 <div class="own_head_top_text">
@@ -51,7 +56,10 @@
                                 >
                                     <div class="user_head">
                                         <a-badge :count="v.unreadMsg">
-                                            <a-avatar :src="v.avatar" shape="square" :size="40" />
+                                            <a-avatar :src="v.avatar" shape="square" :size="40" v-if="v.avatar" />
+                                            <a-avatar shape="square" :size="40" v-else class="user-avatar">{{
+                                                v.CnName.charAt(v.CnName.length - 1)
+                                            }}</a-avatar>
                                         </a-badge>
                                     </div>
                                     <div class="user_text">
@@ -81,7 +89,21 @@
                             <ul class="content" id="chatbox">
                                 <template v-for="(v, i) in chatList">
                                     <li class="me" v-if="v.UserID == user.UserID && v.ToUserID == user_active" :key="i">
-                                        <a-avatar :src="user.avatar" shape="square" :size="35" style="float: right" />
+                                        <a-avatar
+                                            :src="user.avatar"
+                                            shape="square"
+                                            :size="35"
+                                            style="float: right"
+                                            v-if="user.avatar"
+                                        />
+                                        <a-avatar
+                                            shape="square"
+                                            :size="35"
+                                            style="float: right"
+                                            v-else
+                                            class="user-avatar"
+                                            >{{ user.CnName.charAt(user.CnName.length - 1) }}</a-avatar
+                                        >
                                         <span class="me_msg" v-html="parMsg(v.Content)"></span>
                                     </li>
                                     <li
@@ -89,7 +111,21 @@
                                         v-if="v.UserID == user_active && v.ToUserID == user.UserID"
                                         :key="i"
                                     >
-                                        <a-avatar :src="v.avatar" shape="square" :size="35" style="float: left" />
+                                        <a-avatar
+                                            :src="v.avatar"
+                                            shape="square"
+                                            :size="35"
+                                            style="float: left"
+                                            v-if="v.avatar"
+                                        />
+                                        <a-avatar
+                                            shape="square"
+                                            :size="35"
+                                            style="float: left"
+                                            v-else
+                                            class="user-avatar"
+                                            >{{ v.CnName.charAt(v.CnName.length - 1) }}</a-avatar
+                                        >
                                         <span class="other_msg" v-html="parMsg(v.Content)"></span>
                                     </li>
                                 </template>
@@ -184,6 +220,7 @@ export default {
                                 _this.userList[i].lastMsg = _this.chatList[j].Content
                                 _this.userList[i].createTime = _this.chatList[j].createTime
                                 _this.chatList[j].avatar = _this.userList[i].avatar
+                                _this.chatList[j].CnName = _this.userList[i].CnName
                             }
                         }
                     }
@@ -368,6 +405,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '~@/components/index.less';
 .chat-container {
     width: 100%;
     display: flex;
@@ -661,5 +699,8 @@ export default {
             }
         }
     }
+}
+.user-avatar {
+    background: @primary-color;
 }
 </style>

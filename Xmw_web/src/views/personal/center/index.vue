@@ -7,7 +7,10 @@
                     <a-card :bordered="false">
                         <div class="account-center-avatarHolder">
                             <div class="avatar">
-                                <img :src="user.avatar" />
+                                <a-avatar :size="104" :src="user.avatar" v-if="user.avatar" />
+                                <a-avatar :size="104" v-else class="user-avatar">{{
+                                    user.CnName.substr(user.CnName.length - 2, 2)
+                                }}</a-avatar>
                             </div>
                             <div class="username">{{ user.CnName }}</div>
                             <div class="bio">{{ user.motto }}</div>
@@ -194,6 +197,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '~@/components/index.less';
 .page-header-wrapper-grid-content-main {
     width: 100%;
     height: 100%;
@@ -291,5 +295,9 @@ export default {
         color: rgba(0, 0, 0, 0.85);
         margin-bottom: 12px;
     }
+}
+.user-avatar {
+    background: @primary-color;
+    font-size: 36px !important;
 }
 </style>

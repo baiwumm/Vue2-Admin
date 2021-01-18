@@ -1,7 +1,10 @@
 <template>
     <a-dropdown v-if="user && user.CnName" placement="bottomRight">
         <span class="ant-pro-account-avatar">
-            <a-avatar size="small" :src="user.avatar" class="antd-pro-global-header-index-avatar" />
+            <a-avatar size="small" :src="user.avatar" v-if="user.avatar" class="antd-pro-global-header-index-avatar" />
+            <a-avatar size="small" :src="user.avatar" v-else class="antd-pro-global-header-index-avatar">
+                {{ user.CnName.charAt(user.CnName.length - 1) }}
+            </a-avatar>
             <span style="vertical-align: middle; margin-left: 5px">{{ user.CnName }}</span>
         </span>
         <template v-slot:overlay>
@@ -72,6 +75,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '~@/components/index.less';
 .ant-pro-drop-down {
     /deep/ .action {
         margin-right: 8px;
@@ -79,5 +83,8 @@ export default {
     /deep/ .ant-dropdown-menu-item {
         min-width: 160px;
     }
+}
+.antd-pro-global-header-index-avatar {
+    background: @primary-color;
 }
 </style>

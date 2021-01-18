@@ -325,7 +325,6 @@ class SystemController extends Controller {
                     return
                 }
                 params.CreateTime = new Date()
-                params.avatar = 'http://' + host + '/public/admin/avatar2.jpg'
                 await Raw.Insert('xmw_user', params);
                 await ctx.service.logs.saveLogs(username, CnName, '添加用户:' + params.username, '/system/userList')
                 ctx.body = { state: 1, msg: '保存成功!' }
