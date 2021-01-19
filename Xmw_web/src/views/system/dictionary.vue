@@ -16,8 +16,8 @@
                         </a-col>
                         <a-col :md="8" :sm="24">
                             <a-space>
-                                <a-button type="primary" @click="query"> 查询 </a-button>
-                                <a-button type="primary" @click="addDictionary"> 添加 </a-button>
+                                <a-button type="primary" @click="query" v-action:query> 查询 </a-button>
+                                <a-button type="primary" @click="addDictionary" v-action:add> 添加 </a-button>
                             </a-space>
                         </a-col>
                     </a-row>
@@ -41,9 +41,9 @@
                     <a-tag :color="record.status ? 'cyan' : 'purple'">{{ record.status ? '禁用' : '正常' }}</a-tag>
                 </span>
                 <span slot="action" slot-scope="text, record">
-                    <a @click="onEdit(record)">编辑</a>
+                    <a @click="onEdit(record)" v-action:edit>编辑</a>
                     <a-divider type="vertical" />
-                    <a @click="onDelete(record)">删除</a>
+                    <a @click="onDelete(record)" v-action:delete>删除</a>
                 </span>
             </a-table>
             <!-- 抽屉-新建编辑 -->

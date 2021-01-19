@@ -16,33 +16,14 @@ import { dataFormat } from '@/utils/util.js'
 import { export_json_to_excel } from '@/utils/Excel/Export2Excel'
 import CsvExportor from 'csv-exportor'
 export default {
-    props: {
-        tHeader: { type: Array, default: () => [] }, // Excel的表格第一行的标题
-        filterVal: { type: Array, default: () => [] }, // Data里对象的属性key值
-        exportData: { type: Array, default: () => [] }, // excel数据列表
-        selectedRowKeys: { type: Array, default: () => [] }, // 多选
-    },
-    watch: {
-        tHeader: {
-            handler(newValue, oldValue) {
-                this.tHeader = newValue
-            },
-            immediate: true,
-            deep: true,
+    name: 'exportFile',
+    inject: ['tHeader', 'filterVal', 'getExportData', 'getSelectedRowKeys'],
+    computed: {
+        exportData() {
+            return this.getExportData()
         },
-        filterVal: {
-            handler(newValue, oldValue) {
-                this.filterVal = newValue
-            },
-            immediate: true,
-            deep: true,
-        },
-        exportData: {
-            handler(newValue, oldValue) {
-                this.exportData = newValue
-            },
-            immediate: true,
-            deep: true,
+        selectedRowKeys() {
+            return this.getSelectedRowKeys()
         },
     },
     methods: {
@@ -50,7 +31,7 @@ export default {
         exportExcel() {
             require.ensure([], () => {
                 let list = []
-                const tHeader = this.tHeader
+                const tHeader = this._.cloneDeep(this.tHeader)
                 const filterVal = this.filterVal
                 tHeader.pop()
                 // 判断是否是多选

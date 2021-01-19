@@ -75,7 +75,7 @@
                 </span>
             </a-table>
             <!-- 抽屉-发布公告 -->
-            <a-modal :title="announcementTitle" :width="1000" v-model="visible" @close="onClose" :maskClosable="false">
+            <a-modal :title="announcementTitle" :width="1000" v-model="visible" @cancel="onClose" :maskClosable="false">
                 <a-form :form="form">
                     <a-row :gutter="16">
                         <a-col :span="24">
@@ -88,8 +88,13 @@
                                 <a-col flex="140px">
                                     <a-form-item label="类型">
                                         <a-radio-group button-style="solid" v-decorator="rules.type">
-                                            <a-radio-button :value="1"> 公告 </a-radio-button>
-                                            <a-radio-button :value="2"> 通知 </a-radio-button>
+                                            <a-radio-button
+                                                :value="Number(v.value)"
+                                                v-for="(v, i) in typeList"
+                                                :key="i"
+                                            >
+                                                {{ v.text }}
+                                            </a-radio-button>
                                         </a-radio-group>
                                     </a-form-item>
                                 </a-col>
@@ -129,6 +134,7 @@ import 'quill/dist/quill.bubble.css'
 import { Announcement, addAnnouncement, deleteAnnouncement, saveAnnouncementRead } from '@/api/system'
 import { dataFormat } from '@/utils/util.js'
 import bus from '@/utils/bus'
+import { DictionaryCD } from '@/api/public'
 export default {
     components: {
         quillEditor,
@@ -232,16 +238,7 @@ export default {
                 },
             },
             editContent: '', // 编辑器内容
-            typeList: [
-                {
-                    value: 1,
-                    text: '公告',
-                },
-                {
-                    value: 2,
-                    text: '通知',
-                },
-            ],
+            typeList: [],
             switchLoading: false,
         }
     },
@@ -265,6 +262,12 @@ export default {
             this.pagination.defaultCurrent = e.current
             this.pagination.defaultPageSize = e.pageSize
             this.getAnnouncementList()
+        },
+        async getDictionaryCD() {
+            let _this = this
+            await DictionaryCD().then((res) => {
+                _this.typeList = res.result.sys_announcement_type
+            })
         },
         async getAnnouncementList() {
             let _this = this
@@ -353,6 +356,8 @@ export default {
             let _this = this
             _this.visible = false
             _this.form.resetFields()
+            _this.editContent = ''
+            _this.AnnouncementID = ''
         },
         // 编辑表格数据
         onEdit(record) {
@@ -439,6 +444,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
+            this.getDictionaryCD()
             this.getAnnouncementList()
         })
     },

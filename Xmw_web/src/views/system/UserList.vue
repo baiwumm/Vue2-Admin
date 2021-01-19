@@ -171,8 +171,9 @@
                         <a-col :span="12">
                             <a-form-item label="性别">
                                 <a-radio-group v-decorator="rules.SEX">
-                                    <a-radio :value="1"> 男 </a-radio>
-                                    <a-radio :value="0"> 女 </a-radio>
+                                    <a-radio :value="Number(v.value)" v-for="(v, i) in userSex" :key="i">
+                                        {{ v.text }}
+                                    </a-radio>
                                 </a-radio-group>
                             </a-form-item>
                         </a-col>
@@ -247,6 +248,7 @@ import { User, updateUserList, deleteUser } from '@/api/system'
 import { crypto_key, crypto_iv, dataFormat, treeData } from '@/utils/util.js'
 import { getOrganizationList } from '@/api/integrated'
 import cities from '@/core/cities.json'
+import { DictionaryCD } from '@/api/public'
 export default {
     data() {
         return {
@@ -315,6 +317,7 @@ export default {
             roleList: [],
             SectorJobs: [],
             SectorDepartments: [],
+            userSex: [],
         }
     },
     methods: {
@@ -541,9 +544,16 @@ export default {
             _this.visible = true
             _this.ID = ''
         },
+        async getDictionaryCD() {
+            let _this = this
+            await DictionaryCD().then((res) => {
+                _this.userSex = res.result.sys_user_sex
+            })
+        },
     },
     mounted() {
         this.$nextTick(() => {
+            this.getDictionaryCD()
             this.getUserList()
             this.getOrganizationList()
         })

@@ -315,7 +315,6 @@ export default {
                         // }
                     })
                     _this.parentList = treeData(res.parentList, 'ID', 'parentId', 'children')
-                    console.log(_this.parentList)
                     _this.loading = false
                 } else {
                     _this.$message.error(res.msg)

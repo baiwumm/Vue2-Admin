@@ -54,8 +54,9 @@
                         </a-form-item>
                         <a-form-item label="性别">
                             <a-radio-group v-decorator="['SEX', { initialValue: user.SEX }]">
-                                <a-radio :value="0"> 女 </a-radio>
-                                <a-radio :value="1"> 男 </a-radio>
+                                <a-radio :value="Number(v.value)" v-for="(v, i) in userSex" :key="i">
+                                    {{ v.text }}
+                                </a-radio>
                             </a-radio-group>
                         </a-form-item>
                         <a-form-item label="工作部门">
@@ -151,6 +152,7 @@ import { updateUserInfo } from '@/api/login'
 import cities from '@/core/cities.json'
 import { getOrganizationList } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
+import { DictionaryCD } from '@/api/public'
 export default {
     name: 'BaseSetting',
     components: {
@@ -181,6 +183,7 @@ export default {
             SectorJobs: [],
             SectorDepartments: [],
             cityJson: cities.options,
+            userSex: [],
         }
     },
     computed: {
@@ -289,8 +292,15 @@ export default {
         setavatar(url) {
             this.option.img = url
         },
+        async getDictionaryCD() {
+            let _this = this
+            await DictionaryCD().then((res) => {
+                _this.userSex = res.result.sys_user_sex
+            })
+        },
     },
     mounted() {
+        this.getDictionaryCD()
         this.getDepartmentList()
     },
 }

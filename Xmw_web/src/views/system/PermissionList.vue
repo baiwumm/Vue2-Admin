@@ -55,13 +55,16 @@
                     />
                     {{ record.subTitle }}
                 </span>
+                <span slot="permission" slot-scope="text, record">
+                    <a-tag color="blue">{{ record.permission }}</a-tag>
+                </span>
                 <span slot="actions" slot-scope="text, record">
                     <a-tag v-for="(item, index) in record.actions" color="purple" :key="index">{{
                         item.describe
                     }}</a-tag>
                 </span>
                 <span slot="action" slot-scope="text, record" v-if="!record.redirect">
-                    <a @click="onEdit(record)">编辑</a>
+                    <a @click="onEdit(record)" v-action:edit>编辑</a>
                 </span>
             </a-table>
             <!-- 抽屉-编辑权限 -->
@@ -131,7 +134,13 @@ export default {
                     ellipsis: true,
                     scopedSlots: { customRender: 'subTitle' },
                 },
-                { title: '用户权限Key', dataIndex: 'permission', key: 'permission', ellipsis: true },
+                {
+                    title: '用户权限Key',
+                    dataIndex: 'permission',
+                    key: 'permission',
+                    ellipsis: true,
+                    scopedSlots: { customRender: 'permission' },
+                },
                 {
                     title: '可操作性权限',
                     dataIndex: 'actions',

@@ -11,9 +11,9 @@ const Api = {
     getOrganizationList: '/integrated/getOrganizationList',
     addEditOrganization: '/integrated/addEditOrganization',
     deleteOrganization: '/integrated/deleteOrganization',
-    seniorFormsList: '/integrated/getseniorFormsList',
-    addEditSeniorForms: '/integrated/addEditSeniorForms',
-    deleteSeniorForms: '/integrated/deleteSeniorForms',
+    advancedTable: '/integrated/getAdvancedTable',
+    addEditAdvancedTable: '/integrated/addEditAdvancedTable',
+    deleteAdvancedTable: '/integrated/deleteAdvancedTable',
     vehicleInfo: '/integrated/getVehicleInfo',
     addEditVehicleInfo: '/integrated/addEditVehicleInfo',
     deleteVehicleInfo: '/integrated/deleteVehicleInfo',
@@ -45,25 +45,25 @@ export function deleteOrganization(parameter) {
     })
 }
 // 获取高级表格列表
-export function seniorFormsList(parameter) {
+export function advancedTable(parameter) {
     return request({
-        url: Api.seniorFormsList,
+        url: Api.advancedTable,
         method: 'get',
         params: parameter
     })
 }
 // 添加-编辑高级表格
-export function addEditSeniorForms(parameter) {
+export function addEditAdvancedTable(parameter) {
     return request({
-        url: Api.addEditSeniorForms,
+        url: Api.addEditAdvancedTable,
         method: 'post',
         data: parameter
     })
 }
 // 删除高级表格
-export function deleteSeniorForms(parameter) {
+export function deleteAdvancedTable(parameter) {
     return request({
-        url: Api.deleteSeniorForms,
+        url: Api.deleteAdvancedTable,
         method: 'post',
         data: parameter
     })

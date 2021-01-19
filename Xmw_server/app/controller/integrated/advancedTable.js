@@ -13,9 +13,9 @@ const Controller = require('egg').Controller;
 const awaitWriteStream = require("await-stream-ready").write;
 const fs = require('fs');
 const path = require('path');
-class SeniorFormsController extends Controller {
+class AdvancedTableController extends Controller {
     // 获取高级表格列表
-    async getseniorFormsList() {
+    async getAdvancedTable() {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
@@ -28,17 +28,17 @@ class SeniorFormsController extends Controller {
             if (state) where += ` and state = '${state}'`
             if (createTime && JSON.parse(createTime).length) where += ` and createTime between '${JSON.parse(createTime)[0]} 00:00:00' and '${JSON.parse(createTime)[1]} 23:59:59'`
             if (endTime && JSON.parse(endTime).length) where += ` and endTime between '${JSON.parse(endTime)[0]} 00:00:00' and '${JSON.parse(endTime)[1]} 23:59:59'`
-            const result = await Raw.QueryPageData(`select * from xmw_bug where ${where}`, current, pageSize);
+            const result = await Raw.QueryPageData(`select * from xmw_advancedTable where ${where}`, current, pageSize);
             const userList = await Raw.QueryList(`select UserID as 'key',CnName as label from xmw_user`)
             ctx.body = { state: 1, msg: '请求成功!', result: result, userList: userList }
         } catch (error) {
-            ctx.logger.info('getseniorFormsList方法报错：' + error)
+            ctx.logger.info('getAdvancedTable方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
         }
     }
 
     // 添加-编辑高级表格
-    async addEditSeniorForms() {
+    async addEditAdvancedTable() {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
@@ -49,7 +49,7 @@ class SeniorFormsController extends Controller {
                 params.formData.forEach(v => {
                     v.createTime = new Date()
                 })
-                await Raw.InsertList('xmw_bug', params.formData);
+                await Raw.InsertList('xmw_advancedTable', params.formData);
                 await ctx.service.logs.saveLogs(username, CnName, '批量上传:' + params.formData.length + '条数据', '/integrated/seniorForms')
                 ctx.body = { state: 1, msg: '上传成功!' }
             }
@@ -58,7 +58,7 @@ class SeniorFormsController extends Controller {
                 params.createTime = new Date()
                 params.creator = UserID
                 delete params.BugID
-                await Raw.Insert('xmw_bug', params);
+                await Raw.Insert('xmw_advancedTable', params);
                 await ctx.service.logs.saveLogs(username, CnName, '添加BUG:' + params.title, '/integrated/seniorForms')
                 ctx.body = { state: 1, msg: '添加成功!' }
             } else { // 编辑
@@ -67,31 +67,31 @@ class SeniorFormsController extends Controller {
                 const options = {
                     wherestr: `where BugID=${BugID}`
                 };
-                await Raw.Update('xmw_bug', params, options);
+                await Raw.Update('xmw_advancedTable', params, options);
                 await ctx.service.logs.saveLogs(username, CnName, '编辑BUG:' + params.title, '/integrated/seniorForms')
                 ctx.body = { state: 1, msg: '保存成功!' }
             }
 
         } catch (error) {
-            ctx.logger.info('addEditSeniorForms方法报错：' + error)
+            ctx.logger.info('addEditAdvancedTable方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
         }
     }
 
     // 删除高级表格
-    async deleteSeniorForms() {
+    async deleteAdvancedTable() {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
             let { username, CnName } = ctx.session.userInfo
             let { BugID, title } = ctx.request.body
-            await Raw.Delete("xmw_bug", {
+            await Raw.Delete("xmw_advancedTable", {
                 wherestr: `where BugID in (${BugID})`
             });
             await ctx.service.logs.saveLogs(username, CnName, '删除BUG:' + title, '/integrated/seniorForms')
             ctx.body = { state: 1, msg: '删除成功!' }
         } catch (error) {
-            ctx.logger.info('deleteSeniorForms方法报错：' + error)
+            ctx.logger.info('deleteAdvancedTable方法报错：' + error)
             ctx.body = { state: 0, msg: '删除失败!', error: error }
         }
     }
@@ -192,4 +192,4 @@ class SeniorFormsController extends Controller {
         }
     }
 }
-module.exports = SeniorFormsController;
+module.exports = AdvancedTableController;

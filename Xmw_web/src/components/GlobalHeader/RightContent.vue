@@ -79,8 +79,9 @@
                         </a-list-item>
                         <div slot="header">
                             <a-radio-group v-model="articleType" @change="changeArticleType">
-                                <a-radio-button :value="1"> 公告 </a-radio-button>
-                                <a-radio-button :value="2"> 通知 </a-radio-button>
+                                <a-radio-button :value="Number(v.value)" v-for="(v, i) in typeList" :key="i">
+                                    {{ v.text }}
+                                </a-radio-button>
                             </a-radio-group>
                         </div>
                         <div
@@ -134,6 +135,7 @@ import Fuse from 'fuse.js'
 import { Announcement, saveAnnouncementRead, webSockets, User } from '@/api/system'
 import articleDetails from './articleDetails'
 import bus from '@/utils/bus'
+import { DictionaryCD } from '@/api/public'
 export default {
     name: 'RightContent',
     components: {
@@ -261,6 +263,7 @@ export default {
             form: this.$form.createForm(this),
             articleType: 1,
             listLoading: false,
+            typeList: [],
         }
     },
     computed: {
@@ -305,6 +308,12 @@ export default {
         // 计算相对时间
         culTime(time) {
             return relativeTime(time)
+        },
+        async getDictionaryCD() {
+            let _this = this
+            await DictionaryCD().then((res) => {
+                _this.typeList = res.result.sys_announcement_type
+            })
         },
         fetchData(callback) {
             let _this = this
@@ -494,6 +503,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
+            this.getDictionaryCD()
             this.initData()
             this.getMenuList()
         })
