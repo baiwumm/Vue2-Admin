@@ -1,6 +1,4 @@
 export const ACCESS_TOKEN = 'Access-Token'
-export const TOKEN_CREATETIME = 'Token_CreateTime'
-export const TOKEN_EXPIRESIN = 'Token_ExpiresIn'
 export const USER_INFO = 'User_Info'
 export const SIDEBAR_TYPE = 'sidebar_type'
 export const TOGGLE_MOBILE_TYPE = 'is_mobile'

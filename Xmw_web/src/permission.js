@@ -6,7 +6,7 @@ import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/util'
-import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO, IS_LOCK } from '@/store/mutation-types'
+import { ACCESS_TOKEN, USER_INFO, IS_LOCK } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -20,16 +20,6 @@ router.beforeEach((to, from, next) => {
     to.meta && (typeof to.meta.title !== 'undefined' && setDocumentTitle(`${i18nRender(to.meta.title)} - ${domTitle}`))
     let User_Info = storage.get(USER_INFO)
     if (User_Info) store.commit('SET_INFO', User_Info)
-    // 判断token是否过期，过期直接删除token
-    let nowtime = new Date().getTime(), token_createTime = storage.get(TOKEN_CREATETIME), token_expiresIn = storage.get(TOKEN_EXPIRESIN)
-    if (nowtime > token_createTime + token_expiresIn) {
-        storage.remove(ACCESS_TOKEN)
-        notification.error({
-            message: '温馨提示!',
-            description: '登录超时,请重新登录!',
-            duration: 0
-        })
-    }
     /* 是否有token*/
     if (storage.get(ACCESS_TOKEN)) {
         if (storage.get(IS_LOCK) && to.path != lockPage) { //如果系统激活锁屏，全部跳转到锁屏页

@@ -16,29 +16,11 @@ const request = axios.create({
 
 // 异常拦截处理器
 const errorHandler = (error) => {
-    if (error.response) {
-        const data = error.response.data
-        // 从 localstorage 获取 token
-        const token = storage.get(ACCESS_TOKEN)
-        if (error.response.status === 403) {
-            notification.error({
-                message: '禁止访问',
-                description: data.message
-            })
-        }
-        if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
-            notification.error({
-                message: '没有权限',
-                description: '授权验证失败'
-            })
-            if (token) {
-                store.dispatch('Logout').then(() => {
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 1500)
-                })
-            }
-        }
+    if (error.response.data.state === 401) {
+        authError('登录已失效,请重新登录!')
+        store.dispatch('Logout').then(() => {
+            router.push({ name: 'login' })
+        })
     }
     return Promise.reject(error)
 }
@@ -59,7 +41,7 @@ function debounce(fn, wait) {
     let timerId = null;
     let flag = true;
     return function () {
-        // clearTimeout(timerId);
+        clearTimeout(timerId);
         if (flag) {
             fn.apply(this, arguments);
             flag = false;
@@ -70,10 +52,10 @@ function debounce(fn, wait) {
     };
 }
 
-const authError = debounce(() => {
+const authError = debounce((msg) => {
     notification.error({
         message: '温馨提示!',
-        description: '此账号已在别的地方登陆，请联系管理员!',
+        description: msg,
         duration: 0
     })
 }, 3000);
@@ -81,11 +63,18 @@ const authError = debounce(() => {
 request.interceptors.response.use((response) => {
     // 判断用户是否二次登录
     if (response.data.state === 102) {
+        authError('此账号已在别的地方登陆，请联系管理员!')
         store.dispatch('Logout').then(() => {
             router.push({ name: 'login' })
-            authError()
         })
-    } else {
+    }
+    else if (response.data.state === 401) {
+        authError('登录已失效,请重新登录!')
+        store.dispatch('Logout').then(() => {
+            router.push({ name: 'login' })
+        })
+    }
+    else {
         return response.data
     }
 }, errorHandler)

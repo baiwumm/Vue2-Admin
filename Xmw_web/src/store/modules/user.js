@@ -1,7 +1,7 @@
 import storage from 'store'
 import router from '@/router'
 import { login, logout } from '@/api/login'
-import { ACCESS_TOKEN, TOKEN_CREATETIME, TOKEN_EXPIRESIN, USER_INFO, SET_LOCK_PASSWD, IS_LOCK, LOCK_PATH } from '@/store/mutation-types'
+import { ACCESS_TOKEN, USER_INFO, SET_LOCK_PASSWD, IS_LOCK, LOCK_PATH } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
 const user = {
@@ -66,8 +66,6 @@ const user = {
                         result.SectorJobs = JSON.parse(result.SectorJobs)
                         result.address = JSON.parse(result.address)
                         storage.set(ACCESS_TOKEN, result.token)
-                        storage.set(TOKEN_CREATETIME, new Date().getTime())
-                        storage.set(TOKEN_EXPIRESIN, result.expiresIn * 1000)
                         storage.set(USER_INFO, result)
                         commit('SET_TOKEN', result.token)
                         commit('SET_INFO', result)
@@ -116,8 +114,6 @@ const user = {
                     commit('SET_TOKEN', '')
                     commit('SET_ROLES', [])
                     storage.remove(ACCESS_TOKEN)
-                    storage.remove(TOKEN_CREATETIME)
-                    storage.remove(TOKEN_EXPIRESIN)
                     storage.remove(USER_INFO)
                     storage.remove(SET_LOCK_PASSWD)
                     storage.remove(IS_LOCK)

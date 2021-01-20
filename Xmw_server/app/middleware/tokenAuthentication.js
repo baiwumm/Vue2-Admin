@@ -34,17 +34,15 @@ module.exports = (options, app) => {
                         ctx.logger.info('token认证信息失败：' + JSON.stringify(decoded));
                         ctx.logger.error(err);
                         overdue = false;
-                        ctx.body = { state: 0, data: "", message: "token令牌失效或已过期!" };
-                        return true;
+                        ctx.body = { state: 401, msg: "token令牌非法!" };
+                        return;
                     }
                 })
                 if (overdue) await next()
-            } else {
-                ctx.body = { state: 401, msg: 'token令牌非法!' }
             }
         } catch (error) {
             ctx.logger.error(error);
-            ctx.body = { state: 0, message: "token令牌认证失败!" };
+            ctx.body = { state: 0, msg: "token令牌认证失败!" };
         }
 
     }
