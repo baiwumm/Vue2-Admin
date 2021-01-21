@@ -119,19 +119,14 @@
             </a-col>
         </a-row>
         <a-row :gutter="20">
-            <a-col :sm="24" :md="12" :xl="12">
+            <a-col :sm="24" :md="12" :xl="10">
                 <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
-                    <column-plot :value="columnPlotData" :Height="180"></column-plot>
+                    <column-plot :value="columnPlotData" :Height="250"></column-plot>
                 </a-card>
             </a-col>
-            <a-col :sm="24" :md="12" :xl="6">
-                <a-card :bordered="false" hoverable title="销售业绩进度">
-                    <Liquid :Height="180"></Liquid>
-                </a-card>
-            </a-col>
-            <a-col :sm="24" :md="12" :xl="6">
-                <a-card :bordered="false" hoverable title="热门搜索">
-                    <WordCloud :Height="180"></WordCloud>
+            <a-col :sm="24" :md="12" :xl="14">
+                <a-card :bordered="false" hoverable title="每月收支情况">
+                    <Waterfall :Height="250" :value="WaterfallData"></Waterfall>
                 </a-card>
             </a-col>
         </a-row>
@@ -150,7 +145,7 @@
                 </a-card>
             </a-col>
             <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14">
-                <a-card title="更新日志" hoverable>
+                <a-card title="Xmw Pro git日志" hoverable>
                     <a-timeline>
                         <a-timeline-item v-for="(item, index) in updateTime" :key="index">
                             <a-icon slot="dot" type="clock-circle-o" style="font-size: 16px" />
@@ -171,7 +166,7 @@ import { timeFix, filterDigital } from '@/utils/util'
 import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import columnPlot from './columnPlot'
-import { ChartCard, Trend, MiniArea, MiniBar, MiniBullet, Liquid, WordCloud } from '@/components'
+import { ChartCard, Trend, MiniArea, MiniBar, MiniBullet, Waterfall } from '@/components'
 import iconfont from '@/core/icons'
 export default {
     name: 'WorkBench',
@@ -183,8 +178,7 @@ export default {
         MiniArea,
         MiniBar,
         MiniBullet,
-        Liquid,
-        WordCloud,
+        Waterfall,
     },
     data() {
         return {
@@ -341,16 +335,52 @@ export default {
             checkedTag: true,
             updateTime: [
                 {
-                    describe: '部署上线，持续开发更新中...',
-                    timestamp: '2021-01-01',
+                    describe: '修改token验证中间件，前端给多标签页加上icon',
+                    timestamp: ' 2021-01-20',
                 },
                 {
-                    describe: '修改动态路由加载BUG，优化逻辑',
-                    timestamp: '2020-09-30',
+                    describe: '增加阿里icon图标，完善图标显示，优化代码，增加字典管理模块(开发中)',
+                    timestamp: ' 2021-01-13',
                 },
                 {
-                    describe: '完善个人中心模块功能逻辑',
-                    timestamp: '2020-09-24',
+                    describe: '优化验证码模块，优化路由切换过渡动画和keepAlive缓存失效的问题，增加外链',
+                    timestamp: ' 2021-01-11',
+                },
+                {
+                    describe: '增加用户二次登录检测，增加params参数集合中间件',
+                    timestamp: ' 2020-12-30',
+                },
+                {
+                    describe: '完成聊天室仿微信页面逻辑，配合egg.socket.io一对一发送',
+                    timestamp: ' 2020-12-24',
+                },
+                {
+                    describe: '完成自定义Vue指令页面开发，新增10个实用指令',
+                    timestamp: ' 2020-12-17',
+                },
+                {
+                    describe: '完成富文本编辑器和工作台模块的功能开发',
+                    timestamp: ' 2020-12-16',
+                },
+                {
+                    describe: '将SettingDrawer缓存到localstorage,新增用户标签拖拽功能',
+                    timestamp: ' 2020-12-09',
+                },
+                {
+                    describe: '新增锁屏和长时间不操作锁定功能',
+                    timestamp: ' 2020-12-08',
+                },
+                {
+                    describe: '完成公告发布socket监听和高级表格模块',
+                    timestamp: '2020-11-27',
+                },
+                {
+                    describe: '完善消息公告小铃铛逻辑',
+                    timestamp: '2020-11-06',
+                },
+                {
+                    describe: '增加路由搜索、全屏缩放、发布公告等功能',
+                    timestamp: '2020-11-05',
                 },
                 {
                     describe: '完成动态路由权限和角色权限组模块的开发',
@@ -390,6 +420,15 @@ export default {
                 { title: '休息一下', icon: 'coffee', link: '/', color: 'rgb(149, 222, 100)' },
             ],
             loading: false,
+            WaterfallData: [
+                { type: '日用品', money: 680 },
+                { type: '伙食费', money: 900 },
+                { type: '交通费', money: 430 },
+                { type: '水电费', money: 360 },
+                { type: '房租', money: 1200 },
+                { type: '商场消费', money: 1000 },
+                { type: '红包收入', money: -2000 },
+            ],
         }
     },
     computed: {
