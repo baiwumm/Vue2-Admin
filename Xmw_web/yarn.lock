@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ant-design-vue/pro-layout@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.npm.taobao.org/@ant-design-vue/pro-layout/download/@ant-design-vue/pro-layout-1.0.7.tgz#9cf676cab47db6d8183908b1abd4e373ecd7c521"
-  integrity sha1-nPZ2yrR9ttgYOQixq9Tjc+zXxSE=
+"@ant-design-vue/pro-layout@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npm.taobao.org/@ant-design-vue/pro-layout/download/@ant-design-vue/pro-layout-1.0.8.tgz#400d7e0cbab08187d017f740533b7a89774b9866"
+  integrity sha1-QA1+DLqwgYfQF/dAUzt6iXdLmGY=
   dependencies:
     ant-design-vue "^1.6.2"
     classnames "^2.2.6"
@@ -2326,7 +2326,7 @@ ant-design-vue@^1.6.2:
 
 ant-design-vue@^1.7.2:
   version "1.7.2"
-  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-1.7.2.tgz?cache=0&sync_timestamp=1609130819289&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fant-design-vue%2Fdownload%2Fant-design-vue-1.7.2.tgz#aac7ff802205711631c8698e2a0c7b4e61dfd73e"
+  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-1.7.2.tgz?cache=0&sync_timestamp=1610025633191&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fant-design-vue%2Fdownload%2Fant-design-vue-1.7.2.tgz#aac7ff802205711631c8698e2a0c7b4e61dfd73e"
   integrity sha1-qsf/gCIFcRYxyGmOKgx7TmHf1z4=
   dependencies:
     "@ant-design/icons" "^2.1.1"

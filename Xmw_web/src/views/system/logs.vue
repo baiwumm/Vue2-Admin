@@ -60,7 +60,7 @@ export default {
                 total: 0,
                 defaultCurrent: 1,
                 defaultPageSize: 20,
-                showTotal: (total) => `共 ${total} 条数据`,
+                showTotal: (total, range) => `第${range[0]}-${range[1]}条/总共 ${total} 条数据`,
                 showSizeChanger: true,
                 pageSizeOptions: ['20', '40', '60', '100'],
             },

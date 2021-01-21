@@ -42,9 +42,9 @@ const locale = {
     'menu.system': 'System',
     'menu.system.logs': 'Logs',
     'menu.system.menu': 'Menu',
-    'menu.system.UserList': 'UserList',
-    'menu.system.RoleList': 'RoleList',
-    'menu.system.PermissionList': 'PermissionList',
+    'menu.system.user': 'User',
+    'menu.system.role': 'Role',
+    'menu.system.permission': 'Permission',
     'menu.system.dictionary': 'Dictionary',
     'menu.system.subDictionary': 'SubDictionary',
 
