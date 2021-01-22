@@ -1,6 +1,26 @@
 简体中文 | [English](./README.md)
 
-# vue-admin-xmw-pro
+<p align="center"><img width="100" src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/logo.svg" alt="Vue-Admin-Xmw-Pro Logo"></p>
+
+<h1 align="center">Vue-Admin-Xmw-Pro</h1>
+
+<p align="center">
+  <a href="https://github.com/vuejs/vue" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/vue.svg" alt="vue">
+  </a>
+  <a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/antd.svg" alt="Ant Design of Vue">
+  </a>
+  <a href="https://g2plot.antv.vision/zh/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/g2plot.svg" alt="g2plot">
+  </a>
+  <a href="https://github.com/kazupon/vue-i18n" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/i18n.svg" alt="vue-i18n">
+  </a>
+  <a>
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/build.svg">
+  </a>
+</p>
 
 #### 简介
 
