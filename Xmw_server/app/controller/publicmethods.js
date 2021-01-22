@@ -33,7 +33,7 @@ class PublicMethods extends Controller {
             ctx.body = { state: 1, result: dictResult, msg: "请求成功" };
         } catch (error) {
             ctx.logger.info('getDictionaryCD方法报错：' + error)
-            ctx.body = { code: 500, message: '请求失败!' }
+            ctx.body = { state: 0, msg: '请求失败!' }
         }
     }
 }
