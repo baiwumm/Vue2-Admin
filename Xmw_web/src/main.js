@@ -18,7 +18,6 @@ import './permission' // permission control
 import './global.less'
 
 import VueSocketIO from 'vue-socket.io'
-
 Vue.use(new VueSocketIO({
     debug: false,
     connection: 'http://127.0.0.1:7001/'
