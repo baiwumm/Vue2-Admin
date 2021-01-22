@@ -325,7 +325,7 @@ export default {
                 { technology: 'vue-i18n', version: '^8.17.4' },
                 { technology: 'vuex', version: '^3.1.1' },
                 { technology: 'vue-router', version: '^3.1.2' },
-                { technology: 'ant-design-vue', version: '^1.6.5' },
+                { technology: 'ant-design-vue', version: '^1.7.2' },
                 { technology: '@antv/g2plot', version: '^2.0.7' },
                 { technology: 'egg', version: '^2.29.1' },
                 { technology: 'egg-redis', version: '^2.4.0' },
