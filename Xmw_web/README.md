@@ -22,13 +22,46 @@ English | [简体中文](./README.zh-CN.md)
   </a>
 </p>
 
-#### Description
+## Project Description
 
 [vue-admin-xmw-pro] (https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) is a background management system solutions, It is based on [vue.Js] (https://github.com/vuejs/vue) and [ant-design-vue-pro] (https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
 
 - Online Preview: http://www.xmwpro.com
 
-#### Function Module
+## Environment and Dependencies
+
+- node
+- yarn
+- webpack
+- @vue/cli
+
+> The [YARN](https://yarnpkg.com/) package management tool is recommended for this project
+
+## Project Running
+
+- Pull the project code
+```bash
+git clone https://github.com/FollowTrend/vue-admin-xmw-pro.git
+cd vue-admin-xmw-pro
+cd Xmw_web
+```
+
+- Install dependencies
+```
+yarn install
+```
+
+- Development mode running
+```
+yarn run serve
+```
+
+- Compile the project
+```
+yarn run build
+```
+
+## Function Module
 
 ```
 - Login / Logout
@@ -72,7 +105,7 @@ English | [简体中文](./README.zh-CN.md)
   - Credit Card Form
 ```
 
-#### Demo Figure
+## Demo Figure
 
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-1.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-2.jpg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

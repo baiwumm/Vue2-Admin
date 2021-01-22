@@ -22,13 +22,46 @@
   </a>
 </p>
 
-#### 简介
+## 项目简介
 
 [vue-admin-xmw-pro](https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) 是一个后台管理系统解决方案，它基于 [vue.js](https://github.com/vuejs/vue) 和 [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 线上预览: http://www.xmwpro.com
 
-#### 功能模块
+## 环境和依赖
+
+- node
+- yarn
+- webpack
+- @vue/cli
+
+> 推荐本项目使用 [Yarn](https://yarnpkg.com/) 包管理工具
+
+## 项目运行
+
+- 拉取项目代码
+```bash
+git clone https://github.com/FollowTrend/vue-admin-xmw-pro.git
+cd vue-admin-xmw-pro
+cd Xmw_web
+```
+
+- 安装依赖
+```
+yarn install
+```
+
+- 开发模式运行
+```
+yarn run serve
+```
+
+- 编译项目
+```
+yarn run build
+```
+
+## 功能模块
 
 ```
 - 登录 / 注销
@@ -72,7 +105,7 @@
   - 信用卡表单
 ```
 
-#### 演示图
+## 演示图
 
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-1.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-2.jpg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
