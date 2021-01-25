@@ -65,6 +65,27 @@ yarn run serve
 yarn run build
 ```
 
+## The Directory Structure
+
+```
+├── src/
+    ├── api(Used to place the service API interface)
+    ├── assets(Used to place local static resources)
+    ├── components(Used to place business common components)
+    ├── config(Project basic configuration, including routing, global Settings)
+    ├── core(Project bootstrap, global configuration initialization, dependency package introduction, etc)
+    ├── layouts(Project Common Layout)
+    ├── locales(International resources)
+    ├── router(Vue-Router)
+    ├── store(Vuex)
+    ├── utils(Utility class)
+    ├── views(Business page entry and common templates)
+    ├── App.vue(Vue Template entry)
+    ├── main.js(Vue Entry JS)
+    ├── permission.js(Routing guard (routing permission control))
+    ├── global.less(Global style)
+```
+
 ## Function Module
 
 ```

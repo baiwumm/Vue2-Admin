@@ -65,6 +65,27 @@ yarn run serve
 yarn run build
 ```
 
+## 目录结构
+
+```
+├── src/
+    ├── api(用于放置服务api接口)
+    ├── assets(用于放置本地静态资源)
+    ├── components(用于放置业务通用组件)
+    ├── config(项目基础配置，包含路由，全局设置)
+    ├── core(项目引导, 全局配置初始化，依赖包引入等)
+    ├── layouts(项目通用布局)
+    ├── locales(国际化资源)
+    ├── router(Vue-Router)
+    ├── store(Vuex)
+    ├── utils(工具类)
+    ├── views(业务页面入口和常用模板)
+    ├── App.vue(Vue 模板入口)
+    ├── main.js(Vue 入口 JS)
+    ├── permission.js(路由守卫(路由权限控制))
+    ├── global.less(全局样式)
+```
+
 ## 功能模块
 
 ```
