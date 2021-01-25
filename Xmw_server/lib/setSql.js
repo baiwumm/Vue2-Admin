@@ -34,6 +34,19 @@ class RawClass {
     }
   }
 
+  //执行一条SQL语句，返回影响行。
+  async Execute(sql, opts) {
+    var self = this;
+    let {
+      sequelize,
+      dataBaseType
+    } = this;
+    let _opts = Object.assign({}, opts);
+    //// 结果将是一个空数组,元数据将包含受影响的行数.
+    const [results, metadata] = await sequelize.query(sql, _opts);
+    return metadata
+  }
+
   async Query(sql, opts) {
     let { sequelize } = this;
 
