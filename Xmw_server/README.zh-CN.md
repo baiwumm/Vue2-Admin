@@ -5,19 +5,19 @@
 <h1 align="center">Vue-Admin-Xmw-Pro</h1>
 
 <p align="center">
-  <a href="https://github.com/eggjs/egg" target="_blank">
+  <a href="https://github.com/eggjs/egg/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/egg.svg" alt="egg">
   </a>
-  <a href="https://github.com/eggjs/egg-redis" target="_blank">
+  <a href="https://github.com/eggjs/egg-redis/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/redis.svg" alt="egg-redis">
   </a>
-  <a href="https://github.com/eggjs/egg-socket.io" target="_blank">
+  <a href="https://github.com/eggjs/egg-socket.io/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="egg-socket.io">
   </a>
-  <a href="https://github.com/auth0/node-jsonwebtoken" target="_blank">
+  <a href="https://github.com/auth0/node-jsonwebtoken/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/token.svg" alt="jsonwebtoken">
   </a>
-  <a href="https://github.com/sequelize/sequelize" target="_blank">
+  <a href="https://github.com/sequelize/sequelize/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="sequelize">
   </a>
   <a>
@@ -27,13 +27,15 @@
 
 ## 项目简介
 
-[vue-admin-xmw-pro](https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) 是一个后台管理系统解决方案，后端基于 [egg.js](https://github.com/eggjs/egg) 和 [sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[vue-admin-xmw-pro](http://www.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [egg.js](https://github.com/eggjs/egg/) 和 [sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 线上预览: http://www.xmwpro.com
 
 - 文档地址：**正在编写中！**
 
-- 前端地址：[传送门](../Xmw_web)
+- 前端地址：[Xmw_web](../Xmw_web)
+
+- star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
 ## 环境和依赖
 

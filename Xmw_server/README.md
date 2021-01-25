@@ -5,19 +5,19 @@ English | [简体中文](./README.zh-CN.md)
 <h1 align="center">Vue-Admin-Xmw-Pro</h1>
 
 <p align="center">
-  <a href="https://github.com/eggjs/egg" target="_blank">
+  <a href="https://github.com/eggjs/egg/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/egg.svg" alt="egg">
   </a>
-  <a href="https://github.com/eggjs/egg-redis" target="_blank">
+  <a href="https://github.com/eggjs/egg-redis/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/redis.svg" alt="egg-redis">
   </a>
-  <a href="https://github.com/eggjs/egg-socket.io" target="_blank">
+  <a href="https://github.com/eggjs/egg-socket.io/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="egg-socket.io">
   </a>
-  <a href="https://github.com/auth0/node-jsonwebtoken" target="_blank">
+  <a href="https://github.com/auth0/node-jsonwebtoken/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/token.svg" alt="jsonwebtoken">
   </a>
-  <a href="https://github.com/sequelize/sequelize" target="_blank">
+  <a href="https://github.com/sequelize/sequelize/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="sequelize">
   </a>
   <a>
@@ -27,13 +27,15 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Project Description
 
-[vue-admin-xmw-pro] (https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) is a background management system solutions, The back-end is based on [egg.js](https://github.com/eggjs/egg) and [sequelize](https://github.com/sequelize/sequelize/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
+[vue-admin-xmw-pro] (http://www.xmwpro.com/) is a background management system solutions, The back-end is based on [egg.js](https://github.com/eggjs/egg/) and [sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
 - Online Preview: http://www.xmwpro.com
 
 - Document Address：**In the works！**
 
-- The front end Address：[portal](../Xmw_web)
+- The front end Address：[Xmw_web](../Xmw_web)
+
+- star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 ## Environment and Dependencies
 

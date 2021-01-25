@@ -5,17 +5,17 @@ English | [简体中文](./README.zh-CN.md)
 <h1 align="center">Vue-Admin-Xmw-Pro</h1>
 
 <p align="center">
-  <a href="https://github.com/vuejs/vue" target="_blank">
+  <a href="https://github.com/vuejs/vue/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/vue.svg" alt="vue">
   </a>
-  <a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank">
+  <a href="https://github.com/vueComponent/ant-design-vue/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/antd.svg" alt="Ant Design of Vue">
   </a>
-  <a href="https://g2plot.antv.vision/zh/" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/g2plot.svg" alt="g2plot">
+  <a href="https://github.com/eggjs/egg/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/egg.svg" alt="egg">
   </a>
-  <a href="https://github.com/kazupon/vue-i18n" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/i18n.svg" alt="vue-i18n">
+  <a href="https://github.com/sequelize/sequelize/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="sequelize">
   </a>
   <a>
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/build.svg">
@@ -24,9 +24,21 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Project Description
 
-[vue-admin-xmw-pro] (https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) is a background management system solutions, It is based on [vue.Js] (https://github.com/vuejs/vue) and [ant-design-vue-pro] (https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
+ [vue-admin-xmw-pro](http://www.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
-- Online Preview: http://www.xmwpro.com
+- Front-end technology stack： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
+
+- Front Gate： [Xmw_web](./Xmw_web)
+
+- Backend technology stack： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
+
+- Backend portal： [Xmw_server](./Xmw_server)
+
+- Online Preview： http://www.xmwpro.com
+
+- Document Address：**In the works！**
+
+- star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 ## Environment and Dependencies
 
@@ -113,3 +125,16 @@ yarn run build
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-5.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-6.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-7.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-8.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-9.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-10.jpg) |
+
+## Special Thanks（Thanks to the giant）
+
+| Project                                                          |
+| ---------------------------------------------------------------- |
+| [vue.js Build an incremental framework for the user interface](https://github.com/vuejs/vue/)                              |
+| [Ant Design Vue Pro Front-end scaffolding based on ANTD VUE](https://github.com/vueComponent/ant-design-vue-pro/)     |
+| [Ant Design Vue-High quality VUE components right out of the box](https://github.com/vueComponent/ant-design-vue/) |
+| [axios Promise-based HTTP library](https://github.com/axios/axios/)   |
+| [egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg/)                              |
+| [egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io/)     |
+| [jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken/) |
+| [sequelize Orm framework](https://github.com/sequelize/sequelize/)                          |
