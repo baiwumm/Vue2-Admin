@@ -5,17 +5,20 @@ English | [简体中文](./README.zh-CN.md)
 <h1 align="center">Vue-Admin-Xmw-Pro</h1>
 
 <p align="center">
-  <a href="https://github.com/vuejs/vue" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/vue.svg" alt="vue">
+  <a href="https://github.com/eggjs/egg/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/egg.svg" alt="egg">
   </a>
-  <a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/antd.svg" alt="Ant Design of Vue">
+  <a href="https://github.com/eggjs/egg-redis/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/redis.svg" alt="egg-redis">
   </a>
-  <a href="https://g2plot.antv.vision/zh/" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/g2plot.svg" alt="g2plot">
+  <a href="https://github.com/eggjs/egg-socket.io/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="egg-socket.io">
   </a>
-  <a href="https://github.com/kazupon/vue-i18n" target="_blank">
-    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/i18n.svg" alt="vue-i18n">
+  <a href="https://github.com/auth0/node-jsonwebtoken/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/token.svg" alt="jsonwebtoken">
+  </a>
+  <a href="https://github.com/sequelize/sequelize/" target="_blank">
+    <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/socket.svg" alt="sequelize">
   </a>
   <a>
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/build.svg">
@@ -24,16 +27,20 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Project Description
 
-[vue-admin-xmw-pro] (https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) is a background management system solutions, It is based on [vue.Js] (https://github.com/vuejs/vue) and [ant-design-vue-pro] (https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
+[vue-admin-xmw-pro] (http://www.xmwpro.com/) is a background management system solutions, The back-end is based on [egg.js](https://github.com/eggjs/egg/) and [sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
 - Online Preview: http://www.xmwpro.com
+
+- Document Address：**In the works！**
+
+- Front Gate：[Xmw_web](../Xmw_web)
+
+- star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 ## Environment and Dependencies
 
 - node
 - yarn
-- webpack
-- @vue/cli
 
 > The [YARN](https://yarnpkg.com/) package management tool is recommended for this project
 
@@ -43,7 +50,7 @@ English | [简体中文](./README.zh-CN.md)
 ```bash
 git clone https://github.com/FollowTrend/vue-admin-xmw-pro.git
 cd vue-admin-xmw-pro
-cd Xmw_web
+cd Xmw_server
 ```
 
 - Install dependencies
@@ -53,63 +60,31 @@ yarn install
 
 - Development mode running
 ```
-yarn run serve
+yarn run dev
 ```
 
-- Compile the project
-```
-yarn run build
-```
-
-## Function Module
+## The Directory Structure
 
 ```
-- Login / Logout
-
-- Workbench
-
-- Integrated Components
-  - Advanced Form
-  - Announcements
-  - Organizational Structure
-  - Advanced Table
-  - Advanced Dtails
-
-- Personal Center
-
-- System Settings
-  - List of Users
-  - Menu Management
-  - Role Management
-  - Permission Management
-  - Operation Log
-  - Dictionary Management
-
-- Function Page
-  - Generate QR Code
-  - Rich Text Editor
-  - Custom VUE Directives
-  - Image Recognition
-  - Chat Room
-  - Waterfall Flow
-  - Music Player
-  - Video Player
-  - Lazy Loading
-
-- Tool Page
-  - Picture Effect
-  - Embedded Routers
-  - Verification Code
-  - Guide Page
-  - Outer Chain
-  - Credit Card Form
+├── app/
+    ├── controller(Used to parse the user's input)
+    ├── extend(Extensions to the framework)
+    ├── io(Egg-Socket. IO framework configuration)
+    ├── middleware( Used to write middleware)
+    ├── public(Used to place static resources)
+    ├── service(Used to write the business logic layer)
+    ├── router.js(Used to configure URL routing rules)
+├── config/
+    ├── config.{env}.js(Used to write configuration files)
+    ├── plugin.js(Used to configure the plug-in that needs to be loaded)
 ```
 
-## Demo Figure
 
-| ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-1.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-2.jpg) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-3.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-4.jpg) |
-| ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-5.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-6.jpg) |
-| ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-7.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-8.jpg) |
-| ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-9.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-10.jpg) |
+## Special Thanks（Thanks to the giant）
+
+| Project                                                          |
+| ---------------------------------------------------------------- |
+| [egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg)                              |
+| [egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io)     |
+| [jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken) |
+| [sequelize Orm framework](https://github.com/sequelize/sequelize)                          |

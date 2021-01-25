@@ -5,16 +5,16 @@
 <h1 align="center">Vue-Admin-Xmw-Pro</h1>
 
 <p align="center">
-  <a href="https://github.com/vuejs/vue" target="_blank">
+  <a href="https://github.com/vuejs/vue/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/vue.svg" alt="vue">
   </a>
-  <a href="https://www.antdv.com/docs/vue/introduce-cn/" target="_blank">
+  <a href="https://github.com/vueComponent/ant-design-vue/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/antd.svg" alt="Ant Design of Vue">
   </a>
-  <a href="https://g2plot.antv.vision/zh/" target="_blank">
+  <a href="https://github.com/antvis/G2Plot/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/g2plot.svg" alt="g2plot">
   </a>
-  <a href="https://github.com/kazupon/vue-i18n" target="_blank">
+  <a href="https://github.com/kazupon/vue-i18n/" target="_blank">
     <img src="https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/i18n.svg" alt="vue-i18n">
   </a>
   <a>
@@ -24,13 +24,15 @@
 
 ## 项目简介
 
-[vue-admin-xmw-pro](https://github.com/FollowTrend/vue-admin-xmw-pro/tree/master/Xmw_web) 是一个后台管理系统解决方案，它基于 [vue.js](https://github.com/vuejs/vue) 和 [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[vue-admin-xmw-pro](http://www.xmwpro.com/) 是一个后台管理系统解决方案，它基于 [vue.js](https://github.com/vuejs/vue/) 和 [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 线上预览: http://www.xmwpro.com
 
 - 文档地址：**正在编写中！**
 
-- 后端地址：[传送门](../Xmw_server)
+- 后端传送门：[Xmw_server](../Xmw_server)
+
+- star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
 ## 环境和依赖
 
@@ -63,6 +65,27 @@ yarn run serve
 - 编译项目
 ```
 yarn run build
+```
+
+## 目录结构
+
+```
+├── src/
+    ├── api(用于放置服务api接口)
+    ├── assets(用于放置本地静态资源)
+    ├── components(用于放置业务通用组件)
+    ├── config(项目基础配置，包含路由，全局设置)
+    ├── core(项目引导, 全局配置初始化，依赖包引入等)
+    ├── layouts(项目通用布局)
+    ├── locales(国际化资源)
+    ├── router(Vue-Router)
+    ├── store(Vuex)
+    ├── utils(工具类)
+    ├── views(业务页面入口和常用模板)
+    ├── App.vue(Vue 模板入口)
+    ├── main.js(Vue 入口 JS)
+    ├── permission.js(路由守卫(路由权限控制))
+    ├── global.less(全局样式)
 ```
 
 ## 功能模块
