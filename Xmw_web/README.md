@@ -28,7 +28,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - Online Preview: http://www.xmwpro.com
 
-- Document Address：**正在编写中！**
+- Document Address：**In the works！**
 
 - Backend Address：[portal](../Xmw_server)
 
