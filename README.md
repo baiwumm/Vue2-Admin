@@ -26,19 +26,23 @@ English | [简体中文](./README.zh-CN.md)
 
  [vue-admin-xmw-pro](http://www.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
-- Front-end technology stack： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
+- 🎯 Front-end technology stack： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
 
-- Front Gate： [Xmw_web](./Xmw_web)
+- 🔗 Front Gate： [Xmw_web](./Xmw_web)
 
-- Backend technology stack： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
+- 🎯 Backend technology stack： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
 
-- Backend Portal： [Xmw_server](./Xmw_server)
+- 🔗 Backend Portal： [Xmw_server](./Xmw_server)
 
-- Online Preview： http://www.xmwpro.com
+- 😝 Online Preview： http://www.xmwpro.com
 
-- Document Address：**In the works！**
+- [🚀 github warehouse address](https://github.com/FollowTrend/vue-admin-xmw-pro/)
 
-- star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
+- [🚀 Code cloud warehouse address](https://gitee.com/xmwjackey/vue-admin-xmw-pro/)
+
+- 📄 Document Address：**In the works！**
+
+- ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 ## Environment and Dependencies
 

@@ -26,13 +26,13 @@ English | [简体中文](./README.zh-CN.md)
 
 [vue-admin-xmw-pro] (http://www.xmwpro.com/) is a background management system solutions, It is based on [vue.Js] (https://github.com/vuejs/vue/) and [ant-design-vue-pro] (https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
 
-- Online Preview: http://www.xmwpro.com
+- 😝 Online Preview: http://www.xmwpro.com
 
-- Document Address：**In the works！**
+- 📄 Document Address：**In the works！**
 
-- Backend Portal：[Xmw_server](../Xmw_server)
+- 🔗 Backend Portal：[Xmw_server](../Xmw_server)
 
-- star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
+- ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 ## Environment and Dependencies
 

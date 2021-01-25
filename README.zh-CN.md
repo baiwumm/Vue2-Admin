@@ -26,19 +26,23 @@
 
   [vue-admin-xmw-pro](http://www.xmwpro.com/) 是一个后台管理系统解决方案，采用前后端分离技术开发。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
-- 前端技术栈： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
+- 🎯 前端技术栈： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
 
-- 前端传送门： [Xmw_web](./Xmw_web)
+- 🔗 前端传送门： [Xmw_web](./Xmw_web)
 
-- 后端技术栈： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
+- 🎯 后端技术栈： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
 
-- 后端传送门： [Xmw_server](./Xmw_server)
+- 🔗 后端传送门： [Xmw_server](./Xmw_server)
 
-- 线上预览： http://www.xmwpro.com
+- 😝 线上预览： http://www.xmwpro.com
 
-- 文档地址：**正在编写中！**
+- [🚀 github 仓库地址](https://github.com/FollowTrend/vue-admin-xmw-pro/)
 
-- star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
+- [🚀 码云仓库地址](https://gitee.com/xmwjackey/vue-admin-xmw-pro/)
+
+- 📄 文档地址：**正在编写中！**
+
+- ❤️ star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
 ## 环境和依赖
 

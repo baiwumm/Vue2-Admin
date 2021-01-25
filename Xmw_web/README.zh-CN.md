@@ -26,13 +26,13 @@
 
 [vue-admin-xmw-pro](http://www.xmwpro.com/) 是一个后台管理系统解决方案，它基于 [vue.js](https://github.com/vuejs/vue/) 和 [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
-- 线上预览: http://www.xmwpro.com
+- 😝 线上预览: http://www.xmwpro.com
 
-- 文档地址：**正在编写中！**
+- 📄 文档地址：**正在编写中！**
 
-- 后端传送门：[Xmw_server](../Xmw_server)
+- 🔗 后端传送门：[Xmw_server](../Xmw_server)
 
-- star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
+- ❤️ star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
 ## 环境和依赖
 
