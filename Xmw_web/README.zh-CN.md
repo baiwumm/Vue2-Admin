@@ -28,6 +28,10 @@
 
 - 线上预览: http://www.xmwpro.com
 
+- 文档地址：**正在编写中！**
+
+- 后端地址：[传送门](../Xmw_server)
+
 ## 环境和依赖
 
 - node
@@ -113,3 +117,12 @@ yarn run build
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-5.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-6.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-7.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-8.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-9.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-10.jpg) |
+
+## 特别鸣谢（感谢巨人）
+
+| 项目                                                          |
+| ---------------------------------------------------------------- |
+| [vue.js 构建用户界面的渐进式框架](https://github.com/vuejs/vue)                              |
+| [Ant Design Vue Pro基于Antd Vue的前端脚手架](https://github.com/vueComponent/ant-design-vue-pro)     |
+| [Ant Design Vue-开箱即用的高质量Vue组件](https://github.com/vueComponent/ant-design-vue) |
+| [axios 基于 promise 的 HTTP 库](https://github.com/axios/axios)                          |

@@ -28,6 +28,10 @@ English | [简体中文](./README.zh-CN.md)
 
 - Online Preview: http://www.xmwpro.com
 
+- Document Address：**正在编写中！**
+
+- Backend Address：[portal](../Xmw_server)
+
 ## Environment and Dependencies
 
 - node
@@ -113,3 +117,12 @@ yarn run build
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-5.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-6.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-7.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-8.jpg) |
 | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-9.jpg) | ![](https://xmwpro.oss-cn-beijing.aliyuncs.com/vue-admin-xmw-pro/xmw-demo-10.jpg) |
+
+## Special Thanks（Thanks to the giant）
+
+| Project                                                          |
+| ---------------------------------------------------------------- |
+| [vue.js Build an incremental framework for the user interface](https://github.com/vuejs/vue)                              |
+| [Ant Design Vue Pro Front-end scaffolding based on ANTD VUE](https://github.com/vueComponent/ant-design-vue-pro)     |
+| [Ant Design Vue-High quality VUE components right out of the box](https://github.com/vueComponent/ant-design-vue) |
+| [axios Promise-based HTTP library](https://github.com/axios/axios)   
