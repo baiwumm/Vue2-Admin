@@ -30,7 +30,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - Document Address：**正在编写中！**
 
-- Backend Address：[Xmw_server](../Xmw_server)
+- Backend Portal：[Xmw_server](../Xmw_server)
 
 - star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 

@@ -33,7 +33,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - Document Address：**In the works！**
 
-- The front end Address：[Xmw_web](../Xmw_web)
+- Front Gate：[Xmw_web](../Xmw_web)
 
 - star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 

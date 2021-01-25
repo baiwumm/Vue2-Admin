@@ -32,7 +32,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - Backend technology stack： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
 
-- Backend portal： [Xmw_server](./Xmw_server)
+- Backend Portal： [Xmw_server](./Xmw_server)
 
 - Online Preview： http://www.xmwpro.com
 

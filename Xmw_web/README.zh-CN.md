@@ -30,7 +30,7 @@
 
 - 文档地址：**正在编写中！**
 
-- 后端地址：[Xmw_server](../Xmw_server)
+- 后端传送门：[Xmw_server](../Xmw_server)
 
 - star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
