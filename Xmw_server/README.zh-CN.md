@@ -76,3 +76,12 @@ yarn run dev
     ├── config.{env}.js(用于编写配置文件)
     ├── plugin.js(用于配置需要加载的插件)
 ```
+
+## 特别鸣谢（感谢巨人）
+
+| 项目                                                          |
+| ---------------------------------------------------------------- |
+| [egg.js 为企业级框架和应用而生](https://github.com/eggjs/egg)                              |
+| [egg-socket.io 支持浏览器和服务器之间的实时、双向和基于事件的通信](https://github.com/eggjs/egg-socket.io)     |
+| [jsonwebtoken 实现token技术的一种解决方案](https://github.com/auth0/node-jsonwebtoken) |
+| [sequelize orm框架](https://github.com/sequelize/sequelize)                          |

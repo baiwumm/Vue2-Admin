@@ -76,3 +76,13 @@ yarn run dev
     ├── config.{env}.js(Used to write configuration files)
     ├── plugin.js(Used to configure the plug-in that needs to be loaded)
 ```
+
+
+## Special Thanks（Thanks to the giant）
+
+| Project                                                          |
+| ---------------------------------------------------------------- |
+| [egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg)                              |
+| [egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io)     |
+| [jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken) |
+| [sequelize Orm framework](https://github.com/sequelize/sequelize)                          |
