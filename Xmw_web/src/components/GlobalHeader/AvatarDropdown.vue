@@ -9,11 +9,11 @@
         </span>
         <template v-slot:overlay>
             <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
-                <a-menu-item v-if="menu" key="center" @click="handleToCenter">
+                <a-menu-item key="center" @click="handleToCenter">
                     <a-icon type="user" />
                     个人中心
                 </a-menu-item>
-                <a-menu-divider v-if="menu" />
+                <a-menu-divider />
                 <a-menu-item key="logout" @click="handleLogout">
                     <a-icon type="logout" />
                     注销登录
@@ -30,16 +30,6 @@
 import { Modal } from 'ant-design-vue'
 export default {
     name: 'AvatarDropdown',
-    props: {
-        currentUser: {
-            type: Object,
-            default: () => null,
-        },
-        menu: {
-            type: Boolean,
-            default: true,
-        },
-    },
     data() {
         return {
             user: {},

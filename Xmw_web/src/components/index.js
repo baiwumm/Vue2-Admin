@@ -7,6 +7,11 @@ import MiniArea from '@/components/Charts/MiniArea'
 import MiniBar from '@/components/Charts/MiniBar'
 import MiniBullet from '@/components/Charts/MiniBullet'
 import Waterfall from '@/components/Charts/Waterfall'
+import HeaderSearch from '@/components/HeaderSearch'
+import LockScreen from '@/components/LockScreen'
+import FullScreen from '@/components/FullScreen'
+import HeaderAnnouncement from '@/components/HeaderAnnouncement'
+import SelectLang from '@/components/SelectLang'
 export {
     FooterToolbar,
     MultiTab,
@@ -15,5 +20,10 @@ export {
     MiniArea,
     MiniBar,
     MiniBullet,
-    Waterfall
+    Waterfall,
+    HeaderSearch,
+    LockScreen,
+    FullScreen,
+    HeaderAnnouncement,
+    SelectLang
 }
