@@ -12,7 +12,7 @@ import _ from 'lodash'
 Vue.prototype._ = _
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
-import './permission' // permission control
+import './permission' // 动态路由权限控制
 import './global.less'
 
 import VueSocketIO from 'vue-socket.io'
