@@ -250,6 +250,7 @@ import { getOrganizationList } from '@/api/integrated'
 import cities from '@/core/cities.json'
 import { DictionaryCD } from '@/api/public'
 export default {
+    name: 'user',
     data() {
         return {
             queryForm: {},

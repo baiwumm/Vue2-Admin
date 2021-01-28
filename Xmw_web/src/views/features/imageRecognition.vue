@@ -43,6 +43,7 @@
 import axios from 'axios'
 const Qs = require('qs')
 export default {
+    name: 'imageRecognition',
     data() {
         return {
             data: [],

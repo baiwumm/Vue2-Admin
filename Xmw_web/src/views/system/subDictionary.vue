@@ -81,7 +81,7 @@
 import { DictionaryList, addDictionary, deleteDictionary } from '@/api/system'
 import { dataFormat } from '@/utils/util.js'
 export default {
-    name: 'dictionary',
+    name: 'subDictionary',
     data() {
         return {
             queryForm: {},

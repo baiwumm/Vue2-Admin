@@ -53,9 +53,8 @@ export default {
                 content: this.$t('layouts.usermenu.dialog.content'),
                 onOk: () => {
                     return this.$store.dispatch('Logout').then(() => {
+                        this.$router.push({ path: '/user/login' })
                         this.$message.success('注销成功!')
-                        this.$router.push({ name: 'login' })
-                        // window.location.reload()
                     })
                 },
             })

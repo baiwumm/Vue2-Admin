@@ -107,7 +107,6 @@ export default {
                     resolve(values)
                 })
             })
-
             // clean this.errors
             this.errors = []
             Promise.all([vehicleBasicForm, vehicleOtherForm])

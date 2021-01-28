@@ -14,7 +14,6 @@ module.exports = (options, app) => {
     return async function tokenAuthentication(ctx, next) {
         try {
             const { Raw } = app.Db.xmw;
-            let { UserID } = ctx.session.userInfo
             const url = ctx.request.url;
             if (url == '/' || url == '/home/login' || url == '/system/getRouterMenu' || url == '/system/webSockets') {
                 await next();
@@ -24,11 +23,11 @@ module.exports = (options, app) => {
             if (token) {
                 let overdue = true;
                 // 查看请求头token是否存在，不存在直接return，返回102状态码提示用户二次登录
-                const exist = await Raw.Query(`select count(1) as total from xmw_user where token = '${token}' and UserID = ${UserID}`);
-                if (!exist.total) {
-                    ctx.body = { state: 102, msg: 'token令牌不存在!' }
-                    return
-                }
+                // const exist = await Raw.Query(`select count(1) as total from xmw_user where token = '${token}'`);
+                // if (!exist.total) {
+                //     ctx.body = { state: 102, msg: 'token令牌不存在!' }
+                //     return
+                // }
                 // 解析token生成用户信息
                 jwt.verify(token, app.config.privateKey, (err, decoded) => {
                     if (err) {   //如果token过期或解析错误则会执行err的代码块

@@ -124,6 +124,7 @@ import { Action, updateActionList } from '@/api/system'
 import { dataFormat, treeData } from '@/utils/util.js'
 import iconfont from '@/core/icons'
 export default {
+    name: 'permission',
     data() {
         return {
             columns: [

@@ -1,5 +1,5 @@
 <template>
-    <a-popover trigger="hover" arrow-point-at-center>
+    <a-popover trigger="hover" arrow-point-at-center placement="bottom">
         <template slot="content">
             <div class="infinite-container">
                 <a-list :data-source="announcementList" :loading="listLoading">

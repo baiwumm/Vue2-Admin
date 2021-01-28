@@ -31,6 +31,7 @@ import vabComparison from './components/comparison.vue'
 import vabMagnifier from './components/magnifie.vue'
 import photoCard from './components/photoCard.vue'
 export default {
+    name: 'pictureEffect',
     components: {
         vabComparison,
         vabMagnifier,

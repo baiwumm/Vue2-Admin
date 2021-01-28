@@ -1,6 +1,6 @@
 <template>
     <div class="header-search" id="header-search" @click.stop="">
-        <a-tooltip>
+        <a-tooltip placement="bottom">
             <template slot="title"> 全局搜索 </template>
             <a-icon type="search" style="font-size: 20px; vertical-align: middle" @click.stop="showSelect" />
         </a-tooltip>

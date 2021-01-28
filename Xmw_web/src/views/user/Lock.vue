@@ -50,7 +50,6 @@ export default {
                 content: this.$t('layouts.usermenu.dialog.content'),
                 onOk: () => {
                     return this.$store.dispatch('Logout').then(async () => {
-                        await window.location.reload()
                         this.$message.success('注销成功!')
                         this.$router.push({ name: 'login' })
                     })

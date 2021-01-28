@@ -25,13 +25,13 @@ const staticRouter =
     name: 'subDictionary',
     redirect: '/system/dictionary',
     component: RouteView,
-    meta: { title: 'menu.system.dictionary', keepAlive: true, icon: 'control' },
+    meta: { title: 'menu.system.dictionary', keepAlive: true, icon: 'pushpin' },
     hidden: true,
     children: [{
         path: 'category/:DictionaryID(\\d+)',
         name: 'category',
         component: () => import('@/views/system/subDictionary'),
-        meta: { title: 'menu.system.subDictionary' },
+        meta: { title: 'menu.system.subDictionary', keepAlive: true, icon: 'pushpin' },
     }]
 }
 const generator = () => {

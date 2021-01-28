@@ -101,6 +101,7 @@
 <script>
 import { filterDigital } from '@/utils/util'
 export default {
+    name: 'advancedDetails',
     data() {
         return {
             tripNum: 'YJ2020020号',

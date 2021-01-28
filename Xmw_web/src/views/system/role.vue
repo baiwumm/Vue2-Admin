@@ -151,6 +151,7 @@ import { dataFormat, treeData } from '@/utils/util.js'
 import { TreeSelect } from 'ant-design-vue'
 import iconfont from '@/core/icons'
 export default {
+    name: 'role',
     data() {
         return {
             columns: [

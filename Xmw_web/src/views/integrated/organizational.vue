@@ -21,6 +21,7 @@
 import architecture from './components/architecture'
 import department from './components/department'
 export default {
+    name: 'organizational',
     components: {
         architecture,
         department,

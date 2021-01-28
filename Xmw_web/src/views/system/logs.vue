@@ -42,6 +42,7 @@
 import { Logs } from '@/api/system'
 import { dataFormat } from '@/utils/util.js'
 export default {
+    name: 'logs',
     data() {
         return {
             columns: [

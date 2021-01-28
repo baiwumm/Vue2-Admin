@@ -14,6 +14,7 @@
 <script>
 import videoMp4 from './components/videoMp4'
 export default {
+    name: 'videoPlayer',
     components: {
         videoMp4,
     },

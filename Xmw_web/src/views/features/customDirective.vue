@@ -81,6 +81,7 @@
 
 <script>
 export default {
+    name: 'customDirective',
     data() {
         return {
             copyText: 'Vue XmwPro',

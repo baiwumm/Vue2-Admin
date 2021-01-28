@@ -131,6 +131,7 @@ import { getOrganizationList, addEditOrganization, deleteOrganization } from '@/
 import { dataFormat, treeData } from '@/utils/util.js'
 import iconfont from '@/core/icons'
 export default {
+    name: 'department',
     data() {
         return {
             organizationTree: [],
@@ -249,7 +250,6 @@ export default {
             _this.modelVisible = true
             _this.$nextTick(() => {
                 _this.form.setFieldsValue({
-                    ['category']: _this.category,
                     ['status']: cloneData.status,
                     ['parentId']: cloneData.parentId,
                     ['name']: cloneData.name,

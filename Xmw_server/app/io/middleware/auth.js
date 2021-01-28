@@ -5,10 +5,13 @@
 module.exports = () => {
     return async (ctx, next) => {
         const { socket, app } = ctx;
-        // 根据用户ID存储socket.id
-        let { UserID } = ctx.session.userInfo
         const id = socket.id; // 获取 Socket ID
-        app.redis.set(UserID, id); // 设置 Socket ID
+        let UserID = null
+        if (ctx.session.userInfo) {
+            // 根据用户ID存储socket.id
+            UserID = ctx.session.userInfo.UserID
+            app.redis.set(UserID, id); // 设置 Socket ID
+        }
         ctx.socket.emit('res', `Your id is ${id}`);
         await next();
         // 当websocket服务器断开连接移除socket.id

@@ -22,6 +22,7 @@
 
 <script>
 export default {
+    name: 'lazyLoad',
     data() {
         return {
             picLazyLoad: require('@/assets/images/pic_zoom.jpg'),

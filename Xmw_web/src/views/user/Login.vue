@@ -82,6 +82,7 @@ import CryptoJS from 'crypto-js'
 import { mapActions } from 'vuex'
 import { crypto_key, crypto_iv, timeFix } from '@/utils/util'
 export default {
+    name: 'Login',
     components: {
         'remote-js': {
             render(createElement) {

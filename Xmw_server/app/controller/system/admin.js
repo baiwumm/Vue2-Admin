@@ -355,11 +355,11 @@ class SystemController extends Controller {
         const { Raw } = app.Db.xmw;
         try {
             let { username, CnName } = ctx.session.userInfo
-            let { ID, username } = ctx.request.body
+            let { ID } = ctx.request.body, delName = ctx.request.body.username
             await Raw.Delete("xmw_user", {
                 wherestr: `where UserID = '${ID}'`
             });
-            await ctx.service.logs.saveLogs(username, CnName, '删除用户:' + username, '/system/userList')
+            await ctx.service.logs.saveLogs(username, CnName, '删除用户:' + delName, '/system/userList')
             ctx.body = { state: 1, msg: '删除成功!' }
         } catch (error) {
             ctx.logger.info('deleteUser方法报错：' + error)

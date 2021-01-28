@@ -165,6 +165,7 @@ import { dataFormat } from '@/utils/util.js'
 import Fuse from 'fuse.js'
 import { VEmojiPicker } from 'v-emoji-picker'
 export default {
+    name: 'chatRoom',
     components: {
         VEmojiPicker,
     },

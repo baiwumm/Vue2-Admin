@@ -1,6 +1,6 @@
 <template>
     <div @click="toggleFullscreen">
-        <a-tooltip>
+        <a-tooltip placement="bottom">
             <template slot="title"> 全屏 </template>
             <a-icon :type="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" style="font-size: 20px" />
         </a-tooltip>

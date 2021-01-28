@@ -86,6 +86,7 @@ import tableForm from './components/advancedTable/tableForm'
 import { DictionaryCD } from '@/api/public'
 import bus from '@/utils/bus'
 export default {
+    name: 'advancedTable',
     components: {
         tableFilter,
         tableTool,

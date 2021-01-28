@@ -136,6 +136,7 @@ import { dataFormat } from '@/utils/util.js'
 import bus from '@/utils/bus'
 import { DictionaryCD } from '@/api/public'
 export default {
+    name: 'announcement',
     components: {
         quillEditor,
     },

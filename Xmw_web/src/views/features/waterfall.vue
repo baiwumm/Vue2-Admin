@@ -27,6 +27,7 @@
 <script>
 import vueWaterfallEasy from 'vue-waterfall-easy'
 export default {
+    name: 'waterfall',
     components: {
         vueWaterfallEasy,
     },

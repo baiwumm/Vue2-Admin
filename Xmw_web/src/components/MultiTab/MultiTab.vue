@@ -180,6 +180,17 @@ export default {
                             </span>
                         </a-tab-pane>
                     )
+                } else {
+                    return (
+                        <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
+                            <span slot="tab">
+                                <a-badge status="processing" color="#fff" />
+                                <span style="color:#fff">
+                                    {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
+                                </span>
+                            </span>
+                        </a-tab-pane>
+                    )
                 }
             } else {
                 if (page.meta.icon && Object.prototype.toString.call(page.meta.icon) === '[object Object]') {
@@ -198,6 +209,12 @@ export default {
                                 <a-icon type={this.iconfontSvg(page.meta.icon)} />
                                 {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
                             </span>
+                        </a-tab-pane>
+                    )
+                } else {
+                    return (
+                        <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
+                            <span slot="tab">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
                         </a-tab-pane>
                     )
                 }

@@ -53,6 +53,7 @@ import 'vue2-org-tree/src/styles/org-tree.less'
 import { getOrganizationList, addEditOrganization, deleteOrganization } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
 export default {
+    name: 'architecture',
     components: {
         Vue2OrgTree,
     },

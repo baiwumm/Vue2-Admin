@@ -1,6 +1,6 @@
 <template>
     <div id="lockScreen">
-        <a-tooltip>
+        <a-tooltip placement="bottom">
             <template slot="title"> 锁屏 </template>
             <a-icon type="lock" style="font-size: 20px" @click="lockVisible = true" />
         </a-tooltip>

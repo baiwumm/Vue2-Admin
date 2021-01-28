@@ -105,12 +105,8 @@ const user = {
 
         // 登出
         Logout({ commit, state }) {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 logout().then(() => {
-                    resolve()
-                }).catch(() => {
-                    resolve()
-                }).finally(() => {
                     commit('SET_TOKEN', '')
                     commit('SET_ROLES', [])
                     storage.remove(ACCESS_TOKEN)
@@ -118,6 +114,9 @@ const user = {
                     storage.remove(SET_LOCK_PASSWD)
                     storage.remove(IS_LOCK)
                     storage.remove(LOCK_PATH)
+                    resolve()
+                }).catch(error => {
+                    reject(error)
                 })
             })
         }
