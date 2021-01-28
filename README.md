@@ -36,6 +36,8 @@ English | [简体中文](./README.zh-CN.md)
 
 - 😝 Online Preview： http://www.xmwpro.com
 
+- 🔑 username：**admin**，password：**123456**
+
 - [🚀 github warehouse address](https://github.com/FollowTrend/vue-admin-xmw-pro/)
 
 - [🚀 Code cloud warehouse address](https://gitee.com/xmwjackey/vue-admin-xmw-pro/)
