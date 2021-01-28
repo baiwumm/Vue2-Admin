@@ -28,6 +28,8 @@ English | [简体中文](./README.zh-CN.md)
 
 - 😝 Online Preview: http://www.xmwpro.com
 
+- 🔑 username：**admin**，password：**123456**
+
 - 📄 Document Address：**In the works！**
 
 - 🔗 Backend Portal：[Xmw_server](../Xmw_server)

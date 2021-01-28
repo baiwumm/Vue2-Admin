@@ -36,6 +36,8 @@
 
 - 😝 线上预览： http://www.xmwpro.com
 
+- 🔑 用户名：**admin**，密码：**123456**
+
 - [🚀 github 仓库地址](https://github.com/FollowTrend/vue-admin-xmw-pro/)
 
 - [🚀 码云仓库地址](https://gitee.com/xmwjackey/vue-admin-xmw-pro/)

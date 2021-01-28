@@ -28,6 +28,8 @@
 
 - 😝 线上预览: http://www.xmwpro.com
 
+- 🔑 用户名：**admin**，密码：**123456**
+
 - 📄 文档地址：**正在编写中！**
 
 - 🔗 后端传送门：[Xmw_server](../Xmw_server)
