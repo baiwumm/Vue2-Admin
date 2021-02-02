@@ -189,7 +189,7 @@ class HomeController extends Controller {
         const { Raw } = app.Db.xmw;
         try {
             let host = ctx.request.header.host
-            let { UserID } = ctx.session.userInfo
+            let { UserID, username, CnName } = ctx.session.userInfo
             //1.获取文件流
             const stream = await this.ctx.getFileStream();
             //2.获取图片类型
@@ -217,7 +217,7 @@ class HomeController extends Controller {
                 wherestr: `where UserID=${UserID}`
             };
             await Raw.Update('xmw_user', imgUrl, options);
-            await ctx.service.logs.saveLogs(stream.fields.UserID, '更新用户头像', '/personal/center')
+            await ctx.service.logs.saveLogs(username, CnName, '更新用户头像', '/personal/center')
             ctx.body = {
                 state: 1,
                 fullPath: 'http://' + host + '/' + basePath,
