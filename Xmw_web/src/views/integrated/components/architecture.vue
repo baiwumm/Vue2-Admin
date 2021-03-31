@@ -49,7 +49,7 @@
 </template>
 <script>
 import Vue2OrgTree from 'vue2-org-tree'
-import 'vue2-org-tree/src/styles/org-tree.less'
+import 'vue2-org-tree/dist/style.css'
 import { getOrganizationList, addEditOrganization, deleteOrganization } from '@/api/integrated'
 import { treeData } from '@/utils/util.js'
 export default {

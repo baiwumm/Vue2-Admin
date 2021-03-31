@@ -15,7 +15,7 @@ module.exports = appInfo => {
                 database: 'owner_xmw',
                 host: "127.0.0.1",
                 username: 'root',
-                password: '',
+                password: '123456',
                 dialectOptions: {
                     dateStrings: true,
                     typeCast: true
