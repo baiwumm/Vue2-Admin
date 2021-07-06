@@ -1,4 +1,3 @@
-
 import antdEnUS from 'ant-design-vue/es/locale-provider/en_US'
 import momentEU from 'moment/locale/eu'
 
@@ -28,6 +27,7 @@ const locale = {
     'menu.features.musicPlayer': 'MusicPlayer',
     'menu.features.videoPlayer': 'VideoPlayer',
     'menu.features.lazyLoad': 'LazyLoad',
+    'menu.features.virtualList': 'VirtualList',
     'menu.toolpage': 'ToolPage',
     'menu.toolpage.multistage': 'Multistage',
     'menu.toolpage.multistage.menu1': 'Menu1',

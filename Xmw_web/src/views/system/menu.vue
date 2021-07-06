@@ -337,9 +337,9 @@ export default {
         },
         handleSubmit(e) {
             let _this = this
+            e.preventDefault()
             _this.$message.warning('演示系统,禁止操作!')
             return
-            e.preventDefault()
             const {
                 form: { validateFields },
             } = _this

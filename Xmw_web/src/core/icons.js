@@ -21,6 +21,7 @@ import dictionaryIcon from '@/assets/icons/dictionary.svg?inline' // 字典管�
 import jobsIcon from '@/assets/icons/jobs.svg?inline' // 岗位
 import departmentIcon from '@/assets/icons/department.svg?inline' // 部门
 import lazyLoadIcon from '@/assets/icons/lazyLoad.svg?inline' // 懒加载
+import virtualListIcon from '@/assets/icons/virtualList.svg?inline' // 虚拟列表
 const iconfont = {
     workbenchIcon,
     integratedIcon,
@@ -43,7 +44,8 @@ const iconfont = {
     dictionaryIcon,
     jobsIcon,
     departmentIcon,
-    lazyLoadIcon
+    lazyLoadIcon,
+    virtualListIcon
 }
 
 export default iconfont

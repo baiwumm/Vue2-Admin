@@ -1,7 +1,7 @@
 <template>
     <a-row type="flex" justify="center" align="middle" :gutter="10">
         <a-col flex="60px">验证码:</a-col>
-        <a-col flex="200px">
+        <a-col :flex="width">
             <div
                 class="verify-code"
                 @click="setCode"
@@ -47,7 +47,7 @@ export default {
         // 	运算验证码的宽,支持百分比形式设置，如：width:100%
         width: {
             type: String,
-            default: '200px',
+            default: '150px',
         },
         // 运算验证码的高,支持百分比形式设置，如：height:10%
         height: {

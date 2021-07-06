@@ -4,12 +4,12 @@
             <router-view></router-view>
             <div class="footer">
                 <div class="links">
-                    <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Antd vue</a>
+                    <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
                     <a title="github" href="https://github.com/vueComponent/ant-design-vue-pro"
                         ><a-icon type="github" /></a
-                    ><a title="Antd pro vue" href="https://pro.antdv.com/">Antd pro vue</a>
+                    ><a title="Antd pro vue" href="https://pro.antdv.com/">Ant Design Pro of Vue</a>
                 </div>
-                <div class="copyright">Copyright © 2020 Xmw-Pro by XieMingwei 843348394@qq.com</div>
+                <div class="copyright">Copyright © 2021 vue-admin-xmw-pro by 843348394@qq.com</div>
             </div>
         </div>
     </div>
@@ -36,9 +36,9 @@ export default {
     .container {
         width: 100%;
         min-height: 100%;
-        background: url(~@/assets/login.png) no-repeat 50%;
+        // background: url(~@/assets/login.png) no-repeat 50%;
         background-size: cover;
-        padding: 110px 0 144px;
+        padding: 10% 0 144px;
         position: relative;
         .footer {
             position: absolute;

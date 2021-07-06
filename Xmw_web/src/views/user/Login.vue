@@ -1,13 +1,14 @@
 <template>
     <div class="login-container">
-        <div class="top">
-            <div class="header">
-                <img :src="logoSvg" class="logo" alt="logo" />
-                <span class="title">vue-admin-xmw-pro</span>
-            </div>
-            <div class="desc">真正的大师永远怀着一颗学徒的心。</div>
-        </div>
+        <particles-bg type="random" :bg="true" :config="config" />
         <a-card :bordered="false">
+            <div class="top">
+                <div class="header">
+                    <img :src="logoSvg" class="logo" alt="logo" />
+                    <span class="title">vue-admin-xmw-pro</span>
+                </div>
+                <div class="desc">真正的大师永远怀着一颗学徒的心。</div>
+            </div>
             <p class="welcome_login">欢迎登陆<em>后台管理系统</em></p>
             <a-form
                 id="formLogin"
@@ -61,7 +62,10 @@
                     ></div>
                     <remote-js src="//g.alicdn.com/sd/nvc/1.1.112/guide.js" @loaded="initCaptcha"></remote-js>
                 </a-form-item>
-                <a-form-item style="margin-top: 24px" :wrapper-col="{ span: 19, offset: 5 }">
+                <a-form-item
+                    style="margin-top: 24px"
+                    :wrapper-col="{ span: this.screenWidth <= 575 ? 24 : 19, offset: this.screenWidth <= 575 ? 0 : 5 }"
+                >
                     <a-button
                         size="large"
                         type="primary"
@@ -81,6 +85,7 @@
 import CryptoJS from 'crypto-js'
 import { mapActions } from 'vuex'
 import { crypto_key, crypto_iv, timeFix } from '@/utils/util'
+import { ParticlesBg } from 'particles-bg-vue'
 export default {
     name: 'Login',
     components: {
@@ -100,6 +105,7 @@ export default {
                 src: { type: String, required: true },
             },
         },
+        ParticlesBg,
     },
     data() {
         return {
@@ -110,6 +116,20 @@ export default {
                 state: false,
                 error: 'error',
                 message: '账户或密码错误',
+            },
+            screenWidth: document.body.clientWidth,
+            config: {
+                num: [4, 7],
+                rps: 0.1,
+                radius: [5, 40],
+                life: [1.5, 3],
+                v: [2, 3],
+                tha: [-30, 30],
+                alpha: [0.6, 0],
+                scale: [0.1, 0.4],
+                position: 'all',
+                cross: 'dead',
+                random: 15,
             },
         }
     },
@@ -245,7 +265,7 @@ export default {
                 //声明智能验证需要渲染的目标元素ID。
                 renderTo: '#aliyunVerify',
                 //智能验证组件的宽度。
-                width: 318.23,
+                width: this.screenWidth <= 575 ? 402 : 318.23,
                 //智能验证组件的高度。
                 height: 40,
                 //智能验证组件初始状态文案。
@@ -267,15 +287,24 @@ export default {
             ic.init()
         },
     },
-    mounted() {},
+    mounted() {
+        window.onresize = () => {
+            return (() => {
+                this.screenWidth = document.body.clientWidth
+            })()
+        }
+    },
+    destroyed() {
+        window.onresize = null
+    },
 }
 </script>
 
 <style lang="less" scoped>
 .login-container {
-    float: right;
+    // float: right;
     width: 450px;
-    margin-right: 10%;
+    margin: 0 auto;
     .top {
         text-align: center;
         .header {

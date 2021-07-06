@@ -113,6 +113,7 @@ yarn run build
   - Music Player
   - Video Player
   - Lazy Loading
+  - Virtual List
 
 - Tool Page
   - Picture Effect

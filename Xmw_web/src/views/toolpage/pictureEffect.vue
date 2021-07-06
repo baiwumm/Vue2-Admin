@@ -1,5 +1,5 @@
 <template>
-    <page-header-wrapper content="嵌套路由的展示和图片的一些小功能">
+    <page-header-wrapper content="收集了一些有趣常见的图片效果">
         <a-row :gutter="16">
             <a-col :span="8">
                 <a-card hoverable title="图片滑块对比" style="height: 25vw">
@@ -22,6 +22,28 @@
                     <photo-card></photo-card>
                 </a-card>
             </a-col>
+            <a-col :span="8">
+                <a-card
+                    hoverable
+                    title="磨砂玻璃效果"
+                    style="height: 25vw"
+                    :bodyStyle="{
+                        background: `url('${require('@/assets/images/studio_0002.jpg')}') 0 0/cover`,
+                        height: 'calc(100% - 104px)',
+                        width: 'calc(100% - 48px)',
+                        margin: '24px 0 0 24px',
+                    }"
+                >
+                    <div class="arenaceous">
+                        <p>xmw-admin-xmw-pro</p>
+                    </div>
+                </a-card>
+            </a-col>
+            <a-col :span="8">
+                <a-card hoverable title="图片鼠标悬停过滤器" style="height: 25vw">
+                    <photoFilter></photoFilter>
+                </a-card>
+            </a-col>
         </a-row>
     </page-header-wrapper>
 </template>
@@ -30,12 +52,14 @@
 import vabComparison from './components/comparison.vue'
 import vabMagnifier from './components/magnifie.vue'
 import photoCard from './components/photoCard.vue'
+import photoFilter from './components/photoFilter.vue'
 export default {
     name: 'pictureEffect',
     components: {
         vabComparison,
         vabMagnifier,
         photoCard,
+        photoFilter,
     },
     data() {
         return {
@@ -52,5 +76,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+/deep/ .ant-col {
+    margin-bottom: 20px;
+}
+.arenaceous {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 0px auto;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 1rem;
+    p {
+        font-size: 2vw;
+        font-family: Helvetica;
+        color: #101010;
+    }
+}
 </style>

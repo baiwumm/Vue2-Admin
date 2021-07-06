@@ -1,4 +1,3 @@
-
 <template>
     <a-config-provider :locale="locale">
         <div id="app">
