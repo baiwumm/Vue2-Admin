@@ -34,6 +34,7 @@
     "screenfull": "^5.0.2",
     "store": "^2.0.12",
     "v-emoji-picker": "^2.3.1",
+    "v-viewer": "^1.6.4",
     "vue": "^2.6.10",
     "vue-cropper": "0.4.9",
     "vue-i18n": "^8.17.4",

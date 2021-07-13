@@ -34,6 +34,7 @@ const locale = {
     'menu.toolpage.multistage.menu1.menu1-1': 'Menu1-1',
     'menu.toolpage.multistage.menu2': 'Menu2',
     'menu.toolpage.pictureEffect': 'PictureEffect',
+    'menu.toolpage.imagePreview': 'ImagePreview',
     'menu.toolpage.verify': 'Verify',
     'menu.toolpage.guide': 'Guide',
     'menu.toolpage.outerChain': 'OuterChain',

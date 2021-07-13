@@ -34,6 +34,7 @@ const locale = {
     'menu.toolpage.multistage.menu1.menu1-1': '菜单1-1',
     'menu.toolpage.multistage.menu2': '菜单2',
     'menu.toolpage.pictureEffect': '图片效果',
+    'menu.toolpage.imagePreview': '图像预览',
     'menu.toolpage.verify': '验证码',
     'menu.toolpage.guide': '引导页',
     'menu.toolpage.outerChain': '外链',
