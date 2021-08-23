@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-28 09:42:50
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-11-27 14:19:01
+ * @LastEditTime: 2021-08-23 15:15:28
  */
 'use strict';
 
@@ -18,6 +18,10 @@ module.exports = (options, app) => {
             if (url == '/' || url == '/home/login' || url == '/system/getRouterMenu' || url == '/system/webSockets') {
                 await next();
                 return;
+            }
+            console.log(ctx.request)
+            if (ctx.request.method == 'POST') {
+                return ctx.body = { state: -1, msg: '演示系统,禁止操作!' }
             }
             const token = ctx.request.header['access-token']; //获取头部token信息
             if (token) {

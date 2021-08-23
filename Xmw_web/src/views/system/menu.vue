@@ -338,8 +338,6 @@ export default {
         handleSubmit(e) {
             let _this = this
             e.preventDefault()
-            _this.$message.warning('演示系统,禁止操作!')
-            return
             const {
                 form: { validateFields },
             } = _this
@@ -428,8 +426,6 @@ export default {
                 title: '确认操作',
                 content: '此操作将删除此菜单和子菜单,请谨慎操作,您确认提交吗?',
                 onOk: async () => {
-                    _this.$message.warning('演示系统,禁止操作!')
-                    return
                     await deleteMenu(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)

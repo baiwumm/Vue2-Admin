@@ -232,13 +232,6 @@ export default {
                             if (res.state == 1) {
                                 _this.isLoginError.error = 'success'
                                 _this.$router.push({ path: '/' })
-                                // 延迟 1 秒显示欢迎信息
-                                // setTimeout(() => {
-                                //     _this.$notification.success({
-                                //         message: '欢迎',
-                                //         description: `${timeFix()}，欢迎回来`,
-                                //     })
-                                // }, 1000)
                             } else {
                                 _this.isLoginError.error = 'error'
                             }

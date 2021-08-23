@@ -502,8 +502,6 @@ export default {
                 title: '确认操作',
                 content: '您确认删除吗?',
                 onOk: async () => {
-                    _this.$message.warning('演示系统,禁止操作!')
-                    return
                     await deleteAdvancedTable(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
@@ -529,8 +527,6 @@ export default {
                 title: '确认操作',
                 content: '您确认删除吗?',
                 onOk: async () => {
-                    _this.$message.warning('演示系统,禁止操作!')
-                    return
                     await deleteAdvancedTable(params).then((res) => {
                         if (res.state == 1) {
                             _this.$message.success(res.msg)
