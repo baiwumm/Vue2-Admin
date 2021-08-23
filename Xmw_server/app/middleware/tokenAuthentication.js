@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-28 09:42:50
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2021-08-23 15:15:28
+ * @LastEditTime: 2021-08-23 15:21:12
  */
 'use strict';
 
@@ -19,7 +19,6 @@ module.exports = (options, app) => {
                 await next();
                 return;
             }
-            console.log(ctx.request)
             if (ctx.request.method == 'POST') {
                 return ctx.body = { state: -1, msg: '演示系统,禁止操作!' }
             }
