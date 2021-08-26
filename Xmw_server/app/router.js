@@ -18,6 +18,7 @@ module.exports = app => {
     router.post('/home/changeUserLabel', controller.home.home.changeUserLabel); // 修改用户标签
     router.post('/home/changeUserImg', controller.home.home.changeUserImg); // 修改用户头像
     router.get('/home/getUserPw', controller.home.home.getUserPw); // 获取当前用户密码
+    router.get('/home/generateVerifCode', controller.home.home.generateVerifCode); // 生成验证码
 
     // 系统设置模块接口
     router.get('/system/getLogsList', controller.system.admin.getLogsList); // 请求操作日志列表
@@ -56,4 +57,4 @@ module.exports = app => {
     // 聊天室模块
     router.get('/features/getChatRecord', controller.features.chat.getChatRecord); // 获取聊天记录
     router.post('/features/saveCharMsg', controller.features.chat.saveCharMsg); // 发送消息
-}; 
+};

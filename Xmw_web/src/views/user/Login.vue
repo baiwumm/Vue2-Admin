@@ -56,6 +56,24 @@
                     </a-input-password>
                 </a-form-item>
 
+                <a-form-item label="验证码">
+                    <a-input-group>
+                        <a-input
+                            size="large"
+                            style="width: 45%"
+                            v-decorator="[
+                                'verifyCode',
+                                { rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'change' },
+                            ]"
+                        />
+                        <div
+                            id="svgTemplate"
+                            v-html="svgCaptcha"
+                            v-debounce="{ callback: createSvgCaptcha, time: 500 }"
+                        ></div>
+                    </a-input-group>
+                </a-form-item>
+
                 <a-form-item style="margin-top: 24px" :wrapper-col="{ span: 19, offset: 5 }">
                     <a-button
                         size="large"
@@ -76,6 +94,7 @@ import CryptoJS from 'crypto-js'
 import { mapActions } from 'vuex'
 import { crypto_key, crypto_iv } from '@/utils/util'
 import { ParticlesBg } from 'particles-bg-vue'
+import { generateVerifCode } from '@/api/login'
 export default {
     name: 'Login',
     components: {
@@ -104,6 +123,7 @@ export default {
                 cross: 'dead',
                 random: 15,
             },
+            svgCaptcha: ''
         }
     },
     methods: {
@@ -116,7 +136,7 @@ export default {
                 Login,
             } = _this
             _this.loginState = true
-            const validateFieldsKey = ['username', 'password']
+            const validateFieldsKey = ['username', 'password', 'verifyCode']
             validateFields(validateFieldsKey, { force: true }, (err, values) => {
                 if (!err) {
                     const loginParams = { ...values }
@@ -136,6 +156,7 @@ export default {
                                 _this.isLoginError.error = 'success'
                                 _this.$router.push({ path: '/' })
                             } else {
+                                this.createSvgCaptcha()
                                 _this.isLoginError.error = 'error'
                             }
                         })
@@ -155,7 +176,15 @@ export default {
                 }
             })
         },
-    }
+        async createSvgCaptcha() {
+            let { result } = await generateVerifCode()
+            this.svgCaptcha = result
+        }
+    },
+    mounted() {
+        this.form.setFieldsValue({ username: 'admin', password: '123456' })
+        this.createSvgCaptcha()
+    },
 }
 </script>
 
@@ -221,5 +250,9 @@ export default {
             }
         }
     }
+}
+#svgTemplate {
+    cursor: pointer;
+    margin-left: 20px;
 }
 </style>

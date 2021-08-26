@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:34:18
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-12-07 17:25:16
+ * @LastEditTime: 2021-08-26 16:03:01
  */
 import request from '@/utils/request'
 
@@ -16,6 +16,7 @@ const userApi = {
     changeUserLabel: '/home/changeUserLabel',
     changeUserImg: '/home/changeUserImg',
     UserPw: '/home/getUserPw',
+    generateVerifCode: '/home/generateVerifCode',
 }
 // 用户登录
 export function login(parameter) {
@@ -70,6 +71,15 @@ export function changeUserImg(parameter) {
 export function UserPw(parameter) {
     return request({
         url: userApi.UserPw,
+        method: 'get',
+        params: parameter
+    })
+}
+
+// 生成验证码
+export function generateVerifCode(parameter) {
+    return request({
+        url: userApi.generateVerifCode,
         method: 'get',
         params: parameter
     })

@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-09-17 09:44:16
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2020-12-07 17:23:51
+ * @LastEditTime: 2021-08-26 16:09:10
  */
 'use strict';
 
@@ -14,16 +14,21 @@ const jwt = require('jsonwebtoken');
 const awaitWriteStream = require("await-stream-ready").write;
 const fs = require('fs');
 const path = require('path');
+const svgCaptcha = require('svg-captcha');
 class HomeController extends Controller {
     // 用户登录
     async login() {
         const { app, ctx } = this;
         const { Raw } = app.Db.xmw;
         try {
-            let { username, password } = ctx.request.body
+            let { username, password, verifyCode } = ctx.request.body
             let payload = ctx.request.body
             let LoginIP = ctx.request.ip
             let token = jwt.sign(payload, this.config.privateKey, { expiresIn: this.config.expiresIn });  //生成token
+            // 判断验证码是否正确
+            if (ctx.session.verifCode != verifyCode) {
+                return ctx.body = { state: 0, msg: '验证码错误!' }
+            }
             // 判断用户名密码是否正确
             const results = await Raw.QueryList(`select * from xmw_user where username = '${username}' and password = '${password}'`);
             if (results.length) {
@@ -241,6 +246,34 @@ class HomeController extends Controller {
         } catch (error) {
             ctx.logger.info('getUserPw方法报错：' + error)
             ctx.body = { state: 0, msg: '请求失败!', error: error }
+        }
+    }
+
+    /**
+     * @description: 生成验证码
+     * @param {*}
+     * @return {*}
+     */
+    async generateVerifCode() {
+        const { ctx } = this;
+        try {
+            const codeConfig = {
+                size: 4, // 验证码长度
+                ignoreChars: '0oO1ilI', // 验证码字符中排除 0oO1ilI
+                noise: 2, // 干扰线条的数量
+                width: 160,
+                height: 40,
+                fontSize: 50,
+                color: true, // 验证码的字符是否有颜色，默认没有，如果设定了背景，则默认有
+                background: '#fff',
+            };
+            const captcha = svgCaptcha.create(codeConfig);
+            ctx.response.type = 'image/svg+xml';
+            ctx.session.verifCode = captcha.text.toLowerCase(); // 存session用于验证接口获取文字码
+            ctx.body = { state: 1, msg: '请求成功!', result: captcha.data }
+        } catch (error) {
+            ctx.logger.info('generateVerifCode方法报错：' + error)
+            ctx.body = { state: 400, msg: '请求失败!', result: error }
         }
     }
 }

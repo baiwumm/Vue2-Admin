@@ -4,7 +4,7 @@
  * @Autor: Xie Mingwei
  * @Date: 2020-10-28 09:42:50
  * @LastEditors: Xie Mingwei
- * @LastEditTime: 2021-08-23 15:21:12
+ * @LastEditTime: 2021-08-26 16:05:46
  */
 'use strict';
 
@@ -15,7 +15,7 @@ module.exports = (options, app) => {
         try {
             const { Raw } = app.Db.xmw;
             const url = ctx.request.url;
-            if (url == '/' || url == '/home/login' || url == '/system/getRouterMenu' || url == '/system/webSockets') {
+            if (url == '/' || url == '/home/login' || url == '/system/getRouterMenu' || url == '/system/webSockets' || url == '/home/generateVerifCode') {
                 await next();
                 return;
             }
