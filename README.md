@@ -46,6 +46,8 @@ English | [简体中文](./README.zh-CN.md)
 
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
+- 😝 Vue3+Typescript Version： [vue3-admin-xmw-pro](https://gitee.com/xmwjackey/vue3-admin-xmw-pro/)
+
 ## Environment and Dependencies
 
 - node

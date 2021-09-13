@@ -46,6 +46,8 @@
 
 - ❤️ star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
+- 😝 Vue3+Typescript版本： [vue3-admin-xmw-pro](https://gitee.com/xmwjackey/vue3-admin-xmw-pro/)
+
 ## 环境和依赖
 
 - node
