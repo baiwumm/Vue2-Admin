@@ -2,3 +2,4 @@ nginx-1.19.5
 *.zip
 /*.rar
 /*.sql
+/Xmw_web/*.rar
