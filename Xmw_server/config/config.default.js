@@ -12,10 +12,10 @@ module.exports = appInfo => {
         Db: {
             xmw: {
                 dialect: "mysql",
-                database: 'owner_xmw',
+                database: 'vue-xmw-admin-pro',
                 host: "127.0.0.1",
                 username: 'root',
-                password: '123456',
+                password: '',
                 dialectOptions: {
                     dateStrings: true,
                     typeCast: true
