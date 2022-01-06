@@ -46,7 +46,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
-- 😝 Vue3+Typescript Version： [vue3-admin-xmw-pro](https://gitee.com/Cyan-Xmw/vue3-admin-xmw-pro/)
+- 😝 Vue3+Typescript Version： [vue3-xmw-admin-pro](https://gitee.com/Cyan-Xmw/vue3-xmw-admin-pro/)
 
 ## Environment and Dependencies
 
