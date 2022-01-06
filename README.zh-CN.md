@@ -61,8 +61,8 @@
 
 - 拉取项目代码
 ```bash
-git clone https://github.com/FollowTrend/vue-admin-xmw-pro.git
-cd vue-admin-xmw-pro
+git clone https://github.com/Cyan-Xmw/vue-xmw-admin-pro.git
+cd vue-xmw-admin-pro
 // 进入前端
 cd Xmw_web
 // 进入后端

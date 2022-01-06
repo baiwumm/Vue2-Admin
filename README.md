@@ -61,8 +61,8 @@ English | [简体中文](./README.zh-CN.md)
 
 - Pull the project code
 ```bash
-git clone https://github.com/FollowTrend/vue-admin-xmw-pro.git
-cd vue-admin-xmw-pro
+git clone https://github.com/Cyan-Xmw/vue-xmw-admin-pro.git
+cd vue-xmw-admin-pro
 cd Xmw_web
 ```
 
