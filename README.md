@@ -24,7 +24,7 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Project Description
 
- [vue-admin-xmw-pro](http://www.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
+ [vue-admin-xmw-pro](http://vue2.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
 - 🎯 Front-end technology stack： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
 
@@ -34,7 +34,7 @@ English | [简体中文](./README.zh-CN.md)
 
 - 🔗 Backend Portal： [Xmw_server](./Xmw_server)
 
-- 😝 Online Preview： http://www.xmwpro.com
+- 😝 Online Preview： http://vue2.xmwpro.com
 
 - 🔑 username：**admin**，password：**123456**
 
