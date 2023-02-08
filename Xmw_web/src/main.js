@@ -17,7 +17,7 @@ import './global.less'
 import VueSocketIO from 'vue-socket.io'
 Vue.use(new VueSocketIO({
     debug: false,
-    connection: 'http://www.xmwpro.com/'
+    connection: 'http://vue2.xmwpro.com/'
 }))
 
 Vue.config.productionTip = false
