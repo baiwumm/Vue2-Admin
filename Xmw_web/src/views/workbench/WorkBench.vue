@@ -1,164 +1,173 @@
 <template>
-    <page-header-wrapper>
-        <template v-slot:content>
-            <div class="page-header-content">
-                <div class="avatar">
-                    <a-avatar size="large" :src="user.avatar" v-if="user.avatar" />
-                    <a-avatar size="large" v-else class="user-avatar">{{
-                        user.CnName.substr(user.CnName.length - 2, 2)
-                    }}</a-avatar>
-                </div>
-                <div class="content">
-                    <div class="content-title">
-                        {{ timeFix }}，{{ user.CnName }}<span class="welcome-text">，{{ welcome }}</span>
-                    </div>
-                    <div>{{ department }}</div>
-                </div>
-            </div>
-        </template>
-        <template v-slot:extraContent>
-            <div class="extra-content">
-                <div class="stat-item">
-                    <a-statistic title="项目数" :value="56" />
-                </div>
-                <div class="stat-item">
-                    <a-statistic title="团队内排名" :value="8" suffix="/ 24" />
-                </div>
-                <div class="stat-item">
-                    <a-statistic title="项目访问" :value="2223" />
-                </div>
-            </div>
-        </template>
-        <a-row :gutter="24">
-            <!-- 总销售额 -->
-            <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="总销售额" :total="'¥' + formatDigital(126560, 2)">
-                    <a-tooltip title="指标说明" slot="action">
-                        <a-icon type="info-circle-o" />
-                    </a-tooltip>
-                    <div>
-                        <trend flag="up" style="margin-right: 16px">
-                            <span slot="term">周同比</span>
-                            12%
-                        </trend>
-                        <trend flag="down">
-                            <span slot="term">日同比</span>
-                            11%
-                        </trend>
-                    </div>
-                    <template slot="footer"
-                        >日均销售额 <span>{{ '¥' + formatDigital(234.56, 2) }}</span></template
-                    >
-                </chart-card>
-            </a-col>
-            <!-- 访问量 -->
-            <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="访问量" :total="formatDigital(8846.02)">
-                    <a-tooltip title="指标说明" slot="action">
-                        <a-icon type="info-circle-o" />
-                    </a-tooltip>
-                    <div style="margin-bottom: -10px">
-                        <mini-area :value="miniAreaData" :Height="60" />
-                    </div>
-                    <template slot="footer"
-                        >日访问量<span>{{ formatDigital(5623, 0) }}</span></template
-                    >
-                </chart-card>
-            </a-col>
-            <!-- 支付笔数 -->
-            <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="支付笔数" :total="formatDigital(6560, 0)">
-                    <a-tooltip title="指标说明" slot="action">
-                        <a-icon type="info-circle-o" />
-                    </a-tooltip>
-                    <div style="margin-bottom: -10px">
-                        <mini-bar :value="miniBarData" :Height="60" />
-                    </div>
-                    <template slot="footer">转化率<span>60%</span></template>
-                </chart-card>
-            </a-col>
-            <!-- 客户满意度 -->
-            <a-col :sm="24" :md="12" :xl="6">
-                <chart-card :loading="loading" title="客户满意度" total="80">
-                    <a-tooltip title="指标说明" slot="action">
-                        <a-icon type="info-circle-o" />
-                    </a-tooltip>
-                    <div style="margin-bottom: -15px">
-                        <mini-bullet :value="miniBulletData" :Height="60" />
-                    </div>
-                    <template slot="footer">
-                        <trend flag="down" style="margin-right: 16px">
-                            <span slot="term">周同比</span>
-                            12%
-                        </trend>
-                        <trend flag="up">
-                            <span slot="term">日同比</span>
-                            80%
-                        </trend>
-                    </template>
-                </chart-card>
-            </a-col>
-        </a-row>
-        <a-row :gutter="20">
-            <a-col :xs="24" :sm="12" :md="6" :lg="3" :xl="3" v-for="(item, index) in navList" :key="index">
-                <router-link :to="item.link">
-                    <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center' }">
-                        <a-icon
-                            :component="iconfontSvg(item.icon)"
-                            :style="{ fontSize: '30px', color: item.color }"
-                            v-if="item.icon && item.icon.includes('Icon')"
-                        />
-                        <a-icon
-                            :type="iconfontSvg(item.icon)"
-                            :style="{ fontSize: '30px', color: item.color }"
-                            v-else-if="item.icon"
-                        />
-                        <p style="color: #303133; font-size: 16px; margin: 10px 0 0">{{ item.title }}</p>
-                    </a-card>
-                </router-link>
-            </a-col>
-        </a-row>
-        <a-row :gutter="20">
-            <a-col :sm="24" :md="12" :xl="10">
-                <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
-                    <column-plot :value="columnPlotData" :Height="250"></column-plot>
-                </a-card>
-            </a-col>
-            <a-col :sm="24" :md="12" :xl="14">
-                <a-card :bordered="false" hoverable title="每月收支情况">
-                    <Waterfall :Height="250" :value="WaterfallData"></Waterfall>
-                </a-card>
-            </a-col>
-        </a-row>
-        <a-row :gutter="20">
-            <a-col :xs="24" :sm="24" :md="24" :lg="10" :xl="10">
-                <a-card title="开发技术栈" hoverable>
-                    <a-button type="primary" slot="extra"> egg.js+vue+antd-vue+mysql+redis </a-button>
-                    <a-descriptions bordered :column="2">
-                        <a-descriptions-item
-                            :label="item.technology"
-                            v-for="(item, index) in technologyStack"
-                            :key="index"
-                            >{{ item.version }}</a-descriptions-item
-                        >
-                    </a-descriptions>
-                </a-card>
-            </a-col>
-            <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14">
-                <a-card title="Xmw Pro git日志" hoverable>
-                    <a-timeline>
-                        <a-timeline-item v-for="(item, index) in updateTime" :key="index">
-                            <a-icon slot="dot" type="clock-circle-o" style="font-size: 16px" />
-                            <div class="describe">{{ item.describe }}</div>
-                            <div class="timestamp" style="color: #909399; font-size: 13px">
-                                {{ item.timestamp }}
-                            </div>
-                        </a-timeline-item>
-                    </a-timeline>
-                </a-card>
-            </a-col>
-        </a-row>
-    </page-header-wrapper>
+  <page-header-wrapper>
+    <template v-slot:content>
+      <div class="page-header-content">
+        <div class="avatar">
+          <a-avatar size="large" :src="user.avatar" v-if="user.avatar" />
+          <a-avatar size="large" v-else class="user-avatar">{{
+            user.CnName.substr(user.CnName.length - 2, 2)
+          }}</a-avatar>
+        </div>
+        <div class="content">
+          <div class="content-title">
+            {{ timeFix }}，{{ user.CnName }}<span class="welcome-text">，{{ welcome }}</span>
+          </div>
+          <div>{{ department }}</div>
+        </div>
+      </div>
+    </template>
+    <template v-slot:extraContent>
+      <div class="extra-content">
+        <div class="stat-item">
+          <a-statistic title="项目数" :value="56" />
+        </div>
+        <div class="stat-item">
+          <a-statistic title="团队内排名" :value="8" suffix="/ 24" />
+        </div>
+        <div class="stat-item">
+          <a-statistic title="项目访问" :value="2223" />
+        </div>
+      </div>
+    </template>
+    <a-row :gutter="24">
+      <!-- 总销售额 -->
+      <a-col :sm="24" :md="12" :xl="6">
+        <chart-card :loading="loading" title="总销售额" :total="'¥' + formatDigital(126560, 2)">
+          <a-tooltip title="指标说明" slot="action">
+            <a-icon type="info-circle-o" />
+          </a-tooltip>
+          <div>
+            <trend flag="up" style="margin-right: 16px">
+              <span slot="term">周同比</span>
+              12%
+            </trend>
+            <trend flag="down">
+              <span slot="term">日同比</span>
+              11%
+            </trend>
+          </div>
+          <template
+            slot="footer"
+          >日均销售额 <span>{{ '¥' + formatDigital(234.56, 2) }}</span></template
+          >
+        </chart-card>
+      </a-col>
+      <!-- 访问量 -->
+      <a-col :sm="24" :md="12" :xl="6">
+        <chart-card :loading="loading" title="访问量" :total="formatDigital(8846.02)">
+          <a-tooltip title="指标说明" slot="action">
+            <a-icon type="info-circle-o" />
+          </a-tooltip>
+          <div style="margin-bottom: -10px">
+            <mini-area :value="miniAreaData" :Height="60" />
+          </div>
+          <template
+            slot="footer"
+          >日访问量<span>{{ formatDigital(5623, 0) }}</span></template
+          >
+        </chart-card>
+      </a-col>
+      <!-- 支付笔数 -->
+      <a-col :sm="24" :md="12" :xl="6">
+        <chart-card :loading="loading" title="支付笔数" :total="formatDigital(6560, 0)">
+          <a-tooltip title="指标说明" slot="action">
+            <a-icon type="info-circle-o" />
+          </a-tooltip>
+          <div style="margin-bottom: -10px">
+            <mini-bar :value="miniBarData" :Height="60" />
+          </div>
+          <template slot="footer">转化率<span>60%</span></template>
+        </chart-card>
+      </a-col>
+      <!-- 客户满意度 -->
+      <a-col :sm="24" :md="12" :xl="6">
+        <chart-card :loading="loading" title="客户满意度" total="80">
+          <a-tooltip title="指标说明" slot="action">
+            <a-icon type="info-circle-o" />
+          </a-tooltip>
+          <div style="margin-bottom: -15px">
+            <mini-bullet :value="miniBulletData" :Height="60" />
+          </div>
+          <template slot="footer">
+            <trend flag="down" style="margin-right: 16px">
+              <span slot="term">周同比</span>
+              12%
+            </trend>
+            <trend flag="up">
+              <span slot="term">日同比</span>
+              80%
+            </trend>
+          </template>
+        </chart-card>
+      </a-col>
+    </a-row>
+    <a-row :gutter="20">
+      <a-col
+        :xs="24"
+        :sm="12"
+        :md="6"
+        :lg="3"
+        :xl="3"
+        v-for="(item, index) in navList"
+        :key="index">
+        <router-link :to="item.link">
+          <a-card :bordered="false" hoverable :bodyStyle="{ textAlign: 'center' }">
+            <a-icon
+              :component="iconfontSvg(item.icon)"
+              :style="{ fontSize: '30px', color: item.color }"
+              v-if="item.icon && item.icon.includes('Icon')"
+            />
+            <a-icon
+              :type="iconfontSvg(item.icon)"
+              :style="{ fontSize: '30px', color: item.color }"
+              v-else-if="item.icon"
+            />
+            <p style="color: #303133; font-size: 16px; margin: 10px 0 0">{{ item.title }}</p>
+          </a-card>
+        </router-link>
+      </a-col>
+    </a-row>
+    <a-row :gutter="20">
+      <a-col :sm="24" :md="12" :xl="10">
+        <a-card :bordered="false" hoverable title="2020年9月编程语言排行榜TOP10">
+          <column-plot :value="columnPlotData" :Height="250"></column-plot>
+        </a-card>
+      </a-col>
+      <a-col :sm="24" :md="12" :xl="14">
+        <a-card :bordered="false" hoverable title="每月收支情况">
+          <Waterfall :Height="250" :value="WaterfallData"></Waterfall>
+        </a-card>
+      </a-col>
+    </a-row>
+    <a-row :gutter="20">
+      <a-col :xs="24" :sm="24" :md="24" :lg="10" :xl="10">
+        <a-card title="开发技术栈" hoverable>
+          <a-button type="primary" slot="extra"> egg.js+vue+antd-vue+mysql+redis </a-button>
+          <a-descriptions bordered :column="2">
+            <a-descriptions-item
+              :label="item.technology"
+              v-for="(item, index) in technologyStack"
+              :key="index"
+            >{{ item.version }}</a-descriptions-item
+            >
+          </a-descriptions>
+        </a-card>
+      </a-col>
+      <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14">
+        <a-card title="Vue2 Admin git日志" hoverable>
+          <a-timeline>
+            <a-timeline-item v-for="(item, index) in updateTime" :key="index">
+              <a-icon slot="dot" type="clock-circle-o" style="font-size: 16px" />
+              <div class="describe">{{ item.describe }}</div>
+              <div class="timestamp" style="color: #909399; font-size: 13px">
+                {{ item.timestamp }}
+              </div>
+            </a-timeline-item>
+          </a-timeline>
+        </a-card>
+      </a-col>
+    </a-row>
+  </page-header-wrapper>
 </template>
 
 <script>
@@ -440,7 +449,7 @@ export default {
             return this.$store.getters.userInfo
         },
         department() {
-            let department = JSON.parse(JSON.stringify(this.user.department))
+            const department = JSON.parse(JSON.stringify(this.user.department))
             return department.join('-')
         },
     },

@@ -12,10 +12,10 @@ module.exports = appInfo => {
         Db: {
             xmw: {
                 dialect: "mysql",
-                database: 'vue-xmw-admin-pro',
+                database: 'vue2_xmwpro_com',
                 host: "127.0.0.1",
                 username: 'root',
-                password: '',
+                password: '123456',
                 dialectOptions: {
                     dateStrings: true,
                     typeCast: true
@@ -74,15 +74,16 @@ module.exports = appInfo => {
     config.proxy = true;
     config.expiresIn = 3 * 24 * 60 * 60;// token过期时间 单位秒，默认3天
     config.privateKey = 'Xmingwei'; // token密钥，生成解析token
+    // 取消安全证书验证
     config.security = {
         csrf: {
             enable: false,
         },
-        domainWhiteList: ['http://127.0.0.1:8000']
+        domainWhiteList: ["*"], // 白名单
     }
     config.cors = {
-        origin: 'http://127.0.0.1:8000',//匹配规则  域名+端口  *则为全匹配
-        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+        origin: "*", // 跨任何域
+        allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS", // 被允许的请求方式
         credentials: true // 支持cookie跨域
     };
     // 文件上传

@@ -5,7 +5,7 @@
             <div class="top">
                 <div class="header">
                     <img :src="logoSvg" class="logo" alt="logo" />
-                    <span class="title">vue-admin-xmw-pro</span>
+                    <span class="title">Vue2 Admin</span>
                 </div>
                 <div class="desc">真正的大师永远怀着一颗学徒的心。</div>
             </div>

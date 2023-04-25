@@ -123,5 +123,5 @@ Vue.use(MultiTab)
 Vue.use(VueCropper)
 Vue.use(Directives)
 
-console.log("%c vue-admin-xmw-pro %c 邮箱地址：843348394@qq.com", "background-color:rgb(3,3,7);font-size:12px;padding:8px;color:rgb(250,223,123);", "background-color:rgb(250,223,123);font-size:12px;padding:8px;color:rgb(3,3,7);");
+console.log('%c Vue2 Admin %c 邮箱地址：843348394@qq.com', 'background-color:rgb(3,3,7);font-size:12px;padding:8px;color:rgb(250,223,123);', 'background-color:rgb(250,223,123);font-size:12px;padding:8px;color:rgb(3,3,7);')
 

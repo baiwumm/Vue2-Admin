@@ -1,26 +1,29 @@
 <template>
-    <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
-        <div class="container">
-            <router-view></router-view>
-            <div class="footer">
-                <div class="links">
-                    <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
-                    <a title="github" href="https://github.com/vueComponent/ant-design-vue-pro"
-                        ><a-icon type="github" /></a
-                    ><a title="Antd pro vue" href="https://pro.antdv.com/">Ant Design Pro of Vue</a>
-                </div>
-                <div class="copyright">
-                    Copyright © 2021 vue-admin-xmw-pro by 843348394@qq.com<a
-                        href="https://beian.miit.gov.cn/"
-                        target="_blank"
-                        style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
-                    >
-                        粤ICP备2023007649号
-                    </a>
-                </div>
-            </div>
+  <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
+    <div class="container">
+      <router-view></router-view>
+      <div class="footer">
+        <div class="links">
+          <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
+          <a
+            title="github"
+            href="https://github.com/Cyan-Xmw/Vue2-Admin/"
+            target="_blank"
+          ><a-icon type="github" /></a
+          ><a title="Antd pro vue" href="https://pro.antdv.com/">Ant Design Pro of Vue</a>
         </div>
+        <div class="copyright">
+          Copyright © 2021 Vue2 Admin by 843348394@qq.com<a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
+          >
+            粤ICP备2023007649号
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>

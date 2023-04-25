@@ -23,7 +23,7 @@ export default {
     menu: {
         locale: true
     },
-    title: 'Xmw Pro',
+    title: 'Vue2 Admin',
     pwa: false,
     iconfontUrl: '',
     multiTab: true,
