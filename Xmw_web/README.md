@@ -24,7 +24,7 @@
 
 ## 项目简介
 
-[Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，它基于 [vue.js](https://github.com/vuejs/vue/) 和 [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，它基于 [Vue2.0](https://github.com/vuejs/vue/) 和 [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro/)实现。它使用了最新的前端技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 😝 线上预览: http://vue2.xmwpro.com
 
@@ -147,7 +147,7 @@ yarn run build
 
 | 项目                                                          |
 | ---------------------------------------------------------------- |
-| [vue.js 构建用户界面的渐进式框架](https://github.com/vuejs/vue)                              |
+| [Vue2.0 构建用户界面的渐进式框架](https://github.com/vuejs/vue)                              |
 | [Ant Design Vue Pro基于Antd Vue的前端脚手架](https://github.com/vueComponent/ant-design-vue-pro)     |
 | [Ant Design Vue-开箱即用的高质量Vue组件](https://github.com/vueComponent/ant-design-vue) |
-| [axios 基于 promise 的 HTTP 库](https://github.com/axios/axios)                          |
+| [Axios 基于 promise 的 HTTP 库](https://github.com/axios/axios)                          |

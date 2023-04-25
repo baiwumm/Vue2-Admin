@@ -24,7 +24,7 @@ English | [简体中文](./README.md)
 
 ## Project Description
 
-[Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions, It is based on [vue.Js] (https://github.com/vuejs/vue/) and [ant-design-vue-pro] (https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
+[Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions, It is based on [Vue2.0](https://github.com/vuejs/vue/) and [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
 
 - 😝 Online Preview: http://vue2.xmwpro.com
 
@@ -147,7 +147,7 @@ yarn run build
 
 | Project                                                          |
 | ---------------------------------------------------------------- |
-| [vue.js Build an incremental framework for the user interface](https://github.com/vuejs/vue)                              |
+| [Vue2.0 Build an incremental framework for the user interface](https://github.com/vuejs/vue)                              |
 | [Ant Design Vue Pro Front-end scaffolding based on ANTD VUE](https://github.com/vueComponent/ant-design-vue-pro)     |
 | [Ant Design Vue-High quality VUE components right out of the box](https://github.com/vueComponent/ant-design-vue) |
-| [axios Promise-based HTTP library](https://github.com/axios/axios)   |
+| [Axios Promise-based HTTP library](https://github.com/axios/axios)   |

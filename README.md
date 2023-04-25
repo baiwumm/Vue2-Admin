@@ -26,11 +26,11 @@
 
   [Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，采用前后端分离技术开发。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
-- 🎯 前端技术栈： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
+- 🎯 前端技术栈： [Vue2.0](https://github.com/vuejs/vue/)、[Ant Design Vue](https://github.com/vueComponent/ant-design-vue/)、[Axios](https://github.com/axios/axios/)、[G2plot](https://github.com/antvis/G2Plot/)
 
 - 🔗 前端传送门： [Xmw_web](./Xmw_web)
 
-- 🎯 后端技术栈： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
+- 🎯 后端技术栈： [Egg.js](https://github.com/eggjs/egg/)、[Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[Sequelize](https://github.com/sequelize/sequelize/)、[Redis](https://github.com/redis/redis/)
 
 - 🔗 后端传送门： [Xmw_server](./Xmw_server)
 
@@ -145,11 +145,11 @@ yarn run build
 
 | 项目                                                          |
 | ---------------------------------------------------------------- |
-| [vue.js 构建用户界面的渐进式框架](https://github.com/vuejs/vue/)                              |
+| [Vue2.0 构建用户界面的渐进式框架](https://github.com/vuejs/vue/)                              |
 | [Ant Design Vue Pro基于Antd Vue的前端脚手架](https://github.com/vueComponent/ant-design-vue-pro/)     |
 | [Ant Design Vue-开箱即用的高质量Vue组件](https://github.com/vueComponent/ant-design-vue/) |
-| [axios 基于 promise 的 HTTP 库](https://github.com/axios/axios/)                          |
-| [egg.js 为企业级框架和应用而生](https://github.com/eggjs/egg/)                              |
-| [egg-socket.io 支持浏览器和服务器之间的实时、双向和基于事件的通信](https://github.com/eggjs/egg-socket.io/)     |
-| [jsonwebtoken 实现token技术的一种解决方案](https://github.com/auth0/node-jsonwebtoken/) |
-| [sequelize orm框架](https://github.com/sequelize/sequelize/)                          |
+| [Axios 基于 promise 的 HTTP 库](https://github.com/axios/axios/)                          |
+| [Egg.js 为企业级框架和应用而生](https://github.com/eggjs/egg/)                              |
+| [Egg-socket.io 支持浏览器和服务器之间的实时、双向和基于事件的通信](https://github.com/eggjs/egg-socket.io/)     |
+| [Jsonwebtoken 实现token技术的一种解决方案](https://github.com/auth0/node-jsonwebtoken/) |
+| [Sequelize orm框架](https://github.com/sequelize/sequelize/)                          |

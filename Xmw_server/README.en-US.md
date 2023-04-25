@@ -27,7 +27,7 @@ English | [简体中文](./README.md)
 
 ## Project Description
 
-[Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions, The back-end is based on [egg.js](https://github.com/eggjs/egg/) and [sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
+[Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions, The back-end is based on [Egg.js](https://github.com/eggjs/egg/) and [Sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
 - 😝 Online Preview: http://vue2.xmwpro.com
 
@@ -84,7 +84,7 @@ yarn run dev
 
 | Project                                                          |
 | ---------------------------------------------------------------- |
-| [egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg)                              |
-| [egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io)     |
-| [jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken) |
-| [sequelize Orm framework](https://github.com/sequelize/sequelize)                          |
+| [Egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg)                              |
+| [Egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io)     |
+| [Jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken) |
+| [Sequelize Orm framework](https://github.com/sequelize/sequelize)                          |

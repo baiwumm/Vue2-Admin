@@ -26,11 +26,11 @@ English | [简体中文](./README.md)
 
  [Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
-- 🎯 Front-end technology stack： [vue.js](https://github.com/vuejs/vue/)、[ant-design-vue](https://github.com/vueComponent/ant-design-vue/)、[axios](https://github.com/axios/axios/)、[g2plot](https://github.com/antvis/G2Plot/)
+- 🎯 Front-end technology stack： [vUE2.0](https://github.com/vuejs/vue/)、[Ant Design Vue](https://github.com/vueComponent/ant-design-vue/)、[Axios](https://github.com/axios/axios/)、[G2plot](https://github.com/antvis/G2Plot/)
 
 - 🔗 Front Gate： [Xmw_web](./Xmw_web)
 
-- 🎯 Backend technology stack： [egg.js](https://github.com/eggjs/egg/)、[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[sequelize](https://github.com/sequelize/sequelize/)、[redis](https://github.com/redis/redis/)
+- 🎯 Backend technology stack： [Egg.js](https://github.com/eggjs/egg/)、[Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/)、[Sequelize](https://github.com/sequelize/sequelize/)、[Redis](https://github.com/redis/redis/)
 
 - 🔗 Backend Portal： [Xmw_server](./Xmw_server)
 
@@ -139,11 +139,11 @@ yarn run build
 
 | Project                                                          |
 | ---------------------------------------------------------------- |
-| [vue.js Build an incremental framework for the user interface](https://github.com/vuejs/vue/)                              |
+| [Vue2.0 Build an incremental framework for the user interface](https://github.com/vuejs/vue/)                              |
 | [Ant Design Vue Pro Front-end scaffolding based on ANTD VUE](https://github.com/vueComponent/ant-design-vue-pro/)     |
 | [Ant Design Vue-High quality VUE components right out of the box](https://github.com/vueComponent/ant-design-vue/) |
-| [axios Promise-based HTTP library](https://github.com/axios/axios/)   |
-| [egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg/)                              |
-| [egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io/)     |
-| [jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken/) |
-| [sequelize Orm framework](https://github.com/sequelize/sequelize/)                          |
+| [Axios Promise-based HTTP library](https://github.com/axios/axios/)   |
+| [Egg.js Designed for enterprise-class frameworks and applications](https://github.com/eggjs/egg/)                              |
+| [Egg-socket.io enables real-time, bidirectional and event-based communication between the browser and the server](https://github.com/eggjs/egg-socket.io/)     |
+| [Jsonwebtoken A solution to implement Token technology](https://github.com/auth0/node-jsonwebtoken/) |
+| [Sequelize Orm framework](https://github.com/sequelize/sequelize/)                          |

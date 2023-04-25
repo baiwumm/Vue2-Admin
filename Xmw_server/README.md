@@ -27,7 +27,7 @@
 
 ## 项目简介
 
-[Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [egg.js](https://github.com/eggjs/egg/) 和 [sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [Egg.js](https://github.com/eggjs/egg/) 和 [Sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 😝 线上预览: http://vue2.xmwpro.com
 
@@ -83,7 +83,7 @@ yarn run dev
 
 | 项目                                                          |
 | ---------------------------------------------------------------- |
-| [egg.js 为企业级框架和应用而生](https://github.com/eggjs/egg)                              |
-| [egg-socket.io 支持浏览器和服务器之间的实时、双向和基于事件的通信](https://github.com/eggjs/egg-socket.io)     |
-| [jsonwebtoken 实现token技术的一种解决方案](https://github.com/auth0/node-jsonwebtoken) |
-| [sequelize orm框架](https://github.com/sequelize/sequelize)                          |
+| [Egg.js 为企业级框架和应用而生](https://github.com/eggjs/egg)                              |
+| [Egg-socket.io 支持浏览器和服务器之间的实时、双向和基于事件的通信](https://github.com/eggjs/egg-socket.io)     |
+| [Jsonwebtoken 实现token技术的一种解决方案](https://github.com/auth0/node-jsonwebtoken) |
+| [Sequelize orm框架](https://github.com/sequelize/sequelize)                          |
