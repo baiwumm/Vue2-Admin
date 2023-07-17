@@ -31,8 +31,6 @@ English | [简体中文](./README.md)
 
 - 😝 Online Preview: https://vue2.xmwpro.com
 
-- 📄 Document Address：**In the works！**
-
 - 🔗 Front Gate：[Xmw_web](../Xmw_web)
 
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**

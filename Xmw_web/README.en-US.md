@@ -30,8 +30,6 @@ English | [简体中文](./README.md)
 
 - 🔑 username：**admin**，password：**123456**
 
-- 📄 Document Address：**In the works！**
-
 - 🔗 Backend Portal：[Xmw_server](../Xmw_server)
 
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**

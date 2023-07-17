@@ -42,8 +42,6 @@ English | [简体中文](./README.md)
 
 - [🚀 Code cloud warehouse address](https://gitee.com/Cyan-Xmw/Vue2-Admin/)
 
-- 📄 Document Address：**In the works！**
-
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
 - 😝 Vue3+Typescript Version： [Vue3 Admin](https://github.com/Cyan-Xmw/Vue3-Admin/)
