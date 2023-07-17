@@ -45,8 +45,8 @@ const user = {
             storage.set(IS_LOCK, true)
         },
         CLEAR_LOCK: (state) => {
-            state.isLock = false;
-            state.lockPasswd = '';
+            state.isLock = false
+            state.lockPasswd = ''
             state.lockPath = ''
             storage.set(IS_LOCK, false)
             storage.set(SET_LOCK_PASSWD, '')
@@ -114,6 +114,8 @@ const user = {
                     storage.remove(SET_LOCK_PASSWD)
                     storage.remove(IS_LOCK)
                     storage.remove(LOCK_PATH)
+                    storage.set('LockScreen', false)
+                    storage.set('lastTime', new Date().getTime())
                     resolve()
                 }).catch(error => {
                     reject(error)

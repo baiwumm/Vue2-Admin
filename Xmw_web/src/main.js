@@ -7,7 +7,7 @@ import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
 import vuedraggable from 'vuedraggable'
-Vue.component("vuedraggable", vuedraggable);
+Vue.component('vuedraggable', vuedraggable)
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
@@ -17,7 +17,8 @@ import './global.less'
 import VueSocketIO from 'vue-socket.io'
 Vue.use(new VueSocketIO({
     debug: false,
-    connection: 'http://vue2.xmwpro.com/'
+    connection: 'https://vue2.xmwpro.com/'
+    // connection: 'http://127.0.0.1:7001/'
 }))
 
 Vue.config.productionTip = false

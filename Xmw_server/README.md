@@ -1,35 +1,35 @@
 简体中文 | [English](./README.en-US.md)
 
-<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg" alt="Vue2 Admin"></p>
+<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg!cyan" alt="Vue2 Admin"></p>
 
 <h1 align="center">Vue2 Admin</h1>
 
 <p align="center">
   <a href="https://github.com/eggjs/egg/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg" alt="egg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg!cyan alt="egg">
   </a>
   <a href="https://github.com/eggjs/egg-redis/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/redis.svg" alt="egg-redis">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/redis.svg!cyan" alt="egg-redis">
   </a>
   <a href="https://github.com/eggjs/egg-socket.io/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg" alt="egg-socket.io">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg!cyan" alt="egg-socket.io">
   </a>
   <a href="https://github.com/auth0/node-jsonwebtoken/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/token.svg" alt="jsonwebtoken">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/token.svg!cyan" alt="jsonwebtoken">
   </a>
   <a href="https://github.com/sequelize/sequelize/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/sequelize.svg" alt="sequelize">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/sequelize.svg!cyan" alt="sequelize">
   </a>
   <a>
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg!cyan">
   </a>
 </p>
 
 ## 项目简介
 
-[Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [Egg.js](https://github.com/eggjs/egg/) 和 [Sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[Vue2 Admin](https://vue2.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [Egg.js](https://github.com/eggjs/egg/) 和 [Sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
-- 😝 线上预览: http://vue2.xmwpro.com
+- 😝 线上预览: https://vue2.xmwpro.com
 
 - 📄 文档地址：**正在编写中！**
 

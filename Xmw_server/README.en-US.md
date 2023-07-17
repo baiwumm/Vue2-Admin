@@ -1,35 +1,35 @@
 English | [简体中文](./README.md)
 
-<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg" alt="Vue2 Admin"></p>
+<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg!cyan" alt="Vue2 Admin"></p>
 
 <h1 align="center">Vue2 Admin</h1>
 
 <p align="center">
   <a href="https://github.com/eggjs/egg/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg" alt="egg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg!cyan" alt="egg">
   </a>
   <a href="https://github.com/eggjs/egg-redis/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/redis.svg" alt="egg-redis">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/redis.svg!cyan" alt="egg-redis">
   </a>
   <a href="https://github.com/eggjs/egg-socket.io/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg" alt="egg-socket.io">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg!cyan" alt="egg-socket.io">
   </a>
   <a href="https://github.com/auth0/node-jsonwebtoken/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/token.svg" alt="jsonwebtoken">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/token.svg!cyan" alt="jsonwebtoken">
   </a>
   <a href="https://github.com/sequelize/sequelize/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/sequelize.svg" alt="sequelize">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/sequelize.svg!cyan" alt="sequelize">
   </a>
   <a>
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg!cyan">
   </a>
 </p>
 
 ## Project Description
 
-[Vue2 Admin](http://vue2.xmwpro.com/) is a background management system solutions, The back-end is based on [Egg.js](https://github.com/eggjs/egg/) and [Sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
+[Vue2 Admin](https://vue2.xmwpro.com/) is a background management system solutions, The back-end is based on [Egg.js](https://github.com/eggjs/egg/) and [Sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
-- 😝 Online Preview: http://vue2.xmwpro.com
+- 😝 Online Preview: https://vue2.xmwpro.com
 
 - 📄 Document Address：**In the works！**
 

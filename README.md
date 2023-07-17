@@ -1,30 +1,30 @@
 简体中文 | [English](./README.en-US.md)
 
-<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg" alt="Vue2 Admin"></p>
+<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg!cyan" alt="Vue2 Admin"></p>
 
 <h1 align="center">Vue2 Admin</h1>
 
 <p align="center">
   <a href="https://github.com/vuejs/vue/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/vue.svg" alt="vue">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/vue.svg!cyan" alt="vue">
   </a>
   <a href="https://github.com/vueComponent/ant-design-vue/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/antd.svg" alt="Ant Design of Vue">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/antd.svg!cyan" alt="Ant Design of Vue">
   </a>
   <a href="https://github.com/eggjs/egg/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg" alt="egg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg!cyan" alt="egg">
   </a>
   <a href="https://github.com/sequelize/sequelize/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg" alt="sequelize">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg!cyan" alt="sequelize">
   </a>
   <a>
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg">
+    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg!cyan">
   </a>
 </p>
 
 ## 项目简介
 
-  [Vue2 Admin](http://vue2.xmwpro.com/) 是一个后台管理系统解决方案，采用前后端分离技术开发。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+  [Vue2 Admin](https://vue2.xmwpro.com/) 是一个后台管理系统解决方案，采用前后端分离技术开发。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
 - 🎯 前端技术栈： [Vue2.0](https://github.com/vuejs/vue/)、[Ant Design Vue](https://github.com/vueComponent/ant-design-vue/)、[Axios](https://github.com/axios/axios/)、[G2plot](https://github.com/antvis/G2Plot/)
 
@@ -34,7 +34,7 @@
 
 - 🔗 后端传送门： [Xmw_server](./Xmw_server)
 
-- 😝 线上预览： http://vue2.xmwpro.com
+- 😝 线上预览： https://vue2.xmwpro.com
 
 - 🔑 用户名：**admin**，密码：**123456**
 
@@ -134,12 +134,12 @@ yarn run build
 
 ## 演示图
 
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-1.jpg) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-2.jpg) |
+| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-1.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-2.jpg!cyan) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-3.jpg) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-4.jpg) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-5.jpg) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-6.jpg) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-7.jpg) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-8.jpg) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-9.jpg) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-10.jpg) |
+| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-3.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-4.jpg!cyan) |
+| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-5.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-6.jpg!cyan) |
+| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-7.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-8.jpg!cyan) |
+| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-9.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-10.jpg!cyan) |
 
 ## 特别鸣谢（感谢巨人）
 

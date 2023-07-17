@@ -1,31 +1,31 @@
 <template>
-    <page-header-wrapper content="富文本编辑器转换成html,基于Vue-Quill-Editor,从后端返回的数据需要转码再生成Html">
-        <a-row :gutter="16">
-            <a-col :span="12">
-                <a-card :hoverable="true">
-                    <quill-editor
-                        v-model="editContent"
-                        ref="myQuillEditor"
-                        :options="editorOption"
-                        @blur="onEditorBlur($event)"
-                        @focus="onEditorFocus($event)"
-                        @change="onEditorChange($event)"
-                    >
-                    </quill-editor>
-                </a-card>
-            </a-col>
-            <a-col :span="12">
-                <a-card :hoverable="true" title="富文本编辑器转换成html演示">
-                    <!-- 从数据库读取展示 -->
-                    <div class="ql-container ql-snow">
-                        <div class="ql-editor">
-                            {{ conversion }}
-                        </div>
-                    </div>
-                </a-card>
-            </a-col>
-        </a-row>
-    </page-header-wrapper>
+  <page-header-wrapper content="富文本编辑器转换成html,基于Vue-Quill-Editor,从后端返回的数据需要转码再生成Html">
+    <a-row :gutter="16">
+      <a-col :span="12">
+        <a-card :hoverable="true">
+          <quill-editor
+            v-model="editContent"
+            ref="myQuillEditor"
+            :options="editorOption"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+            @change="onEditorChange($event)"
+          >
+          </quill-editor>
+        </a-card>
+      </a-col>
+      <a-col :span="12">
+        <a-card :hoverable="true" title="富文本编辑器转换成html演示">
+          <!-- 从数据库读取展示 -->
+          <div class="ql-container ql-snow">
+            <div class="ql-editor">
+              {{ conversion }}
+            </div>
+          </div>
+        </a-card>
+      </a-col>
+    </a-row>
+  </page-header-wrapper>
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
     },
     data() {
         return {
-            editContent: '<h1><strong>Vue XmwPro</strong></h1>', // 编辑器内容
+            editContent: '<h1><strong>Vue2 Admin</strong></h1>', // 编辑器内容
             editorOption: {
                 // 编辑器配置
                 placeholder: '请在这里输入',

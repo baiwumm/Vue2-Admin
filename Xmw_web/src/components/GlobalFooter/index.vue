@@ -2,17 +2,17 @@
   <global-footer class="footer custom-render">
     <template v-slot:links>
       <a
-        title="Antd vue"
-        href="https://www.antdv.com/docs/vue/introduce-cn/"
+        title="Vue3 Admin"
+        href="https://vue3.xmwpro.com/"
         target="_blank"
-      >Ant Design of Vue</a
+      >Vue3 Admin</a
       >
       <a
         title="github"
         href="https://github.com/Cyan-Xmw/Vue2-Admin/"
         target="_blank"
       ><a-icon type="github" /></a
-      ><a title="Antd pro vue" href="https://pro.antdv.com/" target="_blank">Ant Design Pro of Vue</a>
+      ><a title="Xmw Admin" href="https://react.xmwpro.com/" target="_blank">Xmw Admin</a>
     </template>
     <template v-slot:copyright>
       Copyright © 2021 Vue2 Admin by 843348394@qq.com

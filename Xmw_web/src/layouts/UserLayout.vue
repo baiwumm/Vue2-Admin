@@ -4,13 +4,13 @@
       <router-view></router-view>
       <div class="footer">
         <div class="links">
-          <a title="Antd vue" href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
+          <a title="Vue3 Admin" href="https://vue3.xmwpro.com/" target="_blank">Vue3 Admin</a>
           <a
             title="github"
             href="https://github.com/Cyan-Xmw/Vue2-Admin/"
             target="_blank"
           ><a-icon type="github" /></a
-          ><a title="Antd pro vue" href="https://pro.antdv.com/">Ant Design Pro of Vue</a>
+          ><a title="Xmw Admin" href="https://react.xmwpro.com/" target="_blank">Xmw Admin</a>
         </div>
         <div class="copyright">
           Copyright © 2021 Vue2 Admin by 843348394@qq.com<a

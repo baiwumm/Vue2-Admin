@@ -1,20 +1,24 @@
 <template>
-    <div :class="wrpCls">
-        <!-- 头部搜索框 -->
-        <header-search v-if="!isMobile"></header-search>
-        <!-- 锁屏 -->
-        <lock-screen :class="prefixCls"></lock-screen>
-        <!-- 公告详情 -->
-        <header-announcement v-if="!isMobile" :prefixCls="prefixCls"></header-announcement>
-        <!-- 全屏 -->
-        <full-screen :class="prefixCls" v-if="!isMobile"></full-screen>
-        <!-- 头像下拉 -->
-        <avatar-dropdown :class="prefixCls" ref="avatar" />
-        <!-- 国际化语言 -->
-        <select-lang :class="prefixCls" />
-        <!-- 睡眠操作 -->
-        <lock-sleep></lock-sleep>
-    </div>
+  <div :class="wrpCls">
+    <!-- 头部搜索框 -->
+    <header-search v-if="!isMobile"></header-search>
+    <!-- 锁屏 -->
+    <lock-screen :class="prefixCls"></lock-screen>
+    <!-- 公告详情 -->
+    <header-announcement v-if="!isMobile" :prefixCls="prefixCls"></header-announcement>
+    <!-- 全屏 -->
+    <full-screen :class="prefixCls" v-if="!isMobile"></full-screen>
+    <!-- 头像下拉 -->
+    <avatar-dropdown :class="prefixCls" ref="avatar" />
+    <!-- 国际化语言 -->
+    <select-lang :class="prefixCls" />
+    <!-- 睡眠操作 -->
+    <lock-sleep></lock-sleep>
+    <!-- 公众号二维码 -->
+    <!-- <div class="qrcode">
+      <img src="https://ali-oss.xmwpro.com/wechat/officialAccounts/scan_green.png!cyan" alt="白雾茫茫丶">
+    </div> -->
+  </div>
 </template>
 
 <script>
@@ -64,6 +68,15 @@ export default {
 .ant-pro-global-header-index-dark {
     .ant-pro-global-header-index-action {
         color: hsla(0, 0%, 100%, 0.85);
+    }
+}
+.qrcode{
+    position: fixed;
+    right:0;
+    top: 300px;
+    width: 200px;
+    img{
+        width: 100%;
     }
 }
 </style>
