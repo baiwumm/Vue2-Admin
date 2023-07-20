@@ -4,7 +4,7 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const GitRevision = new GitRevisionPlugin()
 const buildDate = JSON.stringify(new Date().toLocaleString())
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
-const CompressionPlugin = require('compression-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin')
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
@@ -30,10 +30,10 @@ const assetsCDN = {
     css: [],
     // https://unpkg.com/browse/vue@2.6.10/
     js: [
-        '//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
-        '//cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js',
-        '//cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js',
-        '//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'
+        '//ali-oss.xmwpro.com/project/vue2-admin/js/vue@2.6.10.min.js',
+        '//ali-oss.xmwpro.com/project/vue2-admin/js/vue-router@3.1.3.min.js',
+        '//ali-oss.xmwpro.com/project/vue2-admin/js/vuex@3.1.1.min.js',
+        '//ali-oss.xmwpro.com/project/vue2-admin/js/axios@0.19.0.min.js'
     ]
 }
 
