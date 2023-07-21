@@ -47,7 +47,7 @@ English | [简体中文](./README.md)
 
 - Pull the project code
 ```bash
-git clone https://github.com/Cyan-Xmw/Vue2-Admin.git
+git clone https://github.com/baiwumm/Vue2-Admin.git
 cd Vue2-Admin
 cd Xmw_web
 ```

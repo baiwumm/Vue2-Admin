@@ -9,7 +9,7 @@
       >
       <a
         title="github"
-        href="https://github.com/Cyan-Xmw/Vue2-Admin/"
+        href="https://github.com/baiwumm/Vue2-Admin/"
         target="_blank"
       ><a-icon type="github" /></a
       ><a title="Xmw Admin" href="https://react.xmwpro.com/" target="_blank">Xmw Admin</a>

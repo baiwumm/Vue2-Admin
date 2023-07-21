@@ -38,13 +38,13 @@
 
 - 🔑 用户名：**admin**，密码：**123456**
 
-- [🚀 github 仓库地址](https://github.com/Cyan-Xmw/Vue2-Admin/)
+- [🚀 github 仓库地址](https://github.com/baiwumm/Vue2-Admin/)
 
-- [🚀 码云仓库地址](https://gitee.com/Cyan-Xmw/Vue2-Admin/)
+- [🚀 码云仓库地址](https://gitee.com/baiwumm/Vue2-Admin/)
 
 - ❤️ star：**如果可以的话，请顺手给个star，表示对作者的鼓励，万分感谢！**
 
-- 😝 Vue3+Typescript版本： [Vue3 Admin](https://github.com/Cyan-Xmw/Vue3-Admin/)
+- 😝 Vue3+Typescript版本： [Vue3 Admin](https://github.com/baiwumm/Vue3-Admin/)
 
 ## 环境和依赖
 
@@ -59,7 +59,7 @@
 
 - 拉取项目代码
 ```bash
-git clone https://github.com/Cyan-Xmw/Vue2-Admin.git
+git clone https://github.com/baiwumm/Vue2-Admin.git
 cd Vue2-Admin
 // 进入前端
 cd Xmw_web

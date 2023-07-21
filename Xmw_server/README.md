@@ -46,7 +46,7 @@
 
 - 拉取项目代码
 ```bash
-git clone https://github.com/Cyan-Xmw/Vue2-Admin.git
+git clone https://github.com/baiwumm/Vue2-Admin.git
 cd Vue2-Admin
 cd Xmw_server
 ```

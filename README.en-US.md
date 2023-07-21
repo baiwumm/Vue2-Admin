@@ -38,13 +38,13 @@ English | [简体中文](./README.md)
 
 - 🔑 username：**admin**，password：**123456**
 
-- [🚀 github warehouse address](https://github.com/Cyan-Xmw/Vue2-Admin/)
+- [🚀 github warehouse address](https://github.com/baiwumm/Vue2-Admin/)
 
-- [🚀 Code cloud warehouse address](https://gitee.com/Cyan-Xmw/Vue2-Admin/)
+- [🚀 Code cloud warehouse address](https://gitee.com/baiwumm/Vue2-Admin/)
 
 - ❤️ star：**If possible, please give me a STAR to show my encouragement to the author. Thank you very much!**
 
-- 😝 Vue3+Typescript Version： [Vue3 Admin](https://github.com/Cyan-Xmw/Vue3-Admin/)
+- 😝 Vue3+Typescript Version： [Vue3 Admin](https://github.com/baiwumm/Vue3-Admin/)
 
 ## Environment and Dependencies
 
@@ -59,7 +59,7 @@ English | [简体中文](./README.md)
 
 - Pull the project code
 ```bash
-git clone https://github.com/Cyan-Xmw/Vue2-Admin.git
+git clone https://github.com/baiwumm/Vue2-Admin.git
 cd Vue2-Admin
 cd Xmw_web
 ```
