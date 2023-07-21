@@ -24,9 +24,9 @@ English | [简体中文](./README.md)
 
 ## Project Description
 
-[Vue2 Admin](https://vue2.xmwpro.com/) is a background management system solutions, It is based on [Vue2.0](https://github.com/vuejs/vue/) and [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
+[Vue2 Admin](https://vue2.baiwumm.com/) is a background management system solutions, It is based on [Vue2.0](https://github.com/vuejs/vue/) and [Ant Design Vue Pro](https://github.com/vueComponent/ant-design-vue-pro/). It uses the latest front-end technology stack and provides rich functional components. I hope this project can help you.
 
-- 😝 Online Preview: https://vue2.xmwpro.com
+- 😝 Online Preview: https://vue2.baiwumm.com
 
 - 🔑 username：**admin**，password：**123456**
 

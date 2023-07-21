@@ -27,9 +27,9 @@ English | [简体中文](./README.md)
 
 ## Project Description
 
-[Vue2 Admin](https://vue2.xmwpro.com/) is a background management system solutions, The back-end is based on [Egg.js](https://github.com/eggjs/egg/) and [Sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
+[Vue2 Admin](https://vue2.baiwumm.com/) is a background management system solutions, The back-end is based on [Egg.js](https://github.com/eggjs/egg/) and [Sequelize](https://github.com/sequelize/sequelize/). It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
-- 😝 Online Preview: https://vue2.xmwpro.com
+- 😝 Online Preview: https://vue2.baiwumm.com
 
 - 🔗 Front Gate：[Xmw_web](../Xmw_web)
 

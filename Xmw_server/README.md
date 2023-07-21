@@ -27,9 +27,9 @@
 
 ## 项目简介
 
-[Vue2 Admin](https://vue2.xmwpro.com/) 是一个后台管理系统解决方案，后端基于 [Egg.js](https://github.com/eggjs/egg/) 和 [Sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
+[Vue2 Admin](https://vue2.baiwumm.com/) 是一个后台管理系统解决方案，后端基于 [Egg.js](https://github.com/eggjs/egg/) 和 [Sequelize](https://github.com/sequelize/sequelize/)实现。它使用了最新的技术栈，提供了丰富的功能组件，希望本项目可以帮助到您。
 
-- 😝 线上预览: https://vue2.xmwpro.com
+- 😝 线上预览: https://vue2.baiwumm.com
 
 - 🔗 前端传送门：[Xmw_web](../Xmw_web)
 

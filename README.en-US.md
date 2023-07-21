@@ -24,7 +24,7 @@ English | [简体中文](./README.md)
 
 ## Project Description
 
- [Vue2 Admin](https://vue2.xmwpro.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
+ [Vue2 Admin](https://vue2.baiwumm.com/) is a background management system solutions，it is developed with front and rear end separation technology。It uses the latest technology stack and provides rich functional components. I hope this project can help you.
 
 - 🎯 Front-end technology stack： [vUE2.0](https://github.com/vuejs/vue/)、[Ant Design Vue](https://github.com/vueComponent/ant-design-vue/)、[Axios](https://github.com/axios/axios/)、[G2plot](https://github.com/antvis/G2Plot/)
 
@@ -34,7 +34,7 @@ English | [简体中文](./README.md)
 
 - 🔗 Backend Portal： [Xmw_server](./Xmw_server)
 
-- 😝 Online Preview： https://vue2.xmwpro.com
+- 😝 Online Preview： https://vue2.baiwumm.com
 
 - 🔑 username：**admin**，password：**123456**
 
