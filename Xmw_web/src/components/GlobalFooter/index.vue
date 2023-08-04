@@ -3,7 +3,7 @@
     <template v-slot:links>
       <a
         title="Vue3 Admin"
-        href="https://vue3.xmwpro.com/"
+        href="https://vue3.baiwumm.com/"
         target="_blank"
       >Vue3 Admin</a
       >
@@ -12,7 +12,7 @@
         href="https://github.com/baiwumm/Vue2-Admin/"
         target="_blank"
       ><a-icon type="github" /></a
-      ><a title="Xmw Admin" href="https://react.xmwpro.com/" target="_blank">Xmw Admin</a>
+      ><a title="Xmw Admin" href="https://react.baiwumm.com/" target="_blank">Xmw Admin</a>
     </template>
     <template v-slot:copyright>
       Copyright © 2021 Vue2 Admin by 843348394@qq.com
@@ -21,7 +21,7 @@
         target="_blank"
         style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
       >
-        粤ICP备2023007649号
+        粤ICP备2023007649号-2
       </a></template
     >
   </global-footer>

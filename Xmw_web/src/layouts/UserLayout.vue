@@ -18,7 +18,7 @@
             target="_blank"
             style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
           >
-            粤ICP备2023007649号
+            粤ICP备2023007649号-2
           </a>
         </div>
       </div>
