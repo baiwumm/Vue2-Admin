@@ -16,7 +16,7 @@
     <lock-sleep></lock-sleep>
     <!-- 公众号二维码 -->
     <!-- <div class="qrcode">
-      <img src="https://ali-oss.xmwpro.com/wechat/officialAccounts/scan_green.png!cyan" alt="白雾茫茫丶">
+      <img src="https://cdn.baiwumm.com/wechat/officialAccounts/scan_green.png!cyan" alt="白雾茫茫丶">
     </div> -->
   </div>
 </template>

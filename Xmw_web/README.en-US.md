@@ -1,24 +1,24 @@
 English | [简体中文](./README.md)
 
-<p align="center"><img width="100" src="https://ali-oss.xmwpro.com/project/vue2-admin/logo.svg!cyan" alt="Vue2 Admin"></p>
+<p align="center"><img width="100" src="https://cdn.baiwumm.com/project/vue2-admin/logo.svg" alt="Vue2 Admin"></p>
 
 <h1 align="center">Vue2 Admin</h1>
 
 <p align="center">
   <a href="https://github.com/vuejs/vue/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/vue.svg!cyan" alt="vue">
+    <img src="https://cdn.baiwumm.com/project/vue2-admin/shield/vue.svg" alt="vue">
   </a>
   <a href="https://github.com/vueComponent/ant-design-vue/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/antd.svg!cyan" alt="Ant Design of Vue">
+    <img src="https://cdn.baiwumm.com/project/vue2-admin/shield/antd.svg" alt="Ant Design of Vue">
   </a>
   <a href="https://github.com/eggjs/egg/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/egg.svg!cyan" alt="egg">
+    <img src="https://cdn.baiwumm.com/project/vue2-admin/shield/egg.svg" alt="egg">
   </a>
   <a href="https://github.com/sequelize/sequelize/" target="_blank">
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/socket.svg!cyan" alt="sequelize">
+    <img src="https://cdn.baiwumm.com/project/vue2-admin/shield/socket.svg" alt="sequelize">
   </a>
   <a>
-    <img src="https://ali-oss.xmwpro.com/project/vue2-admin/shield/build.svg!cyan">
+    <img src="https://cdn.baiwumm.com/project/vue2-admin/shield/build.svg">
   </a>
 </p>
 
@@ -134,12 +134,12 @@ yarn run build
 
 ## Demo Figure
 
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-1.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-2.jpg!cyan) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/1.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/2.jpg!baiwu) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-3.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-4.jpg!cyan) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-5.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-6.jpg!cyan) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-7.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-8.jpg!cyan) |
-| ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-9.jpg!cyan) | ![](https://ali-oss.xmwpro.com/project/vue2-admin/demo/xmw-demo-10.jpg!cyan) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/3.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/4.jpg!baiwu) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/5.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/6.jpg!baiwu) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/7.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/8.jpg!baiwu) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/9.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/10.jpg!baiwu) |
 
 ## Special Thanks（Thanks to the giant）
 
