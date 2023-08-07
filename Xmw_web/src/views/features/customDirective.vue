@@ -71,7 +71,7 @@
         <a-card :bordered="false" hoverable title="实现页面水印 v-waterMarker">
           <div
             style="height: 65px"
-            v-waterMarker="{ text: 'XmwPro版权所有', textColor: 'rgba(180, 180, 180, 0.4)' }"
+            v-waterMarker="{ text: 'Vue2 Admin', textColor: 'rgba(180, 180, 180, 0.4)' }"
           ></div>
         </a-card>
       </a-col>

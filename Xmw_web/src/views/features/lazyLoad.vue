@@ -5,7 +5,7 @@
                 <div class="lazy-img-cpntainer">
                     <div
                         class="img-waterMarker"
-                        v-waterMarker="{ text: 'XmwPro版权所有', textColor: 'rgba(255, 255, 255,1)' }"
+                        v-waterMarker="{ text: 'Vue2 Admin', textColor: 'rgba(255, 255, 255,1)' }"
                     ></div>
                     <img
                         class="lazy-img"
