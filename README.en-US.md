@@ -126,12 +126,12 @@ yarn run build
 
 ## Demo Figure
 
-| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/1.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/2.jpg!baiwu) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/1.jpg) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/2.jpg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/3.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/4.jpg!baiwu) |
-| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/5.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/6.jpg!baiwu) |
-| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/7.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/8.jpg!baiwu) |
-| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/9.jpg!baiwu) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/10.jpg!baiwu) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/3.jpg) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/4.jpg) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/5.jpg) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/6.jpg) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/7.jpg) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/8.jpg) |
+| ![](https://cdn.baiwumm.com/project/vue2-admin/demo/9.jpg) | ![](https://cdn.baiwumm.com/project/vue2-admin/demo/10.jpg) |
 
 ## Special Thanks（Thanks to the giant）
 
