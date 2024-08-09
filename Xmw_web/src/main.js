@@ -14,12 +14,12 @@ import './core/lazy_use'
 import './permission' // 动态路由权限控制
 import './global.less'
 
-import VueSocketIO from 'vue-socket.io'
-Vue.use(new VueSocketIO({
-    debug: false,
-    connection: 'https://vue2.baiwumm.com/'
-    // connection: 'http://127.0.0.1:7001/'
-}))
+// import VueSocketIO from 'vue-socket.io'
+// Vue.use(new VueSocketIO({
+//     debug: false,
+//     connection: 'https://vue2.baiwumm.com/'
+//     // connection: 'http://127.0.0.1:7001/'
+// }))
 
 Vue.config.productionTip = false
 
@@ -31,9 +31,9 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
 new Vue({
-    router,
-    store,
-    i18n,
-    created: bootstrap,
-    render: h => h(App)
+  router,
+  store,
+  i18n,
+  created: bootstrap,
+  render: h => h(App)
 }).$mount('#app')
