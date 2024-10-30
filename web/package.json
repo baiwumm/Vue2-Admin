@@ -1,6 +1,11 @@
 {
-  "name": "vue-antd-pro",
+  "name": "vue2-admin",
   "version": "3.0.4",
+  "author": {
+    "name": "baiwumm",
+    "email": "baiwumm@foxmail.com",
+    "url": "https://baiwumm.com"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
