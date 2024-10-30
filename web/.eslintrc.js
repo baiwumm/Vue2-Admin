@@ -3,10 +3,7 @@ module.exports = {
   env: {
     node: true
   },
-  'extends': [
-    'plugin:vue/strongly-recommended',
-    '@vue/standard'
-  ],
+  extends: ['plugin:vue/strongly-recommended', '@vue/standard'],
   rules: {
     'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -15,10 +12,10 @@ module.exports = {
     'vue/max-attributes-per-line': [
       2,
       {
-        'singleline': 5,
-        'multiline': {
-          'max': 1,
-          'allowFirstLine': false
+        singleline: 5,
+        multiline: {
+          max: 1,
+          allowFirstLine: false
         }
       }
     ],
@@ -33,40 +30,38 @@ module.exports = {
     'vue/html-closing-bracket-newline': 0,
     'vue/no-parsing-error': 0,
     'no-tabs': 0,
-    'quotes': [
+    quotes: [
       2,
       'single',
       {
-        'avoidEscape': true,
-        'allowTemplateLiterals': true
+        avoidEscape: true,
+        allowTemplateLiterals: true
       }
     ],
-    'semi': [
+    semi: [
       2,
       'never',
       {
-        'beforeStatementContinuationChars': 'never'
+        beforeStatementContinuationChars: 'never'
       }
     ],
     'no-delete-var': 2,
     'prefer-const': [
       2,
       {
-        'ignoreReadBeforeAssign': false
+        ignoreReadBeforeAssign: false
       }
     ],
     'template-curly-spacing': 'off',
-    'indent': 'off'
+    indent: 'off',
+    'comma-dangle': ['error', 'never']
   },
   parserOptions: {
     parser: 'babel-eslint'
   },
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true
       }
