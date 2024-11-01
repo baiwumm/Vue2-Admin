@@ -1,18 +1,24 @@
 import './index.less'
 
-import { Icon, Menu, Dropdown } from 'ant-design-vue'
+import { Dropdown, Icon, Menu } from 'ant-design-vue'
+
+import { LocaleIcon } from '@/core/icons'
 import { i18nRender } from '@/locales'
 import i18nMixin from '@/store/i18n-mixin'
 
-const locales = ['zh-CN', 'en-US']
+const locales = ['zh-CN', 'en-US', 'ja-JP', 'zh-TW']
 const languageLabels = {
   'zh-CN': '简体中文',
-  'en-US': 'English'
+  'en-US': 'English',
+  'ja-JP': '日本语',
+  'zh-TW': '繁體中文'
 }
 // eslint-disable-next-line
 const languageIcons = {
   'zh-CN': '🇨🇳',
-  'en-US': '🇺🇸'
+  'en-US': '🇺🇸',
+  'ja-JP': '🇯🇵',
+  'zh-TW': '🇭🇰'
 }
 
 const SelectLang = {
@@ -44,7 +50,7 @@ const SelectLang = {
     return (
       <Dropdown overlay={langMenu} placement="bottomRight">
         <span class={prefixCls}>
-          <Icon type="global" title={i18nRender('navBar.lang')} />
+          <Icon component={LocaleIcon} title={i18nRender('navBar.lang')} />
         </span>
       </Dropdown>
     )

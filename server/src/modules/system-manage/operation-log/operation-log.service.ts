@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-08-06 11:06:21
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-10-30 15:33:21
+ * @LastEditTime: 2024-10-31 18:17:32
  * @Description: OperationLogService - 操作日志
  */
 import { Inject, Injectable, Scope } from '@nestjs/common';
@@ -70,6 +70,9 @@ export class OperationLogService {
         userInfo = await this.prisma.user.findUnique({
           where: { userName: body.userName },
         });
+      }
+      if (!userInfo) {
+        return
       }
       const parser = new UAParser(userAgent);
       // 根据 IP 获取地理信息

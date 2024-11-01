@@ -1,61 +1,62 @@
-import Vue from 'vue'
-
 // base library
 import {
+  Alert,
+  Avatar,
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  Checkbox,
+  Col,
   ConfigProvider,
-  Layout,
+  DatePicker,
+  Descriptions,
+  Divider,
+  Drawer,
+  Dropdown,
+  Form,
+  Icon,
   Input,
   InputNumber,
-  Button,
-  Switch,
-  Radio,
-  Checkbox,
-  Select,
-  Card,
-  Form,
-  Row,
-  Col,
+  Layout,
+  List,
+  Menu,
+  message,
   Modal,
+  notification,
+  PageHeader,
+  Popconfirm,
+  Popover,
+  Progress,
+  Radio,
+  Result,
+  Row,
+  Select,
+  Skeleton,
+  Space,
+  Spin,
+  Statistic,
+  Steps,
+  Switch,
   Table,
   Tabs,
-  Icon,
-  Badge,
-  Popover,
-  Dropdown,
-  List,
-  Avatar,
-  Breadcrumb,
-  Steps,
-  Spin,
-  Menu,
-  Drawer,
-  Tooltip,
-  Alert,
   Tag,
-  Divider,
-  DatePicker,
   TimePicker,
-  Upload,
-  Progress,
-  Skeleton,
-  Popconfirm,
-  PageHeader,
-  Result,
-  Statistic,
-  Descriptions,
-  Space,
-  message,
-  notification
+  Tooltip,
+  TreeSelect,
+  Upload
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
-
+import Vue from 'vue'
 // ext library
 import VueCropper from 'vue-cropper'
+
 import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import PermissionHelper from '@/core/permission/permission'
-import './directives/action'
+
+import Directives from './directives'
 
 Vue.use(ConfigProvider)
 Vue.use(Layout)
@@ -99,6 +100,7 @@ Vue.use(Result)
 Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Space)
+Vue.use(TreeSelect)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
@@ -114,5 +116,11 @@ Vue.use(MultiTab)
 Vue.use(PageLoading)
 Vue.use(PermissionHelper)
 Vue.use(VueCropper)
+Vue.use(Directives)
 
+console.log(
+  '%c Vue2 Admin %c 邮箱地址：baiwumm@foxmail.com',
+  'background-color:rgb(3,3,7);font-size:12px;padding:8px;color:rgb(250,223,123);',
+  'background-color:rgb(250,223,123);font-size:12px;padding:8px;color:rgb(3,3,7);'
+)
 process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')

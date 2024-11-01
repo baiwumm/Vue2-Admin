@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-09-09 17:23:59
+ * @LastEditTime: 2024-11-01 09:51:15
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
@@ -12,8 +12,16 @@ import { type Menu, MenuType, Status, type User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { lastValueFrom, map } from 'rxjs';
 
+import { LOCALES } from '@/enums';
 import { PrismaService } from '@/modules/prisma/prisma.service';
-import { convertFlatDataToTree, convertToLocalization, omit, responseMessage } from '@/utils';
+import {
+  convertFlatDataToTree,
+  convertToLocalization,
+  initializeLang,
+  initializeTree,
+  omit,
+  responseMessage,
+} from '@/utils';
 
 import { juejinParamsDto, LoginParamsDto } from './dto/params-auth.dto';
 
@@ -106,6 +114,31 @@ export class AuthService {
       ...userInfo,
       buttons: permissions,
       roles: [userInfo.role.code],
+      role: {
+        permissions: [
+          {
+            permissionId: 'home',
+            permissionName: '工作台',
+            actionList: [],
+            roleId: 'Admin',
+            actions: [],
+          },
+          {
+            permissionId: 'system-manage',
+            permissionName: '系统设置',
+            actionList: [],
+            roleId: 'Admin',
+            actions: [],
+          },
+          {
+            permissionId: 'internationalization',
+            permissionName: '国际化',
+            actionList: [],
+            roleId: 'Admin',
+            actions: [],
+          },
+        ],
+      },
     });
   }
 
@@ -176,14 +209,20 @@ export class AuthService {
    * @description: 获取国际化数据
    */
   async getLocales() {
+    const result: Partial<Record<LOCALES, any>> = {};
     // 查询全部数据
     const sqlData = await this.prisma.internalization.findMany({
       orderBy: [{ createdAt: 'desc' }],
     });
     // 将数据转成树形结构
-    const localesTree = convertFlatDataToTree(sqlData);
+    const localesTree = initializeTree(sqlData, 'id', 'parentId', 'children');
+    // 获取多语言
+    const locales: string[] = Object.values(LOCALES);
     // 转成层级对象
-    const result = convertToLocalization(localesTree);
+    for (let i = 0; i < locales.length; i++) {
+      const lang = locales[i];
+      result[lang] = initializeLang(localesTree, lang, 'name');
+    }
     return responseMessage<CommonType.LanguageResult>(result);
   }
 

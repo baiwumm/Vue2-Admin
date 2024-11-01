@@ -1,9 +1,18 @@
-import axios from 'axios'
-import store from '@/store'
-import storage from 'store'
+import { message } from 'ant-design-vue'
 import notification from 'ant-design-vue/es/notification'
-import { VueAxios } from './axios'
+import axios from 'axios'
+import { debounce } from 'lodash-es'
+import storage from 'store'
+
+import store from '@/store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+
+import { VueAxios } from './axios'
+
+// 异常提示防抖
+const debounceError = debounce((content, duration = 3) => {
+  message.error(content, duration)
+}, 300)
 
 // 创建 axios 实例
 const request = axios.create({
@@ -42,31 +51,32 @@ const errorHandler = (error) => {
 }
 
 // request interceptor
-request.interceptors.request.use(config => {
+request.interceptors.request.use((config) => {
   const token = storage.get(ACCESS_TOKEN)
   // 如果 token 存在
   // 让每个请求携带自定义 token 请根据实际情况自行修改
   if (token) {
-    config.headers[ACCESS_TOKEN] = token
+    config.headers.Authorization = `Bearer ${token}`
   }
   return config
 }, errorHandler)
 
 // response interceptor
 request.interceptors.response.use((response) => {
+  const { code, msg } = response.data
+  if (code === -1) {
+    debounceError(msg || '请求失败')
+  }
   return response.data
 }, errorHandler)
 
 const installer = {
   vm: {},
-  install (Vue) {
+  install(Vue) {
     Vue.use(VueAxios, request)
   }
 }
 
 export default request
 
-export {
-  installer as VueAxios,
-  request as axios
-}
+export { request as axios, installer as VueAxios }

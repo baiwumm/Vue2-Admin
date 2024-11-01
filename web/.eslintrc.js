@@ -3,6 +3,7 @@ module.exports = {
   env: {
     node: true
   },
+  plugins: ['simple-import-sort'],
   extends: ['plugin:vue/strongly-recommended', '@vue/standard'],
   rules: {
     'no-console': 'off',
@@ -29,6 +30,7 @@ module.exports = {
     'vue/no-use-v-if-with-v-for': 0,
     'vue/html-closing-bracket-newline': 0,
     'vue/no-parsing-error': 0,
+    'vue/require-prop-types': 0,
     'no-tabs': 0,
     quotes: [
       2,
@@ -54,7 +56,11 @@ module.exports = {
     ],
     'template-curly-spacing': 'off',
     indent: 'off',
-    'comma-dangle': ['error', 'never']
+    'comma-dangle': ['error', 'never'],
+    'space-before-function-paren': 0,
+    'no-useless-escape': 0,
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   },
   parserOptions: {
     parser: 'babel-eslint'

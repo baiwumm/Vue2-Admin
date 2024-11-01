@@ -1,6 +1,7 @@
+import './index.less'
+
 import events from './events'
 import MultiTab from './MultiTab'
-import './index.less'
 
 const api = {
   /**

@@ -1,7 +1,7 @@
-import UserLayout from './UserLayout'
-import BlankLayout from './BlankLayout'
 import BasicLayout from './BasicLayout'
-import RouteView from './RouteView'
+import BlankLayout from './BlankLayout'
 import PageView from './PageView'
+import RouteView from './RouteView'
+import UserLayout from './UserLayout'
 
-export { UserLayout, BasicLayout, BlankLayout, RouteView, PageView }
+export { BasicLayout, BlankLayout, PageView, RouteView, UserLayout }

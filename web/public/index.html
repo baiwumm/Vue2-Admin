@@ -6,7 +6,102 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>Ant Design Pro</title>
-    <style>.first-loading-wrp{display:flex;justify-content:center;align-items:center;flex-direction:column;min-height:420px;height:100%}.first-loading-wrp>h1{font-size:128px}.first-loading-wrp .loading-wrp{padding:98px;display:flex;justify-content:center;align-items:center}.dot{animation:antRotate 1.2s infinite linear;transform:rotate(45deg);position:relative;display:inline-block;font-size:32px;width:32px;height:32px;box-sizing:border-box}.dot i{width:14px;height:14px;position:absolute;display:block;background-color:#1890ff;border-radius:100%;transform:scale(.75);transform-origin:50% 50%;opacity:.3;animation:antSpinMove 1s infinite linear alternate}.dot i:nth-child(1){top:0;left:0}.dot i:nth-child(2){top:0;right:0;-webkit-animation-delay:.4s;animation-delay:.4s}.dot i:nth-child(3){right:0;bottom:0;-webkit-animation-delay:.8s;animation-delay:.8s}.dot i:nth-child(4){bottom:0;left:0;-webkit-animation-delay:1.2s;animation-delay:1.2s}@keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@-webkit-keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@keyframes antSpinMove{to{opacity:1}}@-webkit-keyframes antSpinMove{to{opacity:1}}</style>
+    <style>
+      .first-loading-wrp {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          min-height: 420px;
+          height: 100%
+      }
+
+      .first-loading-wrp>h1 {
+          font-size: 128px
+      }
+
+      .first-loading-wrp .loading-wrp {
+          padding: 98px;
+          display: flex;
+          justify-content: center;
+          align-items: center
+      }
+
+      .atom-spinner,
+      .atom-spinner * {
+          box-sizing: border-box;
+      }
+
+      .atom-spinner {
+          height: 60px;
+          width: 60px;
+          overflow: hidden;
+      }
+
+      .atom-spinner .spinner-inner {
+          position: relative;
+          display: block;
+          height: 100%;
+          width: 100%;
+      }
+
+      .atom-spinner .spinner-circle {
+          display: block;
+          position: absolute;
+          color: #1890ff;
+          font-size: calc(60px * 0.24);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      .atom-spinner .spinner-line {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          animation-duration: 1s;
+          border-left-width: calc(60px / 25);
+          border-top-width: calc(60px / 25);
+          border-left-color: #1890ff;
+          border-left-style: solid;
+          border-top-style: solid;
+          border-top-color: transparent;
+      }
+
+      .atom-spinner .spinner-line:nth-child(1) {
+          animation: atom-spinner-animation-1 1s linear infinite;
+          transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
+      }
+
+      .atom-spinner .spinner-line:nth-child(2) {
+          animation: atom-spinner-animation-2 1s linear infinite;
+          transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
+      }
+
+      .atom-spinner .spinner-line:nth-child(3) {
+          animation: atom-spinner-animation-3 1s linear infinite;
+          transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
+      }
+
+      @keyframes atom-spinner-animation-1 {
+          100% {
+              transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
+          }
+      }
+
+      @keyframes atom-spinner-animation-2 {
+          100% {
+              transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
+          }
+      }
+
+      @keyframes atom-spinner-animation-3 {
+          100% {
+              transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
+          }
+      }
+  </style>
     <!-- require cdn assets css -->
     <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
@@ -18,13 +113,23 @@
     </noscript>
     <div id="app">
       <div class="first-loading-wrp">
-        <h1>Vue2 Admin</h1>
-        <div class="loading-wrp">
-          <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center;">Ant Design</div>
+          <h1>Vue2 Admin</h1>
+          <div class="loading-wrp">
+              <div class="atom-spinner">
+                  <div class="spinner-inner">
+                      <div class="spinner-line"></div>
+                      <div class="spinner-line"></div>
+                      <div class="spinner-line"></div>
+                      <!--Chrome renders little circles malformed :(-->
+                      <div class="spinner-circle">
+                          &#9679;
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center;">Ant Design</div>
       </div>
-    </div>
+  </div>
     <!-- require cdn assets js -->
     <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>

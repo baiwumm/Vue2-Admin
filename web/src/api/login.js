@@ -1,80 +1,52 @@
 import request from '@/utils/request'
 
-const userApi = {
-  Login: '/auth/login',
-  Logout: '/auth/logout',
-  ForgePassword: '/auth/forge-password',
-  Register: '/auth/register',
-  twoStepCode: '/auth/2step-code',
-  SendSms: '/account/sms',
-  SendSmsErr: '/account/sms_err',
-  // get my info
-  UserInfo: '/user/info',
-  UserMenu: '/user/nav'
+/**
+ * @description: 用户登录
+ */
+export function login(parameter) {
+  return request({
+    url: '/auth/login',
+    method: 'post',
+    data: parameter
+  })
 }
 
 /**
- * login func
- * parameter: {
- *     username: '',
- *     password: '',
- *     remember_me: true,
- *     captcha: '12345'
- * }
- * @param parameter
- * @returns {*}
+ * @description: 获取图形验证码
  */
-export function login (parameter) {
+export function generateVerifCode() {
   return request({
-    url: userApi.Login,
-    method: 'post',
-    data: parameter
-  })
-}
-
-export function getSmsCaptcha (parameter) {
-  return request({
-    url: userApi.SendSms,
-    method: 'post',
-    data: parameter
-  })
-}
-
-export function getInfo () {
-  return request({
-    url: userApi.UserInfo,
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  })
-}
-
-export function getCurrentUserNav () {
-  return request({
-    url: userApi.UserMenu,
+    url: '/auth/captcha',
     method: 'get'
   })
 }
 
-export function logout () {
+/**
+ * @description: 获取用户信息
+ */
+export function getUserInfo() {
   return request({
-    url: userApi.Logout,
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
+    url: '/auth/getUserInfo',
+    method: 'get'
   })
 }
 
 /**
- * get user 2step code open?
- * @param parameter {*}
+ * @description: 注销登录
  */
-export function get2step (parameter) {
+export function logout() {
   return request({
-    url: userApi.twoStepCode,
-    method: 'post',
-    data: parameter
+    url: 'auth/logout',
+    method: 'post'
+  })
+}
+
+/**
+ * @description: 获取国际化层级数据
+ */
+export function getLocales() {
+  return request({
+    url: 'auth/getLocales',
+    method: 'get'
   })
 }

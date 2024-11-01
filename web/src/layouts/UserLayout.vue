@@ -1,33 +1,34 @@
 <template>
-
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
         <select-lang class="select-lang-trigger" />
       </div>
       <div class="user-layout-content">
-        <div class="top">
-          <div class="header">
-            <a href="/">
-              <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
-            </a>
-          </div>
-          <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
-          </div>
-        </div>
-
         <router-view />
 
         <div class="footer">
           <div class="links">
-            <a href="_self">帮助</a>
-            <a href="_self">隐私</a>
-            <a href="_self">条款</a>
+            <a title="Vue3 Admin" href="https://github.com/baiwumm/Vue3-Admin/" target="_blank">Vue3 Admin</a>
+            <a title="github" href="https://github.com/baiwumm/Vue2-Admin/" target="_blank"><a-icon type="github" /></a
+            ><a title="Xmw Admin" href="https://github.com/baiwumm/Xmw-Admin/" target="_blank">Xmw Admin</a>
           </div>
           <div class="copyright">
-            Copyright &copy; 2018 vueComponent
+            Copyright © 2021 Vue2 Admin by
+            <a
+              href="https://baiwumm.com/"
+              target="_blank"
+              style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
+            >
+              白雾茫茫丶
+            </a>
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              style="color: rgba(0, 0, 0, 0.45); font-size: 14px; margin-left: 10px"
+            >
+              粤ICP备2023007649号
+            </a>
           </div>
         </div>
       </div>
@@ -36,8 +37,8 @@
 </template>
 
 <script>
-import { deviceMixin } from '@/store/device-mixin'
 import SelectLang from '@/components/SelectLang'
+import { deviceMixin } from '@/store/device-mixin'
 
 export default {
   name: 'UserLayout',
@@ -45,10 +46,10 @@ export default {
     SelectLang
   },
   mixins: [deviceMixin],
-  mounted () {
+  mounted() {
     document.body.classList.add('userLayout')
   },
-  beforeDestroy () {
+  beforeDestroy() {
     document.body.classList.remove('userLayout')
   }
 }
@@ -70,72 +71,26 @@ export default {
   .container {
     width: 100%;
     min-height: 100%;
-    background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
     background-size: 100%;
     //padding: 50px 0 84px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .user-layout-lang {
-      width: 100%;
-      height: 40px;
-      line-height: 44px;
-      text-align: right;
+      position: absolute;
+      top: 20px;
+      right: 20px;
 
       .select-lang-trigger {
         cursor: pointer;
-        padding: 12px;
-        margin-right: 24px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        vertical-align: middle;
+        line-height: 1;
       }
     }
 
     .user-layout-content {
       padding: 32px 0 24px;
-
-      .top {
-        text-align: center;
-
-        .header {
-          height: 44px;
-          line-height: 44px;
-
-          .badge {
-            position: absolute;
-            display: inline-block;
-            line-height: 1;
-            vertical-align: middle;
-            margin-left: -12px;
-            margin-top: -10px;
-            opacity: 0.8;
-          }
-
-          .logo {
-            height: 44px;
-            vertical-align: top;
-            margin-right: 16px;
-            border-style: none;
-          }
-
-          .title {
-            font-size: 33px;
-            color: rgba(0, 0, 0, .85);
-            font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            font-weight: 600;
-            position: relative;
-            top: 2px;
-          }
-        }
-        .desc {
-          font-size: 14px;
-          color: rgba(0, 0, 0, 0.45);
-          margin-top: 12px;
-          margin-bottom: 40px;
-        }
-      }
 
       .main {
         min-width: 260px;
@@ -172,7 +127,6 @@ export default {
     a {
       text-decoration: none;
     }
-
   }
 }
 </style>

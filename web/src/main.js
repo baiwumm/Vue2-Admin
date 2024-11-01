@@ -1,25 +1,21 @@
 // with polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store/'
-import i18n from './locales'
-import { VueAxios } from './utils/request'
-import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-import themePluginConfig from '../config/themePluginConfig'
-
-// mock
-// WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
-import './mock'
-
-import bootstrap from './core/bootstrap'
 import './core/lazy_use' // use lazy load components
 import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
+
+import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
+import Vue from 'vue'
+
+import themePluginConfig from '../config/themePluginConfig'
+import App from './App.vue'
+import bootstrap from './core/bootstrap'
+import i18n from './locales'
+import router from './router'
+import store from './store/'
+import { VueAxios } from './utils/request'
 
 Vue.config.productionTip = false
 
@@ -38,5 +34,5 @@ new Vue({
   i18n,
   // init localstorage, vuex, Logo message
   created: bootstrap,
-  render: h => h(App)
+  render: (h) => h(App)
 }).$mount('#app')

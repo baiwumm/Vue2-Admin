@@ -1,18 +1,21 @@
+import '@/components/NProgress/nprogress.less' // progress bar custom style
+
+import notification from 'ant-design-vue/es/notification'
+import NProgress from 'nprogress' // progress bar
+import storage from 'store'
+
+import { i18nRender } from '@/locales'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { domTitle, setDocumentTitle } from '@/utils/domUtil'
+
 import router, { resetRouter } from './router'
 import store from './store'
-import storage from 'store'
-import NProgress from 'nprogress' // progress bar
-import '@/components/NProgress/nprogress.less' // progress bar custom style
-import notification from 'ant-design-vue/es/notification'
-import { setDocumentTitle, domTitle } from '@/utils/domUtil'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { i18nRender } from '@/locales'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const allowList = ['login', 'register', 'registerResult'] // no redirect allowList
 const loginRoutePath = '/user/login'
-const defaultRoutePath = '/dashboard/workplace'
+const defaultRoutePath = '/home'
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
@@ -28,15 +31,14 @@ router.beforeEach((to, from, next) => {
       if (store.getters.roles.length === 0) {
         // request login userInfo
         store
-          .dispatch('GetInfo')
-          .then(res => {
-            console.log('res', res)
+          .dispatch('GetUserInfo')
+          .then((res) => {
             // 根据用户权限信息生成可访问的路由表
             store.dispatch('GenerateRoutes', { token, ...res }).then(() => {
               // 动态添加可访问路由表
               // VueRouter@3.5.0+ New API
               resetRouter() // 重置路由 防止退出重新登录或者 token 过期后页面未刷新，导致的路由重复添加
-              store.getters.addRouters.forEach(r => {
+              store.getters.addRouters.forEach((r) => {
                 router.addRoute(r)
               })
               // 请求带有 redirect 重定向时，登录自动重定向到该地址
