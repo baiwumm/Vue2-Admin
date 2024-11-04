@@ -16,10 +16,10 @@
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
     </span>
     <span slot="action" slot-scope="text, record">
-      <a @click="onEdit(record)">{{ $t(I18nGlobal.edit) }}</a>
+      <a @click="onEdit(record)" v-action:edit>{{ $t(I18nGlobal.edit) }}</a>
       <a-divider type="vertical" />
       <a-popconfirm :title="$t(I18nGlobal.confirmDelete)" @confirm="onDelete(record)">
-        <a>{{ $t(I18nGlobal.delete) }}</a>
+        <a v-action:delete>{{ $t(I18nGlobal.delete) }}</a>
       </a-popconfirm>
     </span>
   </a-table>

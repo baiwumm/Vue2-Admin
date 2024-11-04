@@ -63,13 +63,6 @@ const user = {
             const { data } = response
             if (data.role && data.role.permissions.length > 0) {
               const role = { ...data.role }
-              role.permissions = data.role.permissions.map((permission) => {
-                const per = {
-                  ...permission,
-                  actionList: (permission.actionEntitySet || []).map((item) => item.action)
-                }
-                return per
-              })
               role.permissionList = role.permissions.map((permission) => {
                 return permission.permissionId
               })
