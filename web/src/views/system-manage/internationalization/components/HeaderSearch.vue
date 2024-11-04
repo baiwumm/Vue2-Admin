@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { I18nEntry, I18nGlobal, I18nInternationalization } from '@/utils/i18n'
+import { I18nEntry, I18nGlobal, I18nInternationalization } from '@/constant/i18n'
 export default {
   name: 'HeaderSearch',
   props: ['queryForm'],

@@ -72,7 +72,7 @@
   </a-row>
 </template>
 <script>
-import { I18nEntry, I18nGlobal, I18nInternationalization, I18nSelect } from '@/utils/i18n'
+import { I18nEntry, I18nGlobal, I18nInternationalization, I18nSelect } from '@/constant/i18n'
 export default {
   name: 'FormModal',
   props: ['data', 'rules'],

@@ -35,7 +35,7 @@ import {
   getInternalizationList,
   updateInternalization
 } from '@/api/system-manage/internationalization'
-import { I18nEntry, I18nGlobal, I18nInternationalization } from '@/utils/i18n'
+import { I18nEntry, I18nGlobal, I18nInternationalization } from '@/constant/i18n'
 
 import FormModal from './components/FormModal' // 表单弹窗
 import HeaderSearch from './components/HeaderSearch.vue' // 顶部搜索
