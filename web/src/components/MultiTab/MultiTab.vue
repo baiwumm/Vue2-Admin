@@ -66,7 +66,7 @@ export default {
       if (this.fullPathList.length > 1) {
         this.remove(e)
       } else {
-        this.$message.info('这是最后一个标签了, 无法被关闭')
+        this.$message.info(this.$t('components.mutilTab.closeThat.info'))
       }
     },
     closeLeft(e) {
@@ -78,7 +78,7 @@ export default {
           }
         })
       } else {
-        this.$message.info('左侧没有标签')
+        this.$message.info(this.$t('components.mutilTab.closeLeft.info'))
       }
     },
     closeRight(e) {
@@ -90,7 +90,7 @@ export default {
           }
         })
       } else {
-        this.$message.info('右侧没有标签')
+        this.$message.info(this.$t('components.mutilTab.closeRight.info'))
       }
     },
     closeAll(e) {
@@ -114,7 +114,7 @@ export default {
         <a-menu
           {...{
             on: {
-              click: ({ key, item, domEvent }) => {
+              click: ({ key }) => {
                 this.closeMenuClick(key, e)
               }
             }
@@ -122,19 +122,19 @@ export default {
         >
           <a-menu-item key="closeThat">
             {renderIcon('close')}
-            关闭
+            {this.$t('components.mutilTab.closeThat')}
           </a-menu-item>
           <a-menu-item key="closeRight">
             {renderIcon('vertical-left')}
-            关闭右侧
+            {this.$t('components.mutilTab.closeRight')}
           </a-menu-item>
           <a-menu-item key="closeLeft">
             {renderIcon('vertical-right')}
-            关闭左侧
+            {this.$t('components.mutilTab.closeLeft')}
           </a-menu-item>
           <a-menu-item key="closeAll">
             {renderIcon('column-width')}
-            关闭全部
+            {this.$t('components.mutilTab.closeAll')}
           </a-menu-item>
         </a-menu>
       )
@@ -167,64 +167,24 @@ export default {
       $data: { pages }
     } = this
     const panes = pages.map((page) => {
-      if (this.activeKey === page.fullPath) {
-        if (page.meta.icon && Object.prototype.toString.call(page.meta.icon) === '[object Object]') {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">
-                <a-badge status="processing" color="#fff" />
-                <a-icon component={page.meta.icon} style="color:#fff" />
-                <span style="color:#fff">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
-              </span>
-            </a-tab-pane>
-          )
-        } else if (page.meta.icon) {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">
-                <a-badge status="processing" color="#fff" />
-                <a-icon type={page.meta.icon} style="color:#fff" />
-                <span style="color:#fff">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
-              </span>
-            </a-tab-pane>
-          )
-        } else {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">
-                <a-badge status="processing" color="#fff" />
-                <span style="color:#fff">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
-              </span>
-            </a-tab-pane>
-          )
-        }
-      } else {
-        if (page.meta.icon && Object.prototype.toString.call(page.meta.icon) === '[object Object]') {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">
-                <a-icon component={page.meta.icon} />
-                {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
-              </span>
-            </a-tab-pane>
-          )
-        } else if (page.meta.icon) {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">
-                <a-icon type={page.meta.icon} />
-                {this.renderTabPane(this.$t(page.meta.title), page.fullPath)}
-              </span>
-            </a-tab-pane>
-          )
-        } else {
-          return (
-            <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
-              <span slot="tab">{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
-            </a-tab-pane>
-          )
-        }
-      }
+      const isActiveKey = this.activeKey === page.fullPath
+      const isCustomIcon = Object.prototype.toString.call(page.meta.icon) === '[object Object]'
+      const color = isActiveKey ? '#fff' : 'inherit'
+      return (
+        <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
+          <template slot="tab">
+            {isActiveKey ? <a-badge status="processing" color="#fff" /> : null}
+            {page.meta.icon ? (
+              <a-icon
+                type={isCustomIcon ? undefined : page.meta.icon}
+                component={isCustomIcon ? page.meta.icon : undefined}
+                style={{ color }}
+              />
+            ) : null}
+            <span style={{ color }}>{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
+          </template>
+        </a-tab-pane>
+      )
     })
 
     return (
@@ -235,7 +195,7 @@ export default {
             hideAdd
             type={'editable-card'}
             v-model={this.activeKey}
-            tabBarStyle={{ background: '#FFF', margin: 0, padding: '0 16px', paddingTop: '1px' }}
+            tabBarStyle={{ background: '#fff', margin: 0, padding: '0 16px', paddingTop: '1px' }}
             {...{ on: { edit: onEdit } }}
           >
             {panes}
