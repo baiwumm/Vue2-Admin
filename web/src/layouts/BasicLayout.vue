@@ -9,13 +9,6 @@
     :i18nRender="i18nRender"
     v-bind="settings"
   >
-    <!-- Ads begin
-      广告代码 真实项目中请移除
-      production remove this Ads
-    -->
-    <ads v-if="isProPreviewSite && !collapsed" />
-    <!-- Ads end -->
-
     <!-- 1.0.0+ 版本 pro-layout 提供 API，
           我们推荐使用这种方式进行 LOGO 和 title 自定义
     -->
@@ -31,15 +24,7 @@
     <template v-slot:headerContentRender>
       <div>
         <a-tooltip title="刷新页面">
-          <a-icon
-            type="reload"
-            style="font-size: 18px; cursor: pointer"
-            @click="
-              () => {
-                $message.info('只是一个DEMO')
-              }
-            "
-          />
+          <a-icon type="reload" style="font-size: 16px; cursor: pointer" @click="reload" :spin="!isRouterAlive" />
         </a-tooltip>
       </div>
     </template>
@@ -54,7 +39,19 @@
     <template v-slot:footerRender>
       <global-footer />
     </template>
-    <router-view />
+    <!-- layout content -->
+    <a-layout-content>
+      <multi-tab v-if="multiTab" @update="reload" />
+      <!-- 路由切换过渡和缓存 -->
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive>
+          <router-view v-if="$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
+        </keep-alive>
+      </transition>
+      <transition name="fade-transform" mode="out-in">
+        <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view
+      ></transition>
+    </a-layout-content>
   </pro-layout>
 </template>
 
@@ -64,7 +61,7 @@ import { mapState } from 'vuex'
 
 import GlobalFooter from '@/components/GlobalFooter'
 import RightContent from '@/components/GlobalHeader/RightContent'
-import Ads from '@/components/Other/CarbonAds'
+import MultiTab from '@/components/MultiTab'
 import defaultSettings from '@/config/defaultSettings'
 import { i18nRender } from '@/locales'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
@@ -75,12 +72,11 @@ export default {
     SettingDrawer,
     RightContent,
     GlobalFooter,
-    Ads
+    MultiTab
   },
   data() {
     return {
-      // preview.pro.antdv.com only use.
-      isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
+      multiTab: defaultSettings.multiTab,
       // end
       isDev: process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true',
 
@@ -109,14 +105,19 @@ export default {
       query: {},
 
       // 是否手机模式
-      isMobile: false
+      isMobile: false,
+      // 是否缓存
+      isRouterAlive: true
     }
   },
   computed: {
     ...mapState({
       // 动态主路由
       mainMenu: (state) => state.permission.addRouters
-    })
+    }),
+    key() {
+      return this.$route.fullPath
+    }
   },
   created() {
     const routes = this.mainMenu.find((item) => item.path === '/')
@@ -165,7 +166,6 @@ export default {
       this.collapsed = val
     },
     handleSettingChange({ type, value }) {
-      console.log('type', type, value)
       type && (this.settings[type] = value)
       switch (type) {
         case 'contentWidth':
@@ -180,6 +180,13 @@ export default {
           }
           break
       }
+    },
+    // 重载局部路由
+    reload() {
+      this.isRouterAlive = false
+      setTimeout(() => {
+        this.$nextTick(() => (this.isRouterAlive = true))
+      }, 500)
     }
   }
 }
@@ -187,4 +194,18 @@ export default {
 
 <style lang="less">
 @import './BasicLayout.less';
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 </style>

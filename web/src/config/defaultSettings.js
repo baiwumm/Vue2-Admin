@@ -14,12 +14,13 @@
 
 export default {
   navTheme: 'light', // theme for nav menu
-  primaryColor: '#F5222D', // '#F5222D', // primary color of ant design
+  primaryColor: '#1890FF', // '#F5222D', // primary color of ant design
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
-  fixedHeader: false, // sticky header
-  fixSiderbar: false, // sticky siderbar
+  fixedHeader: true, // sticky header
+  fixSiderbar: true, // sticky siderbar
   colorWeak: false,
+  multiTab: true,
   menu: {
     locale: true
   },

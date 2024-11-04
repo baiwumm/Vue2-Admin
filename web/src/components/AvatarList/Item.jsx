@@ -1,5 +1,5 @@
+import { Avatar, Tooltip } from 'ant-design-vue'
 import PropTypes from 'ant-design-vue/es/_util/vue-types'
-import { Tooltip, Avatar } from 'ant-design-vue'
 import { getSlotOptions } from 'ant-design-vue/lib/_util/props-util'
 import { warning } from 'ant-design-vue/lib/vc-util/warning'
 

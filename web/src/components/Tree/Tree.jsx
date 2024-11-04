@@ -1,4 +1,4 @@
-import { Menu, Icon, Input } from 'ant-design-vue'
+import { Icon, Input, Menu } from 'ant-design-vue'
 
 const { Item, ItemGroup, SubMenu } = Menu
 const { Search } = Input
