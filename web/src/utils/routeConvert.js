@@ -1,6 +1,6 @@
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 
-export function convertRoutes (nodes) {
+export function convertRoutes(nodes) {
   if (!nodes) return null
 
   nodes = cloneDeep(nodes)
@@ -15,7 +15,7 @@ export function convertRoutes (nodes) {
 
       if (!node.children || !node.children.length) continue
 
-      node.children.forEach(child => {
+      node.children.forEach((child) => {
         // 转化相对路径
         if (child.path[0] !== '/' && !child.path.startsWith('http')) {
           child.path = node.path.replace(/(\w*)[/]*$/, `$1/${child.path}`)

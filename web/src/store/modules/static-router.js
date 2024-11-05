@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 
 import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
 
