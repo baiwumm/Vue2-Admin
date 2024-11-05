@@ -7,25 +7,9 @@
  */
 
 import { ApiProperty } from '@nestjs/swagger';
-import { MenuType } from '@prisma/client';
-import { IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import { IsNumber, IsOptional, IsUUID } from 'class-validator';
 
 export class SaveMenuDto {
-  @ApiProperty({
-    type: String,
-    description: '菜单名称',
-    default: '首页',
-  })
-  @IsNotEmpty({ message: '菜单名称必填' })
-  title: string;
-
-  @ApiProperty({
-    enum: MenuType,
-    description: '菜单类型',
-    example: MenuType.MENU,
-  })
-  type: MenuType;
-
   @ApiProperty({
     type: String,
     description: '父级id',
@@ -54,20 +38,35 @@ export class SaveMenuDto {
 
   @ApiProperty({
     type: String,
-    description: '组件布局',
-    default: 'layout.base$view.home',
+    description: '组件路径',
+    default: 'home/index',
     required: false,
   })
   component?: string;
 
   @ApiProperty({
+    type: String,
+    description: '重定向地址',
+    default: 'home/index',
+    required: false,
+  })
+  redirect?: string;
+
+  @ApiProperty({
+    type: Boolean,
+    description: '是否隐藏',
+    default: false,
+    required: false,
+  })
+  hidden?: boolean;
+
+  @ApiProperty({
     type: Object,
     description: '路由元信息',
     default: {
-      title: 'home',
-      i18nKey: 'route.home',
-      icon: 'mdi:monitor-dashboard',
-      order: 1,
+      title: 'menu.home',
+      icon: 'home',
+      keepAlive: true,
     },
     required: false,
   })

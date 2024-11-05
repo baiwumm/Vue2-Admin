@@ -2,26 +2,19 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-01 09:51:15
+ * @LastEditTime: 2024-11-05 10:01:10
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { type Menu, MenuType, Status, type User } from '@prisma/client';
+import { Status, type User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { lastValueFrom, map } from 'rxjs';
 
 import { LOCALES } from '@/enums';
 import { PrismaService } from '@/modules/prisma/prisma.service';
-import {
-  convertFlatDataToTree,
-  convertToLocalization,
-  initializeLang,
-  initializeTree,
-  omit,
-  responseMessage,
-} from '@/utils';
+import { initializeLang, initializeTree, omit, responseMessage } from '@/utils';
 
 import { juejinParamsDto, LoginParamsDto } from './dto/params-auth.dto';
 
@@ -101,15 +94,12 @@ export class AuthService {
     const permissions = await this.prisma.menu
       .findMany({
         where: {
-          type: {
-            equals: MenuType.BUTTON,
-          },
           id: {
             in: menuIds,
           },
         },
       })
-      .then((results) => results.map((result) => result.permission));
+      .then((results) => results.map((result) => result.actions));
     return responseMessage<User>({
       ...userInfo,
       buttons: permissions,
@@ -120,22 +110,21 @@ export class AuthService {
             permissionId: 'home',
             permissionName: '工作台',
             actionList: [],
-            roleId: 'Admin',
-            actions: [],
           },
           {
             permissionId: 'system-manage',
             permissionName: '系统设置',
             actionList: [],
-            roleId: 'Admin',
-            actions: [],
           },
           {
             permissionId: 'internationalization',
             permissionName: '国际化',
-            actionList: [],
-            roleId: 'Admin',
-            actions: [],
+            actionList: ['search', 'add', 'edit', 'delete'],
+          },
+          {
+            permissionId: 'menu-manage',
+            permissionName: '菜单管理',
+            actionList: ['search', 'add', 'edit', 'delete'],
           },
         ],
       },
@@ -236,132 +225,5 @@ export class AuthService {
       list: responseData.data,
       total: responseData.count,
     });
-  }
-
-  /**
-   * @description: 获取动态路由表
-   */
-  async getConstantRoutes() {
-    // 获取菜单列表
-    const result = await this.prisma.menu.findMany({
-      where: {
-        // 过滤出 json 对象只有常量的菜单
-        meta: {
-          path: ['constant'],
-          equals: true,
-        },
-      },
-      select: {
-        name: true,
-        path: true,
-        component: true,
-        meta: true,
-      },
-      orderBy: [
-        { sort: 'asc' }, // 按照sort字段升序
-        { createdAt: 'desc' }, // 如果sort相同，再按照createdAt字段降序
-      ],
-    });
-    return responseMessage<Menu[]>(result);
-  }
-
-  /**
-   * @description: 获取用户路由
-   */
-  async getUserRoutes(session: CommonType.SessionInfo) {
-    // 获取所有与 roleId 相关的 menuId
-    const menuIds = await this.prisma.permission
-      .findMany({
-        where: {
-          roleId: session.userInfo.roleId,
-        },
-        select: {
-          menuId: true,
-        },
-      })
-      .then((results) => results.map((result) => result.menuId));
-    // 获取菜单列表
-    const result = await this.prisma.menu.findMany({
-      where: {
-        type: {
-          not: MenuType.BUTTON,
-        },
-        id: {
-          in: menuIds,
-        },
-        // 过滤出 json 对象不是常量的菜单
-        meta: {
-          path: ['constant'],
-          not: true,
-        },
-      },
-      select: {
-        id: true,
-        parentId: true,
-        name: true,
-        path: true,
-        component: true,
-        meta: true,
-        props: true,
-      },
-      orderBy: [
-        { sort: 'asc' }, // 按照sort字段升序
-        { createdAt: 'desc' }, // 如果sort相同，再按照createdAt字段降序
-      ],
-    });
-    // 转成树形结构
-    const routes = convertFlatDataToTree(result);
-    return responseMessage({
-      home: routes?.[0]?.name || 'home',
-      routes,
-    });
-  }
-
-  /**
-   * @description: 判断路由名称是否存在
-   */
-  async isRouteExist(name: string) {
-    const result = await this.prisma.menu.findUnique({
-      where: {
-        name,
-      },
-    });
-    return responseMessage<boolean>(result ? true : false);
-  }
-
-  /**
-   * @description: 获取角色权限路由
-   */
-  async getRoleRoutes() {
-    // 获取菜单列表
-    const result = await this.prisma.menu.findMany({
-      where: {
-        OR: [
-          {
-            type: {
-              equals: MenuType.BUTTON,
-            },
-          },
-          {
-            AND: [
-              {
-                // 过滤出 json 对象不是常量的菜单
-                meta: {
-                  path: ['constant'],
-                  not: true,
-                },
-              },
-            ],
-          },
-        ],
-      },
-      orderBy: [
-        { sort: 'asc' }, // 按照sort字段升序
-        { createdAt: 'desc' }, // 如果sort相同，再按照createdAt字段降序
-      ],
-    });
-    // 转成树形结构
-    const routes = convertFlatDataToTree(result);
-    return responseMessage(routes);
   }
 }

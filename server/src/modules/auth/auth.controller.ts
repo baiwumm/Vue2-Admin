@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 10:01:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-10-09 11:01:22
+ * @LastEditTime: 2024-11-04 17:15:44
  * @Description: AuthController
  */
 import { Body, Controller, Get, Post, Query, Req, Res, Session, UseGuards, UseInterceptors } from '@nestjs/common';
@@ -127,71 +127,6 @@ export class AuthController {
   @ApiOperation({ summary: '获取掘金文章列表' })
   async juejin(@Body() params: juejinParamsDto) {
     const response = await this.authService.juejin(params);
-    return response;
-  }
-
-  /**
-   * @description: 获取动态路由表
-   */
-  @Get('/getConstantRoutes')
-  @ApiOkResponse({ type: ConstantRoutesResponseDto })
-  @ApiOperation({ summary: '获取常量路由' })
-  getConstantRoutes() {
-    const response = this.authService.getConstantRoutes();
-    return response;
-  }
-
-  /**
-   * @description: 获取用户路由
-   */
-  @UseGuards(AuthGuard('jwt'))
-  @ApiHeader({
-    name: 'Authorization',
-    required: true,
-    description: 'token令牌',
-  })
-  @ApiBearerAuth()
-  @Get('/getUserRoutes')
-  @ApiOkResponse({ type: UserRoutesResponseDto })
-  @ApiOperation({ summary: '获取用户路由' })
-  getUserRoutes(@Session() session: CommonType.SessionInfo) {
-    const response = this.authService.getUserRoutes(session);
-    return response;
-  }
-
-  /**
-   * @description: 判断路由名称是否存在
-   */
-  @UseGuards(AuthGuard('jwt'))
-  @ApiHeader({
-    name: 'Authorization',
-    required: true,
-    description: 'token令牌',
-  })
-  @ApiBearerAuth()
-  @Get('/isRouteExist')
-  @ApiOkResponse({ type: RouteExistResponseDto })
-  @ApiOperation({ summary: '判断路由名称是否存在' })
-  isRouteExist(@Query() params: RouteExistParamsDto) {
-    const response = this.authService.isRouteExist(params.name);
-    return response;
-  }
-
-  /**
-   * @description: 获取角色权限路由
-   */
-  @UseGuards(AuthGuard('jwt'))
-  @ApiHeader({
-    name: 'Authorization',
-    required: true,
-    description: 'token令牌',
-  })
-  @ApiBearerAuth()
-  @Get('/getRoleRoutes')
-  @ApiOkResponse({ type: UserRoutesResponseDto })
-  @ApiOperation({ summary: '获取角色权限路由' })
-  getRoleRoutes() {
-    const response = this.authService.getRoleRoutes();
     return response;
   }
 }

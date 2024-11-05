@@ -47,14 +47,13 @@ export class SaveRoleDto {
   description?: string;
 
   @ApiProperty({
-    type: [String],
-    description: '菜单id集合',
-    default: ['dea4e038-592f-4532-ac86-c7de25a3416c', '4fc642f4-18bb-4b18-980b-7e41e804720c'],
+    type: [Object],
+    description: '菜单权限集合',
+    default: [{ menuId: 'dea4e038-592f-4532-ac86-c7de25a3416c', actions: ['add', 'edit'] }],
     isArray: true,
   })
-  @IsString({ each: true, message: '菜单权限必须是字符串数组' })
   @IsArray({
     message: '菜单权限必须是数组类型',
   })
-  menus: string[];
+  menus: { menuId: string; actions: string[] }[];
 }

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-08-22 10:16:18
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-09-04 10:53:46
+ * @LastEditTime: 2024-11-04 17:06:43
  * @Description: RoleManageService
  */
 import { Injectable } from '@nestjs/common';
@@ -81,8 +81,8 @@ export class RoleManageService {
         data: {
           ...body,
           permissions: {
-            create: menus.map((menuId) => ({
-              menuId,
+            create: menus.map((item) => ({
+              ...item,
             })),
           },
         },
@@ -112,8 +112,8 @@ export class RoleManageService {
           data: {
             ...body,
             permissions: {
-              create: menus.map((menuId) => ({
-                menuId,
+              create: menus.map((item) => ({
+                ...item,
               })),
             },
           },

@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-08-19 11:19:36
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-08-22 15:41:29
+ * @LastEditTime: 2024-11-05 11:13:57
  * @Description: MenuManageService
  */
 import { Injectable } from '@nestjs/common';
-import { type Menu, MenuType } from '@prisma/client';
+import { type Menu } from '@prisma/client';
 
 import { RESPONSE_MSG } from '@/enums';
 import { PrismaService } from '@/modules/prisma/prisma.service';
@@ -22,14 +22,10 @@ export class MenuManageService {
   /**
    * @description: 查询菜单列表
    */
-  async findAll({ title, name, startTime, endTime }: MenuParamsDto) {
+  async findAll({ name, startTime, endTime }: MenuParamsDto) {
     // 条件判断
     const where = {}; // 查询参数
     // 模糊查询
-    if (title) {
-      where['title'] = { contains: title, mode: 'insensitive' };
-    }
-
     if (name) {
       where['name'] = { contains: name, mode: 'insensitive' };
     }
@@ -63,25 +59,8 @@ export class MenuManageService {
           id: body.parentId,
         },
       });
-      if (menu) {
-        if (menu.type === MenuType.BUTTON) {
-          return responseMessage(null, '按钮不能是父级，只能是叶子结点!', -1);
-        }
-        if (body.type === MenuType.BUTTON && menu.type !== MenuType.MENU) {
-          return responseMessage(null, '按钮类型的父级只能是菜单!', -1);
-        }
-        if (body.type === MenuType.MENU && menu.type !== MenuType.DIRECTORY) {
-          return responseMessage(null, '菜单类型的父级只能是目录!', -1);
-        }
-        if (body.type === MenuType.DIRECTORY && menu.type !== MenuType.DIRECTORY) {
-          return responseMessage(null, '目录类型的父级只能是目录!', -1);
-        }
-      } else {
+      if (!menu) {
         return responseMessage(null, '父级不存在!', -1);
-      }
-    } else {
-      if (body.type === MenuType.BUTTON) {
-        return responseMessage({}, '按钮不能处于顶级，只能是叶子结点!', -1);
       }
     }
     return null;
@@ -97,7 +76,7 @@ export class MenuManageService {
         return response;
       }
       const result = await this.prisma.menu.create({
-        data: body,
+        data: body as any,
       });
       return responseMessage<Menu>(result);
     } catch (error) {

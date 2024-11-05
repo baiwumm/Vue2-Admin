@@ -11,14 +11,6 @@ import { IsNumberString, IsOptional } from 'class-validator';
 export class MenuParamsDto {
   @ApiProperty({
     type: String,
-    description: '菜单名称',
-    required: false,
-    default: '首页',
-  })
-  title?: string;
-
-  @ApiProperty({
-    type: String,
     description: '路由名称',
     required: false,
     default: 'home',
