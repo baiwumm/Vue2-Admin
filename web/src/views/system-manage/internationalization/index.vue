@@ -27,7 +27,7 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import { assign, get } from 'lodash-es'
+import { assign, get, pick } from 'lodash-es'
 
 import {
   addInternalization,
@@ -35,6 +35,7 @@ import {
   getInternalizationList,
   updateInternalization
 } from '@/api/system-manage/internationalization'
+import { RequestCode } from '@/constant'
 import { I18nEntry, I18nGlobal, I18nInternationalization } from '@/constant/i18n'
 
 import FormModal from './components/FormModal' // 表单弹窗
@@ -83,7 +84,7 @@ export default {
         })
       }
       const { data, code } = await getInternalizationList(params)
-      if (code === 200) {
+      if (code === RequestCode.Success) {
         this.data = get(data, 'records', [])
       }
       this.loading = false
@@ -104,13 +105,13 @@ export default {
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
-        this.form.setFieldsValue(record)
+        this.form.setFieldsValue(pick(record, ['name', 'parentId', 'zhCN', 'enUS', 'jaJP', 'zhTW']))
       })
     },
     // 删除
     async onDelete(record) {
       await delInternalization(record.id).then((res) => {
-        if (res.code === 200) {
+        if (res.code === RequestCode.Success) {
           this.$message.success(res.msg)
           this.getList()
         }
@@ -125,14 +126,13 @@ export default {
     // 保存
     handleSubmit(e) {
       e.preventDefault()
-      const validateFieldsKey = ['parentId', 'name', 'zhCN', 'enUS', 'jaJP', 'zhTW']
-      this.form.validateFields(validateFieldsKey, { force: true }, async (err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
           const id = this.id
           this.loginState = true
           await (id ? updateInternalization : addInternalization)({ id, ...values })
             .then(async ({ code, msg }) => {
-              if (code === 200) {
+              if (code === RequestCode.Success) {
                 this.$message.success(msg)
                 this.onClose()
                 this.getList()

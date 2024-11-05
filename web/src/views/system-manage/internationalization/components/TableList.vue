@@ -1,16 +1,16 @@
 <template>
   <a-table :columns="getColumns()" rowKey="id" :data-source="data" :loading="loading" :pagination="false">
     <span slot="zhCN" slot-scope="text">
-      {{ text || '--' }}
+      {{ text || CommonText.Null }}
     </span>
     <span slot="enUS" slot-scope="text">
-      {{ text || '--' }}
+      {{ text || CommonText.Null }}
     </span>
     <span slot="jaJP" slot-scope="text">
-      {{ text || '--' }}
+      {{ text || CommonText.Null }}
     </span>
     <span slot="zhTW" slot-scope="text">
-      {{ text || '--' }}
+      {{ text || CommonText.Null }}
     </span>
     <span slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
@@ -27,6 +27,7 @@
 <script>
 import dayjs from 'dayjs'
 
+import { CommonText } from '@/constant'
 import { ActionMap } from '@/constant/action'
 import { I18nGlobal, I18nInternationalization } from '@/constant/i18n'
 export default {
@@ -36,7 +37,8 @@ export default {
     return {
       dayjs,
       I18nGlobal,
-      ActionMap
+      ActionMap,
+      CommonText
     }
   },
   methods: {
