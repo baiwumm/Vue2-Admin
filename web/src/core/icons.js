@@ -10,4 +10,4 @@ import HomeIcon from '@/assets/icons/home.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
 
-export { HomeIcon, InternationalizationIcon, LocaleIcon }
+export default { HomeIcon, InternationalizationIcon, LocaleIcon }

@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { UserLayout, BasicLayout, BlankLayout } from '@/layouts'
-import { HomeIcon, InternationalizationIcon } from '@/core/icons'
+import MenuIcon from '@/core/icons'
 
 const RouteView = {
   name: 'RouteView',
@@ -20,7 +20,7 @@ export const asyncRouterMap = [
         path: '/home',
         name: 'home',
         component: () => import('@/views/home/index'),
-        meta: { title: 'menu.home', keepAlive: true, icon: HomeIcon, permission: ['home'] }
+        meta: { title: 'menu.home', keepAlive: true, icon: MenuIcon['HomeIcon'], permission: ['home'] }
       },
       // 系统设置
       {
@@ -31,14 +31,25 @@ export const asyncRouterMap = [
         meta: { title: 'menu.system-manage', keepAlive: true, icon: 'setting', permission: ['system-manage'] },
         children: [
           {
+            path: '/system-manage/menu-manage',
+            name: 'menu-manage',
+            component: () => import('@/views/system-manage/menu-manage/index'),
+            meta: {
+              title: 'menu.system-manage.menu-manage',
+              keepAlive: true,
+              icon: 'menu',
+              permission: ['menu-manage']
+            }
+          },
+          {
             path: '/system-manage/internationalization',
             name: 'internationalization',
             component: () => import('@/views/system-manage/internationalization/index'),
             meta: {
               title: 'menu.system-manage.internationalization',
               keepAlive: true,
-              icon: InternationalizationIcon,
-              permission: ['system-manage']
+              icon: MenuIcon['InternationalizationIcon'],
+              permission: ['internationalization']
             }
           }
         ]
