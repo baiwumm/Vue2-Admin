@@ -25,13 +25,6 @@ enum Sex {
   MALE
 }
 
-// Menu - type
-enum MenuType {
-  DIRECTORY
-  MENU
-  BUTTON
-}
-
 // Log - method
 enum Method {
   GET
@@ -57,17 +50,16 @@ model Role {
 // 系统管理 - 菜单管理
 model Menu {
   id            String          @id @default(uuid()) // 主键
-  title         String          // 菜单名称
-  type          MenuType        @default(MENU) // 菜单类型
   parentId      String?  
   parent        Menu?           @relation(name: "MenuHierarchy", fields: [parentId], references: [id])
   name          String?          @unique // 路由名称
   path          String?          @unique // 路由地址
   component     String?          // 组件路径
-  meta          Json?            // 路由元信息（JSON 对象）
-  props         Json?            // Iframe 页面参数（JSON 对象）
+  redirect      String?          // 重定向地址
+  hidden        Boolean         @default(false) // 控制路由和子路由是否显示在 sidebar，默认 false
+  meta          Json            // 路由元信息（JSON 对象）
+  actions       Json            // 按钮操作权限
   sort          Int             // 排序
-  permission    String?         @unique // 权限标识
   permissions   Permission[]    // 与Permission的一对多关系
   createdAt     DateTime        @default(now()) // 创建时间
   updatedAt     DateTime        @updatedAt // 更新时间
@@ -79,6 +71,7 @@ model Permission {
   id            String          @id @default(uuid()) // 主键
   roleId        String          // 角色ID
   menuId        String          // 菜单ID
+  actions       Json            // 按钮操作权限
   createdAt     DateTime        @default(now()) // 创建时间
   role          Role            @relation(fields: [roleId], references: [id]) // 与Role的关联
   menu          Menu            @relation(fields: [menuId], references: [id]) // 与Menu的关联
