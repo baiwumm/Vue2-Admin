@@ -1,4 +1,3 @@
-// base library
 import {
   Alert,
   Avatar,
@@ -48,14 +47,15 @@ import {
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 import Vue from 'vue'
-// ext library
 import VueCropper from 'vue-cropper'
 
 import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
+import defaultSettings from '@/config/defaultSettings'
 import PermissionHelper from '@/core/permission/permission'
 
+import pkg from '../../package.json'
 import Directives from './directives'
 
 Vue.use(ConfigProvider)
@@ -119,8 +119,7 @@ Vue.use(VueCropper)
 Vue.use(Directives)
 
 console.log(
-  '%c Vue2 Admin %c 邮箱地址：baiwumm@foxmail.com',
+  `%c ${defaultSettings.title} %c 邮箱地址：${pkg.author.email}`,
   'background-color:rgb(3,3,7);font-size:12px;padding:8px;color:rgb(250,223,123);',
   'background-color:rgb(250,223,123);font-size:12px;padding:8px;color:rgb(3,3,7);'
 )
-process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')
