@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 10:01:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-04 17:15:44
+ * @LastEditTime: 2024-11-05 14:00:15
  * @Description: AuthController
  */
 import { Body, Controller, Get, Post, Query, Req, Res, Session, UseGuards, UseInterceptors } from '@nestjs/common';
@@ -16,15 +16,13 @@ import { LoggerInterceptor } from '@/interceptor/logger.interceptor';
 import { getRealIp, responseMessage } from '@/utils';
 
 import { AuthService } from './auth.service';
-import { juejinParamsDto, LoginParamsDto, RouteExistParamsDto } from './dto/params-auth.dto';
+import { juejinParamsDto, LoginParamsDto } from './dto/params-auth.dto';
 import {
-  ConstantRoutesResponseDto,
+  DynamicRoutesResponseDto,
   JuejinResponseDto,
   LocalesResponseDto,
   LoginResponseDto,
-  RouteExistResponseDto,
   UserInfoResponseDto,
-  UserRoutesResponseDto,
   VerifyCodeResponseDto,
 } from './dto/response-auth.dto';
 
@@ -127,6 +125,24 @@ export class AuthController {
   @ApiOperation({ summary: '获取掘金文章列表' })
   async juejin(@Body() params: juejinParamsDto) {
     const response = await this.authService.juejin(params);
+    return response;
+  }
+
+  /**
+   * @description: 获取动态路由
+   */
+  @UseGuards(AuthGuard('jwt'))
+  @ApiHeader({
+    name: 'Authorization',
+    required: true,
+    description: 'token令牌',
+  })
+  @ApiBearerAuth()
+  @Get('/getDynamicRoutes')
+  @ApiOkResponse({ type: DynamicRoutesResponseDto })
+  @ApiOperation({ summary: '获取动态路由' })
+  async getDynamicRoutes() {
+    const response = await this.authService.getDynamicRoutes();
     return response;
   }
 }

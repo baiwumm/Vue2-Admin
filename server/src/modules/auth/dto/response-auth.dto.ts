@@ -302,289 +302,92 @@ export class JuejinResponseDto extends ResponseDto {
 }
 
 /**
- * @description: 获取常量路由
+ * @description: 获取动态路由
  */
-export class ConstantRoutesResponseDto extends ResponseDto {
+export class DynamicRoutesResponseDto extends ResponseDto {
   @ApiProperty({
     type: Array,
-    description: '获取常量路由',
+    description: '获取动态路由',
     default: [
       {
-        name: 'login',
-        path: '/login',
-        component: 'layout.blank$view.login',
+        id: '0430389c-96ad-47e0-ab35-80b64f551f9b',
+        parentId: null,
+        name: 'system-manage',
+        path: '/system-manage',
+        component: 'RouteView',
+        redirect: '/system-manage/internationalization',
+        hidden: false,
         meta: {
-          order: 0,
-          title: 'login',
-          i18nKey: 'route.login',
-          constant: true,
-          multiTab: false,
-          keepAlive: false,
-          hideInMenu: true,
-        },
-      },
-      {
-        name: '403',
-        path: '/403',
-        component: 'layout.blank$view.403',
-        meta: {
-          order: 0,
-          title: '403',
-          i18nKey: 'route.403',
-          constant: true,
-          multiTab: false,
-          keepAlive: false,
-          hideInMenu: true,
-        },
-      },
-      {
-        name: '404',
-        path: '/404',
-        component: 'view.404',
-        meta: {
-          order: 0,
-          title: '404',
-          i18nKey: 'route.404',
-          constant: true,
-          multiTab: false,
-          keepAlive: false,
-          hideInMenu: true,
-        },
-      },
-      {
-        name: '500',
-        path: '/500',
-        component: 'layout.blank$view.500',
-        meta: {
-          order: 0,
-          title: '500',
-          i18nKey: 'route.500',
-          constant: true,
-          multiTab: false,
-          keepAlive: false,
-          hideInMenu: true,
-        },
-      },
-      {
-        name: 'iframe-page',
-        path: '/iframe-page/:url',
-        component: 'layout.base$view.iframe-page',
-        meta: {
-          order: 0,
-          title: 'iframe-page',
-          i18nKey: 'route.iframe-page',
-          constant: true,
-          multiTab: false,
+          icon: 'setting',
+          title: 'menu.system-manage',
           keepAlive: true,
-          hideInMenu: true,
+          permission: 'system-manage',
         },
+        actions: ['search', 'delete', 'edit', 'add'],
+        sort: 1,
+        createdAt: '2024-11-05T02:27:17.027Z',
+        updatedAt: '2024-11-05T03:10:43.192Z',
+        children: [
+          {
+            id: '70fbcb81-0f6d-47f1-b38d-1b5f42726f53',
+            parentId: '0430389c-96ad-47e0-ab35-80b64f551f9b',
+            name: 'internationalization',
+            path: '/system-manage/internationalization',
+            component: 'system-manage/internationalization',
+            redirect: null,
+            hidden: false,
+            meta: {
+              icon: 'InternationalizationIcon',
+              title: 'menu.system-manage.internationalization',
+              keepAlive: true,
+              permission: 'internationalization',
+            },
+            actions: ['search', 'delete', 'edit', 'add'],
+            sort: 1,
+            createdAt: '2024-11-05T02:57:49.303Z',
+            updatedAt: '2024-11-05T02:57:49.303Z',
+          },
+          {
+            id: '17cb3bcb-3be9-4229-a407-e0f93bbba17a',
+            parentId: '0430389c-96ad-47e0-ab35-80b64f551f9b',
+            name: 'menu-manage',
+            path: '/system-manage/menu-manage',
+            component: 'system-manage/menu-manage',
+            redirect: null,
+            hidden: false,
+            meta: {
+              icon: 'menu',
+              title: 'menu.system-manage.menu-manage',
+              keepAlive: true,
+              permission: 'menu-manage',
+            },
+            actions: ['search', 'delete', 'edit', 'add'],
+            sort: 1,
+            createdAt: '2024-11-05T02:58:35.085Z',
+            updatedAt: '2024-11-05T02:58:35.085Z',
+          },
+          {
+            id: '213f5947-8bce-4b1b-b218-057db18b2b87',
+            parentId: '0430389c-96ad-47e0-ab35-80b64f551f9b',
+            name: 'role-manage',
+            path: '/system-manage/role-manage',
+            component: 'system-manage/role-manage',
+            redirect: null,
+            hidden: false,
+            meta: {
+              icon: 'solution',
+              title: 'menu.system-manage.role-manage',
+              keepAlive: true,
+              permission: 'role-manage',
+            },
+            actions: ['search', 'delete', 'edit', 'add'],
+            sort: 1,
+            createdAt: '2024-11-05T05:48:03.487Z',
+            updatedAt: '2024-11-05T05:48:03.487Z',
+          },
+        ],
       },
     ],
   })
-  data: Pick<Menu, 'name' | 'path' | 'component' | 'meta'>[];
-}
-
-/**
- * @description: 获取用户路由
- */
-export class UserRoutesResponseDto extends ResponseDto {
-  @ApiProperty({
-    type: Object,
-    description: '获取用户路由',
-    default: {
-      home: 'home',
-      routes: [
-        {
-          id: '8f16a2cd-b613-4419-bfa5-996f16beaa6a',
-          parentId: null,
-          name: 'home',
-          path: '/home',
-          component: 'layout.base$view.home',
-          meta: {
-            icon: 'mdi:monitor-dashboard',
-            order: 1,
-            title: 'home',
-            i18nKey: 'route.home',
-            constant: false,
-            multiTab: false,
-            keepAlive: true,
-            hideInMenu: false,
-          },
-        },
-        {
-          id: '03404a66-50aa-4b21-8c93-9dcddaeffdb7',
-          parentId: null,
-          name: 'administrative',
-          path: '/administrative',
-          component: 'view.administrative',
-          meta: {
-            icon: 'ri:quill-pen-line',
-            order: 2,
-            title: 'administrative',
-            i18nKey: 'route.administrative',
-            constant: false,
-            multiTab: false,
-            keepAlive: true,
-            hideInMenu: false,
-          },
-          children: [
-            {
-              id: 'dea4e038-592f-4532-ac86-c7de25a3416c',
-              parentId: '03404a66-50aa-4b21-8c93-9dcddaeffdb7',
-              name: 'administrative_organization',
-              path: '/administrative/organization',
-              component: 'view.administrative_organization',
-              meta: {
-                icon: 'ri:exchange-2-line',
-                order: 0,
-                title: 'administrative_organization',
-                i18nKey: 'route.administrative_organization',
-                constant: false,
-                multiTab: false,
-                keepAlive: true,
-                hideInMenu: false,
-              },
-            },
-            {
-              id: '5dc9be35-dfad-493e-99c4-fdca4ddff1f5',
-              parentId: '03404a66-50aa-4b21-8c93-9dcddaeffdb7',
-              name: 'administrative_post-manage',
-              path: '/administrative/post-manage',
-              component: 'view.administrative_post-manage',
-              meta: {
-                icon: 'ri:contacts-book-3-line',
-                order: 0,
-                title: 'administrative_post-manage',
-                i18nKey: 'route.administrative_post-manage',
-                constant: false,
-                multiTab: false,
-                keepAlive: false,
-                hideInMenu: false,
-              },
-            },
-          ],
-        },
-        {
-          id: '572c5097-d28f-48b4-899d-3aaf46b8d668',
-          parentId: null,
-          name: 'system-manage',
-          path: '/system-manage',
-          component: 'view.system-manage',
-          meta: {
-            icon: 'ri:settings-2-line',
-            order: 3,
-            title: 'system-manage',
-            i18nKey: 'route.system-manage',
-            constant: false,
-            multiTab: false,
-            keepAlive: false,
-            hideInMenu: false,
-          },
-          children: [
-            {
-              id: '1ee566d9-d5ef-456a-8009-d67bb026b4b0',
-              parentId: '572c5097-d28f-48b4-899d-3aaf46b8d668',
-              name: 'system-manage_user-manage',
-              path: '/system-manage/user-manage',
-              component: 'view.system-manage_user-manage',
-              meta: {
-                icon: 'ri:user-settings-line',
-                order: 0,
-                title: 'system-manage_user-manage',
-                i18nKey: 'route.system-manage_user-manage',
-                constant: false,
-                multiTab: false,
-                keepAlive: false,
-                hideInMenu: false,
-              },
-            },
-            {
-              id: '28a745e9-ff3a-49c2-bebc-e269146652e6',
-              parentId: '572c5097-d28f-48b4-899d-3aaf46b8d668',
-              name: 'system-manage_menu-manage',
-              path: '/system-manage/menu-manage',
-              component: 'view.system-manage_menu-manage',
-              meta: {
-                icon: 'ri:route-fill',
-                order: 0,
-                title: 'system-manage_menu-manage',
-                i18nKey: 'route.system-manage_menu-manage',
-                constant: false,
-                multiTab: false,
-                keepAlive: false,
-                hideInMenu: false,
-              },
-            },
-            {
-              id: 'aaf9caab-e4cc-491c-bf9c-d5fe81b9d867',
-              parentId: '572c5097-d28f-48b4-899d-3aaf46b8d668',
-              name: 'system-manage_internalization',
-              path: '/system-manage/internalization',
-              component: 'view.system-manage_internalization',
-              meta: {
-                icon: 'ri:global-line',
-                order: 0,
-                title: 'system-manage_internalization',
-                i18nKey: 'route.system-manage_internalization',
-                constant: false,
-                multiTab: false,
-                keepAlive: false,
-                hideInMenu: false,
-              },
-            },
-            {
-              id: '596eba6b-6b80-495a-bf9d-f90fdfb9e49d',
-              parentId: '572c5097-d28f-48b4-899d-3aaf46b8d668',
-              name: 'system-manage_operation-log',
-              path: '/system-manage/operation-log',
-              component: 'view.system-manage_operation-log',
-              meta: {
-                icon: 'ri:draft-line',
-                order: 0,
-                title: 'system-manage_operation-log',
-                i18nKey: 'route.system-manage_operation-log',
-                constant: false,
-                multiTab: false,
-                keepAlive: false,
-                hideInMenu: false,
-              },
-            },
-          ],
-        },
-        {
-          id: '4d238c00-d8c0-4ed2-a803-41caf772820e',
-          parentId: null,
-          name: 'about',
-          path: '/about',
-          component: 'layout.base$view.about',
-          meta: {
-            icon: 'fluent:book-information-24-regular',
-            order: 0,
-            title: 'about',
-            i18nKey: 'route.about',
-            constant: false,
-            multiTab: false,
-            keepAlive: false,
-            hideInMenu: false,
-          },
-        },
-      ],
-    },
-  })
-  data: {
-    home: string;
-    routes: Pick<Menu, 'name' | 'path' | 'component' | 'meta'>[];
-  };
-}
-
-/**
- * @description: 判断路由名称是否存在
- */
-export class RouteExistResponseDto extends ResponseDto {
-  @ApiProperty({
-    type: Boolean,
-    description: '路由名称是否存在',
-    default: true,
-  })
-  data: boolean;
+  data: Menu[];
 }

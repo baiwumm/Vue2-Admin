@@ -65,16 +65,3 @@ export class juejinParamsDto {
   @IsNotEmpty({ message: '文章偏移量必填' })
   cursor: string;
 }
-
-/**
- * @description: 判断路由是否存在
- */
-export class RouteExistParamsDto {
-  @ApiProperty({
-    type: String,
-    description: '路由名称',
-    default: 'home',
-  })
-  @IsNotEmpty({ message: '路由名称必填' })
-  name: string;
-}

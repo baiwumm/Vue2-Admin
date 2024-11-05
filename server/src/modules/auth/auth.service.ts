@@ -2,19 +2,19 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-05 10:01:10
+ * @LastEditTime: 2024-11-05 17:01:37
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Status, type User } from '@prisma/client';
+import { type Menu, Status, type User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { lastValueFrom, map } from 'rxjs';
 
 import { LOCALES } from '@/enums';
 import { PrismaService } from '@/modules/prisma/prisma.service';
-import { initializeLang, initializeTree, omit, responseMessage } from '@/utils';
+import { convertFlatDataToTree, initializeLang, initializeTree, omit, responseMessage } from '@/utils';
 
 import { juejinParamsDto, LoginParamsDto } from './dto/params-auth.dto';
 
@@ -94,38 +94,26 @@ export class AuthService {
     const permissions = await this.prisma.menu
       .findMany({
         where: {
-          id: {
-            in: menuIds,
-          },
+          // id: {
+          //   in: menuIds,
+          // },
         },
       })
-      .then((results) => results.map((result) => result.actions));
+      .then((results) =>
+        results.map((result) => ({
+          permissionId: result.name,
+          actionList: result.actions,
+        })),
+      );
     return responseMessage<User>({
       ...userInfo,
-      buttons: permissions,
-      roles: [userInfo.role.code],
       role: {
         permissions: [
           {
             permissionId: 'home',
-            permissionName: '工作台',
             actionList: [],
           },
-          {
-            permissionId: 'system-manage',
-            permissionName: '系统设置',
-            actionList: [],
-          },
-          {
-            permissionId: 'internationalization',
-            permissionName: '国际化',
-            actionList: ['search', 'add', 'edit', 'delete'],
-          },
-          {
-            permissionId: 'menu-manage',
-            permissionName: '菜单管理',
-            actionList: ['search', 'add', 'edit', 'delete'],
-          },
+          ...permissions,
         ],
       },
     });
@@ -225,5 +213,13 @@ export class AuthService {
       list: responseData.data,
       total: responseData.count,
     });
+  }
+
+  /**
+   * @description: 获取动态路由
+   */
+  async getDynamicRoutes() {
+    const result = await this.prisma.menu.findMany();
+    return responseMessage<Menu>(convertFlatDataToTree(result));
   }
 }
