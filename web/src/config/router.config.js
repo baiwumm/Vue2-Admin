@@ -1,67 +1,18 @@
-// eslint-disable-next-line
-import { UserLayout, BasicLayout, BlankLayout } from '@/layouts'
-import MenuIcon from '@/core/icons'
+import { BasicLayout, UserLayout } from '@/layouts'
 
 const RouteView = {
   name: 'RouteView',
   render: (h) => h('router-view')
 }
 
-export const asyncRouterMap = [
-  {
-    path: '/',
-    name: 'index',
-    component: BasicLayout,
-    meta: { title: 'menu.home' },
-    redirect: '/home',
-    children: [
-      // 首页
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home/index'),
-        meta: { title: 'menu.home', keepAlive: true, icon: MenuIcon['HomeIcon'], permission: ['home'] }
-      },
-      // 系统设置
-      {
-        path: '/system-manage',
-        name: 'system-manage',
-        redirect: '/system-manage/internationalization',
-        component: RouteView,
-        meta: { title: 'menu.system-manage', keepAlive: true, icon: 'setting', permission: ['system-manage'] },
-        children: [
-          {
-            path: '/system-manage/menu-manage',
-            name: 'menu-manage',
-            component: () => import('@/views/system-manage/menu-manage/index'),
-            meta: {
-              title: 'menu.system-manage.menu-manage',
-              keepAlive: true,
-              icon: 'menu',
-              permission: ['menu-manage']
-            }
-          },
-          {
-            path: '/system-manage/internationalization',
-            name: 'internationalization',
-            component: () => import('@/views/system-manage/internationalization/index'),
-            meta: {
-              title: 'menu.system-manage.internationalization',
-              keepAlive: true,
-              icon: MenuIcon['InternationalizationIcon'],
-              permission: ['internationalization']
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
-  }
-]
+// 前端路由表
+export const constantRouterComponents = {
+  // 基础页面 layout 必须引入
+  BasicLayout: BasicLayout,
+  RouteView: RouteView
+}
+
+export const asyncRouterMap = []
 
 /**
  * 基础路由

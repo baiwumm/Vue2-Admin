@@ -1,6 +1,7 @@
-// eslint-disable-next-line
-import * as loginService from '@/api/login'
-// eslint-disable-next-line
+import { get } from 'lodash-es'
+
+import { getDynamicRoutes } from '@/api/auth'
+import MenuIcon from '@/core/icons'
 import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
 
 // 前端路由表 (基于动态)
@@ -10,14 +11,12 @@ const constantRouterComponents = {
   BlankLayout: BlankLayout,
   RouteView: RouteView,
   PageView: PageView,
-  403: () => import(/* webpackChunkName: "error" */ '@/views/exception/403'),
-  404: () => import(/* webpackChunkName: "error" */ '@/views/exception/404'),
-  500: () => import(/* webpackChunkName: "error" */ '@/views/exception/500'),
 
-  // 首页
-  Home: () => import('@/views/home/index'),
-  // 系统设置
-  Internationalization: () => import('@/views/system-manage/internationalization/index')
+  403: () => import('@/views/exception/403'),
+  404: () => import('@/views/exception/404'),
+  500: () => import('@/views/exception/500'),
+
+  Home: () => import('@/views/home')
 }
 
 // 前端未找到页面路由（固定不用改）
@@ -29,20 +28,23 @@ const notFoundRouter = {
 
 // 根级菜单
 const rootRouter = {
-  key: '',
   name: 'index',
-  path: '',
+  path: '/',
   component: 'BasicLayout',
-  redirect: '/dashboard',
+  redirect: '/home',
   meta: {
-    title: '首页'
+    title: 'menu.home'
   },
-  children: []
+  children: [
+    // 首页
+    {
+      path: '/home',
+      name: 'home',
+      component: 'Home',
+      meta: { title: 'menu.home', keepAlive: false, icon: MenuIcon['HomeIcon'], permission: ['home'] }
+    }
+  ]
 }
-
-// export const generatorStaticRouter = () => {
-
-// }
 
 /**
  * 动态生成菜单
@@ -51,21 +53,14 @@ const rootRouter = {
  */
 export const generatorDynamicRouter = (token) => {
   return new Promise((resolve, reject) => {
-    loginService
-      .getCurrentUserNav(token)
+    getDynamicRoutes(token)
       .then((res) => {
-        console.log('generatorDynamicRouter response:', res)
-        const { result } = res
+        const result = get(res, 'data', [])
         const menuNav = []
-        const childrenNav = []
-        //      后端数据, 根级树数组,  根级 PID
-        listToTree(result, childrenNav, 0)
-        rootRouter.children = childrenNav
+        rootRouter.children.push(...result)
         menuNav.push(rootRouter)
-        console.log('menuNav', menuNav)
         const routers = generator(menuNav)
         routers.push(notFoundRouter)
-        console.log('routers', routers)
         resolve(routers)
       })
       .catch((err) => {
@@ -81,35 +76,31 @@ export const generatorDynamicRouter = (token) => {
  * @param parent
  * @returns {*}
  */
-export const generator = (routerMap, parent) => {
+export const generator = (routerMap) => {
   return routerMap.map((item) => {
-    const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
+    const { title, hiddenHeaderContent, keepAlive, icon } = item.meta || {}
+    // 判断路由是否是外链(即判断path是否是网址)
+    const httpReg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
-      path: item.path || `${(parent && parent.path) || ''}/${item.key}`,
+      path: item.path,
       // 路由名称，建议唯一
-      name: item.name || item.key || '',
+      name: item.name,
       // 该路由对应页面的 组件 :方案1
       // component: constantRouterComponents[item.component || item.key],
       // 该路由对应页面的 组件 :方案2 (动态加载)
-      component: constantRouterComponents[item.component || item.key] || (() => import(`@/views/${item.component}`)),
+      component: constantRouterComponents[item.component] || (() => import(`@/views/${item.component}`)),
 
+      hidden: item.hidden,
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         title: title,
-        icon: icon || undefined,
+        icon: MenuIcon[icon] || icon || undefined,
         hiddenHeaderContent: hiddenHeaderContent,
-        target: target,
+        keepAlive,
+        target: httpReg.test(item.path) ? '_blank' : undefined,
         permission: item.name
       }
-    }
-    // 是否设置了隐藏菜单
-    if (show === false) {
-      currentRouter.hidden = true
-    }
-    // 是否设置了隐藏子菜单
-    if (hideChildren) {
-      currentRouter.hideChildrenInMenu = true
     }
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     if (!currentRouter.path.startsWith('http')) {
@@ -120,35 +111,8 @@ export const generator = (routerMap, parent) => {
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion
-      currentRouter.children = generator(item.children, currentRouter)
+      currentRouter.children = generator(item.children)
     }
     return currentRouter
-  })
-}
-
-/**
- * 数组转树形结构
- * @param list 源数组
- * @param tree 树
- * @param parentId 父ID
- */
-const listToTree = (list, tree, parentId) => {
-  list.forEach((item) => {
-    // 判断是否为父级菜单
-    if (item.parentId === parentId) {
-      const child = {
-        ...item,
-        key: item.key || item.name,
-        children: []
-      }
-      // 迭代 list， 找到当前菜单相符合的所有子菜单
-      listToTree(list, child.children, item.id)
-      // 删掉不存在 children 值的属性
-      if (child.children.length <= 0) {
-        delete child.children
-      }
-      // 加入到树中
-      tree.push(child)
-    }
   })
 }
