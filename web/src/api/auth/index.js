@@ -50,3 +50,13 @@ export function getLocales() {
     method: 'get'
   })
 }
+
+/**
+ * @description: 获取动态路由
+ */
+export function getDynamicRoutes() {
+  return request({
+    url: 'auth/getDynamicRoutes',
+    method: 'get'
+  })
+}

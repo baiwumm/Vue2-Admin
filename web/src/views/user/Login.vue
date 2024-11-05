@@ -87,7 +87,7 @@
 import { ParticlesBg } from 'particles-bg-vue'
 import { mapActions } from 'vuex'
 
-import { generateVerifCode } from '@/api/login'
+import { generateVerifCode } from '@/api/auth'
 export default {
   name: 'Login',
   components: {

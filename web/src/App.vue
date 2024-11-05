@@ -13,7 +13,7 @@ import antdZhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import antdZhTw from 'ant-design-vue/lib/locale-provider/zh_TW'
 import { forIn } from 'lodash-es'
 
-import { getLocales } from '@/api/login'
+import { getLocales } from '@/api/auth'
 import { i18nRender } from '@/locales'
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 
