@@ -4,6 +4,7 @@ import axios from 'axios'
 import { debounce } from 'lodash-es'
 import storage from 'store'
 
+import { RequestCode } from '@/constant'
 import store from '@/store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
@@ -64,9 +65,10 @@ request.interceptors.request.use((config) => {
 // response interceptor
 request.interceptors.response.use((response) => {
   const { code, msg } = response.data
-  if (code === -1) {
+  if (code === RequestCode.NoSuccess) {
     debounceError(msg || '请求失败')
   }
+
   return response.data
 }, errorHandler)
 
