@@ -42,6 +42,7 @@ import {
   Tag,
   TimePicker,
   Tooltip,
+  Tree,
   TreeSelect,
   Upload
 } from 'ant-design-vue'
@@ -101,6 +102,7 @@ Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Space)
 Vue.use(TreeSelect)
+Vue.use(Tree)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
