@@ -2,10 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 10:01:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-05 14:00:15
+ * @LastEditTime: 2024-11-06 09:41:17
  * @Description: AuthController
  */
-import { Body, Controller, Get, Post, Query, Req, Res, Session, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, Session, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiHeader, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'; // swagger 接口文档
 import { Request, Response } from 'express';
@@ -141,8 +141,8 @@ export class AuthController {
   @Get('/getDynamicRoutes')
   @ApiOkResponse({ type: DynamicRoutesResponseDto })
   @ApiOperation({ summary: '获取动态路由' })
-  async getDynamicRoutes() {
-    const response = await this.authService.getDynamicRoutes();
+  async getDynamicRoutes(@Session() session: CommonType.SessionInfo) {
+    const response = await this.authService.getDynamicRoutes(session);
     return response;
   }
 }

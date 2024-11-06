@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-05 17:01:37
+ * @LastEditTime: 2024-11-06 09:47:30
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
@@ -80,28 +80,19 @@ export class AuthService {
     // 获取 session 用户信息
     const userInfo = omit(session.userInfo, ['password', 'token']);
     // 获取所有与 roleId 相关的 menuId
-    const menuIds = await this.prisma.permission
+    const permissions = await this.prisma.permission
       .findMany({
         where: {
           roleId: userInfo.roleId,
         },
-        select: {
-          menuId: true,
-        },
-      })
-      .then((results) => results.map((result) => result.menuId));
-    // 使用这些 menuId 查询 Menu 模型
-    const permissions = await this.prisma.menu
-      .findMany({
-        where: {
-          // id: {
-          //   in: menuIds,
-          // },
+        include: {
+          role: true,
+          menu: true,
         },
       })
       .then((results) =>
         results.map((result) => ({
-          permissionId: result.name,
+          permissionId: result.menu.name,
           actionList: result.actions,
         })),
       );
@@ -218,8 +209,27 @@ export class AuthService {
   /**
    * @description: 获取动态路由
    */
-  async getDynamicRoutes() {
-    const result = await this.prisma.menu.findMany();
+  async getDynamicRoutes(session: CommonType.SessionInfo) {
+    // 获取 session 用户信息
+    const userInfo = omit(session.userInfo, ['password', 'token']);
+    // 获取所有与 roleId 相关的 menuId
+    const menuIds = await this.prisma.permission
+      .findMany({
+        where: {
+          roleId: userInfo.roleId,
+        },
+        select: {
+          menuId: true,
+        },
+      })
+      .then((results) => results.map((result) => result.menuId));
+    const result = await this.prisma.menu.findMany({
+      where: {
+        id: {
+          in: menuIds,
+        },
+      },
+    });
     return responseMessage<Menu>(convertFlatDataToTree(result));
   }
 }
