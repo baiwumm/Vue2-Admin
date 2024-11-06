@@ -3,8 +3,13 @@
     <a-form layout="inline">
       <a-row :gutter="16" align="middle">
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
-          <a-form-item :label="I18nMenu('name')">
-            <a-input :placeholder="I18nEntry(I18nMenu('name'))" allowClear v-model="queryForm.name" />
+          <a-form-item :label="I18nRole('name')">
+            <a-input :placeholder="I18nEntry(I18nRole('name'))" allowClear v-model="queryForm.name" />
+          </a-form-item>
+        </a-col>
+        <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
+          <a-form-item :label="I18nRole('code')">
+            <a-input :placeholder="I18nEntry(I18nRole('code'))" allowClear v-model="queryForm.code" />
           </a-form-item>
         </a-col>
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
@@ -28,7 +33,7 @@
 </template>
 <script>
 import { ActionMap } from '@/constant/action'
-import { I18nEntry, I18nGlobal, I18nMenu } from '@/constant/i18n'
+import { I18nEntry, I18nGlobal, I18nRole } from '@/constant/i18n'
 export default {
   name: 'HeaderSearch',
   props: ['queryForm'],
@@ -36,7 +41,7 @@ export default {
     return {
       I18nGlobal,
       I18nEntry,
-      I18nMenu,
+      I18nRole,
       ActionMap
     }
   },

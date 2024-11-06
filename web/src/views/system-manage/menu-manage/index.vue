@@ -67,7 +67,7 @@ export default {
         redirect: ['redirect'],
         component: ['component', { rules: [{ required: true, message: I18nEntry(I18nMenu('component')) }] }],
         hidden: ['hidden', { initialValue: false }],
-        actions: ['actions', { rules: [{ required: true, message: I18nEntry(I18nMenu('actions')) }] }],
+        actions: ['actions', { initialValue: [] }],
         sort: ['sort', { initialValue: 1, rules: [{ required: true, message: I18nEntry(this.$t(I18nGlobal.sort)) }] }],
         meta: {
           title: ['meta.title', { rules: [{ required: true, message: I18nEntry(I18nMenu('meta.title')) }] }],
@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    // 获取国际化列表
+    // 获取菜单列表
     async getList() {
       this.loading = true
       const params = {

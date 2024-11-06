@@ -20,8 +20,10 @@
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
           <span class="table-page-search-submitButtons">
             <a-space>
-              <a-button type="primary" @click="query" v-action:[ActionMap.search]>{{ $t(I18nGlobal.search) }}</a-button>
-              <a-button type="primary" @click="onAdd" v-action:[ActionMap.add]>{{ $t(I18nGlobal.add) }}</a-button>
+              <a-button type="primary" icon="search" @click="query" v-action:[ActionMap.search]>{{
+                $t(I18nGlobal.search)
+              }}</a-button>
+              <a-button icon="plus" @click="onAdd" v-action:[ActionMap.add]>{{ $t(I18nGlobal.add) }}</a-button>
             </a-space>
           </span>
         </a-col>

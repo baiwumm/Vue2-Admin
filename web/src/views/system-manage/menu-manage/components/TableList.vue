@@ -137,7 +137,6 @@ export default {
           title: this.$t(I18nGlobal.sort),
           dataIndex: 'sort',
           align: 'center',
-          ellipsis: true,
           scopedSlots: { customRender: 'sort' }
         },
         {
