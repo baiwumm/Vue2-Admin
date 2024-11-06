@@ -138,15 +138,6 @@ export default {
           </a-menu-item>
         </a-menu>
       )
-    },
-    // render
-    renderTabPane(title, keyPath) {
-      const menu = this.renderTabPaneMenu(keyPath)
-      return (
-        <a-dropdown overlay={menu} trigger={['contextmenu']}>
-          <span style={{ userSelect: 'none' }}>{title}</span>
-        </a-dropdown>
-      )
     }
   },
   watch: {
@@ -170,18 +161,23 @@ export default {
       const isActiveKey = this.activeKey === page.fullPath
       const isCustomIcon = Object.prototype.toString.call(page.meta.icon) === '[object Object]'
       const color = isActiveKey ? '#fff' : 'inherit'
+      const menu = this.renderTabPaneMenu(page.fullPath)
       return (
         <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
           <template slot="tab">
-            {isActiveKey ? <a-badge status="processing" color="#fff" /> : null}
-            {page.meta.icon ? (
-              <a-icon
-                type={isCustomIcon ? undefined : page.meta.icon}
-                component={isCustomIcon ? page.meta.icon : undefined}
-                style={{ color }}
-              />
-            ) : null}
-            <span style={{ color }}>{this.renderTabPane(this.$t(page.meta.title), page.fullPath)}</span>
+            <a-dropdown overlay={menu} trigger={['contextmenu']}>
+              <div>
+                {isActiveKey ? <a-badge status="processing" color="#fff" /> : null}
+                {page.meta.icon ? (
+                  <a-icon
+                    type={isCustomIcon ? undefined : page.meta.icon}
+                    component={isCustomIcon ? page.meta.icon : undefined}
+                    style={{ color }}
+                  />
+                ) : null}
+                <span style={{ color, userSelect: 'none' }}>{this.$t(page.meta.title)}</span>
+              </div>
+            </a-dropdown>
           </template>
         </a-tab-pane>
       )
