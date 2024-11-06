@@ -16,7 +16,7 @@ const constantRouterComponents = {
   404: () => import('@/views/exception/404'),
   500: () => import('@/views/exception/500'),
 
-  Workbench: () => import('@/views/workbench')
+  Dashboard: () => import('@/views/dashboard')
 }
 
 // 前端未找到页面路由（固定不用改）
@@ -31,17 +31,17 @@ const rootRouter = {
   name: 'index',
   path: '/',
   component: 'BasicLayout',
-  redirect: '/workbench',
+  redirect: '/dashboard',
   meta: {
-    title: 'menu.workbench'
+    title: 'menu.dashboard'
   },
   children: [
     // 首页
     {
-      path: '/workbench',
-      name: 'workbench',
-      component: 'Workbench',
-      meta: { title: 'menu.workbench', keepAlive: false, icon: MenuIcon['WorkbenchIcon'], permission: ['workbench'] }
+      path: '/dashboard',
+      name: 'dashboard',
+      component: 'Dashboard',
+      meta: { title: 'menu.dashboard', keepAlive: false, icon: MenuIcon['DashboardIcon'], permission: ['dashboard'] }
     }
   ]
 }

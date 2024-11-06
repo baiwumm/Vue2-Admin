@@ -47,8 +47,8 @@
         </keep-alive>
       </transition>
       <transition name="fade-transform" mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view
-      ></transition>
+        <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
+      </transition>
     </a-layout-content>
   </pro-layout>
 </template>

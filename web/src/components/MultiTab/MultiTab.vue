@@ -166,7 +166,7 @@ export default {
         <a-tab-pane key={page.fullPath} closable={pages.length > 1}>
           <template slot="tab">
             <a-dropdown overlay={menu} trigger={['contextmenu']}>
-              <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center' }}>
                 {isActiveKey ? <a-badge status="processing" color="#fff" /> : null}
                 {page.meta.icon ? (
                   <a-icon
@@ -214,6 +214,9 @@ export default {
     padding: 0 8px;
     font-size: 12px;
     background: #fff;
+    .ant-tabs-close-x {
+      vertical-align: sub;
+    }
   }
   /deep/ .ant-tabs-tab-active {
     height: 26px;

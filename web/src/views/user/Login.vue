@@ -78,8 +78,9 @@
             class="login-button"
             :loading="loginState"
             :disabled="loginState"
-            >{{ I18nLogin() }}</a-button
           >
+            {{ I18nLogin() }}
+          </a-button>
         </a-form-item>
       </a-form>
     </a-card>

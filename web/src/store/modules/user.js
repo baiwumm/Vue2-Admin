@@ -3,7 +3,6 @@ import expirePlugin from 'store/plugins/expire'
 
 import { getUserInfo, login, logout } from '@/api/auth'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { welcome } from '@/utils/util'
 
 storage.addPlugin(expirePlugin)
 const user = {
@@ -20,9 +19,8 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, { name, welcome }) => {
+    SET_NAME: (state, { name }) => {
       state.name = name
-      state.welcome = welcome
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
@@ -70,7 +68,7 @@ const user = {
               data.role = role
               commit('SET_ROLES', role)
               commit('SET_INFO', data)
-              commit('SET_NAME', { name: data.cnName, welcome: welcome() })
+              commit('SET_NAME', { name: data.cnName })
               commit('SET_AVATAR', data.avatar)
               // 下游
               resolve(data)

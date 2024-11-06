@@ -10,48 +10,36 @@
 </template>
 
 <script>
-import moment from 'moment'
-const data = []
-const beginDay = new Date().getTime()
-
-for (let i = 0; i < 10; i++) {
-  data.push({
-    x: moment(new Date(beginDay + 1000 * 60 * 60 * 24 * i)).format('YYYY-MM-DD'),
-    y: Math.round(Math.random() * 10)
-  })
-}
-
-const tooltip = [
-  'x*y',
-  (x, y) => ({
-    name: x,
-    value: y
-  })
-]
-
-const scale = [{
-  dataKey: 'x',
-  min: 2
-}, {
-  dataKey: 'y',
-  title: '时间',
-  min: 1,
-  max: 30
-}]
+import dayjs from 'dayjs'
+import { random, times } from 'lodash-es'
 
 export default {
   name: 'MiniBar',
-  data () {
+  data() {
     return {
-      data,
-      tooltip,
-      scale,
+      data: {},
       height: 100
     }
+  },
+  methods: {
+    getData() {
+      const now = dayjs() // 获取当前日期
+      const data = times(10, (index) => {
+        const date = now.subtract(index, 'day') // 减去天数
+        return {
+          x: date.format('YYYY-MM-DD'), // 格式化日期
+          y: random(100, 1000) // 生成1000到10000之间的随机数
+        }
+      })
+      this.data = data
+    }
+  },
+  mounted() {
+    this.getData()
   }
 }
 </script>
 
 <style lang="less" scoped>
-  @import "chart";
+@import 'chart';
 </style>

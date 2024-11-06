@@ -6,8 +6,8 @@
  * 自定义图标加载表
  * 所有图标均从这里加载，方便管理
  */
+import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
-import WorkbenchIcon from '@/assets/icons/workbench.svg?inline'
 
-export default { WorkbenchIcon, InternationalizationIcon, LocaleIcon }
+export default { DashboardIcon, InternationalizationIcon, LocaleIcon }
