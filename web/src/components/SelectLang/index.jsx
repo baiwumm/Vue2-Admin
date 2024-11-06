@@ -2,7 +2,7 @@ import './index.less'
 
 import { Dropdown, Icon, Menu } from 'ant-design-vue'
 
-import { LocaleIcon } from '@/core/icons'
+import localIcon from '@/core/icons'
 import { i18nRender } from '@/locales'
 import i18nMixin from '@/store/i18n-mixin'
 
@@ -50,7 +50,7 @@ const SelectLang = {
     return (
       <Dropdown overlay={langMenu} placement="bottomRight">
         <span class={prefixCls}>
-          <Icon component={LocaleIcon} title={i18nRender('navBar.lang')} />
+          <Icon component={localIcon['LocaleIcon']} title={i18nRender('navBar.lang')} />
         </span>
       </Dropdown>
     )
