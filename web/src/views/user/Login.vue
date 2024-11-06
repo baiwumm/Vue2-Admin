@@ -5,13 +5,13 @@
       <div class="top">
         <div class="header">
           <img :src="logoSvg" class="logo" alt="logo" />
-          <span class="title">Vue2 Admin</span>
+          <span class="title">{{ defaultSettings.title }}</span>
         </div>
-        <div class="desc">真正的大师永远怀着一颗学徒的心。</div>
+        <div class="desc">{{ I18nLogin('desc') }}</div>
       </div>
       <p class="welcome_login">
-        欢迎登陆
-        <em>后台管理系统</em>
+        {{ I18nLogin('welcome') }}
+        <em>{{ I18nLogin('name') }}</em>
       </p>
       <a-form
         id="formLogin"
@@ -29,38 +29,41 @@
           style="margin-bottom: 24px"
           :message="isLoginError.message"
         />
-        <a-form-item label="用户名">
+        <a-form-item :label="I18nLogin('userName')">
           <a-input
             size="large"
             type="text"
-            placeholder="请输入用户名"
+            :placeholder="I18nEntry(I18nLogin('userName'))"
             v-decorator="[
               'userName',
-              { rules: [{ required: true, message: '请输入用户名' }], validateTrigger: 'change' }
+              { rules: [{ required: true, message: I18nEntry(I18nLogin('userName')) }], validateTrigger: 'change' }
             ]"
           >
             <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
           </a-input>
         </a-form-item>
 
-        <a-form-item label="密码">
+        <a-form-item :label="I18nLogin('password')">
           <a-input-password
             size="large"
-            placeholder="请输入密码"
-            v-decorator="['password', { rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' }]"
+            :placeholder="I18nEntry(I18nLogin('password'))"
+            v-decorator="[
+              'password',
+              { rules: [{ required: true, message: I18nEntry(I18nLogin('password')) }], validateTrigger: 'blur' }
+            ]"
           >
             <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
           </a-input-password>
         </a-form-item>
 
-        <a-form-item label="验证码">
+        <a-form-item :label="I18nLogin('captchaCode')">
           <a-input-group>
             <a-input
               size="large"
               style="width: calc(100% - 132px)"
               v-decorator="[
                 'captchaCode',
-                { rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'change' }
+                { rules: [{ required: true, message: I18nEntry(I18nLogin('captchaCode')) }], validateTrigger: 'change' }
               ]"
             />
             <div id="svgTemplate" v-html="svgCaptcha" v-debounce="{ callback: createSvgCaptcha, time: 150 }"></div>
@@ -75,7 +78,7 @@
             class="login-button"
             :loading="loginState"
             :disabled="loginState"
-            >登录</a-button
+            >{{ I18nLogin() }}</a-button
           >
         </a-form-item>
       </a-form>
@@ -88,6 +91,8 @@ import { ParticlesBg } from 'particles-bg-vue'
 import { mapActions } from 'vuex'
 
 import { generateVerifCode } from '@/api/auth'
+import defaultSettings from '@/config/defaultSettings'
+import { I18nEntry, I18nLogin } from '@/constant/i18n'
 export default {
   name: 'Login',
   components: {
@@ -101,7 +106,7 @@ export default {
       isLoginError: {
         state: false,
         error: 'error',
-        message: '账户或密码错误'
+        message: I18nLogin('fail')
       },
       config: {
         num: [4, 7],
@@ -116,7 +121,10 @@ export default {
         cross: 'dead',
         random: 15
       },
-      svgCaptcha: ''
+      svgCaptcha: '',
+      I18nLogin,
+      I18nEntry,
+      defaultSettings
     }
   },
   methods: {
@@ -143,9 +151,6 @@ export default {
                 this.createSvgCaptcha()
                 _this.isLoginError.error = 'error'
               }
-            })
-            .catch(() => {
-              _this.isLoginError.message = '登录失败,请联系管理员!'
             })
             .finally(() => {
               _this.isLoginError.state = true

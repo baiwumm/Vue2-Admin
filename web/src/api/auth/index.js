@@ -7,7 +7,8 @@ export function login(parameter) {
   return request({
     url: '/auth/login',
     method: 'post',
-    data: parameter
+    data: parameter,
+    skipErrorHandler: true
   })
 }
 

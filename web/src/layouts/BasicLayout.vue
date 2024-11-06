@@ -23,7 +23,7 @@
     -->
     <template v-slot:headerContentRender>
       <div>
-        <a-tooltip title="刷新页面">
+        <a-tooltip :title="$t('views.layouts.reloadPage')">
           <a-icon type="reload" style="font-size: 16px; cursor: pointer" @click="reload" :spin="!isRouterAlive" />
         </a-tooltip>
       </div>

@@ -30,6 +30,11 @@ export const I18nEntry = (text) => `${i18nRender(I18nGlobal.enter)}${text}`
 export const I18nSelect = (text) => `${i18nRender(I18nGlobal.select)}${text}`
 
 /**
+ * @description: 系统设置-用户登录
+ */
+export const I18nLogin = (field = '') => i18nRender(`views.user.login${field ? '.' : ''}${field}`)
+
+/**
  * @description: 系统设置-菜单管理
  */
 export const I18nMenu = (field = '') => i18nRender(`views.system-manage.menu-manage${field ? '.' : ''}${field}`)

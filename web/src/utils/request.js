@@ -1,7 +1,7 @@
 import { message } from 'ant-design-vue'
 import notification from 'ant-design-vue/es/notification'
 import axios from 'axios'
-import { debounce } from 'lodash-es'
+import { debounce, get } from 'lodash-es'
 import storage from 'store'
 
 import { RequestCode } from '@/constant'
@@ -65,10 +65,10 @@ request.interceptors.request.use((config) => {
 // response interceptor
 request.interceptors.response.use((response) => {
   const { code, msg } = response.data
-  if (code === RequestCode.NoSuccess) {
+  // 配置 skipErrorHandler 会跳过默认的错误处理，用于项目中部分特殊的接口
+  if (code !== RequestCode.Success && !get(response, 'config.skipErrorHandler', false)) {
     debounceError(msg || '请求失败')
   }
-
   return response.data
 }, errorHandler)
 
