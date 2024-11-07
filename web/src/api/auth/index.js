@@ -61,3 +61,14 @@ export function getDynamicRoutes() {
     method: 'get'
   })
 }
+
+/**
+ * @description: 获取掘金列表
+ */
+export function getJuejinList(parameter) {
+  return request({
+    url: 'auth/juejin',
+    method: 'post',
+    data: parameter
+  })
+}

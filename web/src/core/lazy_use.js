@@ -40,6 +40,7 @@ import {
   Table,
   Tabs,
   Tag,
+  Timeline,
   TimePicker,
   Tooltip,
   Tree,
@@ -103,6 +104,7 @@ Vue.use(Descriptions)
 Vue.use(Space)
 Vue.use(TreeSelect)
 Vue.use(Tree)
+Vue.use(Timeline)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
