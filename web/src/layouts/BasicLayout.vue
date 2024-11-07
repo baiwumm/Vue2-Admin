@@ -31,6 +31,7 @@
     <!-- 主题设置 -->
     <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
+      <multi-tab v-if="multiTab" @update="reload" />
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
     <!-- custom footer / 自定义Footer -->
@@ -39,7 +40,6 @@
     </template>
     <!-- layout content -->
     <a-layout-content>
-      <multi-tab v-if="multiTab" @update="reload" />
       <!-- 路由切换过渡和缓存 -->
       <transition name="fade-transform" mode="out-in">
         <keep-alive>
