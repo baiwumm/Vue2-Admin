@@ -6,6 +6,13 @@
     "email": "baiwumm@foxmail.com",
     "url": "https://baiwumm.com"
   },
+  "homepage": "https://github.com/baiwumm/Vue2-Admin",
+  "repository": {
+    "url": "https://github.com/baiwumm/Vue2-Admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/baiwumm/Vue2-Admin/issues"
+  },
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
