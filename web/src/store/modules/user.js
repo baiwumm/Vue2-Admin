@@ -2,7 +2,7 @@ import storage from 'store'
 import expirePlugin from 'store/plugins/expire'
 
 import { getUserInfo, login, logout } from '@/api/auth'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 
 storage.addPlugin(expirePlugin)
 const user = {
@@ -12,7 +12,7 @@ const user = {
     welcome: '',
     avatar: '',
     roles: [],
-    info: {}
+    userInfo: {}
   },
 
   mutations: {
@@ -29,7 +29,7 @@ const user = {
       state.roles = roles
     },
     SET_INFO: (state, info) => {
-      state.info = info
+      state.userInfo = info
     }
   },
 
@@ -68,6 +68,7 @@ const user = {
               data.role = role
               commit('SET_ROLES', role)
               commit('SET_INFO', data)
+              storage.set(USER_INFO, data)
               commit('SET_NAME', { name: data.cnName })
               commit('SET_AVATAR', data.avatar)
               // 下游
