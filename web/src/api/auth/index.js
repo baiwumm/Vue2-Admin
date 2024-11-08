@@ -72,3 +72,17 @@ export function getJuejinList(parameter) {
     data: parameter
   })
 }
+
+/**
+ * @description: 文件上传
+ */
+export function uploadFile(parameter) {
+  return request({
+    url: 'upload/single-file',
+    method: 'post',
+    data: parameter,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
