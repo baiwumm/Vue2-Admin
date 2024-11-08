@@ -29,7 +29,7 @@
       </div>
     </template>
     <!-- 主题设置 -->
-    <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange" />
+    <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
       <multi-tab v-if="multiTab" @update="reload" />
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
@@ -55,6 +55,7 @@
 
 <script>
 import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
+import storage from 'store'
 import { mapState } from 'vuex'
 
 import GlobalFooter from '@/components/GlobalFooter'
@@ -62,7 +63,19 @@ import RightContent from '@/components/GlobalHeader/RightContent'
 import MultiTab from '@/components/MultiTab'
 import defaultSettings from '@/config/defaultSettings'
 import { i18nRender } from '@/locales'
-import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
+import store from '@/store'
+import {
+  CONTENT_WIDTH_TYPE,
+  SIDEBAR_TYPE,
+  TOGGLE_COLOR,
+  TOGGLE_CONTENT_WIDTH,
+  TOGGLE_FIXED_HEADER,
+  TOGGLE_FIXED_SIDEBAR,
+  TOGGLE_LAYOUT,
+  TOGGLE_MOBILE_TYPE,
+  TOGGLE_NAV_THEME,
+  TOGGLE_WEAK
+} from '@/store/mutation-types'
 
 export default {
   name: 'BasicLayout',
@@ -75,8 +88,6 @@ export default {
   data() {
     return {
       multiTab: defaultSettings.multiTab,
-      // end
-      isDev: process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true',
 
       // base
       menus: [],
@@ -85,16 +96,16 @@ export default {
       title: defaultSettings.title,
       settings: {
         // 布局类型
-        layout: defaultSettings.layout, // 'sidemenu', 'topmenu'
+        layout: storage.get(TOGGLE_LAYOUT) || defaultSettings.layout, // 'sidemenu', 'topmenu'
         // CONTENT_WIDTH_TYPE
-        contentWidth: defaultSettings.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : defaultSettings.contentWidth,
+        contentWidth: storage.get(TOGGLE_CONTENT_WIDTH) || defaultSettings.contentWidth,
         // 主题 'dark' | 'light'
-        theme: defaultSettings.navTheme,
+        theme: storage.get(TOGGLE_NAV_THEME) || defaultSettings.navTheme,
         // 主色调
-        primaryColor: defaultSettings.primaryColor,
-        fixedHeader: defaultSettings.fixedHeader,
-        fixSiderbar: defaultSettings.fixSiderbar,
-        colorWeak: defaultSettings.colorWeak,
+        primaryColor: storage.get(TOGGLE_COLOR) || defaultSettings.primaryColor,
+        fixedHeader: storage.get(TOGGLE_FIXED_HEADER) || defaultSettings.fixedHeader,
+        fixSiderbar: storage.get(TOGGLE_FIXED_SIDEBAR) || defaultSettings.fixSiderbar,
+        colorWeak: storage.get(TOGGLE_WEAK) || defaultSettings.colorWeak,
 
         hideHintAlert: false,
         hideCopyButton: false
@@ -164,10 +175,13 @@ export default {
       this.collapsed = val
     },
     handleSettingChange({ type, value }) {
+      console.log('type', type)
+      console.log('value', value)
       type && (this.settings[type] = value)
       switch (type) {
         case 'contentWidth':
           this.settings[type] = value
+          store.commit(TOGGLE_CONTENT_WIDTH, value)
           break
         case 'layout':
           if (value === 'sidemenu') {
@@ -176,6 +190,13 @@ export default {
             this.settings.fixSiderbar = false
             this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fixed
           }
+          store.commit(TOGGLE_LAYOUT, value)
+          break
+        case 'primaryColor':
+          store.commit(TOGGLE_COLOR, value)
+          break
+        case 'theme':
+          store.commit(TOGGLE_NAV_THEME, value)
           break
       }
     },
