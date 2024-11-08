@@ -3536,6 +3536,11 @@ chardet@^0.7.0:
   resolved "https://registry.npmmirror.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+china-division@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.npmmirror.com/china-division/-/china-division-2.7.0.tgz#4060a4d243be66c7833dea64a48a4038f3e53e74"
+  integrity sha512-4uUPAT+1WfqDh5jytq7omdCmHNk3j+k76zEG/2IqaGcYB90c2SwcixttcypdsZ3T/9tN1TTpBDoeZn+Yw/qBEA==
+
 chokidar@^3.5.3:
   version "3.6.0"
   resolved "https://registry.npmmirror.com/chokidar/-/chokidar-3.6.0.tgz#197c6cc669ef2a8dc5e7b4d97ee4e092c3eb0d5b"
@@ -4830,6 +4835,13 @@ electron-to-chromium@^1.5.41:
   version "1.5.49"
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.5.49.tgz#9358f514ab6eeed809a8689f4b39ea5114ae729c"
   integrity sha512-ZXfs1Of8fDb6z7WEYZjXpgIRF6MEu8JdeGA0A40aZq6OQbS+eJpnnV49epZRna2DU/YsEjSQuGtQPPtvt6J65A==
+
+element-china-area-data@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.npmmirror.com/element-china-area-data/-/element-china-area-data-6.1.0.tgz#f14b90c0762b21432e097ed5be8423514a0b57e3"
+  integrity sha512-IkpcjwQv2A/2AxFiSoaISZ+oMw1rZCPUSOg5sOCwT5jKc96TaawmKZeY81xfxXsO0QbKxU5LLc6AirhG52hUmg==
+  dependencies:
+    china-division "^2.7.0"
 
 element-resize-detector@1.1.13:
   version "1.1.13"
