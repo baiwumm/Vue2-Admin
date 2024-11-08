@@ -7,9 +7,9 @@
       @blur="onEditorBlur($event)"
       @focus="onEditorFocus($event)"
       @ready="onEditorReady($event)"
-      @change="onEditorChange($event)">
+      @change="onEditorChange($event)"
+    >
     </quill-editor>
-
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       content: null,
       editorOption: {
@@ -45,22 +45,15 @@ export default {
     }
   },
   methods: {
-    onEditorBlur (quill) {
-      console.log('editor blur!', quill)
-    },
-    onEditorFocus (quill) {
-      console.log('editor focus!', quill)
-    },
-    onEditorReady (quill) {
-      console.log('editor ready!', quill)
-    },
-    onEditorChange ({ quill, html, text }) {
-      console.log('editor change!', quill, html, text)
+    onEditorBlur(quill) {},
+    onEditorFocus(quill) {},
+    onEditorReady(quill) {},
+    onEditorChange({ html }) {
       this.$emit('change', html)
     }
   },
   watch: {
-    value (val) {
+    value(val) {
       this.content = val
     }
   }
@@ -78,6 +71,9 @@ export default {
   }
   :deep(.ql-container.ql-snow) {
     border-radius: 0 0 @border-radius-base @border-radius-base;
+  }
+  :deep(.ql-container) {
+    min-height: 300px;
   }
 }
 </style>
