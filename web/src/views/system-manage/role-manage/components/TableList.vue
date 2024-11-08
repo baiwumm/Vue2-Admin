@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="getColumns()" rowKey="id" :data-source="data" :loading="loading" :pagination="false">
+  <a-table :columns="getColumns()" rowKey="id" :data-source="data" :loading="loading" :pagination="pagination">
     <div slot="expandedRowRender" slot-scope="record">
       <a-row :gutter="[12, 6]">
         <a-col :span="12" v-for="(p, index) in record.permissions" :key="index">
@@ -38,7 +38,7 @@ import { ActionMap } from '@/constant/action'
 import { I18nGlobal, I18nRole } from '@/constant/i18n'
 export default {
   name: 'TableList',
-  props: ['data', 'loading'],
+  props: ['data', 'loading', 'pagination'],
   data() {
     return {
       I18nGlobal,

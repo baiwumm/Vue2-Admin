@@ -186,7 +186,6 @@ export default {
         if (!err) {
           const id = this.id
           const params = { id, ...omit(values, 'confirmPassword') }
-          console.log('params', params)
           this.loginState = true
           await (id ? updateUser : addUser)(params)
             .then(async ({ code, msg }) => {

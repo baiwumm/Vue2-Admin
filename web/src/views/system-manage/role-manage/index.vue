@@ -4,7 +4,7 @@
       <!-- 顶部搜索 -->
       <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
       <!-- 表格数据 -->
-      <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" />
+      <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" :pagination="pagination" />
       <!-- 新增/编辑弹窗 -->
       <a-drawer :title="title" :width="400" :visible="visible" :maskClosable="false" @close="onClose">
         <a-form :form="form">
@@ -72,8 +72,6 @@ export default {
   },
   data() {
     return {
-      current: 1,
-      size: 10,
       data: [],
       loading: false,
       dayjs,
@@ -93,12 +91,23 @@ export default {
       I18nGlobal,
       menuList: [],
       checkedKeys: [],
-      I18nRole
+      I18nRole,
+      pagination: {
+        total: 0,
+        onChange: (page, pageSize) => {
+          this.pagination.current = page
+          this.pagination.pageSize = pageSize
+          this.getList()
+        },
+        current: 1,
+        pageSize: 5,
+        showTotal: (total) => this.$t(I18nGlobal.ShowTotal, { total })
+      }
     }
   },
   methods: {
     // 获取菜单列表
-    async fetchRoleList() {
+    async fetchMenuList() {
       const { data, code } = await getMenuList()
       if (code === RequestCode.Success) {
         const result = get(data, 'records', [])
@@ -130,8 +139,8 @@ export default {
     async getList() {
       this.loading = true
       const params = {
-        current: this.current,
-        size: this.size,
+        current: this.pagination.current,
+        size: this.pagination.pageSize,
         name: this.queryForm.name,
         code: this.queryForm.code
       }
@@ -144,6 +153,7 @@ export default {
       const { data, code } = await getRoleList(params)
       if (code === RequestCode.Success) {
         this.data = get(data, 'records', [])
+        this.pagination.total = get(data, 'total', 0)
       }
       this.loading = false
     },
@@ -246,7 +256,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.getList()
-      this.fetchRoleList()
+      this.fetchMenuList()
     })
   }
 }
