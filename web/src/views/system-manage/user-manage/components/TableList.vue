@@ -7,66 +7,66 @@
     :pagination="pagination"
     :scroll="{ x: 1200 }"
   >
-    <span slot="userName" slot-scope="text">
+    <template slot="userName" slot-scope="text">
       <a-tag color="purple">
         <a-space>
           <a-icon type="user" />
           <span>{{ text }}</span>
         </a-space>
       </a-tag>
-    </span>
-    <span slot="avatar" slot-scope="text">
+    </template>
+    <template slot="avatar" slot-scope="text">
       <a-avatar :src="text" />
-    </span>
-    <span slot="role" slot-scope="text, record">
+    </template>
+    <template slot="role" slot-scope="text, record">
       <a-tag>
         <a-space>
           <a-icon type="solution" />
           <span>{{ record.role.name }}</span>
         </a-space>
       </a-tag>
-    </span>
-    <span slot="org" slot-scope="text, record">
+    </template>
+    <template slot="org" slot-scope="text, record">
       <a-tag>
         <a-space>
           <a-icon :component="MenuIcon['OrganizationIcon']" />
           <span>{{ record.organization.name }}</span>
         </a-space>
       </a-tag>
-    </span>
-    <span slot="post" slot-scope="text, record">
+    </template>
+    <template slot="post" slot-scope="text, record">
       <a-tag>
         <a-space>
           <a-icon :component="MenuIcon['PostIcon']" />
           <span>{{ record.post.name }}</span>
         </a-space>
       </a-tag>
-    </span>
-    <span slot="sex" slot-scope="text">
+    </template>
+    <template slot="sex" slot-scope="text">
       <a-tag :color="text === Sex.Male ? 'blue' : 'pink'">
         <a-icon :type="text === Sex.Male ? 'man' : 'woman'" />
       </a-tag>
-    </span>
-    <span slot="status" slot-scope="text">
+    </template>
+    <template slot="status" slot-scope="text">
       <a-tag :color="text === Status.Active ? 'green' : 'red'">
         {{ $t(text === Status.Active ? I18nGlobal.StatusNormal : I18nGlobal.StatusForbidden) }}
       </a-tag>
-    </span>
-    <span slot="sort" slot-scope="text">
+    </template>
+    <template slot="sort" slot-scope="text">
       <a-tag color="blue">
         {{ text }}
       </a-tag>
-    </span>
-    <span slot="createdAt" slot-scope="text, record">
+    </template>
+    <template slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-    </span>
-    <span slot="action" slot-scope="text, record">
+    </template>
+    <template slot="action" slot-scope="text, record">
       <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
       <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
         <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
-    </span>
+    </template>
   </a-table>
 </template>
 <script>

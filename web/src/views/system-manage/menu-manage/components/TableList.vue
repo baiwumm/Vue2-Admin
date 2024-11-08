@@ -7,52 +7,52 @@
     :pagination="false"
     :scroll="{ x: 1000 }"
   >
-    <span slot="name" slot-scope="text, record">
+    <template slot="name" slot-scope="text, record">
       {{ $t(record.meta.title) }}
-    </span>
-    <span slot="path" slot-scope="text">
+    </template>
+    <template slot="path" slot-scope="text">
       {{ text }}
-    </span>
-    <span slot="redirect" slot-scope="text">
+    </template>
+    <template slot="redirect" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="component" slot-scope="text">
+    </template>
+    <template slot="component" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="icon" slot-scope="text, record">
+    </template>
+    <template slot="icon" slot-scope="text, record">
       <a-icon
         :component="MenuIcon[record.meta.icon]"
         :style="{ fontSize: '20px' }"
         v-if="record.meta.icon.includes('Icon')"
       />
       <a-icon :type="record.meta.icon" :style="{ fontSize: '20px' }" v-else />
-    </span>
-    <span slot="keepAlive" slot-scope="text, record">
+    </template>
+    <template slot="keepAlive" slot-scope="text, record">
       {{ record.meta.keepAlive ? $t(I18nGlobal.Yes) : $t(I18nGlobal.No) }}
-    </span>
-    <span slot="hidden" slot-scope="text">
+    </template>
+    <template slot="hidden" slot-scope="text">
       {{ text ? $t(I18nGlobal.Yes) : $t(I18nGlobal.No) }}
-    </span>
-    <span slot="permission" slot-scope="text, record">
+    </template>
+    <template slot="permission" slot-scope="text, record">
       <a-tag color="purple">
         {{ record.meta.permission }}
       </a-tag>
-    </span>
-    <span slot="sort" slot-scope="text">
+    </template>
+    <template slot="sort" slot-scope="text">
       <a-tag color="blue">
         {{ text }}
       </a-tag>
-    </span>
-    <span slot="createdAt" slot-scope="text, record">
+    </template>
+    <template slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-    </span>
-    <span slot="action" slot-scope="text, record">
+    </template>
+    <template slot="action" slot-scope="text, record">
       <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
       <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
         <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
-    </span>
+    </template>
   </a-table>
 </template>
 <script>

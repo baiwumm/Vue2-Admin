@@ -1,27 +1,27 @@
 <template>
   <a-table :columns="getColumns()" rowKey="id" :data-source="data" :loading="loading" :pagination="false">
-    <span slot="zhCN" slot-scope="text">
+    <template slot="zhCN" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="enUS" slot-scope="text">
+    </template>
+    <template slot="enUS" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="jaJP" slot-scope="text">
+    </template>
+    <template slot="jaJP" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="zhTW" slot-scope="text">
+    </template>
+    <template slot="zhTW" slot-scope="text">
       {{ text || CommonText.Null }}
-    </span>
-    <span slot="createdAt" slot-scope="text, record">
+    </template>
+    <template slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-    </span>
-    <span slot="action" slot-scope="text, record">
+    </template>
+    <template slot="action" slot-scope="text, record">
       <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
       <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
         <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
-    </span>
+    </template>
   </a-table>
 </template>
 <script>

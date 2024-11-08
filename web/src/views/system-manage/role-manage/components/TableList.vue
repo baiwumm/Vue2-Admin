@@ -13,21 +13,21 @@
         </a-col>
       </a-row>
     </div>
-    <span slot="sort" slot-scope="text">
+    <template slot="sort" slot-scope="text">
       <a-tag color="blue">
         {{ text }}
       </a-tag>
-    </span>
-    <span slot="createdAt" slot-scope="text, record">
+    </template>
+    <template slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
-    </span>
-    <span slot="action" slot-scope="text, record">
+    </template>
+    <template slot="action" slot-scope="text, record">
       <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
       <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
         <a type="link" v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
-    </span>
+    </template>
   </a-table>
 </template>
 <script>
