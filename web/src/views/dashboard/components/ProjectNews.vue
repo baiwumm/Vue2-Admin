@@ -1,5 +1,5 @@
 <template>
-  <a-card :title="$t('views.dashboard.projectNews')" :bordered="false">
+  <a-card :title="$t('views.dashboard.projectNews')" :bordered="false" :loading="loading">
     <a class="text-primary" :href="pkg.homepage" target="_blank" rel="noopener noreferrer" slot="extra">
       {{ $t('views.dashboard.projectNews.moreNews') }}
     </a>

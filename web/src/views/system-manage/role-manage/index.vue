@@ -41,10 +41,10 @@
           }"
         >
           <a-button :style="{ marginRight: '8px' }" @click="onClose">
-            {{ $t(I18nGlobal.cancel) }}
+            {{ $t(I18nGlobal.Cancel) }}
           </a-button>
           <a-button type="primary" @click="handleSubmit" :loading="loginState">
-            {{ $t(I18nGlobal.confirm) }}
+            {{ $t(I18nGlobal.Confirm) }}
           </a-button>
         </div>
       </a-drawer>
@@ -81,7 +81,7 @@ export default {
         name: ['name', { rules: [{ required: true, message: I18nEntry(I18nRole('name')) }] }],
         code: ['code', { rules: [{ required: true, message: I18nEntry(I18nRole('code')) }] }],
         description: ['description', { rules: [{ required: true, message: I18nEntry(I18nRole('description')) }] }],
-        sort: ['sort', { initialValue: 1, rules: [{ required: true, message: I18nEntry(this.$t(I18nGlobal.sort)) }] }],
+        sort: ['sort', { initialValue: 1, rules: [{ required: true, message: I18nEntry(this.$t(I18nGlobal.Sort)) }] }],
         menus: ['menus', { initialValue: [], rules: [{ required: true, message: I18nSelect(I18nRole('menus')) }] }]
       },
       queryForm: {},
@@ -154,12 +154,12 @@ export default {
     // 新增
     onAdd() {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.add)}${I18nRole('name')}`
+      this.title = `${this.$t(I18nGlobal.Add)}${I18nRole('name')}`
     },
     // 编辑
     onEdit(record) {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.edit)}${I18nRole('name')}：${record.name}`
+      this.title = `${this.$t(I18nGlobal.Edit)}${I18nRole('name')}：${record.name}`
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {

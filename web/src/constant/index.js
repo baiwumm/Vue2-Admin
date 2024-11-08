@@ -14,7 +14,29 @@ export const RequestCode = {
  * @description: 公共文案
  */
 export const CommonText = {
-  Yes: '是',
-  No: '否',
   Null: '--'
+}
+
+/**
+ * @description: 布尔
+ */
+export const Flag = {
+  True: true,
+  False: false
+}
+
+/**
+ * @description: 状态
+ */
+export const Status = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE'
+}
+
+/**
+ * @description: 性别
+ */
+export const Sex = {
+  Male: 'MALE',
+  Female: 'FEMALE'
 }

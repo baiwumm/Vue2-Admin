@@ -16,10 +16,10 @@
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
     </span>
     <span slot="action" slot-scope="text, record">
-      <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.edit) }}</a>
+      <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
-      <a-popconfirm :title="$t(I18nGlobal.confirmDelete)" @confirm="onDelete(record)">
-        <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.delete) }}</a>
+      <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
+        <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
     </span>
   </a-table>
@@ -79,14 +79,14 @@ export default {
           scopedSlots: { customRender: 'zhTW' }
         },
         {
-          title: this.$t(I18nGlobal.createdAt),
+          title: this.$t(I18nGlobal.CreatedAt),
           dataIndex: 'createdAt',
           align: 'center',
           width: 160,
           scopedSlots: { customRender: 'createdAt' }
         },
         {
-          title: this.$t(I18nGlobal.action),
+          title: this.$t(I18nGlobal.Action),
           width: '110px',
           dataIndex: 'action',
           align: 'center',

@@ -1,13 +1,13 @@
 <template>
   <a-row>
     <a-col :span="24">
-      <a-form-item :label="$t(I18nGlobal.parent)">
+      <a-form-item :label="$t(I18nGlobal.Parent)">
         <a-tree-select
           v-decorator="rules.parentId"
           style="width: 100%"
           :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
           :tree-data="data"
-          :placeholder="I18nSelect($t(I18nGlobal.parent))"
+          :placeholder="I18nSelect($t(I18nGlobal.Parent))"
           tree-default-expand-all
           allow-clear
           :replace-fields="{

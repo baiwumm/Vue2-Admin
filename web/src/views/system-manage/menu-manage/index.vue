@@ -24,10 +24,10 @@
           }"
         >
           <a-button :style="{ marginRight: '8px' }" @click="onClose">
-            {{ $t(I18nGlobal.cancel) }}
+            {{ $t(I18nGlobal.Cancel) }}
           </a-button>
           <a-button type="primary" @click="handleSubmit" :loading="loginState">
-            {{ $t(I18nGlobal.confirm) }}
+            {{ $t(I18nGlobal.Confirm) }}
           </a-button>
         </div>
       </a-drawer>
@@ -39,7 +39,7 @@ import dayjs from 'dayjs'
 import { assign, get, pick } from 'lodash-es'
 
 import { addMenu, delMenu, getMenuList, updateMenu } from '@/api/system-manage/menu-manage'
-import { RequestCode } from '@/constant'
+import { Flag, RequestCode } from '@/constant'
 import { I18nEntry, I18nGlobal, I18nMenu } from '@/constant/i18n'
 
 import FormDrawer from './components/FormDrawer' // 表单抽屉
@@ -66,13 +66,13 @@ export default {
         path: ['path', { rules: [{ required: true, message: I18nEntry(I18nMenu('path')) }] }],
         redirect: ['redirect'],
         component: ['component', { rules: [{ required: true, message: I18nEntry(I18nMenu('component')) }] }],
-        hidden: ['hidden', { initialValue: false }],
+        hidden: ['hidden', { initialValue: Flag.False }],
         actions: ['actions', { initialValue: [] }],
-        sort: ['sort', { initialValue: 1, rules: [{ required: true, message: I18nEntry(this.$t(I18nGlobal.sort)) }] }],
+        sort: ['sort', { initialValue: 1, rules: [{ required: true, message: I18nEntry(this.$t(I18nGlobal.Sort)) }] }],
         meta: {
           title: ['meta.title', { rules: [{ required: true, message: I18nEntry(I18nMenu('meta.title')) }] }],
           icon: ['meta.icon', { rules: [{ required: true, message: I18nEntry(I18nMenu('meta.icon')) }] }],
-          keepAlive: ['meta.keepAlive', { initialValue: true }],
+          keepAlive: ['meta.keepAlive', { initialValue: Flag.True }],
           permission: [
             'meta.permission',
             { rules: [{ required: true, message: I18nEntry(I18nMenu('meta.permission')) }] }
@@ -112,12 +112,12 @@ export default {
     // 新增
     onAdd() {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.add)}${I18nMenu()}`
+      this.title = `${this.$t(I18nGlobal.Add)}${I18nMenu()}`
     },
     // 编辑
     onEdit(record) {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.edit)}${I18nMenu()}：${record.name}`
+      this.title = `${this.$t(I18nGlobal.Edit)}${I18nMenu()}：${record.name}`
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {

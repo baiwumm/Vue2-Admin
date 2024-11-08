@@ -11,10 +11,10 @@
       </a-form-item>
     </a-col>
     <a-col :span="24">
-      <a-form-item :label="$t(I18nGlobal.sort)">
+      <a-form-item :label="$t(I18nGlobal.Sort)">
         <a-input-number
           v-decorator="rules.sort"
-          :placeholder="I18nEntry($t(I18nGlobal.sort))"
+          :placeholder="I18nEntry($t(I18nGlobal.Sort))"
           :min="1"
           :max="9999"
           style="width: 100%"

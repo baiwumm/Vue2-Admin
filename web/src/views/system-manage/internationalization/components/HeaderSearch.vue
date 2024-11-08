@@ -13,7 +13,7 @@
           </a-form-item>
         </a-col>
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
-          <a-form-item :label="$t(I18nGlobal.createdAt)">
+          <a-form-item :label="$t(I18nGlobal.CreatedAt)">
             <a-range-picker v-model="queryForm.createdAt" valueFormat="YYYY-MM-DD" />
           </a-form-item>
         </a-col>
@@ -21,9 +21,9 @@
           <span class="table-page-search-submitButtons">
             <a-space>
               <a-button type="primary" icon="search" @click="query" v-action:[ActionMap.search]>{{
-                $t(I18nGlobal.search)
+                $t(I18nGlobal.Search)
               }}</a-button>
-              <a-button icon="plus" @click="onAdd" v-action:[ActionMap.add]>{{ $t(I18nGlobal.add) }}</a-button>
+              <a-button icon="plus" @click="onAdd" v-action:[ActionMap.add]>{{ $t(I18nGlobal.Add) }}</a-button>
             </a-space>
           </span>
         </a-col>

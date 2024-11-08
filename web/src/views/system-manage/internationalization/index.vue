@@ -96,12 +96,12 @@ export default {
     // 新增
     onAdd() {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.add)}${I18nInternationalization('name')}`
+      this.title = `${this.$t(I18nGlobal.Add)}${I18nInternationalization('name')}`
     },
     // 编辑
     onEdit(record) {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.edit)}${I18nInternationalization('name')}：${record.name}`
+      this.title = `${this.$t(I18nGlobal.Edit)}${I18nInternationalization('name')}：${record.name}`
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
