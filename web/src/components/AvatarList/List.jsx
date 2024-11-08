@@ -57,7 +57,9 @@ const AvatarList = {
 
       if (this.maxLength > 0) {
         items = items.slice(0, this.maxLength)
-        items.push((<Avatar size={this.size === 'mini' ? 'small' : this.size} style={this.excessItemsStyle}>{`+${totalSize - this.maxLength}`}</Avatar>))
+        if (this.maxLength < totalSize) {
+          items.push((<Avatar size={this.size === 'mini' ? 'small' : this.size} style={this.excessItemsStyle}>{`+${totalSize - this.maxLength}`}</Avatar>))
+        }
       }
       return items.map((item) => (
         <li class={className}>{item}</li>
