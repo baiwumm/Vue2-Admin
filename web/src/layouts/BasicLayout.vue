@@ -98,7 +98,10 @@ export default {
         // 布局类型
         layout: storage.get(TOGGLE_LAYOUT) || defaultSettings.layout, // 'sidemenu', 'topmenu'
         // CONTENT_WIDTH_TYPE
-        contentWidth: storage.get(TOGGLE_CONTENT_WIDTH) || defaultSettings.contentWidth,
+        contentWidth:
+          (storage.get(TOGGLE_LAYOUT) || defaultSettings.layout) === 'sidemenu'
+            ? CONTENT_WIDTH_TYPE.Fluid
+            : storage.get(TOGGLE_CONTENT_WIDTH) || defaultSettings.contentWidth,
         // 主题 'dark' | 'light'
         theme: storage.get(TOGGLE_NAV_THEME) || defaultSettings.navTheme,
         // 主色调
@@ -175,8 +178,6 @@ export default {
       this.collapsed = val
     },
     handleSettingChange({ type, value }) {
-      console.log('type', type)
-      console.log('value', value)
       type && (this.settings[type] = value)
       switch (type) {
         case 'contentWidth':
