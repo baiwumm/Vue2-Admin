@@ -9,5 +9,7 @@
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
+import OrganizationIcon from '@/assets/icons/organization.svg?inline'
+import PostIcon from '@/assets/icons/post.svg?inline'
 
-export default { DashboardIcon, InternationalizationIcon, LocaleIcon }
+export default { DashboardIcon, InternationalizationIcon, LocaleIcon, OrganizationIcon, PostIcon }
