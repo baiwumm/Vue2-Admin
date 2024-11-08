@@ -25,7 +25,8 @@ export const I18nGlobal = {
   No: 'global.no',
   Upload: 'global.upload',
   UploadValidate: 'global.upload.validate',
-  UploadSuccess: 'global.upload.success'
+  UploadSuccess: 'global.upload.success',
+  PopconfirmTitle: 'global.popconfirmTitle'
 }
 
 /**
@@ -39,9 +40,14 @@ export const I18nEntry = (text) => `${i18nRender(I18nGlobal.Enter)}${text}`
 export const I18nSelect = (text) => `${i18nRender(I18nGlobal.Select)}${text}`
 
 /**
- * @description: 系统设置-用户登录
+ * @description: 用户登录
  */
 export const I18nLogin = (field = '') => i18nRender(`views.user.login${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 智能行政-消息公告
+ */
+export const I18nMessage = (field = '') => i18nRender(`views.administrative.message${field ? '.' : ''}${field}`)
 
 /**
  * @description: 系统设置-用户管理
