@@ -126,7 +126,7 @@ import { Flag } from '@/constant'
 import { ActionOptions } from '@/constant/action'
 import { I18nEntry, I18nGlobal, I18nMenu, I18nSelect } from '@/constant/i18n'
 export default {
-  name: 'FormModal',
+  name: 'FormDrawer',
   props: ['data', 'rules'],
   data() {
     return {

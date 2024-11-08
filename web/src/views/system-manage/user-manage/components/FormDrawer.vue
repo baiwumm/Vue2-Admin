@@ -152,7 +152,7 @@ import { I18nEntry, I18nGlobal, I18nSelect, I18nUser } from '@/constant/i18n'
 
 import SettingAvatar from './SettingAvatar.vue'
 export default {
-  name: 'FormModal',
+  name: 'FormDrawer',
   props: ['data', 'rules', 'id'],
   components: { UserTags, SettingAvatar },
   data() {

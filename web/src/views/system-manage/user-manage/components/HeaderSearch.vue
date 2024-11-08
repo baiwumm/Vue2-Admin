@@ -10,10 +10,10 @@
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
           <a-form-item :label="$t(I18nGlobal.Status)">
             <a-select allowClear :placeholder="I18nSelect($t(I18nGlobal.Status))" v-model="queryForm.status">
-              <a-select-option value="ACTIVE">
+              <a-select-option :value="Status.Active">
                 {{ $t(I18nGlobal.StatusNormal) }}
               </a-select-option>
-              <a-select-option value="INACTIVE">
+              <a-select-option :value="Status.Inactive">
                 {{ $t(I18nGlobal.StatusForbidden) }}
               </a-select-option>
             </a-select>
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+import { Status } from '@/constant'
 import { ActionMap } from '@/constant/action'
 import { I18nEntry, I18nGlobal, I18nSelect, I18nUser } from '@/constant/i18n'
 export default {
@@ -45,7 +46,8 @@ export default {
       I18nEntry,
       I18nUser,
       ActionMap,
-      I18nSelect
+      I18nSelect,
+      Status
     }
   },
   methods: {
