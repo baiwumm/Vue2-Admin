@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-06 09:47:30
+ * @LastEditTime: 2024-11-07 11:34:57
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
@@ -229,6 +229,10 @@ export class AuthService {
           in: menuIds,
         },
       },
+      orderBy: [
+        { sort: 'asc' }, // 按照sort字段升序
+        { createdAt: 'desc' }, // 如果sort相同，再按照createdAt字段降序
+      ],
     });
     return responseMessage<Menu>(convertFlatDataToTree(result));
   }
