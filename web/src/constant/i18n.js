@@ -22,7 +22,10 @@ export const I18nGlobal = {
   StatusForbidden: 'global.status.forbidden',
   ShowTotal: 'global.showTotal',
   Yes: 'global.yes',
-  No: 'global.no'
+  No: 'global.no',
+  Upload: 'global.upload',
+  UploadValidate: 'global.upload.validate',
+  UploadSuccess: 'global.upload.success'
 }
 
 /**

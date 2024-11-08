@@ -5,6 +5,7 @@ import {
   Breadcrumb,
   Button,
   Card,
+  Cascader,
   Checkbox,
   Col,
   ConfigProvider,
@@ -105,6 +106,7 @@ Vue.use(Space)
 Vue.use(TreeSelect)
 Vue.use(Tree)
 Vue.use(Timeline)
+Vue.use(Cascader)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
