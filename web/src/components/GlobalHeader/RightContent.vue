@@ -1,5 +1,6 @@
 <template>
   <div :class="wrpCls">
+    <message-button :class="prefixCls" />
     <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
     <select-lang :class="prefixCls" />
   </div>
@@ -9,12 +10,14 @@
 import SelectLang from '@/components/SelectLang'
 
 import AvatarDropdown from './AvatarDropdown'
+import MessageButton from './MessageButton.vue'
 
 export default {
   name: 'RightContent',
   components: {
     AvatarDropdown,
-    SelectLang
+    SelectLang,
+    MessageButton
   },
   props: {
     prefixCls: {

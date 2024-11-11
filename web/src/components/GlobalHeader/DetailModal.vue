@@ -1,6 +1,12 @@
 <template>
   <!-- 详情页 -->
-  <a-modal :footer="null" width="100%" :dialog-style="{ position: 'fixed', top: '0', left: '0' }" v-model="visible">
+  <a-modal
+    :footer="null"
+    width="100%"
+    :dialog-style="{ position: 'fixed', top: '0', left: '0' }"
+    :zIndex="1080"
+    v-model="visible"
+  >
     <div class="article-container">
       <h1>{{ articleData.title }}</h1>
       <div class="describe">

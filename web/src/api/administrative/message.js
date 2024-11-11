@@ -63,3 +63,24 @@ export function createMessageRead(parameter) {
     data: parameter
   })
 }
+
+/**
+ * @description: 请求未读条数
+ */
+export function getUnreadCount() {
+  return request({
+    url: '/administrative/message/unread/count',
+    method: 'get'
+  })
+}
+
+/**
+ * @description: 获取未读消息公告列表
+ */
+export function getUnreadMessageList(parameter) {
+  return request({
+    url: '/administrative/message/unread/list',
+    method: 'get',
+    params: parameter
+  })
+}
