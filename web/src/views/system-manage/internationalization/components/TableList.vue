@@ -18,7 +18,7 @@
     <template slot="action" slot-scope="text, record">
       <a @click="onEdit(record)" v-action:[ActionMap.edit]>{{ $t(I18nGlobal.Edit) }}</a>
       <a-divider type="vertical" />
-      <a-popconfirm :title="$t(I18nGlobal.Delete)" @confirm="onDelete(record)">
+      <a-popconfirm :title="$t(I18nGlobal.ConfirmDelete)" @confirm="onDelete(record)">
         <a v-action:[ActionMap.delete]>{{ $t(I18nGlobal.Delete) }}</a>
       </a-popconfirm>
     </template>
