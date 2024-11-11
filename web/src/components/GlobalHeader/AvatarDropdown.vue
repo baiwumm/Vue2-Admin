@@ -1,27 +1,19 @@
 <template>
-  <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight">
+  <a-dropdown v-if="userInfo && userInfo.cnName" placement="bottomRight">
     <span class="ant-pro-account-avatar">
-      <a-avatar
-        size="small"
-        src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-        class="antd-pro-global-header-index-avatar"
-      />
-      <span>{{ currentUser.name }}</span>
+      <a-avatar size="small" :src="userInfo.avatar" class="antd-pro-global-header-index-avatar" />
+      <span>{{ userInfo.cnName }}</span>
     </span>
     <template v-slot:overlay>
       <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
-        <a-menu-item v-if="menu" key="center" @click="handleToCenter">
-          <a-icon type="user" />
-          {{ $t('menu.account.center') }}
+        <a-menu-item key="center" @click="handleToCenter">
+          <a-icon type="idcard" />
+          {{ $t('menu.user-center') }}
         </a-menu-item>
-        <a-menu-item v-if="menu" key="settings" @click="handleToSettings">
-          <a-icon type="setting" />
-          {{ $t('menu.account.settings') }}
-        </a-menu-item>
-        <a-menu-divider v-if="menu" />
+        <a-menu-divider />
         <a-menu-item key="logout" @click="handleLogout">
           <a-icon type="logout" />
-          {{ $t('menu.account.logout') }}
+          {{ $t('components.avatarDropdown.logout') }}
         </a-menu-item>
       </a-menu>
     </template>
@@ -36,31 +28,20 @@ import { Modal } from 'ant-design-vue'
 
 export default {
   name: 'AvatarDropdown',
-  props: {
-    currentUser: {
-      type: Object,
-      default: () => null
-    },
-    menu: {
-      type: Boolean,
-      default: true
+  computed: {
+    userInfo() {
+      return this.$store.getters.userInfo
     }
   },
   methods: {
     handleToCenter() {
-      this.$router.push({ path: '/account/center' })
-    },
-    handleToSettings() {
-      this.$router.push({ path: '/account/settings' })
+      this.$router.push({ path: '/user-center' })
     },
     handleLogout(e) {
       Modal.confirm({
-        title: this.$t('layouts.usermenu.dialog.title'),
-        content: this.$t('layouts.usermenu.dialog.content'),
+        title: this.$t('components.avatarDropdown.title'),
+        content: this.$t('components.avatarDropdown.confirm'),
         onOk: () => {
-          // return new Promise((resolve, reject) => {
-          //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1500)
-          // }).catch(() => console.log('Oops errors!'))
           return this.$store.dispatch('Logout').then(() => {
             // this.$router.push({ name: 'login' })
             window.location.reload()
