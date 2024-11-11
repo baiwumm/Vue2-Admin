@@ -52,3 +52,14 @@ export function changePinned(id) {
     method: 'patch'
   })
 }
+
+/**
+ * @description: 创建已读消息
+ */
+export function createMessageRead(parameter) {
+  return request({
+    url: 'administrative/message/createMessageRead',
+    method: 'post',
+    data: parameter
+  })
+}
