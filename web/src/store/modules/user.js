@@ -18,6 +18,7 @@ const user = {
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
+      storage.set(ACCESS_TOKEN, token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
     },
     SET_NAME: (state, { name }) => {
       state.name = name
@@ -30,6 +31,7 @@ const user = {
     },
     SET_INFO: (state, info) => {
       state.userInfo = info
+      storage.set(USER_INFO, info)
     }
   },
 
@@ -41,7 +43,6 @@ const user = {
           .then((response) => {
             if (response.code === 200) {
               const result = response.data
-              storage.set(ACCESS_TOKEN, result.token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
               commit('SET_TOKEN', result.token)
             }
             resolve(response)
@@ -68,7 +69,6 @@ const user = {
               data.role = role
               commit('SET_ROLES', role)
               commit('SET_INFO', data)
-              storage.set(USER_INFO, data)
               commit('SET_NAME', { name: data.cnName })
               commit('SET_AVATAR', data.avatar)
               // 下游
@@ -90,7 +90,10 @@ const user = {
           .then(() => {
             commit('SET_TOKEN', '')
             commit('SET_ROLES', [])
+            commit('SET_INFO', {})
+            commit('SET_ROUTERS', [])
             storage.remove(ACCESS_TOKEN)
+            storage.remove(USER_INFO)
             resolve()
           })
           .catch((err) => {
