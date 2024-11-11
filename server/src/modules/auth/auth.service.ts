@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2024-07-11 09:59:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2024-11-07 11:34:57
+ * @LastEditTime: 2024-11-11 16:19:34
  * @Description: AuthService
  */
 import { HttpService } from '@nestjs/axios';
@@ -98,6 +98,7 @@ export class AuthService {
       );
     return responseMessage<User>({
       ...userInfo,
+      roleInfo: userInfo.role,
       role: {
         permissions: [
           {
