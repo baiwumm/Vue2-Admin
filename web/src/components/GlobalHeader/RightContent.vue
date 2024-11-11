@@ -1,5 +1,6 @@
 <template>
   <div :class="wrpCls">
+    <full-screen :class="prefixCls" />
     <message-button :class="prefixCls" />
     <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
     <select-lang :class="prefixCls" />
@@ -10,6 +11,7 @@
 import SelectLang from '@/components/SelectLang'
 
 import AvatarDropdown from './AvatarDropdown'
+import FullScreen from './FullScreen.vue'
 import MessageButton from './MessageButton.vue'
 
 export default {
@@ -17,7 +19,8 @@ export default {
   components: {
     AvatarDropdown,
     SelectLang,
-    MessageButton
+    MessageButton,
+    FullScreen
   },
   props: {
     prefixCls: {
