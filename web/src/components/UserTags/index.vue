@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user-tags">
     <template v-for="tag in value">
       <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
         <a-tag :key="tag" closable @close="() => handleClose(tag)">
@@ -58,13 +58,18 @@ export default {
       let tags = this.value
       if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue]
+        this.$emit('change', tags)
       }
       Object.assign(this, {
         inputVisible: false,
         inputValue: ''
       })
-      this.$emit('change', tags)
     }
   }
 }
 </script>
+<style lang="less" scoped>
+.user-tags .ant-tag {
+  margin-bottom: 8px;
+}
+</style>
