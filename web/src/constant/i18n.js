@@ -51,6 +51,12 @@ export const I18nLogin = (field = '') => i18nRender(`views.user.login${field ? '
 export const I18nMessage = (field = '') => i18nRender(`views.administrative.message${field ? '.' : ''}${field}`)
 
 /**
+ * @description: 智能行政-组织管理
+ */
+export const I18nOrganization = (field = '') =>
+  i18nRender(`views.administrative.organization${field ? '.' : ''}${field}`)
+
+/**
  * @description: 个人中心
  */
 export const I18nUserCenter = (field = '') => i18nRender(`views.user-center${field ? '.' : ''}${field}`)
