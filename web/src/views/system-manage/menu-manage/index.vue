@@ -36,7 +36,7 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import { assign, get, pick } from 'lodash-es'
+import { assign, get, keys, pick } from 'lodash-es'
 
 import { addMenu, delMenu, getMenuList, updateMenu } from '@/api/system-manage/menu-manage'
 import { Flag, RequestCode } from '@/constant'
@@ -121,9 +121,7 @@ export default {
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
-        this.form.setFieldsValue(
-          pick(record, ['parentId', 'name', 'path', 'redirect', 'component', 'hidden', 'actions', 'sort', 'meta'])
-        )
+        this.form.setFieldsValue(pick(record, keys(this.rules)))
       })
     },
     // 删除

@@ -36,7 +36,7 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import { assign, forEach, get, pick } from 'lodash-es'
+import { assign, forEach, get, keys, pick } from 'lodash-es'
 
 import { addMessage, delMessage, getMessageList, updateMessage } from '@/api/administrative/message'
 import { Flag, RequestCode, Status } from '@/constant'
@@ -141,7 +141,7 @@ export default {
         })
         this.checkedKeys = checkedKeys
         this.form.setFieldsValue({
-          ...pick(record, ['title', 'pinned', 'status', 'content'])
+          ...pick(record, keys(this.rules))
         })
       })
     },

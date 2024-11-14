@@ -27,7 +27,7 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import { assign, get, pick } from 'lodash-es'
+import { assign, get, keys, pick } from 'lodash-es'
 
 import {
   addInternalization,
@@ -96,16 +96,16 @@ export default {
     // 新增
     onAdd() {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.Add)}${I18nInternationalization('name')}`
+      this.title = `${this.$t(I18nGlobal.Add)}${I18nInternationalization()}`
     },
     // 编辑
     onEdit(record) {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.Edit)}${I18nInternationalization('name')}：${record.name}`
+      this.title = `${this.$t(I18nGlobal.Edit)}${I18nInternationalization()}：${record.name}`
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
-        this.form.setFieldsValue(pick(record, ['name', 'parentId', 'zhCN', 'enUS', 'jaJP', 'zhTW']))
+        this.form.setFieldsValue(pick(record, keys(this.rules)))
       })
     },
     // 删除

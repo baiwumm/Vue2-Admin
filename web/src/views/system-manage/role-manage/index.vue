@@ -53,7 +53,7 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import { assign, forEach, get, pick } from 'lodash-es'
+import { assign, forEach, get, keys, pick, without } from 'lodash-es'
 
 import { getMenuList } from '@/api/system-manage/menu-manage'
 import { addRole, delRole, getRoleList, updateRole } from '@/api/system-manage/role-manage'
@@ -164,12 +164,12 @@ export default {
     // 新增
     onAdd() {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.Add)}${I18nRole('name')}`
+      this.title = `${this.$t(I18nGlobal.Add)}${I18nRole()}`
     },
     // 编辑
     onEdit(record) {
       this.visible = true
-      this.title = `${this.$t(I18nGlobal.Edit)}${I18nRole('name')}：${record.name}`
+      this.title = `${this.$t(I18nGlobal.Edit)}${I18nRole()}：${record.name}`
       this.id = record.id
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
@@ -188,7 +188,7 @@ export default {
         })
         this.checkedKeys = checkedKeys
         this.form.setFieldsValue({
-          ...pick(record, ['name', 'code', 'sort', 'description']),
+          ...pick(record, without(keys(this.rules), 'menus')),
           menus: [...checkedKeys, ...halfCheckedKeys]
         })
       })

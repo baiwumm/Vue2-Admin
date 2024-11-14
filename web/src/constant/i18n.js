@@ -79,5 +79,5 @@ export const I18nRole = (field = '') => i18nRender(`views.system-manage.role-man
 /**
  * @description: 系统设置-国际化
  */
-export const I18nInternationalization = (field) =>
+export const I18nInternationalization = (field = '') =>
   i18nRender(`views.system-manage.internationalization${field ? '.' : ''}${field}`)

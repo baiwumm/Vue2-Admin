@@ -72,7 +72,7 @@
 <script>
 import dayjs from 'dayjs'
 
-import { CommonText, Sex, Status } from '@/constant'
+import { Sex, Status } from '@/constant'
 import { ActionMap } from '@/constant/action'
 import { I18nGlobal, I18nUser } from '@/constant/i18n'
 import MenuIcon from '@/core/icons'
@@ -85,7 +85,6 @@ export default {
       I18nGlobal,
       ActionMap,
       MenuIcon,
-      CommonText,
       Sex,
       Status
     }
