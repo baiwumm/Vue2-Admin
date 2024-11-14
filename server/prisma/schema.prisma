@@ -87,7 +87,6 @@ model Organization {
   users         User[]          // 关联用户
   sort          Int             // 排序
   description   String?         // 组织描述
-  icon          String?         // 组织图标
   posts         Post[]          // 岗位
   createdAt     DateTime        @default(now()) // 创建时间
   updatedAt     DateTime        @updatedAt // 更新时间
