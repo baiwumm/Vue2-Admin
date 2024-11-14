@@ -6,19 +6,18 @@
           v-decorator="rules.parentId"
           style="width: 100%"
           :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-          :tree-data="data"
+          :tree-data="menuTree"
           :placeholder="I18nSelect($t(I18nGlobal.Parent))"
           tree-default-expand-all
           allow-clear
-          :replace-fields="{
-            title: 'name',
-            key: 'id',
-            value: 'id'
-          }"
         >
-          <span slot="title" slot-scope="{ meta }">
-            {{ $t(meta.title) }}
-          </span>
+          <a-space slot="title" slot-scope="{ meta }">
+            <a-icon :component="MenuIcon[meta.icon]" :style="{ fontSize: '14px' }" v-if="meta.icon.includes('Icon')" />
+            <a-icon :type="meta.icon" :style="{ fontSize: '14px' }" v-else />
+            <span>
+              {{ $t(meta.title) }}
+            </span>
+          </a-space>
         </a-tree-select>
       </a-form-item>
     </a-col>
@@ -122,9 +121,12 @@
   </a-row>
 </template>
 <script>
+import { cloneDeep, forEach } from 'lodash-es'
+
 import { Flag } from '@/constant'
 import { ActionOptions } from '@/constant/action'
 import { I18nEntry, I18nGlobal, I18nMenu, I18nSelect } from '@/constant/i18n'
+import MenuIcon from '@/core/icons'
 export default {
   name: 'FormDrawer',
   props: ['data', 'rules'],
@@ -135,7 +137,27 @@ export default {
       I18nSelect,
       I18nMenu,
       ActionOptions,
-      Flag
+      Flag,
+      MenuIcon
+    }
+  },
+  computed: {
+    menuTree() {
+      const treeData = cloneDeep(this.data)
+      const loopTree = (tree) => {
+        forEach(tree, (node) => {
+          node.key = node.id
+          node.value = node.id
+          node.scopedSlots = {
+            title: 'title'
+          }
+          if (node?.children?.length) {
+            loopTree(node.children)
+          }
+        })
+      }
+      loopTree(treeData)
+      return treeData
     }
   }
 }
