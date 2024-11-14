@@ -26,7 +26,8 @@ export const I18nGlobal = {
   Upload: 'global.upload',
   UploadValidate: 'global.upload.validate',
   UploadSuccess: 'global.upload.success',
-  PopconfirmTitle: 'global.popconfirmTitle'
+  PopconfirmTitle: 'global.popconfirmTitle',
+  Submit: 'global.submit'
 }
 
 /**
@@ -48,6 +49,11 @@ export const I18nLogin = (field = '') => i18nRender(`views.user.login${field ? '
  * @description: 智能行政-消息公告
  */
 export const I18nMessage = (field = '') => i18nRender(`views.administrative.message${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 个人中心
+ */
+export const I18nUserCenter = (field = '') => i18nRender(`views.user-center${field ? '.' : ''}${field}`)
 
 /**
  * @description: 系统设置-用户管理

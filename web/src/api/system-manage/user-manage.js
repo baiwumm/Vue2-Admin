@@ -42,3 +42,25 @@ export function delUser(id) {
     method: 'delete'
   })
 }
+
+/**
+ * @description: 更新用户信息
+ */
+export function updateUserTags(parameter) {
+  return request({
+    url: `/system/user-manage/updateUserTags`,
+    method: 'patch',
+    data: parameter
+  })
+}
+
+/**
+ * @description: 修改账户密码
+ */
+export function changeUserPassword(parameter) {
+  return request({
+    url: `/system/user-manage/changePassword`,
+    method: 'patch',
+    data: parameter
+  })
+}

@@ -98,7 +98,6 @@ export default {
         size: this.pagination.pageSize
       })
         .then(({ data, code }) => {
-          this.unreadMessageList = data
           if (code === RequestCode.Success) {
             this.unreadMessageList = data
           }
