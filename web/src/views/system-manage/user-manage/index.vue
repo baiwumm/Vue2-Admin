@@ -8,7 +8,7 @@
       <!-- 新增/编辑弹窗 -->
       <a-drawer :title="title" :width="600" :visible="visible" :maskClosable="false" @close="onClose">
         <a-form :form="form">
-          <form-drawer :rules="rules" :data="data" :id="id" />
+          <form-drawer :rules="rules" :id="id" style="padding-bottom: 30px" />
         </a-form>
         <div
           :style="{

@@ -1,5 +1,13 @@
 <template>
-  <a-row :gutter="16" style="padding-bottom: 30px">
+  <a-row :gutter="16">
+    <template v-if="isUserCenter">
+      <a-divider orientation="left">{{ I18nUser('settingAvatar') }}</a-divider>
+      <a-col :span="24">
+        <a-form-item>
+          <setting-avatar v-decorator="rules.avatar" />
+        </a-form-item>
+      </a-col>
+    </template>
     <a-divider orientation="left">{{ I18nUser('personalInfo') }}</a-divider>
     <a-col :span="12">
       <a-form-item :label="I18nUser('userName')">
@@ -8,6 +16,7 @@
           :placeholder="I18nEntry(I18nUser('userName'))"
           :max-length="20"
           allow-clear
+          :disabled="isUserCenter"
         />
       </a-form-item>
     </a-col>
@@ -53,7 +62,7 @@
         />
       </a-form-item>
     </a-col>
-    <template v-if="!id">
+    <template v-if="!id && !isUserCenter">
       <a-col :span="24">
         <a-form-item :label="I18nUser('password')">
           <a-input
@@ -78,7 +87,7 @@
     <a-divider orientation="left">{{ I18nUser('userInfo') }}</a-divider>
     <a-col :span="12">
       <a-form-item :label="I18nUser('roleId')">
-        <a-select v-decorator="rules.roleId" :placeholder="I18nSelect(I18nUser('roleId'))">
+        <a-select v-decorator="rules.roleId" :placeholder="I18nSelect(I18nUser('roleId'))" :disabled="isUserCenter">
           <a-select-option :value="r.id" v-for="r in roleList" :key="r.id">
             {{ r.name }}
           </a-select-option>
@@ -125,17 +134,19 @@
         />
       </a-form-item>
     </a-col>
-    <a-col :span="24">
+    <a-col :span="24" v-if="!isUserCenter">
       <a-form-item :label="I18nUser('tags')">
         <user-tags v-decorator="rules.tags" />
       </a-form-item>
     </a-col>
-    <a-divider orientation="left">{{ I18nUser('settingAvatar') }}</a-divider>
-    <a-col :span="24">
-      <a-form-item>
-        <setting-avatar v-decorator="rules.avatar" />
-      </a-form-item>
-    </a-col>
+    <template v-if="!isUserCenter">
+      <a-divider orientation="left">{{ I18nUser('settingAvatar') }}</a-divider>
+      <a-col :span="24">
+        <a-form-item>
+          <setting-avatar v-decorator="rules.avatar" />
+        </a-form-item>
+      </a-col>
+    </template>
   </a-row>
 </template>
 <script>
@@ -153,7 +164,7 @@ import { I18nEntry, I18nGlobal, I18nSelect, I18nUser } from '@/constant/i18n'
 import SettingAvatar from './SettingAvatar.vue'
 export default {
   name: 'FormDrawer',
-  props: ['data', 'rules', 'id'],
+  props: ['rules', 'id', 'isUserCenter'],
   components: { UserTags, SettingAvatar },
   data() {
     return {
