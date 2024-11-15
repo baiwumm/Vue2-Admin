@@ -7,10 +7,23 @@
  * 所有图标均从这里加载，方便管理
  */
 import AdministrativeIcon from '@/assets/icons/administrative.svg?inline'
+import AntdIcon from '@/assets/icons/antd.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
+import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
+import VueIcon from '@/assets/icons/vue.svg?inline'
 
-export default { DashboardIcon, InternationalizationIcon, LocaleIcon, OrganizationIcon, PostIcon, AdministrativeIcon }
+export default {
+  DashboardIcon,
+  InternationalizationIcon,
+  LocaleIcon,
+  OrganizationIcon,
+  PostIcon,
+  AdministrativeIcon,
+  VueIcon,
+  AntdIcon,
+  NestjsIcon
+}
