@@ -27,7 +27,8 @@ export const I18nGlobal = {
   UploadValidate: 'global.upload.validate',
   UploadSuccess: 'global.upload.success',
   PopconfirmTitle: 'global.popconfirmTitle',
-  Submit: 'global.submit'
+  Submit: 'global.submit',
+  ParentTip: 'global.parent.tip'
 }
 
 /**
@@ -49,6 +50,11 @@ export const I18nLogin = (field = '') => i18nRender(`views.user.login${field ? '
  * @description: 智能行政-消息公告
  */
 export const I18nMessage = (field = '') => i18nRender(`views.administrative.message${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 智能行政-岗位管理
+ */
+export const I18nPost = (field = '') => i18nRender(`views.administrative.post-manage${field ? '.' : ''}${field}`)
 
 /**
  * @description: 智能行政-组织管理
