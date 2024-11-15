@@ -1,9 +1,11 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
-      <a-space direction="vertical" :size="24">
+    <a-space direction="vertical" size="middle" style="width: 100%">
+      <a-card :bordered="false">
         <!-- 顶部搜索 -->
         <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
+      </a-card>
+      <a-card :bordered="false">
         <!-- 表格数据 -->
         <table-list
           :data="data"
@@ -13,25 +15,25 @@
           :pagination="pagination"
           @query="query"
         />
-      </a-space>
-      <!-- 新增/编辑弹窗 -->
-      <a-modal
-        :title="title"
-        :width="800"
-        :visible="visible"
-        :maskClosable="false"
-        @cancel="onClose"
-        @ok="handleSubmit"
-        :loading="loginState"
-        :okButtonProps="{
-          disabled: loginState
-        }"
-      >
-        <a-form :form="form">
-          <form-modal :rules="rules" :data="data" />
-        </a-form>
-      </a-modal>
-    </a-card>
+      </a-card>
+    </a-space>
+    <!-- 新增/编辑弹窗 -->
+    <a-modal
+      :title="title"
+      :width="800"
+      :visible="visible"
+      :maskClosable="false"
+      @cancel="onClose"
+      @ok="handleSubmit"
+      :loading="loginState"
+      :okButtonProps="{
+        disabled: loginState
+      }"
+    >
+      <a-form :form="form">
+        <form-modal :rules="rules" :data="data" />
+      </a-form>
+    </a-modal>
   </page-header-wrapper>
 </template>
 <script>

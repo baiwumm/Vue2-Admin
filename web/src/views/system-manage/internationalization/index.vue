@@ -1,28 +1,32 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
-      <!-- 顶部搜索 -->
-      <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
-      <!-- 表格数据 -->
-      <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" />
-      <!-- 新增/编辑弹窗 -->
-      <a-modal
-        :title="title"
-        :width="600"
-        :visible="visible"
-        @cancel="onClose"
-        :maskClosable="false"
-        @ok="handleSubmit"
-        :confirm-loading="loginState"
-        :okButtonProps="{
-          disabled: loginState
-        }"
-      >
-        <a-form :form="form">
-          <form-modal :rules="rules" :data="data" />
-        </a-form>
-      </a-modal>
-    </a-card>
+    <a-space direction="vertical" size="middle" style="width: 100%">
+      <a-card :bordered="false">
+        <!-- 顶部搜索 -->
+        <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
+      </a-card>
+      <a-card :bordered="false">
+        <!-- 表格数据 -->
+        <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" />
+      </a-card>
+    </a-space>
+    <!-- 新增/编辑弹窗 -->
+    <a-modal
+      :title="title"
+      :width="600"
+      :visible="visible"
+      @cancel="onClose"
+      :maskClosable="false"
+      @ok="handleSubmit"
+      :confirm-loading="loginState"
+      :okButtonProps="{
+        disabled: loginState
+      }"
+    >
+      <a-form :form="form">
+        <form-modal :rules="rules" :data="data" />
+      </a-form>
+    </a-modal>
   </page-header-wrapper>
 </template>
 <script>

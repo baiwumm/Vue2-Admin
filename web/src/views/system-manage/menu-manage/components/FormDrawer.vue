@@ -1,7 +1,15 @@
 <template>
   <a-row :gutter="16">
     <a-col :span="12">
-      <a-form-item :label="$t(I18nGlobal.Parent)">
+      <a-form-item>
+        <a-space slot="label">
+          <span>
+            {{ $t(I18nGlobal.Parent) }}
+          </span>
+          <a-tooltip :title="$t(I18nGlobal.ParentTip)">
+            <a-icon type="question-circle-o" />
+          </a-tooltip>
+        </a-space>
         <a-tree-select
           v-decorator="rules.parentId"
           style="width: 100%"

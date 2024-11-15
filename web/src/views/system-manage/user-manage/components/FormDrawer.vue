@@ -89,7 +89,10 @@
       <a-form-item :label="I18nUser('roleId')">
         <a-select v-decorator="rules.roleId" :placeholder="I18nSelect(I18nUser('roleId'))" :disabled="isUserCenter">
           <a-select-option :value="r.id" v-for="r in roleList" :key="r.id">
-            {{ r.name }}
+            <a-space>
+              <a-icon type="solution" />
+              <span>{{ r.name }}</span>
+            </a-space>
           </a-select-option>
         </a-select>
       </a-form-item>
@@ -103,7 +106,14 @@
           :tree-data="orgList"
           :placeholder="I18nSelect(I18nUser('orgId'))"
           :replaceFields="{ value: 'id', label: 'name', children: 'children' }"
-        />
+        >
+          <a-space slot="title" slot-scope="{ name }">
+            <a-icon :component="MenuIcon['OrganizationIcon']" :style="{ fontSize: '14px' }" />
+            <span>
+              {{ name }}
+            </span>
+          </a-space>
+        </a-tree-select>
       </a-form-item>
     </a-col>
     <a-col :span="12">
@@ -115,7 +125,14 @@
           :tree-data="postList"
           :placeholder="I18nSelect(I18nUser('postId'))"
           :replaceFields="{ value: 'id', label: 'name', children: 'children' }"
-        />
+        >
+          <a-space slot="title" slot-scope="{ name }">
+            <a-icon :component="MenuIcon['PostIcon']" :style="{ fontSize: '14px' }" />
+            <span>
+              {{ name }}
+            </span>
+          </a-space>
+        </a-tree-select>
       </a-form-item>
     </a-col>
     <a-col :span="12">
@@ -151,7 +168,7 @@
 </template>
 <script>
 import { regionData } from 'element-china-area-data'
-import { get } from 'lodash-es'
+import { cloneDeep, forEach, get } from 'lodash-es'
 
 import { getOrgList } from '@/api/administrative/organization'
 import { getPostList } from '@/api/administrative/post'
@@ -160,6 +177,7 @@ import UserTags from '@/components/UserTags'
 import { RequestCode, Sex, Status } from '@/constant'
 import { ActionOptions } from '@/constant/action'
 import { I18nEntry, I18nGlobal, I18nSelect, I18nUser } from '@/constant/i18n'
+import MenuIcon from '@/core/icons'
 
 import SettingAvatar from './SettingAvatar.vue'
 export default {
@@ -181,7 +199,8 @@ export default {
       orgLoading: false,
       postList: [],
       postLoading: false,
-      regionData
+      regionData,
+      MenuIcon
     }
   },
   methods: {
@@ -203,7 +222,21 @@ export default {
       this.orgLoading = true
       const { data, code } = await getOrgList({})
       if (code === RequestCode.Success) {
-        this.orgList = get(data, 'records', [])
+        const treeData = cloneDeep(get(data, 'records', []))
+        const loopTree = (tree) => {
+          forEach(tree, (node) => {
+            node.key = node.id
+            node.value = node.id
+            node.scopedSlots = {
+              title: 'title'
+            }
+            if (node?.children?.length) {
+              loopTree(node.children)
+            }
+          })
+        }
+        loopTree(treeData)
+        this.orgList = treeData
       }
       this.orgLoading = false
     },
@@ -212,7 +245,21 @@ export default {
       this.postLoading = true
       const { data, code } = await getPostList({})
       if (code === RequestCode.Success) {
-        this.postList = get(data, 'records', [])
+        const treeData = cloneDeep(get(data, 'records', []))
+        const loopTree = (tree) => {
+          forEach(tree, (node) => {
+            node.key = node.id
+            node.value = node.id
+            node.scopedSlots = {
+              title: 'title'
+            }
+            if (node?.children?.length) {
+              loopTree(node.children)
+            }
+          })
+        }
+        loopTree(treeData)
+        this.postList = treeData
       }
       this.postLoading = false
     }

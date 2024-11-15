@@ -1,7 +1,7 @@
 <template>
   <div class="table-page-search-wrapper">
     <a-form layout="inline">
-      <a-row :gutter="16" align="middle">
+      <a-row :gutter="[16, 16]" align="middle">
         <a-col :sm="24" :md="12" :lg="8" :xl="6" :xxl="6">
           <a-form-item :label="I18nRole('name')">
             <a-input :placeholder="I18nEntry(I18nRole('name'))" allowClear v-model="queryForm.name" />

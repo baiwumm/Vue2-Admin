@@ -1,37 +1,41 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
-      <!-- 顶部搜索 -->
-      <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
-      <!-- 表格数据 -->
-      <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" :pagination="pagination" />
-      <!-- 新增/编辑弹窗 -->
-      <a-drawer :title="title" :width="600" :visible="visible" :maskClosable="false" @close="onClose">
-        <a-form :form="form">
-          <form-drawer :rules="rules" :id="id" style="padding-bottom: 30px" />
-        </a-form>
-        <div
-          :style="{
-            position: 'absolute',
-            right: 0,
-            bottom: 0,
-            width: '100%',
-            borderTop: '1px solid #e9e9e9',
-            padding: '10px 16px',
-            background: '#fff',
-            textAlign: 'right',
-            zIndex: 1
-          }"
-        >
-          <a-button :style="{ marginRight: '8px' }" @click="onClose">
-            {{ $t(I18nGlobal.Cancel) }}
-          </a-button>
-          <a-button type="primary" @click="handleSubmit" :loading="loginState">
-            {{ $t(I18nGlobal.Confirm) }}
-          </a-button>
-        </div>
-      </a-drawer>
-    </a-card>
+    <a-space direction="vertical" size="middle" style="width: 100%">
+      <a-card :bordered="false">
+        <!-- 顶部搜索 -->
+        <header-search :query-form="queryForm" @query="query" @onAdd="onAdd" />
+      </a-card>
+      <a-card :bordered="false">
+        <!-- 表格数据 -->
+        <table-list :data="data" :loading="loading" @onEdit="onEdit" @onDelete="onDelete" :pagination="pagination" />
+      </a-card>
+    </a-space>
+    <!-- 新增/编辑弹窗 -->
+    <a-drawer :title="title" :width="600" :visible="visible" :maskClosable="false" @close="onClose">
+      <a-form :form="form">
+        <form-drawer :rules="rules" :id="id" style="padding-bottom: 30px" />
+      </a-form>
+      <div
+        :style="{
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          borderTop: '1px solid #e9e9e9',
+          padding: '10px 16px',
+          background: '#fff',
+          textAlign: 'right',
+          zIndex: 1
+        }"
+      >
+        <a-button :style="{ marginRight: '8px' }" @click="onClose">
+          {{ $t(I18nGlobal.Cancel) }}
+        </a-button>
+        <a-button type="primary" @click="handleSubmit" :loading="loginState">
+          {{ $t(I18nGlobal.Confirm) }}
+        </a-button>
+      </div>
+    </a-drawer>
   </page-header-wrapper>
 </template>
 <script>
