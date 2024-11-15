@@ -5,9 +5,11 @@ import './core/lazy_use' // use lazy load components
 import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
+import 'zm-tree-org/lib/zm-tree-org.css'
 
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import Vue from 'vue'
+import ZmTreeOrg from 'zm-tree-org'
 
 import themePluginConfig from '../config/themePluginConfig'
 import App from './App.vue'
@@ -21,6 +23,7 @@ Vue.config.productionTip = false
 
 // mount axios to `Vue.$http` and `this.$http`
 Vue.use(VueAxios)
+Vue.use(ZmTreeOrg)
 // use pro-layout components
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)

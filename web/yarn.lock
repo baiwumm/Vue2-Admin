@@ -1751,6 +1751,14 @@
   resolved "https://registry.npmmirror.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
+"@simonwep/pickr@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.npmmirror.com/@simonwep/pickr/-/pickr-1.9.1.tgz#10d86dab514b8888b2d6b90299a477f254067c43"
+  integrity sha512-fR3qmfAcPf/HSFS7GEnTmZLM3+xERv1+jyMBbzT63ilRRM8veYjI7ELvkHHKk0/du3lHp7uh/FqatjM3646X1g==
+  dependencies:
+    core-js "3.37.0"
+    nanopop "2.4.2"
+
 "@simonwep/pickr@~1.7.0":
   version "1.7.4"
   resolved "https://registry.npmmirror.com/@simonwep/pickr/-/pickr-1.7.4.tgz#b14fcd945890388b870cd6db4d6c78d531f25141"
@@ -3997,6 +4005,11 @@ core-js@2, core-js@^2.4.0, core-js@^2.5.7:
   version "2.6.12"
   resolved "https://registry.npmmirror.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
+
+core-js@3.37.0:
+  version "3.37.0"
+  resolved "https://registry.npmmirror.com/core-js/-/core-js-3.37.0.tgz#d8dde58e91d156b2547c19d8a4efd5c7f6c426bb"
+  integrity sha512-fu5vHevQ8ZG4og+LXug8ulUtVxjOcEYvifJr7L5Bfq9GOztVqsKd9/59hUk2ZSbCrS3BqUr3EpaYGIYzq7g3Ug==
 
 core-js@^3.21.1, core-js@^3.6.5, core-js@^3.8.3:
   version "3.39.0"
@@ -8230,7 +8243,7 @@ nanoid@^3.3.7:
   resolved "https://registry.npmmirror.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
   integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
 
-nanopop@^2.1.0:
+nanopop@2.4.2, nanopop@^2.1.0:
   version "2.4.2"
   resolved "https://registry.npmmirror.com/nanopop/-/nanopop-2.4.2.tgz#b55482135be7e64f2d0f5aa8ef51a58104ac7b13"
   integrity sha512-NzOgmMQ+elxxHeIha+OG/Pv3Oc3p4RU2aBhwWwAqDpXrdTbtRylbRLQztLy8dMMwfl6pclznBdfUhccEn9ZIzw==
@@ -11125,7 +11138,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.2.6, vue@^2.5.17, vue@^2.5.3, vue@^2.6.14:
+vue@^2.2.6, vue@^2.5.17, vue@^2.5.3, vue@^2.6.11, vue@^2.6.14:
   version "2.7.16"
   resolved "https://registry.npmmirror.com/vue/-/vue-2.7.16.tgz#98c60de9def99c0e3da8dae59b304ead43b967c9"
   integrity sha512-4gCtFXaAA3zYZdTp5s4Hl2sozuySsgz4jy1EnpBHNfpMa9dK1ZCG7viqBPCwXtmgc8nHqUsAu3G4gtmXkkY3Sw==
@@ -11597,3 +11610,11 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zm-tree-org@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.npmmirror.com/zm-tree-org/-/zm-tree-org-2.1.3.tgz#ea2f78b10db908de01715fb3700e1fdf8d78b76d"
+  integrity sha512-ls9otI/irF3wg13vMYWykSLvSXOt4lD+3oIskkKSB1upVeNtjD5hl2XxX/WBVsR0dfprVQKeEvZnyte5e5Rq+w==
+  dependencies:
+    core-js "^3.6.5"
+    vue "^2.6.11"
