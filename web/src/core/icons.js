@@ -11,6 +11,7 @@ import AntdIcon from '@/assets/icons/antd.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
+import LogIcon from '@/assets/icons/log.svg?inline'
 import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
@@ -25,5 +26,6 @@ export default {
   AdministrativeIcon,
   VueIcon,
   AntdIcon,
-  NestjsIcon
+  NestjsIcon,
+  LogIcon
 }
