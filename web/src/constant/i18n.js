@@ -94,3 +94,8 @@ export const I18nInternationalization = (field = '') =>
  */
 export const I18nOperationLog = (field = '') =>
   i18nRender(`views.system-manage.operation-log${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 关于
+ */
+export const I18nAbout = (field = '') => i18nRender(`views.about${field ? '.' : ''}${field}`)
