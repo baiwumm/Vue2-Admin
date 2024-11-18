@@ -6,6 +6,7 @@
  * 自定义图标加载表
  * 所有图标均从这里加载，方便管理
  */
+import AboutIcon from '@/assets/icons/about.svg?inline'
 import AdministrativeIcon from '@/assets/icons/administrative.svg?inline'
 import AntdIcon from '@/assets/icons/antd.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
@@ -27,5 +28,6 @@ export default {
   VueIcon,
   AntdIcon,
   NestjsIcon,
-  LogIcon
+  LogIcon,
+  AboutIcon
 }
