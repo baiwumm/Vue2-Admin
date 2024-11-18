@@ -40,3 +40,11 @@ export const Sex = {
   Male: 'MALE',
   Female: 'FEMALE'
 }
+
+/** @description: 请求方法 */
+export const MethodOptions = [
+  { label: 'POST', value: 'POST', key: 'green' },
+  { label: 'PUT', value: 'PUT', key: 'orange' },
+  { label: 'PATCH', value: 'PATCH', key: 'purple' },
+  { label: 'DELETE', value: 'DELETE', key: 'red' }
+]

@@ -28,7 +28,8 @@ export const I18nGlobal = {
   UploadSuccess: 'global.upload.success',
   PopconfirmTitle: 'global.popconfirmTitle',
   Submit: 'global.submit',
-  ParentTip: 'global.parent.tip'
+  ParentTip: 'global.parent.tip',
+  BatchDelete: 'global.batchDelete'
 }
 
 /**
@@ -87,3 +88,9 @@ export const I18nRole = (field = '') => i18nRender(`views.system-manage.role-man
  */
 export const I18nInternationalization = (field = '') =>
   i18nRender(`views.system-manage.internationalization${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 系统设置-操作日志
+ */
+export const I18nOperationLog = (field = '') =>
+  i18nRender(`views.system-manage.operation-log${field ? '.' : ''}${field}`)
