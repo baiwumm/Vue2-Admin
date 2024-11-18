@@ -9,12 +9,12 @@
 
         <div class="footer">
           <div class="links">
-            <a title="Vue3 Admin" href="https://github.com/baiwumm/Vue3-Admin/" target="_blank">Vue3 Admin</a>
-            <a title="github" href="https://github.com/baiwumm/Vue2-Admin/" target="_blank"><a-icon type="github" /></a
-            ><a title="Xmw Admin" href="https://github.com/baiwumm/Xmw-Admin/" target="_blank">Xmw Admin</a>
+            <a title="Vue3 Admin" href="https://github.com/baiwumm/vue3-admin/" target="_blank">Vue3 Admin</a>
+            <a title="github" href="https://github.com/baiwumm/vue2-admin/" target="_blank"><a-icon type="github" /></a
+            ><a title="Xmw Admin" href="https://github.com/baiwumm/react-admin/" target="_blank">React Admin</a>
           </div>
           <div class="copyright">
-            Copyright © 2021 Vue2 Admin by
+            Copyright © {{ dayjs().year() }} by
             <a
               href="https://baiwumm.com/"
               target="_blank"
@@ -37,15 +37,21 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 import SelectLang from '@/components/SelectLang'
 import { deviceMixin } from '@/store/device-mixin'
-
 export default {
   name: 'UserLayout',
   components: {
     SelectLang
   },
   mixins: [deviceMixin],
+  data() {
+    return {
+      dayjs
+    }
+  },
   mounted() {
     document.body.classList.add('userLayout')
   },
