@@ -49,6 +49,8 @@
     "vue-i18n": "^8.27.1",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.3",
+    "vue-svg-component-runtime": "^1.0.1",
+    "vue-template-compiler": "^2.7.16",
     "vuex": "^3.6.2",
     "wangeditor": "^3.1.1",
     "zm-tree-org": "^2.1.3"
