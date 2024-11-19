@@ -29,7 +29,8 @@ export const I18nGlobal = {
   PopconfirmTitle: 'global.popconfirmTitle',
   Submit: 'global.submit',
   ParentTip: 'global.parent.tip',
-  BatchDelete: 'global.batchDelete'
+  BatchDelete: 'global.batchDelete',
+  Reset: 'global.reset'
 }
 
 /**
@@ -67,6 +68,11 @@ export const I18nOrganization = (field = '') =>
  * @description: 个人中心
  */
 export const I18nUserCenter = (field = '') => i18nRender(`views.user-center${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 功能页-验证码
+ */
+export const I18nCaptcha = (field = '') => i18nRender(`views.features.captcha${field ? '.' : ''}${field}`)
 
 /**
  * @description: 系统设置-用户管理
