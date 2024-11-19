@@ -9,7 +9,9 @@
 import AboutIcon from '@/assets/icons/about.svg?inline'
 import AdministrativeIcon from '@/assets/icons/administrative.svg?inline'
 import AntdIcon from '@/assets/icons/antd.svg?inline'
+import CaptchaIcon from '@/assets/icons/captcha.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
+import FeaturesIcon from '@/assets/icons/features.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
 import LogIcon from '@/assets/icons/log.svg?inline'
@@ -29,5 +31,7 @@ export default {
   AntdIcon,
   NestjsIcon,
   LogIcon,
-  AboutIcon
+  AboutIcon,
+  FeaturesIcon,
+  CaptchaIcon
 }
