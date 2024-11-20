@@ -1,6 +1,7 @@
 import {
   Alert,
   Avatar,
+  BackTop,
   Badge,
   Breadcrumb,
   Button,
@@ -107,6 +108,7 @@ Vue.use(TreeSelect)
 Vue.use(Tree)
 Vue.use(Timeline)
 Vue.use(Cascader)
+Vue.use(BackTop)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message

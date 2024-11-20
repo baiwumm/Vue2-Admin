@@ -50,6 +50,8 @@
         <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
       </transition>
     </a-layout-content>
+    <!-- 回到顶部 -->
+    <a-back-top />
   </pro-layout>
 </template>
 
