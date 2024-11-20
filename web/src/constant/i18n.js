@@ -30,18 +30,19 @@ export const I18nGlobal = {
   Submit: 'global.submit',
   ParentTip: 'global.parent.tip',
   BatchDelete: 'global.batchDelete',
-  Reset: 'global.reset'
+  Reset: 'global.reset',
+  Good: 'global.good'
 }
 
 /**
  * @description: 请输入
  */
-export const I18nEntry = (text) => `${i18nRender(I18nGlobal.Enter)}${text}`
+export const I18nEntry = (text = '') => `${i18nRender(I18nGlobal.Enter)}${text}`
 
 /**
  * @description: 请选择
  */
-export const I18nSelect = (text) => `${i18nRender(I18nGlobal.Select)}${text}`
+export const I18nSelect = (text = '') => `${i18nRender(I18nGlobal.Select)}${text}`
 
 /**
  * @description: 用户登录
@@ -73,6 +74,11 @@ export const I18nUserCenter = (field = '') => i18nRender(`views.user-center${fie
  * @description: 功能页-验证码
  */
 export const I18nCaptcha = (field = '') => i18nRender(`views.features.captcha${field ? '.' : ''}${field}`)
+
+/**
+ * @description: 功能页-自定义 Vue 指令
+ */
+export const I18nVueDirective = (field = '') => i18nRender(`views.features.vue-directive${field ? '.' : ''}${field}`)
 
 /**
  * @description: 系统设置-用户管理
