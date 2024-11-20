@@ -105,7 +105,9 @@ export default {
     }
   },
   mounted() {
-    this.drawCanvas()
+    this.$nextTick(() => {
+      this.drawCanvas()
+    })
   }
 }
 </script>
