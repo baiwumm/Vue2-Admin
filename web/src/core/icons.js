@@ -14,6 +14,7 @@ import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import DirectiveIcon from '@/assets/icons/directive.svg?inline'
 import FeaturesIcon from '@/assets/icons/features.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
+import LazyloadIcon from '@/assets/icons/lazyload.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
 import LogIcon from '@/assets/icons/log.svg?inline'
 import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
@@ -35,5 +36,6 @@ export default {
   AboutIcon,
   FeaturesIcon,
   CaptchaIcon,
-  DirectiveIcon
+  DirectiveIcon,
+  LazyloadIcon
 }
