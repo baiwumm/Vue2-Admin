@@ -21,6 +21,7 @@ import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
 import VueIcon from '@/assets/icons/vue.svg?inline'
+import WaterfallIcon from '@/assets/icons/waterfall.svg?inline'
 
 export default {
   DashboardIcon,
@@ -37,5 +38,6 @@ export default {
   FeaturesIcon,
   CaptchaIcon,
   DirectiveIcon,
-  LazyloadIcon
+  LazyloadIcon,
+  WaterfallIcon
 }
