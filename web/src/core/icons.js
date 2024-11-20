@@ -11,6 +11,7 @@ import AdministrativeIcon from '@/assets/icons/administrative.svg?inline'
 import AntdIcon from '@/assets/icons/antd.svg?inline'
 import CaptchaIcon from '@/assets/icons/captcha.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
+import DirectiveIcon from '@/assets/icons/directive.svg?inline'
 import FeaturesIcon from '@/assets/icons/features.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LocaleIcon from '@/assets/icons/locale.svg?inline'
@@ -33,5 +34,6 @@ export default {
   LogIcon,
   AboutIcon,
   FeaturesIcon,
-  CaptchaIcon
+  CaptchaIcon,
+  DirectiveIcon
 }
