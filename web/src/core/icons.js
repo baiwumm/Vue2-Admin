@@ -20,6 +20,7 @@ import LogIcon from '@/assets/icons/log.svg?inline'
 import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
+import ViewerIcon from '@/assets/icons/viewer.svg?inline'
 import VueIcon from '@/assets/icons/vue.svg?inline'
 import WaterfallIcon from '@/assets/icons/waterfall.svg?inline'
 
@@ -39,5 +40,6 @@ export default {
   CaptchaIcon,
   DirectiveIcon,
   LazyloadIcon,
-  WaterfallIcon
+  WaterfallIcon,
+  ViewerIcon
 }
