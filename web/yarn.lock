@@ -10948,6 +10948,14 @@ uuid@^8.3.2:
   resolved "https://registry.npmmirror.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
+v-viewer@^1.6.4:
+  version "1.7.4"
+  resolved "https://registry.npmmirror.com/v-viewer/-/v-viewer-1.7.4.tgz#2a7214250c55e8698807575302ebd9f231e73393"
+  integrity sha512-K3PQ8utnVXXBCa5IRXRAhk/m83fNIsK77gTSXqAmPJe8eDTaSY1nifAOWPUmQDjzuCxYfa14UjGftHR9MFV70Q==
+  dependencies:
+    lodash-es "^4.17.21"
+    viewerjs "^1.11.6"
+
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.3.0:
   version "2.4.0"
   resolved "https://registry.npmmirror.com/v8-compile-cache/-/v8-compile-cache-2.4.0.tgz#cdada8bec61e15865f05d097c5f4fd30e94dc128"
@@ -10983,6 +10991,11 @@ venn.js@~0.2.20:
     d3-selection "^1.0.2"
     d3-transition "^1.0.1"
     fmin "0.0.2"
+
+viewerjs@^1.11.6:
+  version "1.11.6"
+  resolved "https://registry.npmmirror.com/viewerjs/-/viewerjs-1.11.6.tgz#19a1e78c15eba5a9fbbf34ebc5ab312d6e8932ed"
+  integrity sha512-TlhdSp2oEOLFXvEp4psKaeTjR5zBjTRcM/sHUN8PkV1UWuY8HKC8n7GaVdW5Xqnwdr/F1OmzLik1QwDjI4w/nw==
 
 viser-vue@^2.4.8:
   version "2.4.8"
