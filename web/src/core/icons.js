@@ -19,6 +19,7 @@ import LocaleIcon from '@/assets/icons/locale.svg?inline'
 import LogIcon from '@/assets/icons/log.svg?inline'
 import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
+import PickrIcon from '@/assets/icons/pickr.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
 import ViewerIcon from '@/assets/icons/viewer.svg?inline'
 import VueIcon from '@/assets/icons/vue.svg?inline'
@@ -41,5 +42,6 @@ export default {
   DirectiveIcon,
   LazyloadIcon,
   WaterfallIcon,
-  ViewerIcon
+  ViewerIcon,
+  PickrIcon
 }
