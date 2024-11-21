@@ -10,6 +10,7 @@ import AboutIcon from '@/assets/icons/about.svg?inline'
 import AdministrativeIcon from '@/assets/icons/administrative.svg?inline'
 import AntdIcon from '@/assets/icons/antd.svg?inline'
 import CaptchaIcon from '@/assets/icons/captcha.svg?inline'
+import ColorthiefIcon from '@/assets/icons/colorthief.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import DirectiveIcon from '@/assets/icons/directive.svg?inline'
 import FeaturesIcon from '@/assets/icons/features.svg?inline'
@@ -43,5 +44,6 @@ export default {
   LazyloadIcon,
   WaterfallIcon,
   ViewerIcon,
-  PickrIcon
+  PickrIcon,
+  ColorthiefIcon
 }
