@@ -32,6 +32,7 @@
     "ant-design-vue": "^1.7.8",
     "axios": "^0.26.1",
     "babel-loader": "8",
+    "colorthief": "^2.6.0",
     "core-js": "^3.21.1",
     "dayjs": "^1.11.13",
     "element-china-area-data": "^6.1.0",
