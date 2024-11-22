@@ -13,7 +13,7 @@
     <!-- 新增/编辑弹窗 -->
     <a-drawer :title="title" :width="600" :visible="visible" :maskClosable="false" @close="onClose">
       <a-form :form="form">
-        <form-drawer :rules="rules" :data="data" />
+        <form-drawer :rules="rules" :data="data" :form="form" />
       </a-form>
       <div
         :style="{

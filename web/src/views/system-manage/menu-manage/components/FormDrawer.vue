@@ -36,7 +36,13 @@
     </a-col>
     <a-col :span="12">
       <a-form-item :label="I18nMenu('path')">
-        <a-input v-decorator="rules.path" :placeholder="I18nEntry(I18nMenu('path'))" :max-length="200" allow-clear />
+        <a-input
+          v-decorator="rules.path"
+          :placeholder="I18nEntry(I18nMenu('path'))"
+          :max-length="200"
+          allow-clear
+          @change="changePath"
+        />
       </a-form-item>
     </a-col>
     <a-col :span="12">
@@ -129,7 +135,7 @@
   </a-row>
 </template>
 <script>
-import { cloneDeep, forEach } from 'lodash-es'
+import { cloneDeep, compact, forEach, last } from 'lodash-es'
 
 import { Flag } from '@/constant'
 import { ActionOptions } from '@/constant/action'
@@ -137,7 +143,7 @@ import { I18nEntry, I18nGlobal, I18nMenu, I18nSelect } from '@/constant/i18n'
 import MenuIcon from '@/core/icons'
 export default {
   name: 'FormDrawer',
-  props: ['data', 'rules'],
+  props: ['data', 'rules', 'form'],
   data() {
     return {
       I18nGlobal,
@@ -166,6 +172,22 @@ export default {
       }
       loopTree(treeData)
       return treeData
+    }
+  },
+  methods: {
+    changePath(e) {
+      const data = e.target.value
+      if (data) {
+        const values = compact(data.split('/'))
+        this.form.setFieldsValue({
+          name: last(values),
+          component: data.replace(/^\//, ''),
+          meta: {
+            title: `menu.${values.join('.')}`,
+            permission: last(values)
+          }
+        })
+      }
     }
   }
 }
