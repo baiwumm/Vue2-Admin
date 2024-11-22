@@ -3,8 +3,6 @@ import './index.less'
 import PropTypes from 'ant-design-vue/es/_util/vue-types'
 import Avatar from 'ant-design-vue/es/avatar'
 
-import { filterEmpty } from '@/components/_util/util'
-
 import Item from './Item.jsx'
 
 /**
@@ -37,6 +35,10 @@ const AvatarList = {
     const className = {
       [`${prefixCls}`]: true,
       [`${size}`]: true
+    }
+
+    function filterEmpty (children = []) {
+      return children.filter(c => c.tag || (c.text && c.text.trim() !== ''))
     }
 
     const items = filterEmpty(this.$slots.default)
