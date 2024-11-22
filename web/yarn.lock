@@ -11226,6 +11226,11 @@ vue-loader@^17.0.0:
     hash-sum "^2.0.0"
     watchpack "^2.4.0"
 
+vue-print-next@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmmirror.com/vue-print-next/-/vue-print-next-1.0.9.tgz#dbc1aebbb4f0537ffffa038a9ee54ac6a6a8a8e3"
+  integrity sha512-lNthIzsh6ItATPyhu/P2CSKdT5azDx2E0et/PAbBh8nCYS02v3tNhJZV38n+BoFC8V/9mPYY4Vl0WyiwlCM41g==
+
 vue-quill-editor@^3.0.6:
   version "3.0.6"
   resolved "https://registry.npmmirror.com/vue-quill-editor/-/vue-quill-editor-3.0.6.tgz#1f85646211d68a31a80a72cb7f45bb2f119bc8fb"
