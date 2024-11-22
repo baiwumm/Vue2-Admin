@@ -86,6 +86,11 @@ export const I18nVueDirective = (field = '') => i18nRender(`views.features.vue-d
 export const I18nEyeDropper = (field = '') => i18nRender(`views.features.eye-dropper${field ? '.' : ''}${field}`)
 
 /**
+ * @description: 功能页-Swiper
+ */
+export const I18nSwiper = (field = '') => i18nRender(`views.features.swiper${field ? '.' : ''}${field}`)
+
+/**
  * @description: 系统设置-用户管理
  */
 export const I18nUser = (field = '') => i18nRender(`views.system-manage.user-manage${field ? '.' : ''}${field}`)

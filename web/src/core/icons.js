@@ -23,6 +23,7 @@ import NestjsIcon from '@/assets/icons/nestjs.svg?inline'
 import OrganizationIcon from '@/assets/icons/organization.svg?inline'
 import PickrIcon from '@/assets/icons/pickr.svg?inline'
 import PostIcon from '@/assets/icons/post.svg?inline'
+import SwiperIcon from '@/assets/icons/swiper.svg?inline'
 import ViewerIcon from '@/assets/icons/viewer.svg?inline'
 import VueIcon from '@/assets/icons/vue.svg?inline'
 import WaterfallIcon from '@/assets/icons/waterfall.svg?inline'
@@ -47,5 +48,6 @@ export default {
   ViewerIcon,
   PickrIcon,
   ColorthiefIcon,
-  EyeDropperIcon
+  EyeDropperIcon,
+  SwiperIcon
 }

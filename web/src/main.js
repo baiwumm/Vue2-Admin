@@ -6,6 +6,7 @@ import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
 import 'zm-tree-org/lib/zm-tree-org.css'
+import 'swiper/css/swiper.css'
 
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import Vue from 'vue'
