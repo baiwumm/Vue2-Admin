@@ -14,7 +14,7 @@
               {{ I18nUser(field) }}
             </a-space>
           </template>
-          <a-tag>{{ get(userInfo, value, '') }}</a-tag>
+          <a-tag>{{ value === 'address' ? getAreaName : get(userInfo, value, '') }}</a-tag>
         </a-descriptions-item>
       </a-descriptions>
       <a-divider orientation="left">{{ I18nUser('tags') }}</a-divider>
@@ -36,7 +36,8 @@
   </a-space>
 </template>
 <script>
-import { assign, get } from 'lodash-es'
+import { codeToText } from 'element-china-area-data'
+import { assign, forEach, get } from 'lodash-es'
 
 import { getMessageList } from '@/api/administrative/message'
 import { updateUserTags } from '@/api/system-manage/user-manage'
@@ -52,7 +53,8 @@ export default {
       identityOptions: [
         { icon: 'solution', field: 'roleId', value: 'roleInfo.name' },
         { icon: 'OrganizationIcon', field: 'orgId', value: 'organization.name' },
-        { icon: 'PostIcon', field: 'postId', value: 'post.name' }
+        { icon: 'PostIcon', field: 'postId', value: 'post.name' },
+        { icon: 'environment', field: 'address', value: 'address' }
       ],
       I18nUser,
       I18nEntry,
@@ -77,6 +79,15 @@ export default {
   computed: {
     userInfo() {
       return this.$store.getters.userInfo
+    },
+    // 获取省市区名称
+    getAreaName() {
+      const { city, address } = this.$store.getters.userInfo
+      let result = ''
+      forEach(city, (code) => {
+        result += codeToText[code]
+      })
+      return result + address
     }
   },
   methods: {
