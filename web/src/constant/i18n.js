@@ -91,6 +91,11 @@ export const I18nEyeDropper = (field = '') => i18nRender(`views.features.eye-dro
 export const I18nSwiper = (field = '') => i18nRender(`views.features.swiper${field ? '.' : ''}${field}`)
 
 /**
+ * @description: 功能页-打印
+ */
+export const I18nPrint = (field = '') => i18nRender(`views.features.print${field ? '.' : ''}${field}`)
+
+/**
  * @description: 系统设置-用户管理
  */
 export const I18nUser = (field = '') => i18nRender(`views.system-manage.user-manage${field ? '.' : ''}${field}`)
