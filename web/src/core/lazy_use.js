@@ -57,7 +57,6 @@ import Dialog from '@/components/Dialog'
 import MultiTab from '@/components/MultiTab'
 import PageLoading from '@/components/PageLoading'
 import defaultSettings from '@/config/defaultSettings'
-import PermissionHelper from '@/core/permission/permission'
 
 import pkg from '../../package.json'
 import Directives from './directives'
@@ -122,7 +121,6 @@ Vue.use(Viser)
 Vue.use(Dialog) // this.$dialog func
 Vue.use(MultiTab)
 Vue.use(PageLoading)
-Vue.use(PermissionHelper)
 Vue.use(VueCropper)
 Vue.use(Directives)
 

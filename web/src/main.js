@@ -3,7 +3,6 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import './core/lazy_use' // use lazy load components
 import './permission' // permission control
-import './utils/filter' // global filter
 import './global.less' // global style
 import 'zm-tree-org/lib/zm-tree-org.css'
 import 'swiper/css/swiper.css'

@@ -6,12 +6,12 @@
     "email": "baiwumm@foxmail.com",
     "url": "https://baiwumm.com"
   },
-  "homepage": "https://github.com/baiwumm/vue2-Admin",
+  "homepage": "https://github.com/baiwumm/vue2-admin",
   "repository": {
-    "url": "https://github.com/baiwumm/vue2-Admin.git"
+    "url": "https://github.com/baiwumm/vue2-admin.git"
   },
   "bugs": {
-    "url": "https://github.com/baiwumm/vue2-Admin/issues"
+    "url": "https://github.com/baiwumm/vue2-admin/issues"
   },
   "private": true,
   "scripts": {
