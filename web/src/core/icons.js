@@ -13,6 +13,7 @@ import CaptchaIcon from '@/assets/icons/captcha.svg?inline'
 import ColorthiefIcon from '@/assets/icons/colorthief.svg?inline'
 import DashboardIcon from '@/assets/icons/dashboard.svg?inline'
 import DirectiveIcon from '@/assets/icons/directive.svg?inline'
+import EyeDropperIcon from '@/assets/icons/eye-dropper.svg?inline'
 import FeaturesIcon from '@/assets/icons/features.svg?inline'
 import InternationalizationIcon from '@/assets/icons/internationalization.svg?inline'
 import LazyloadIcon from '@/assets/icons/lazyload.svg?inline'
@@ -45,5 +46,6 @@ export default {
   WaterfallIcon,
   ViewerIcon,
   PickrIcon,
-  ColorthiefIcon
+  ColorthiefIcon,
+  EyeDropperIcon
 }

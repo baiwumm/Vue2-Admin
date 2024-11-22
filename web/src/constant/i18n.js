@@ -81,6 +81,11 @@ export const I18nCaptcha = (field = '') => i18nRender(`views.features.captcha${f
 export const I18nVueDirective = (field = '') => i18nRender(`views.features.vue-directive${field ? '.' : ''}${field}`)
 
 /**
+ * @description: 功能页-系统级取色器
+ */
+export const I18nEyeDropper = (field = '') => i18nRender(`views.features.eye-dropper${field ? '.' : ''}${field}`)
+
+/**
  * @description: 系统设置-用户管理
  */
 export const I18nUser = (field = '') => i18nRender(`views.system-manage.user-manage${field ? '.' : ''}${field}`)
