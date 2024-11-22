@@ -2258,6 +2258,21 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@vue-office/docx@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.npmmirror.com/@vue-office/docx/-/docx-1.6.2.tgz#c97d28db60db5325dd351d90b0202dd3d54ad427"
+  integrity sha512-OHAoUHeY8nHjhWvwDhlPx+/rmRkxmqLpvPgtfCEOZ4H1c1LCdJ6eDbdV3152ww8dcdZ7fgGQu3fmSSaI7JwdpQ==
+
+"@vue-office/excel@^1.7.11":
+  version "1.7.11"
+  resolved "https://registry.npmmirror.com/@vue-office/excel/-/excel-1.7.11.tgz#e37e5a2c212907a62c9b65e42d9df21f9c68a2cc"
+  integrity sha512-LF3R9IV573Sf4qTu6Ik5Ee8UMfkrsZQ6HEQE25/2m1c0CMcHX6KanIy6Cz0b0Q+FrLH3TjIsLTm6oPcqAbDGSA==
+
+"@vue-office/pdf@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.npmmirror.com/@vue-office/pdf/-/pdf-2.0.9.tgz#25cfc2e24c0a5484d1eec8ad3ed2e9fc5fd2a7de"
+  integrity sha512-sRjIiMV1CDDFv1Ls4U7zglkjkMr1Ntm16q8Krh0m1Lh7vAdVox1EcgEw4MXU6Mqsz7NB6nppxCPlSms6ue9eIQ==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1", "@vue/babel-helper-vue-jsx-merge-props@^1.4.0":
   version "1.4.0"
   resolved "https://registry.npmmirror.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.4.0.tgz#8d53a1e21347db8edbe54d339902583176de09f2"
