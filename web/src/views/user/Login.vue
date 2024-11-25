@@ -63,10 +63,17 @@
               style="width: calc(100% - 132px)"
               v-decorator="[
                 'captchaCode',
-                { rules: [{ required: true, message: I18nEntry(I18nLogin('captchaCode')) }], validateTrigger: 'change' }
+                {
+                  rules: [{ required: true, message: I18nEntry(I18nLogin('captchaCode')) }],
+                  validateTrigger: 'change'
+                }
               ]"
             />
-            <div id="svgTemplate" v-html="svgCaptcha" v-debounce="{ callback: createSvgCaptcha, time: 150 }"></div>
+            <div style="display: inline-block">
+              <a-spin :spinning="captchaLoading">
+                <div id="svgTemplate" v-html="svgCaptcha" v-debounce="{ callback: createSvgCaptcha, time: 150 }" />
+              </a-spin>
+            </div>
           </a-input-group>
         </a-form-item>
 
@@ -125,7 +132,8 @@ export default {
       svgCaptcha: '',
       I18nLogin,
       I18nEntry,
-      defaultSettings
+      defaultSettings,
+      captchaLoading: false
     }
   },
   methods: {
@@ -167,8 +175,10 @@ export default {
       })
     },
     async createSvgCaptcha() {
+      this.captchaLoading = true
       const { data } = await generateVerifCode()
       this.svgCaptcha = data
+      this.captchaLoading = false
     }
   },
   mounted() {
@@ -241,7 +251,8 @@ export default {
   }
 }
 #svgTemplate {
+  width: 132px;
+  height: 40px;
   cursor: pointer;
-  margin-left: 20px;
 }
 </style>
