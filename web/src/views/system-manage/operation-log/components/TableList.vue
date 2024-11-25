@@ -24,7 +24,7 @@
       <span v-if="compact([record.province, record.city]).length">{{
         uniq([record.province, record.city]).join('-')
       }}</span>
-      <span>{{ CommonText.Null }}</span>
+      <span v-else>{{ CommonText.Null }}</span>
     </template>
     <template slot="createdAt" slot-scope="text, record">
       {{ dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss') }}

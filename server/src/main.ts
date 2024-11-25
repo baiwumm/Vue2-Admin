@@ -63,7 +63,7 @@ async function bootstrap() {
 
   // 构建swagger文档
   const options = new DocumentBuilder()
-    .setTitle('Vue3 Admin 接口文档')
+    .setTitle('Vue2 Admin 接口文档')
     .setDescription('真正的大师永远怀着一颗学徒的心！')
     .setVersion('1.0')
     .build();

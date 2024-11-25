@@ -40,11 +40,6 @@ const errorHandler = (error) => {
           }, 1500)
         })
       }
-    } else {
-      storage.clearAll()
-      setTimeout(() => {
-        window.location.reload()
-      }, 1500)
     }
   }
   return Promise.reject(error)
