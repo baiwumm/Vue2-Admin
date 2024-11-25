@@ -28,16 +28,10 @@ const errorHandler = (error) => {
     const data = error.response.data
     // 从 localstorage 获取 token
     const token = storage.get(ACCESS_TOKEN)
-    if (error.response.status === 403) {
+    if (error.response.status === RequestCode.Unauthorized) {
       notification.error({
-        message: 'Forbidden',
-        description: data.message
-      })
-    }
-    if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
-      notification.error({
-        message: 'Unauthorized',
-        description: 'Authorization verification failed'
+        message: '登录已失效,请重新登录!',
+        description: data.msg
       })
       if (token) {
         store.dispatch('Logout').then(() => {
@@ -46,6 +40,11 @@ const errorHandler = (error) => {
           }, 1500)
         })
       }
+    } else {
+      storage.clearAll()
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500)
     }
   }
   return Promise.reject(error)
