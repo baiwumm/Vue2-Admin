@@ -13,7 +13,7 @@
     <!-- 新增/编辑弹窗 -->
     <a-drawer :title="title" :width="600" :visible="visible" :maskClosable="false" @close="onClose">
       <a-form :form="form">
-        <form-drawer :rules="rules" :data="data" :form="form" />
+        <form-drawer ref="formDrawer" :rules="rules" :data="data" :form="form" />
       </a-form>
       <div
         :style="{
@@ -126,6 +126,7 @@ export default {
       // 使用 $nextTick 确保 DOM 更新后再设置表单值
       this.$nextTick(() => {
         this.form.setFieldsValue(pick(record, keys(this.rules)))
+        this.$refs.formDrawer.iconValue = record.meta.icon
       })
     },
     // 删除
@@ -142,6 +143,7 @@ export default {
       this.visible = false
       this.id = undefined
       this.form.resetFields()
+      this.$refs.formDrawer.iconValue = ''
     },
     // 保存
     handleSubmit(e) {

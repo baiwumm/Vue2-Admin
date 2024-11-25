@@ -77,12 +77,26 @@
     </a-col>
     <a-col :span="12">
       <a-form-item :label="I18nMenu('meta.icon')">
-        <a-input
-          v-decorator="rules.meta.icon"
-          :placeholder="I18nEntry(I18nMenu('meta.icon'))"
-          :max-length="200"
-          allow-clear
-        />
+        <a-popover placement="bottom" :overlayStyle="{ width: '500px' }">
+          <template slot="content">
+            <icon-selector :value="iconValue" @change="handleIconChange" />
+          </template>
+          <a-input
+            v-decorator="rules.meta.icon"
+            :placeholder="I18nEntry(I18nMenu('meta.icon'))"
+            :max-length="200"
+            allow-clear
+            @change="changeIcon"
+          >
+            <a-icon
+              slot="suffix"
+              :component="MenuIcon[iconValue]"
+              :style="{ fontSize: '20px' }"
+              v-if="iconValue.includes('Icon')"
+            />
+            <a-icon :type="iconValue" slot="suffix" :style="{ fontSize: '20px' }" v-else />
+          </a-input>
+        </a-popover>
       </a-form-item>
     </a-col>
     <a-col :span="12">
@@ -137,6 +151,7 @@
 <script>
 import { cloneDeep, compact, forEach, last } from 'lodash-es'
 
+import IconSelector from '@/components/IconSelector'
 import { Flag } from '@/constant'
 import { ActionOptions } from '@/constant/action'
 import { I18nEntry, I18nGlobal, I18nMenu, I18nSelect } from '@/constant/i18n'
@@ -144,6 +159,9 @@ import MenuIcon from '@/core/icons'
 export default {
   name: 'FormDrawer',
   props: ['data', 'rules', 'form'],
+  components: {
+    IconSelector
+  },
   data() {
     return {
       I18nGlobal,
@@ -152,7 +170,8 @@ export default {
       I18nMenu,
       ActionOptions,
       Flag,
-      MenuIcon
+      MenuIcon,
+      iconValue: ''
     }
   },
   computed: {
@@ -188,6 +207,17 @@ export default {
           }
         })
       }
+    },
+    handleIconChange(icon) {
+      this.form.setFieldsValue({
+        meta: {
+          icon
+        }
+      })
+      this.iconValue = icon
+    },
+    changeIcon(e) {
+      this.iconValue = e.target.value
     }
   }
 }
