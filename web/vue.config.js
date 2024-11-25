@@ -95,6 +95,17 @@ const vueConfig = {
       .merge(svgRule.toConfig())
       .end()
 
+    config.module
+      .rule('office-files')
+      .test(/\.(doc|docx|xlsx|xls|pdf)$/i) // 匹配 .doc, .docx, .xlsx, .xls, .pdf 文件
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: 'static/[path][name].[ext]', // 保持文件的原始路径和名称
+        publicPath: '/' // 根据你的项目结构调整
+      })
+      .end()
+
     // en_US: If prod is on assets require on cdn
     // zh_CN: 如果是 prod 模式，则引入 CDN 依赖文件，有需要减少包大小请自行解除依赖
     //
