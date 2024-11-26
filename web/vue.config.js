@@ -101,7 +101,7 @@ const vueConfig = {
       .use('file-loader')
       .loader('file-loader')
       .options({
-        name: 'static/[path][name].[ext]', // 保持文件的原始路径和名称
+        name: 'files/[path][name].[ext]', // 保持文件的原始路径和名称
         publicPath: '/' // 根据你的项目结构调整
       })
       .end()
