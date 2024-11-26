@@ -32,7 +32,6 @@ CREATE TABLE "Menu" (
     "meta" JSONB NOT NULL,
     "actions" JSONB NOT NULL,
     "sort" INTEGER NOT NULL,
-    "permission" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -58,7 +57,6 @@ CREATE TABLE "Organization" (
     "parentId" TEXT,
     "sort" INTEGER NOT NULL,
     "description" TEXT,
-    "icon" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -117,6 +115,9 @@ CREATE TABLE "Log" (
     "params" JSONB NOT NULL,
     "os" TEXT NOT NULL,
     "browser" TEXT NOT NULL,
+    "province" TEXT,
+    "city" TEXT,
+    "adcode" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Log_pkey" PRIMARY KEY ("id")
@@ -172,9 +173,6 @@ CREATE UNIQUE INDEX "Menu_name_key" ON "Menu"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Menu_path_key" ON "Menu"("path");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Menu_permission_key" ON "Menu"("permission");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Organization_name_key" ON "Organization"("name");
