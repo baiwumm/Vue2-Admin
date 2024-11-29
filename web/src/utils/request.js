@@ -5,7 +5,6 @@ import { debounce, get } from 'lodash-es'
 import storage from 'store'
 
 import { RequestCode } from '@/constant'
-import store from '@/store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 import { VueAxios } from './axios'
@@ -26,20 +25,15 @@ const request = axios.create({
 const errorHandler = (error) => {
   if (error.response) {
     const data = error.response.data
-    // 从 localstorage 获取 token
-    const token = storage.get(ACCESS_TOKEN)
     if (error.response.status === RequestCode.Unauthorized) {
       notification.error({
         message: '登录已失效,请重新登录!',
         description: data.msg
       })
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
-        })
-      }
+      setTimeout(() => {
+        storage.clearAll()
+        window.location.reload()
+      }, 500)
     }
   }
   return Promise.reject(error)
