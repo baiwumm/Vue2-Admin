@@ -34,6 +34,11 @@ const errorHandler = (error) => {
         storage.clearAll()
         window.location.reload()
       }, 500)
+    } else {
+      setTimeout(() => {
+        storage.clearAll()
+        window.location.reload()
+      }, 500)
     }
   }
   return Promise.reject(error)
